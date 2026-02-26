@@ -1,6 +1,7 @@
 "use client";
 
 import type { DashboardData } from "@/lib/loadDashboardData";
+import { ExportButton, exportToCSV } from "@/utils/exportCSV";
 import { DEPT_COLORS } from "@/constants/colors";
 import { SH } from "@/constants/primitives";
 
@@ -70,13 +71,13 @@ export function Departments({ data }: { data: DashboardData }) {
                   <td className="px-3.5 py-3">
                     <div className="flex items-center gap-2">
                       <div className="w-2 h-2 rounded-full" style={{ background: DEPT_COLORS[d.dept] || "#888" }} />
-                      <span className="font-semibold">{d.dept}</span>
+                      <span className="font-semibold text-[#0B3954]">{d.dept}</span>
                     </div>
                   </td>
-                  <td className="px-3.5 py-3 font-mono">{d.headcount}</td>
+                  <td className="px-3.5 py-3 font-mono text-[#0B3954]">{d.headcount}</td>
                   <td className="px-3.5 py-3"><span className={`font-bold font-mono ${covColor}`}>{d.coveragePct}%</span></td>
                   <td className="px-3.5 py-3"><span className="font-bold font-mono text-teal-600">{d.participationPct}%</span></td>
-                  <td className="px-3.5 py-3"><span className="font-mono">{d.avgAwards}×</span></td>
+                  <td className="px-3.5 py-3"><span className="font-mono text-[#0B3954]">{d.avgAwards}×</span></td>
                   <td className="px-3.5 py-3"><span className="font-mono text-green-600">{d.recognized}</span></td>
                   <td className="px-3.5 py-3"><span className={`font-mono ${d.headcount - d.recognized > 0 ? "text-red-500" : "text-gray-400"}`}>{d.headcount - d.recognized}</span></td>
                 </tr>

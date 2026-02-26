@@ -55,8 +55,8 @@ export interface DashboardData {
   // category + subcategory breakdowns
   categories: { id: string; name: string; count: number; pct: number; totalValue: number }[];
   subcategories: { id: string; name: string; categoryId: string; categoryName: string; count: number; pct: number }[];
-  // time series
-  monthly: { month: string; label: string; awards: number; value: number }[];
+  // time series — yearMonth added for date range filter
+  monthly: { month: string; label: string; yearMonth: string; awards: number; value: number }[];
   // department-level
   departments: {
     name: string;
@@ -290,7 +290,7 @@ export function loadDashboardData(): DashboardData {
   const monthly = Object.keys(moCount).sort().map(k => {
     const [yr, mo] = k.split("-");
     const idx = parseInt(mo) - 1;
-    return { month: MO[idx], label: `${MO[idx]} '${yr.slice(2)}`, awards: moCount[k], value: moValue[k] || 0 };
+    return { month: MO[idx], label: `${MO[idx]} '${yr.slice(2)}`, yearMonth: k, awards: moCount[k], value: moValue[k] || 0 };
   });
 
   // ── Departments ──────────────────────────────────────────────────────────
@@ -376,7 +376,6 @@ export function loadDashboardData(): DashboardData {
     .map(([value, count]) => ({ value: parseInt(value), count }));
 
   // ── Network Graph ─────────────────────────────────────────────────────────
-  // Build node registry
   const nodeMap: Record<string, {
     id:string; name:string; dept:string; title:string; seniority:string;
     received:number; given:number; totalValue:number; color:string;
@@ -395,7 +394,6 @@ export function loadDashboardData(): DashboardData {
     nodeMap[r.nominator_id].given++;
   }
 
-  // Sort nodes by activity, take top 80 for performance
   const netNodes = Object.values(nodeMap)
     .sort((a,b) => (b.received + b.given) - (a.received + a.given))
     .slice(0, 80);
@@ -426,23 +424,14 @@ export function loadDashboardData(): DashboardData {
     const crossIn  = deptRows.filter(r => r.nominator_department !== deptName).length;
     const crossInPct = Math.round(crossIn / n * 100);
 
-    // Category diversity (# distinct categories used)
     const usedCats = new Set(deptRows.map(r => r.category_id));
     const catDiversity = Math.round(usedCats.size / 6 * 100);
-
-    // Participation (nominators / recipients ratio, capped 100)
     const participation = Math.min(100, Math.round(uNoms.size / Math.max(uRecips.size,1) * 100));
-
-    // Volume (relative to max-dept, normalize to 100)
     const maxDeptAwards = Math.max(...Array.from(uniqueDepts).map(d => rows.filter(r => r.recipient_department===d).length), 1);
     const volume = Math.round(n / maxDeptAwards * 100);
-
-    // Generosity (avg value / 1000)
     const generosity = Math.round((totalValue / n) / 1000 * 100);
-
     const health = Math.round(0.30*catDiversity + 0.25*participation + 0.25*volume + 0.20*generosity);
 
-    // Per-category spread for visualization
     const catSpreadMap: Record<string, number> = {};
     for (const r of deptRows) catSpreadMap[r.category_id] = (catSpreadMap[r.category_id]||0) + 1;
     const categorySpread = Object.entries(catSpreadMap)
@@ -494,7 +483,6 @@ export function loadDashboardData(): DashboardData {
       return { skill, count, dominantCategory };
     });
 
-  // Skills by department
   const deptSkillMap: Record<string, Record<string, number>> = {};
   for (const r of rows) {
     const d = r.recipient_department;
@@ -507,7 +495,6 @@ export function loadDashboardData(): DashboardData {
     byDepartment[dept] = Object.entries(skillMap).sort((a,b)=>b[1]-a[1]).slice(0,6).map(([skill,count])=>({skill,count}));
   }
 
-  // Skill × category matrix (top 12 skills)
   const skillCategoryMatrix = topSkills.slice(0,12).map(({ skill }) => ({
     skill,
     categories: skillCat[skill] || {},
@@ -515,7 +502,7 @@ export function loadDashboardData(): DashboardData {
 
   // ── HR INTELLIGENCE SUITE ─────────────────────────────────────────────────
 
-  // 1. Invisible Contributors: give ≥2 nominations, receive 0
+  // 1. Invisible Contributors
   const nomCount2: Record<string, number> = {};
   const recCount2: Record<string, number> = {};
   for (const r of rows) {
@@ -535,7 +522,7 @@ export function loadDashboardData(): DashboardData {
     .sort((a,b) => b.riskScore - a.riskScore)
     .slice(0, 20);
 
-  // 2. Momentum: per-recipient monthly award slope
+  // 2. Momentum
   const recMonthly: Record<string, { period:string; awards:number }[]> = {};
   for (const r of rows) {
     if (!r.award_date) continue;
@@ -568,7 +555,7 @@ export function loadDashboardData(): DashboardData {
   const risingStars = momentumPeople.filter(p => p.slope > 0).sort((a,b)=>b.slope-a.slope).slice(0,15);
   const decliningRecognition = momentumPeople.filter(p => p.slope < -0.05).sort((a,b)=>a.slope-b.slope).slice(0,15);
 
-  // 3. Cross-dept flow matrix
+  // 3. Cross-dept flow
   const flowMap: Record<string, Record<string,number>> = {};
   for (const r of rows) {
     if (r.nominator_department === r.recipient_department) continue;
@@ -599,7 +586,7 @@ export function loadDashboardData(): DashboardData {
     high_value_pct: parseFloat((d.highVal / d.count * 100).toFixed(1)),
   }));
 
-  // 5. Manager reach (senior nominators who give cross-dept)
+  // 5. Manager reach
   const SENIOR = new Set(["Manager","Senior Manager","Director","VP"]);
   const mgrMap: Record<string, { name:string; dept:string; seniority:string; total:number; depts:Set<string>; totalVal:number }> = {};
   for (const r of rows) {
@@ -615,19 +602,16 @@ export function loadDashboardData(): DashboardData {
     .sort((a,b) => b.unique_depts - a.unique_depts)
     .slice(0, 20);
 
-  // ── WORKFORCE (HR-CENTRIC PEOPLE VIEW) ───────────────────────────────────
-  // Build a complete people registry from both recipient and nominator sides
+  // ── WORKFORCE ────────────────────────────────────────────────────────────
   const peopleMap: Record<string, {
     id:string; name:string; dept:string; title:string; seniority:string;
     received:number; given:number; valueReceived:number;
   }> = {};
 
   for (const r of rows) {
-    // Register recipient
     if (!peopleMap[r.recipient_id]) {
       peopleMap[r.recipient_id] = { id:r.recipient_id, name:r.recipient_name, dept:r.recipient_department, title:r.recipient_title, seniority:r.recipient_seniority, received:0, given:0, valueReceived:0 };
     }
-    // Register nominator
     if (!peopleMap[r.nominator_id]) {
       peopleMap[r.nominator_id] = { id:r.nominator_id, name:r.nominator_name, dept:r.nominator_department, title:r.nominator_title, seniority:r.nominator_seniority, received:0, given:0, valueReceived:0 };
     }
@@ -641,7 +625,6 @@ export function loadDashboardData(): DashboardData {
   const wfNeverRec = allPeople.filter(p => p.received === 0).length;
   const wfNeverGiven = allPeople.filter(p => p.given === 0).length;
 
-  // By department
   const wfDeptMap: Record<string, { headcount:number; recognized:number; givers:number; totalReceived:number; totalValue:number }> = {};
   for (const p of allPeople) {
     if (!wfDeptMap[p.dept]) wfDeptMap[p.dept] = { headcount:0, recognized:0, givers:0, totalReceived:0, totalValue:0 };
@@ -658,7 +641,6 @@ export function loadDashboardData(): DashboardData {
     avgAwards: parseFloat((d.totalReceived / d.headcount).toFixed(1)),
   })).sort((a,b) => b.coveragePct - a.coveragePct);
 
-  // By seniority
   const SEN_ORDER2 = ["IC","Senior IC","Manager","Senior Manager","Director","VP"];
   const wfSenMap: Record<string, { headcount:number; recognized:number; totalReceived:number; totalGiven:number }> = {};
   for (const p of allPeople) {
@@ -689,7 +671,6 @@ export function loadDashboardData(): DashboardData {
   };
 
   // ── EMPLOYEE DIRECTORY ────────────────────────────────────────────────────
-  // Build rich per-person profiles with recognition history, skills, engagement
   const dirMap: Record<string, {
     id:string; name:string; dept:string; title:string; seniority:string; skills:string[];
     received:number; given:number; valueReceived:number;
@@ -697,7 +678,6 @@ export function loadDashboardData(): DashboardData {
   }> = {};
 
   for (const r of rows) {
-    // Register both sides
     const pairs: [string, string, string, string, string, string][] = [
       [r.recipient_id, r.recipient_name, r.recipient_department, r.recipient_title, r.recipient_seniority, r.recipient_skills || ""],
       [r.nominator_id, r.nominator_name, r.nominator_department, r.nominator_title, r.nominator_seniority, ""],
@@ -708,7 +688,6 @@ export function loadDashboardData(): DashboardData {
         dirMap[uid] = { id:uid, name, dept, title, seniority:sen, skills, received:0, given:0, valueReceived:0, catIds:[], recentAwards:[] };
       }
     }
-    // Recipient tallies
     dirMap[r.recipient_id].received++;
     dirMap[r.recipient_id].valueReceived += parseInt(r.value) || 0;
     dirMap[r.recipient_id].catIds.push(r.category_id);
@@ -731,17 +710,14 @@ export function loadDashboardData(): DashboardData {
   const REF_DATE = new Date("2026-01-01").getTime();
 
   const employeeDirectory = Object.values(dirMap).map(p => {
-    // Sort recent awards newest first
     p.recentAwards.sort((a, b) => b.date.localeCompare(a.date));
 
-    // Category breakdown
     const catCountMap: Record<string, number> = {};
     for (const cid of p.catIds) catCountMap[cid] = (catCountMap[cid] || 0) + 1;
     const categoryBreakdown = Object.entries(catCountMap)
       .sort((a,b) => b[1]-a[1])
       .map(([id, count]) => ({ id, count }));
 
-    // Days since last recognition
     let daysSinceLast = 999;
     let lastAwardDate: string | null = null;
     if (p.recentAwards.length > 0) {
@@ -751,13 +727,11 @@ export function loadDashboardData(): DashboardData {
       } catch { /* */ }
     }
 
-    // Engagement score: recognition received (40%) + giving (30%) + category breadth (30%)
     const recScore  = Math.min(40, p.received / 7 * 40);
     const giveScore = Math.min(30, p.given / 5 * 30);
     const breadth   = Math.min(30, Object.keys(catCountMap).length / 6 * 30);
     const engagementScore = Math.round(recScore + giveScore + breadth);
 
-    // Status
     let status: DashboardData["employeeDirectory"][0]["status"];
     if (p.received === 0)                                  status = "never_recognized";
     else if (daysSinceLast > 120)                          status = "at_risk";
@@ -773,7 +747,6 @@ export function loadDashboardData(): DashboardData {
   }).sort((a, b) => b.received - a.received);
 
   // ── EXTENDED HR KPIs ──────────────────────────────────────────────────────
-  // People health
   const recCountMap: Record<string, number> = {};
   const givenCountMap: Record<string, number> = {};
   const lastAwardDateMap: Record<string, string> = {};
@@ -782,12 +755,10 @@ export function loadDashboardData(): DashboardData {
   for (const r of rows) {
     recCountMap[r.recipient_id] = (recCountMap[r.recipient_id] || 0) + 1;
     givenCountMap[r.nominator_id] = (givenCountMap[r.nominator_id] || 0) + 1;
-    // Track latest award date per recipient
     if (!lastAwardDateMap[r.recipient_id] || r.award_date > lastAwardDateMap[r.recipient_id]) {
       lastAwardDateMap[r.recipient_id] = r.award_date;
     }
   }
-  // Seniority from both sides of awards
   const allPeopleForKpi: Record<string, string> = {};
   for (const r of rows) {
     allPeopleForKpi[r.recipient_id] = r.recipient_seniority;
@@ -807,7 +778,6 @@ export function loadDashboardData(): DashboardData {
     try { return (REF_MS - new Date(d).getTime()) / 86400000 > 120; } catch { return false; }
   }).length;
 
-  // Org dynamics
   const crossDeptRows = rows.filter(r => r.recipient_department !== r.nominator_department);
   const crossDeptPct  = Math.round(crossDeptRows.length / rows.length * 100);
 
@@ -820,8 +790,7 @@ export function loadDashboardData(): DashboardData {
   const icRatio   = Math.round(icCount / totalPeopleKpi * 100);
   const execRatio = Math.round(execCount / totalPeopleKpi * 100);
 
-  // Momentum — last 3 months vs prior 3 months (excluding Jan 2026 which has 1 record)
-  const moAwards = monthly.filter(m => m.awards > 1); // exclude partial months
+  const moAwards = monthly.filter(m => m.awards > 1);
   const last3Avg = moAwards.length >= 3
     ? moAwards.slice(-3).reduce((s, m) => s + m.awards, 0) / 3 : 0;
   const prev3Avg = moAwards.length >= 6
@@ -916,7 +885,6 @@ export function loadDashboardData(): DashboardData {
     .sort((a,b)=>(SEN_O_EQ.indexOf(a[0])+1||99)-(SEN_O_EQ.indexOf(b[0])+1||99))
     .map(([level,d])=>({level,total:d.total,avg:Math.round(d.total/d.count),highValuePct:parseFloat((d.highVal/d.count*100).toFixed(1))}));
 
-  // Gini coefficient
   const personValsEq=Object.values(rows.reduce((acc:Record<string,number>,r)=>{
     acc[r.recipient_id]=(acc[r.recipient_id]||0)+(parseInt(r.value)||0); return acc;
   },{})).sort((a,b)=>a-b);
@@ -936,17 +904,14 @@ export function loadDashboardData(): DashboardData {
       uniqueNominators: uniqueNoms.size,
       uniqueDepartments: uniqueDepts.size,
       recognitionRate: Math.round(uniqueNoms.size / uniqueRecips.size * 100),
-      // people health
       highPerformers,
       cultureCarriers,
       atRiskCount,
       neverRecognizedCount,
-      // org dynamics
       crossDeptPct,
       peerRecognitionPct,
       icRatio,
       execRatio,
-      // momentum
       momTrend,
       avgMonthlyAwards,
     },

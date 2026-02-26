@@ -8,7 +8,12 @@ const SENIORITY_COLORS = ["#45B7D1", "#4ECDC4", "#F9CA24", "#F96400", "#FF6B6B",
 
 function LineChart({ d, color = "#F96400" }: { d: DashboardData["monthly"]; color?: string }) {
   const [tip, setTip] = useState<{ x: number; y: number; d: DashboardData["monthly"][0] } | null>(null);
-  if (!d || d.length === 0) return <div className="h-36 grid place-items-center text-gray-400 text-[11px]">No data</div>;
+  if (!d || d.length === 0) return (
+    <div className="h-36 flex flex-col items-center justify-center gap-2 text-gray-400">
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#CBD5E0" strokeWidth="1.5" strokeLinecap="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+      <span className="text-[12px] font-medium">No data available for selected period</span>
+    </div>
+  );
   const W = 700, H = 140, px = 24, py = 16;
   const vals = d.map(x => x.awards);
   const mx = Math.max(...vals, 1), mn = Math.min(...vals);
@@ -59,11 +64,13 @@ function CoverageDonut({ pct, color, label }: { pct: number; color: string; labe
 
 export function Overview({ data }: { data: DashboardData }) {
   const wf = data.workforce;
-  const maxMo = data.monthly.length > 0 ? Math.max(...data.monthly.map(d => d.awards)) : 1;
-  const minMo = data.monthly.length > 0 ? Math.min(...data.monthly.map(d => d.awards)) : 0;
+  const monthly = data.monthly;
+  const maxMo = monthly.length > 0 ? Math.max(...monthly.map(d => d.awards)) : 1;
+  const minMo = monthly.length > 0 ? Math.min(...monthly.map(d => d.awards)) : 0;
 
   return (
     <div className="flex flex-col gap-4">
+
       {wf.coveragePct < 80 && (
         <div className="p-3.5 bg-yellow-50 border border-yellow-200 rounded-xl flex gap-2.5">
           <span className="text-lg">⚠️</span>
@@ -136,7 +143,7 @@ export function Overview({ data }: { data: DashboardData }) {
         <div className="bg-white border border-gray-200 rounded-xl shadow-sm p-5">
           <SH eye="Trend" title="Monthly Recognition Activity"
             right={<span className="font-mono text-[10px] text-gray-500">Peak {maxMo} · Low {minMo}</span>} />
-          <LineChart d={data.monthly} />
+          <LineChart d={monthly} />
         </div>
         <div className="bg-white border border-gray-200 rounded-xl shadow-sm p-5">
           <SH eye="Recognition Reach by Level" title="Seniority Coverage" eyeColorCls="text-[#8E44AD]" />
