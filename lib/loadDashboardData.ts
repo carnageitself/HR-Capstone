@@ -190,11 +190,11 @@ export interface DashboardData {
 }
 
 // ── helpers ───────────────────────────────────────────────────────────────────
-function readCSV<T extends Record<string, string>>(filename: string): T[] {
+function readCSV<T>(filename: string): T[] {
   const p = path.join(process.cwd(), "data", filename);
   if (!fs.existsSync(p)) return [];
   const raw = fs.readFileSync(p, "utf-8");
-  return parseCSV<T>(raw);
+  return parseCSV<Record<string, string>>(raw) as unknown as T[];
 }
 
 const DEPT_COLORS: Record<string, string> = {
