@@ -1,0 +1,14 @@
+[
+  {
+    "timestamp": "20260226_125255",
+    "iso_timestamp": "2026-02-26T12:58:20.215229+00:00",
+    "run_time_seconds": 325.0,
+    "generated_count": 60,
+    "categories_discovered": 0,
+    "subcategories_discovered": 0,
+    "category_jaccard": 1.0,
+    "subcategory_jaccard": 1.0,
+    "new_categories": [],
+    "missing_categories": []
+  }
+]
