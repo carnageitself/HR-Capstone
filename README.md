@@ -45,7 +45,7 @@ This project processes employee recognition award data through a two-stage pipel
 
 > KPI cards, recognition coverage donut charts, monthly trend line, and seniority breakdown.
 
-![Overview Tab](screenshot_overview.png)
+![Overview Tab](public/screenshot_overview.png)
 
 ---
 
@@ -53,7 +53,7 @@ This project processes employee recognition award data through a two-stage pipel
 
 > Per-employee table with engagement scores, skills, days-since-last-recognition, and a detailed side panel with full recognition history.
 
-![People Tab](screenshot_people.png)
+![People Tab](public/screenshot_people.png)
 
 ---
 
@@ -61,7 +61,7 @@ This project processes employee recognition award data through a two-stage pipel
 
 > Per-department cards showing recognition coverage %, peer participation %, average awards, and unrecognized headcount.
 
-![Departments Tab](screenshot_departments.png)
+![Departments Tab](public/screenshot_departments.png)
 
 ---
 
@@ -69,7 +69,7 @@ This project processes employee recognition award data through a two-stage pipel
 
 > Advanced intelligence tools: Invisible Contributors, Momentum Tracker, Influence Map, Equity Lens, Skill Gap Radar, Seasonality Heatmap, Org Connectors, and Value Equity Audit.
 
-![HR Intelligence Tab](screenshot_hr_intelligence.png)
+![HR Intelligence Tab](public/screenshot_hr_intelligence.png)
 
 ---
 

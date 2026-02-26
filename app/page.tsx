@@ -3,7 +3,7 @@
  */
 
 import { loadDashboardData } from "@/lib/loadDashboardData";
-import { HRDashboardClient } from "./components/HRDashboardClient";
+import { HRDashboardClient } from "../components/HRDashboardClient";
 
 
 export const dynamic = "force-dynamic";
