@@ -1,11 +1,8 @@
-<div align="center">
-  <table border="0" cellpadding="0" cellspacing="0">
-    <tr>
-      <td><img src="public/Northeastern Logo.png" alt="Northeastern University" height="50"/></td>
-      <td><h1>&nbsp; HR Recognition Analytics Dashboard</h1></td>
-    </tr>
-  </table>
-</div>
+<p align="center">
+  <img src="public/Northeastern_Banner.png" alt="Northeastern University" width="100%"/>
+</p>
+
+# 🏆 HR Recognition Analytics Dashboard
 
 <p align="center">A full-stack data science project that transforms raw employee recognition data into actionable HR intelligence. Built in partnership with <strong>Workhuman</strong> as part of a Master's Capstone at <strong>Northeastern University</strong>.</p>
 
