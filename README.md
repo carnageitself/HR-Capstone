@@ -1,8 +1,7 @@
-<p align="center">
-  <img src="public/Northeastern Logo.png" alt="Northeastern University" width="80"/>
-</p>
-
-# HR Recognition Analytics Dashboard
+<h1>
+  <img src="public/Northeastern Logo.png" alt="Northeastern University" width="40" style="vertical-align:middle; margin-right:10px"/>
+  HR Recognition Analytics Dashboard
+</h1>
 
 A full-stack data science project that transforms raw employee recognition data into actionable HR intelligence. Built in partnership with **Workhuman** as part of a Master's Capstone at **Northeastern University**.
 
@@ -108,24 +107,45 @@ This project processes employee recognition award data through a two-stage pipel
 ## 📁 Project Structure
 
 ```
-project-root/
+hr-analytics/                       # Project root (Next.js app)
 │
-├── data/
-│   └── raw/                        # Input CSV files
-│       ├── awards.csv
-│       ├── awards_enriched.csv
-│       ├── mockup_awards.csv
-│       ├── mockup_awards_enriched.csv
-│       ├── employees.csv
-│       ├── departments.csv
-│       ├── companies.csv
-│       ├── skills.csv
-│       ├── employee_skills.csv
-│       ├── categories.csv
-│       ├── subcategories.csv
-│       └── award_categories.csv
+├── app/                            # Next.js App Router
+│   ├── favicon.ico
+│   ├── globals.css                 # Global styles
+│   ├── layout.tsx                  # Root layout
+│   ├── page.tsx                    # Entry page (redirects to dashboard)
+│   ├── components/                 # Shared React components
+│   └── constants/                  # App-wide constants
 │
-├── pipeline/                       # Python taxonomy pipeline
+├── data/                           # All CSV data files
+│   ├── award_categories.csv
+│   ├── awards.csv
+│   ├── awards_enriched.csv
+│   ├── companies.csv
+│   ├── departments.csv
+│   ├── employee_skills.csv
+│   ├── employees.csv
+│   └── skills.csv
+│
+├── lib/                            # Server-side utilities
+│   ├── loadDashboardData.ts        # CSV → typed data aggregations
+│   └── parseCSV.ts                 # Custom CSV parser
+│
+├── public/                         # Static assets
+│   ├── Northeastern Logo.png
+│   ├── screenshot_overview.png
+│   ├── screenshot_people.png
+│   ├── screenshot_departments.png
+│   ├── screenshot_hr_intelligence.png
+│   ├── file.svg
+│   ├── globe.svg
+│   ├── next.svg
+│   ├── vercel.svg
+│   └── window.svg
+│
+├── scripts/                        # Utility / data generation scripts
+│
+├── taxonomy_pipeline/              # Python taxonomy pipeline
 │   ├── config.py                   # All configuration & API keys
 │   ├── defaults.py                 # Fallback taxonomy defaults
 │   ├── utils.py                    # Shared helpers (LLM clients, CSV loading)
@@ -133,40 +153,18 @@ project-root/
 │   ├── phase_2_bulk.py             # Local SLM bulk-classifies messages
 │   ├── phase_3_finalize.py         # LLM refines & finalizes taxonomy
 │   ├── run_pipeline.py             # Main pipeline entry point
-│   ├── run_comparison.py           # Run multiple provider configurations
-│   ├── taxonomy_pipeline.py        # Original pipeline script
-│   ├── taxonomy_pipeline_optimized.py
-│   ├── estimate_employees.py
-│   ├── generate_new_data.py
-│   └── outputs/                    # Generated taxonomy + annotated data
-│       ├── phase_1_taxonomy.json
-│       ├── phase_2_classifications.json
-│       ├── phase_3_final_taxonomy.json
-│       ├── pipeline_summary.json
-│       ├── checkpoints/            # Crash-recovery checkpoints
-│       └── runs/                   # Multi-provider comparison runs
+│   └── run_comparison.py           # Compare multiple provider configs
 │
-├── employee-dashboard/             # Next.js frontend
-│   ├── app/
-│   │   ├── dashboard/
-│   │   │   ├── page.tsx            # Server component — loads CSV data
-│   │   │   ├── HRDashboardClient.tsx  # Main interactive dashboard
-│   │   │   └── HRIntelligenceSuite.tsx
-│   │   ├── globals.css
-│   │   └── layout.tsx
-│   ├── lib/
-│   │   ├── loadDashboardData.ts    # CSV → typed data aggregations
-│   │   └── parseCSV.ts             # Custom CSV parser
-│   ├── data/                       # Symlink or copy of data/raw/
-│   ├── public/
-│   ├── package.json
-│   └── next.config.ts
-│
-├── taxonomy.json                   # Current taxonomy definition
-├── compressed_taxonomy_with_ids.json
-├── companies.json
-├── departments.json
-├── employees.json
+├── .env.local                      # API keys (never commit this)
+├── .gitignore
+├── eslint.config.mjs
+├── mockup_awards.csv               # Mockup data for pipeline testing
+├── next.config.ts                  # Next.js configuration
+├── next-env.d.ts
+├── package.json
+├── package-lock.json
+├── postcss.config.mjs
+├── tsconfig.json
 └── README.md
 ```
 
@@ -226,9 +224,10 @@ cd <project-root>
 
 ### 2. Set up your environment variables
 
-Create a `.env` file in the project root:
+Create a `.env.local` file in the project root (it's already in `.gitignore`):
 
 ```env
+# .env.local
 ANTHROPIC_API_KEY=sk-ant-...   # Optional: Claude API key
 GOOGLE_API_KEY=AIza...          # Optional: Gemini API key
 ```
@@ -244,24 +243,15 @@ The dashboard is a Next.js app that reads CSV files directly from the `data/` fo
 ### Step 1 — Install dependencies
 
 ```bash
-cd employee-dashboard
 npm install
 ```
 
 ### Step 2 — Make sure data files are in place
 
-The dashboard reads from `employee-dashboard/data/`. Ensure your CSV files are there:
+The dashboard reads from the `data/` folder at the project root. Your CSV files should already be there. If not:
 
 ```bash
-# From the project root:
-cp data/raw/*.csv employee-dashboard/data/
-```
-
-Or create a symlink:
-
-```bash
-cd employee-dashboard
-ln -s ../data/raw data
+cp /path/to/your/csvs/*.csv data/
 ```
 
 ### Step 3 — Start the development server
@@ -288,7 +278,7 @@ The pipeline categorizes recognition messages using a 3-phase LLM approach.
 ### Step 1 — Install Python dependencies
 
 ```bash
-cd pipeline
+cd taxonomy_pipeline
 pip install -r requirements.txt
 ```
 
@@ -318,7 +308,7 @@ ollama serve
 ### Step 3 — Run the full pipeline
 
 ```bash
-cd pipeline
+cd taxonomy_pipeline
 python run_pipeline.py
 ```
 
