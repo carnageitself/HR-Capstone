@@ -1,5 +1,5 @@
 <h1>
-  <img src="public/Northeastern Logo.png" alt="Northeastern University" width="40" style="vertical-align:middle; margin-right:10px"/>
+  <img src="public/Northeastern Logo.png" alt="Northeastern University" height="40" style="vertical-align:middle; margin-right:12px; position:relative; top:-2px"/>
   HR Recognition Analytics Dashboard
 </h1>
 
