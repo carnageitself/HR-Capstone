@@ -1,0 +1,11 @@
+department_id,department_name,company_id,location,budget_usd
+DEPT01,Engineering,COMP01,New York,2333274
+DEPT02,Product,COMP03,New York,1327604
+DEPT03,Sales,COMP02,Toronto,2110692
+DEPT04,Marketing,COMP01,Toronto,707571
+DEPT05,Operations,COMP01,Singapore,880603
+DEPT06,Finance,COMP03,New York,2222934
+DEPT07,HR,COMP01,Singapore,1021643
+DEPT08,Legal,COMP02,San Francisco,1963240
+DEPT09,Support,COMP03,Toronto,2086319
+DEPT10,Analytics,COMP02,New York,707105

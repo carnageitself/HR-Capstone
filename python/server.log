@@ -1,0 +1,35 @@
+WARNING: Ignoring invalid distribution -andas (c:\users\deeps\appdata\local\programs\python\python39\lib\site-packages)
+WARNING: Ignoring invalid distribution -andas (c:\users\deeps\appdata\local\programs\python\python39\lib\site-packages)
+WARNING: Ignoring invalid distribution -andas (c:\users\deeps\appdata\local\programs\python\python39\lib\site-packages)
+
+[notice] A new release of pip is available: 25.1.1 -> 26.0.1
+[notice] To update, run: python.exe -m pip install --upgrade pip
+
+================================================================================
+RECOGNITION TAXONOMY WEB APP - Starting Services
+================================================================================
+
+OK: Python version 3.9.13
+OK: Directories created
+
+Installing dependencies...
+OK: Dependencies installed
+
+Starting Server (Frontend on port 8080 + API on /api)...
+OK: Server started (PID: 57080)
+
+================================================================================
+ALL SERVICES STARTED!
+================================================================================
+
+URLs:
+   Frontend App:      http://localhost:8080
+   API Health:        http://localhost:8080/api/health
+
+To share with team (in new terminal):
+   ngrok http 8080
+
+Press Ctrl+C to stop all services
+
+================================================================================
+
