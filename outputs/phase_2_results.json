@@ -1,0 +1,9835 @@
+{
+  "metadata": {
+    "phase": 2,
+    "total_messages": 1000,
+    "total_classified": 980,
+    "batch_size": 5,
+    "model": "llama3:8b"
+  },
+  "classifications": [
+    {
+      "batch": 0,
+      "category": "A",
+      "subcategory": "A2",
+      "themes": [
+        "Proactive Help",
+        "Timely Assistance"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 0,
+      "category": "B",
+      "subcategory": "B2",
+      "themes": [
+        "Collaborative Spirit",
+        "Teamwork"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 0,
+      "category": "C",
+      "subcategory": "C1",
+      "themes": [
+        "Driving Results",
+        "Innovation"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 0,
+      "category": "E",
+      "subcategory": "E2",
+      "themes": [
+        "Kindness",
+        "Empathy",
+        "Collaboration"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 0,
+      "category": "D",
+      "subcategory": "D1",
+      "themes": [
+        "Guiding Others",
+        "Partnership"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 1,
+      "category": "B",
+      "subcategory": "B2",
+      "themes": [
+        "Teamwork",
+        "Collaboration"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 1,
+      "category": "C",
+      "subcategory": "C3",
+      "themes": [
+        "Innovation",
+        "Excellence"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 1,
+      "category": "G",
+      "subcategory": "G1",
+      "themes": [
+        "Appreciation",
+        "Gratitude"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 1,
+      "category": "C",
+      "subcategory": "C2",
+      "themes": [
+        "Innovation",
+        "Creativity"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 1,
+      "category": "C",
+      "subcategory": "C1",
+      "themes": [
+        "Achievement",
+        "Success"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 2,
+      "category": "A",
+      "subcategory": "A2",
+      "themes": [
+        "Proactive Help",
+        "Expert Guidance"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 2,
+      "category": "C",
+      "subcategory": "C1",
+      "themes": [
+        "Driving Results",
+        "Influential"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 2,
+      "category": "B",
+      "subcategory": "B1",
+      "themes": [
+        "Collaborative Spirit",
+        "Resilience"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 2,
+      "category": "F",
+      "subcategory": "F2",
+      "themes": [
+        "Milestones",
+        "Celebration"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 2,
+      "category": "G",
+      "subcategory": "G1",
+      "themes": [
+        "Appreciation",
+        "Recognition"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 3,
+      "category": "B",
+      "subcategory": "B2",
+      "themes": [
+        "teamwork",
+        "collaboration"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 3,
+      "category": "C",
+      "subcategory": "C3",
+      "themes": [
+        "excellence",
+        "results"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 3,
+      "category": "E",
+      "subcategory": null,
+      "themes": [
+        "approachability",
+        "dedication"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 3,
+      "category": "A",
+      "subcategory": "A1",
+      "themes": [
+        "timely",
+        "help"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 3,
+      "category": "G",
+      "subcategory": "G2",
+      "themes": [
+        "appreciation",
+        "recognition"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 4,
+      "category": "A",
+      "subcategory": "E2",
+      "themes": [
+        "kindness",
+        "support"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 4,
+      "category": "A",
+      "subcategory": "A3",
+      "themes": [
+        "expertise",
+        "guidance"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 4,
+      "category": "B",
+      "subcategory": "A2",
+      "themes": [
+        "support",
+        "advice"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 4,
+      "category": "G",
+      "subcategory": "G1",
+      "themes": [
+        "appreciation",
+        "thanks"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 4,
+      "category": "C",
+      "subcategory": "C2",
+      "themes": [
+        "help",
+        "collaboration"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 5,
+      "category": "A",
+      "subcategory": "A2",
+      "themes": [
+        "proactive",
+        "helpful"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 5,
+      "category": "D",
+      "subcategory": "D1",
+      "themes": [
+        "mentoring",
+        "leadership"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 5,
+      "category": "G",
+      "subcategory": "G1",
+      "themes": [
+        "appreciation",
+        "gratitude"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 5,
+      "category": "C",
+      "subcategory": "C2",
+      "themes": [
+        "training",
+        "development"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 5,
+      "category": "B",
+      "subcategory": "B1",
+      "themes": [
+        "collaboration",
+        "teamwork"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 6,
+      "category": "A",
+      "subcategory": "A2",
+      "themes": [
+        "Support",
+        "Collaboration"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 6,
+      "category": "B",
+      "subcategory": "B3",
+      "themes": [
+        "Teamwork",
+        "Success"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 6,
+      "category": "G",
+      "subcategory": "G1",
+      "themes": [
+        "Thanks",
+        "Appreciation"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 6,
+      "category": "F",
+      "subcategory": "F2",
+      "themes": [
+        "Milestone",
+        "Success"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 6,
+      "category": "C",
+      "subcategory": "C1",
+      "themes": [
+        "Achievement",
+        "Innovation"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 7,
+      "category": "G",
+      "subcategory": "G3",
+      "themes": [
+        "Gratitude",
+        "Appreciation"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 7,
+      "category": "A",
+      "subcategory": "A2",
+      "themes": [
+        "Support",
+        "Help"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 7,
+      "category": "B",
+      "subcategory": "B1",
+      "themes": [
+        "Teamwork",
+        "Collaboration"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 7,
+      "category": "A",
+      "subcategory": "A2",
+      "themes": [
+        "Support",
+        "Help"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 7,
+      "category": "E",
+      "subcategory": "E3",
+      "themes": [
+        "Dedication",
+        "Perseverance"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 8,
+      "category": "A",
+      "subcategory": "A2",
+      "themes": [
+        "timely",
+        "help"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 8,
+      "category": "C",
+      "subcategory": "C1",
+      "themes": [
+        "results",
+        "achievement"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 8,
+      "category": "B",
+      "subcategory": "B3",
+      "themes": [
+        "partnership",
+        "collaboration"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 8,
+      "category": "C",
+      "subcategory": "C1",
+      "themes": [
+        "results",
+        "effort"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 8,
+      "category": "G",
+      "subcategory": "G2",
+      "themes": [
+        "appreciation",
+        "thanks"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 9,
+      "category": "A",
+      "subcategory": "A2",
+      "themes": [
+        "timely help",
+        "support"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 9,
+      "category": "G",
+      "subcategory": "G2",
+      "themes": [
+        "appreciation",
+        "thanks"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 9,
+      "category": "A",
+      "subcategory": "A2",
+      "themes": [
+        "help",
+        "support"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 9,
+      "category": "B",
+      "subcategory": "B1",
+      "themes": [
+        "collaboration",
+        "teamwork"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 9,
+      "category": "C",
+      "subcategory": "C3",
+      "themes": [
+        "excellence",
+        "dedication"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 10,
+      "category": "F",
+      "subcategory": "F1",
+      "themes": [
+        "celebration",
+        "milestones"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 10,
+      "category": "C",
+      "subcategory": "C3",
+      "themes": [
+        "achievement",
+        "excellence"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 10,
+      "category": "B",
+      "subcategory": "B1",
+      "themes": [
+        "teamwork",
+        "collaboration"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 10,
+      "category": "A",
+      "subcategory": "A2",
+      "themes": [
+        "help",
+        "support"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 10,
+      "category": "G",
+      "subcategory": "G1",
+      "themes": [
+        "appreciation",
+        "gratitude"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 11,
+      "category": "G",
+      "subcategory": null,
+      "themes": [
+        "appreciation",
+        "gratitude"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 11,
+      "category": "B",
+      "subcategory": "B3",
+      "themes": [
+        "teamwork",
+        "collaboration"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 11,
+      "category": "C",
+      "subcategory": "A3",
+      "themes": [
+        "innovation",
+        "support"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 11,
+      "category": "F",
+      "subcategory": "F2",
+      "themes": [
+        "celebration",
+        "achievement"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 11,
+      "category": "G",
+      "subcategory": "G1",
+      "themes": [
+        "appreciation",
+        "gratitude"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 12,
+      "category": "C",
+      "subcategory": "B3",
+      "themes": [
+        "teamwork",
+        "collaboration"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 12,
+      "category": "A",
+      "subcategory": "A2",
+      "themes": [
+        "support",
+        "partnership"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 12,
+      "category": "E",
+      "subcategory": "E1",
+      "themes": [
+        "dedication",
+        "professionalism"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 12,
+      "category": "A",
+      "subcategory": "A2",
+      "themes": [
+        "support",
+        "expertise"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 12,
+      "category": "F",
+      "subcategory": "F1",
+      "themes": [
+        "milestone",
+        "achievement"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 13,
+      "category": "A",
+      "subcategory": "A2",
+      "themes": [
+        "Timely Assistance",
+        "Teamwork"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 13,
+      "category": "B",
+      "subcategory": "B3",
+      "themes": [
+        "Supporting Colleagues",
+        "Relationships"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 13,
+      "category": "F",
+      "subcategory": "F1",
+      "themes": [
+        "Milestones",
+        "Team Success"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 13,
+      "category": "G",
+      "subcategory": "G2",
+      "themes": [
+        "Recognizing Effort",
+        "Appreciation"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 13,
+      "category": "C",
+      "subcategory": "C1",
+      "themes": [
+        "Driving Results",
+        "Resilience"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 14,
+      "category": "G",
+      "subcategory": "G2",
+      "themes": [
+        "expression",
+        "appreciation"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 14,
+      "category": "B",
+      "subcategory": "B2",
+      "themes": [
+        "teamwork",
+        "support"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 14,
+      "category": "C",
+      "subcategory": "C1",
+      "themes": [
+        "achievement",
+        "innovation"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 14,
+      "category": "F",
+      "subcategory": "F2",
+      "themes": [
+        "celebration",
+        "milestone"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 14,
+      "category": "G",
+      "subcategory": "G1",
+      "themes": [
+        "appreciation",
+        "gratitude"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 15,
+      "category": "C",
+      "subcategory": "A3",
+      "themes": [
+        "expert",
+        "teamwork"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 15,
+      "category": "B",
+      "subcategory": "B2",
+      "themes": [
+        "support",
+        "collaboration"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 15,
+      "category": "D",
+      "subcategory": "D1",
+      "themes": [
+        "guidance",
+        "teamwork"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 15,
+      "category": "G",
+      "subcategory": "G2",
+      "themes": [
+        "appreciation",
+        "team"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 15,
+      "category": "C",
+      "subcategory": "A1",
+      "themes": [
+        "teamwork",
+        "dedication"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 16,
+      "category": "D",
+      "subcategory": "D2",
+      "themes": [
+        "mentoring",
+        "leadership"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 16,
+      "category": "B",
+      "subcategory": "B3",
+      "themes": [
+        "teamwork",
+        "collaboration"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 16,
+      "category": "C",
+      "subcategory": "C1",
+      "themes": [
+        "achievement",
+        "impact"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 16,
+      "category": "D",
+      "subcategory": "D1",
+      "themes": [
+        "leadership",
+        "influence"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 16,
+      "category": "G",
+      "subcategory": "G2",
+      "themes": [
+        "appreciation",
+        "gratitude"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 17,
+      "category": "B",
+      "subcategory": "B1",
+      "themes": [
+        "teamwork",
+        "collaboration"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 17,
+      "category": "A",
+      "subcategory": "A2",
+      "themes": [
+        "support",
+        "help"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 17,
+      "category": "B",
+      "subcategory": "B1",
+      "themes": [
+        "teamwork",
+        "collaboration"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 17,
+      "category": "G",
+      "subcategory": "G1",
+      "themes": [
+        "appreciation",
+        "gratitude"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 17,
+      "category": "C",
+      "subcategory": "C3",
+      "themes": [
+        "excellence",
+        "professionalism"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 18,
+      "category": "G",
+      "subcategory": "G2",
+      "themes": [
+        "appreciation",
+        "thanks"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 18,
+      "category": "D",
+      "subcategory": "D3",
+      "themes": [
+        "leadership",
+        "mentoring"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 18,
+      "category": "C",
+      "subcategory": "C1",
+      "themes": [
+        "achievement",
+        "success"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 18,
+      "category": "A",
+      "subcategory": "A2",
+      "themes": [
+        "support",
+        "help"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 18,
+      "category": "B",
+      "subcategory": "B1",
+      "themes": [
+        "collaboration",
+        "teamwork"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 19,
+      "category": "A",
+      "subcategory": "A2",
+      "themes": [
+        "Timely Assistance",
+        "Support"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 19,
+      "category": "D",
+      "subcategory": "D2",
+      "themes": [
+        "Leadership",
+        "Mentoring"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 19,
+      "category": "C",
+      "subcategory": "C1",
+      "themes": [
+        "Collaboration",
+        "Teamwork"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 19,
+      "category": "G",
+      "subcategory": "G2",
+      "themes": [
+        "Appreciation",
+        "Recognition"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 19,
+      "category": "G",
+      "subcategory": "G3",
+      "themes": [
+        "Gratitude",
+        "Appreciation"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 20,
+      "category": "B",
+      "subcategory": "B3",
+      "themes": [
+        "teamwork",
+        "support"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 20,
+      "category": "E",
+      "subcategory": "null",
+      "themes": [
+        "appreciation",
+        "friendliness"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 20,
+      "category": "B",
+      "subcategory": "B1",
+      "themes": [
+        "collaboration",
+        "teamwork"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 20,
+      "category": "C",
+      "subcategory": "C3",
+      "themes": [
+        "achievement",
+        "teamwork"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 20,
+      "category": "G",
+      "subcategory": "G1",
+      "themes": [
+        "appreciation",
+        "gratitude"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 21,
+      "category": "G",
+      "subcategory": null,
+      "themes": [
+        "appreciation",
+        "gratitude"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 21,
+      "category": "E",
+      "subcategory": "E3",
+      "themes": [
+        "attitude",
+        "dedication"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 21,
+      "category": "B",
+      "subcategory": "B1",
+      "themes": [
+        "teamwork",
+        "collaboration"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 21,
+      "category": "A",
+      "subcategory": "A2",
+      "themes": [
+        "proactive",
+        "helpful"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 21,
+      "category": "C",
+      "subcategory": "C1",
+      "themes": [
+        "achievement",
+        "success"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 22,
+      "category": "F",
+      "subcategory": "F3",
+      "themes": [
+        "team",
+        "success"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 22,
+      "category": "G",
+      "subcategory": "G2",
+      "themes": [
+        "thanks",
+        "effort"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 22,
+      "category": "E",
+      "subcategory": null,
+      "themes": [
+        "celebration",
+        "birthday"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 22,
+      "category": "G",
+      "subcategory": "G1",
+      "themes": [
+        "thanks",
+        "appreciation"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 22,
+      "category": "B",
+      "subcategory": "B2",
+      "themes": [
+        "collaboration",
+        "hardwork"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 23,
+      "category": "B",
+      "subcategory": "B3",
+      "themes": [
+        "teamwork",
+        "support"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 23,
+      "category": "B",
+      "subcategory": "B1",
+      "themes": [
+        "teamwork",
+        "service"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 23,
+      "category": "A",
+      "subcategory": "A2",
+      "themes": [
+        "help",
+        "support"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 23,
+      "category": "C",
+      "subcategory": "C1",
+      "themes": [
+        "achievement",
+        "excellence"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 23,
+      "category": "D",
+      "subcategory": "D1",
+      "themes": [
+        "leadership",
+        "teamwork"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 24,
+      "category": "G",
+      "subcategory": "G1",
+      "themes": [
+        "gratitude"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 24,
+      "category": "B",
+      "subcategory": "B3",
+      "themes": [
+        "teamwork",
+        "support"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 24,
+      "category": "C",
+      "subcategory": "C1",
+      "themes": [
+        "quality",
+        "teamwork"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 24,
+      "category": "B",
+      "subcategory": "B2",
+      "themes": [
+        "collaboration",
+        "support"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 24,
+      "category": "D",
+      "subcategory": "D3",
+      "themes": [
+        "partnership",
+        "leadership"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 25,
+      "category": "B",
+      "subcategory": "B2",
+      "themes": [
+        "Collaboration",
+        "Teamwork"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 25,
+      "category": "A",
+      "subcategory": "A1",
+      "themes": [
+        "Timely Assistance",
+        "Support"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 25,
+      "category": "D",
+      "subcategory": "D1",
+      "themes": [
+        "Guiding Others",
+        "Mentoring"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 25,
+      "category": "G",
+      "subcategory": "G2",
+      "themes": [
+        "Recognizing Effort",
+        "Appreciation"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 25,
+      "category": "G",
+      "subcategory": "G1",
+      "themes": [
+        "Expressing Thanks",
+        "Celebrating Team"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 26,
+      "category": "G",
+      "subcategory": "G1",
+      "themes": [
+        "appreciation",
+        "teamwork"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 26,
+      "category": "C",
+      "subcategory": "C3",
+      "themes": [
+        "achievement",
+        "dedication"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 26,
+      "category": "C",
+      "subcategory": "C1",
+      "themes": [
+        "results",
+        "excellence"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 26,
+      "category": "G",
+      "subcategory": "G1",
+      "themes": [
+        "appreciation",
+        "teamwork"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 26,
+      "category": "B",
+      "subcategory": "B3",
+      "themes": [
+        "teamwork",
+        "support"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 27,
+      "category": "A",
+      "subcategory": "A3",
+      "themes": [
+        "expert guidance",
+        "teamwork"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 27,
+      "category": "B",
+      "subcategory": "B1",
+      "themes": [
+        "collaboration",
+        "positive energy"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 27,
+      "category": "A",
+      "subcategory": "A1",
+      "themes": [
+        "timely assistance",
+        "teamwork"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 27,
+      "category": "G",
+      "subcategory": "G2",
+      "themes": [
+        "appreciation",
+        "acknowledgment"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 27,
+      "category": "C",
+      "subcategory": "C1",
+      "themes": [
+        "achievement",
+        "results-driven"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 28,
+      "category": "A",
+      "subcategory": "A2",
+      "themes": [
+        "teamwork",
+        "support"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 28,
+      "category": "C",
+      "subcategory": "C3",
+      "themes": [
+        "excellence",
+        "collaboration"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 28,
+      "category": "E",
+      "subcategory": null,
+      "themes": [
+        "dedication",
+        "expertise"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 28,
+      "category": "C",
+      "subcategory": "C2",
+      "themes": [
+        "innovation",
+        "achievement"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 28,
+      "category": "G",
+      "subcategory": "G1",
+      "themes": [
+        "appreciation",
+        "gratitude"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 29,
+      "category": "A",
+      "subcategory": "A2",
+      "themes": [
+        "support",
+        "teamwork"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 29,
+      "category": "C",
+      "subcategory": "C3",
+      "themes": [
+        "results",
+        "effort"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 29,
+      "category": "B",
+      "subcategory": "B1",
+      "themes": [
+        "collaboration",
+        "creativity"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 29,
+      "category": "G",
+      "subcategory": "G2",
+      "themes": [
+        "appreciation",
+        "teamwork"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 29,
+      "category": "B",
+      "subcategory": "B1",
+      "themes": [
+        "teamwork",
+        "collaboration"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 30,
+      "category": "B",
+      "subcategory": "B2",
+      "themes": [
+        "teamwork",
+        "collaboration"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 30,
+      "category": "G",
+      "subcategory": "G3",
+      "themes": [
+        "appreciation",
+        "gratitude"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 30,
+      "category": "C",
+      "subcategory": "C1",
+      "themes": [
+        "achievement",
+        "performance"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 30,
+      "category": "B",
+      "subcategory": "B2",
+      "themes": [
+        "teamwork",
+        "collaboration",
+        "partnership"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 30,
+      "category": "C",
+      "subcategory": "C1",
+      "themes": [
+        "achievement",
+        "performance",
+        "partnership"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 31,
+      "category": "B",
+      "subcategory": "B2",
+      "themes": [
+        "Teamwork",
+        "Collaboration"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 31,
+      "category": "F",
+      "subcategory": "F3",
+      "themes": [
+        "Milestone",
+        "Success"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 31,
+      "category": "G",
+      "subcategory": "G1",
+      "themes": [
+        "Appreciation",
+        "Thanks"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 31,
+      "category": "F",
+      "subcategory": "F2",
+      "themes": [
+        "Personal",
+        "Achievement"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 31,
+      "category": "D",
+      "subcategory": "D1",
+      "themes": [
+        "Leadership",
+        "Mentoring"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 32,
+      "category": "G",
+      "subcategory": "G3",
+      "themes": [
+        "appreciation",
+        "gratitude"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 32,
+      "category": "A",
+      "subcategory": "A2",
+      "themes": [
+        "support",
+        "help"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 32,
+      "category": "B",
+      "subcategory": "B1",
+      "themes": [
+        "teamwork",
+        "collaboration"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 32,
+      "category": "G",
+      "subcategory": "G2",
+      "themes": [
+        "appreciation",
+        "effort"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 32,
+      "category": "A",
+      "subcategory": "A2",
+      "themes": [
+        "support",
+        "help"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 33,
+      "category": "E",
+      "subcategory": "E2",
+      "themes": [
+        "kindness",
+        "appreciation"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 33,
+      "category": "B",
+      "subcategory": "B3",
+      "themes": [
+        "teamwork",
+        "collaboration"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 33,
+      "category": "C",
+      "subcategory": "C1",
+      "themes": [
+        "achievement",
+        "results"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 33,
+      "category": "E",
+      "subcategory": "E2",
+      "themes": [
+        "gratitude",
+        "appreciation"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 33,
+      "category": "G",
+      "subcategory": "G1",
+      "themes": [
+        "appreciation",
+        "thanks"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 34,
+      "category": "B",
+      "subcategory": "B2",
+      "themes": [
+        "teamwork",
+        "collaboration"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 34,
+      "category": "F",
+      "subcategory": "F3",
+      "themes": [
+        "team success",
+        "celebration"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 34,
+      "category": "D",
+      "subcategory": "D1",
+      "themes": [
+        "leadership",
+        "mentorship"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 34,
+      "category": "A",
+      "subcategory": "A2",
+      "themes": [
+        "expertise",
+        "support"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 34,
+      "category": "G",
+      "subcategory": null,
+      "themes": [
+        "celebration",
+        "appreciation"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 35,
+      "category": "B",
+      "subcategory": "B3",
+      "themes": [
+        "Collaboration",
+        "Teamwork"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 35,
+      "category": "C",
+      "subcategory": "C1",
+      "themes": [
+        "Innovation",
+        "Results"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 35,
+      "category": "D",
+      "subcategory": "D1",
+      "themes": [
+        "Leadership",
+        "Mentorship"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 35,
+      "category": "G",
+      "subcategory": "G2",
+      "themes": [
+        "Appreciation",
+        "Recognition"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 35,
+      "category": "E",
+      "subcategory": "E1",
+      "themes": [
+        "Recognition",
+        "Appreciation"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 36,
+      "category": "C",
+      "subcategory": "C3",
+      "themes": [
+        "excellence",
+        "results"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 36,
+      "category": "F",
+      "subcategory": "F2",
+      "themes": [
+        "achievement",
+        "success"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 36,
+      "category": "B",
+      "subcategory": "B1",
+      "themes": [
+        "collaboration",
+        "teamwork"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 36,
+      "category": "B",
+      "subcategory": "B2",
+      "themes": [
+        "support",
+        "teamwork"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 36,
+      "category": "D",
+      "subcategory": "D1",
+      "themes": [
+        "leadership",
+        "mentoring"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 37,
+      "category": "A",
+      "subcategory": "A2",
+      "themes": [
+        "proactive",
+        "support"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 37,
+      "category": "B",
+      "subcategory": "B3",
+      "themes": [
+        "teamwork",
+        "collaboration"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 37,
+      "category": "E",
+      "subcategory": null,
+      "themes": [
+        "professionalism",
+        "care"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 37,
+      "category": "C",
+      "subcategory": "C1",
+      "themes": [
+        "speed",
+        "flexibility"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 37,
+      "category": "F",
+      "subcategory": "F2",
+      "themes": [
+        "success",
+        "achievement"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 38,
+      "category": "G",
+      "subcategory": "G1",
+      "themes": [
+        "appreciation",
+        "gratitude"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 38,
+      "category": "B",
+      "subcategory": "B3",
+      "themes": [
+        "teamwork",
+        "collaboration"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 38,
+      "category": "A",
+      "subcategory": "A1",
+      "themes": [
+        "support",
+        "dedication"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 38,
+      "category": "F",
+      "subcategory": "F2",
+      "themes": [
+        "celebration",
+        "happiness"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 38,
+      "category": "C",
+      "subcategory": "C1",
+      "themes": [
+        "achievement",
+        "success"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 39,
+      "category": "B",
+      "subcategory": "B2",
+      "themes": [
+        "teamwork",
+        "collaboration"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 39,
+      "category": "D",
+      "subcategory": "A2",
+      "themes": [
+        "guidance",
+        "expertise"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 39,
+      "category": "G",
+      "subcategory": "G1",
+      "themes": [
+        "appreciation",
+        "thanks"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 39,
+      "category": "A",
+      "subcategory": "A2",
+      "themes": [
+        "support",
+        "help"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 39,
+      "category": "B",
+      "subcategory": "B1",
+      "themes": [
+        "teamwork",
+        "collaboration"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 40,
+      "category": "A",
+      "subcategory": "A2",
+      "themes": [
+        "timely",
+        "supportive"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 40,
+      "category": "C",
+      "subcategory": "C2",
+      "themes": [
+        "innovative",
+        "transformative"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 40,
+      "category": "D",
+      "subcategory": "D1",
+      "themes": [
+        "inspirational",
+        "leadership"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 40,
+      "category": "C",
+      "subcategory": "C1",
+      "themes": [
+        "innovative",
+        "collaborative"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 40,
+      "category": "D",
+      "subcategory": "D2",
+      "themes": [
+        "inspirational",
+        "mentoring"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 41,
+      "category": "A",
+      "subcategory": "A2",
+      "themes": [
+        "timely",
+        "support"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 41,
+      "category": "C",
+      "subcategory": "C1",
+      "themes": [
+        "achievement",
+        "success"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 41,
+      "category": "G",
+      "subcategory": "G1",
+      "themes": [
+        "appreciation",
+        "teamwork"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 41,
+      "category": "E",
+      "subcategory": "E2",
+      "themes": [
+        "kindness",
+        "helpful"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 41,
+      "category": "G",
+      "subcategory": "G1",
+      "themes": [
+        "appreciation",
+        "gratitude"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 42,
+      "category": "A",
+      "subcategory": "A2",
+      "themes": [
+        "timely assistance",
+        "proactive help"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 42,
+      "category": "B",
+      "subcategory": "B3",
+      "themes": [
+        "teamwork",
+        "collaboration",
+        "partnership"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 42,
+      "category": "C",
+      "subcategory": "C1",
+      "themes": [
+        "driving results",
+        "achievement"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 42,
+      "category": "A",
+      "subcategory": "A1",
+      "themes": [
+        "expert guidance",
+        "support"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 42,
+      "category": "G",
+      "subcategory": "G2",
+      "themes": [
+        "appreciation",
+        "gratitude",
+        "team support"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 43,
+      "category": "A",
+      "subcategory": "A2",
+      "themes": [
+        "Proactive Help"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 43,
+      "category": "G",
+      "subcategory": "G3",
+      "themes": [
+        "Valuing Relationships",
+        "Appreciation"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 43,
+      "category": "B",
+      "subcategory": "B1",
+      "themes": [
+        "Collaborative Spirit",
+        "Teamwork"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 43,
+      "category": "C",
+      "subcategory": "C2",
+      "themes": [
+        "Innovative Thinking",
+        "Developmental"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 43,
+      "category": "A",
+      "subcategory": "A3",
+      "themes": [
+        "Expert Guidance",
+        "Timely Assistance"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 44,
+      "category": "B",
+      "subcategory": "B3",
+      "themes": [
+        "teamwork",
+        "relationships"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 44,
+      "category": "C",
+      "subcategory": "C2",
+      "themes": [
+        "expertise",
+        "willingness"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 44,
+      "category": "C",
+      "subcategory": "C1",
+      "themes": [
+        "planning",
+        "success"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 44,
+      "category": "G",
+      "subcategory": "G2",
+      "themes": [
+        "effort",
+        "celebration"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 44,
+      "category": "G",
+      "subcategory": "G1",
+      "themes": [
+        "thanks",
+        "appreciation"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 45,
+      "category": "A",
+      "subcategory": "A2",
+      "themes": [
+        "proactive",
+        "helpful"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 45,
+      "category": "G",
+      "subcategory": "G3",
+      "themes": [
+        "appreciation",
+        "gratitude"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 45,
+      "category": "B",
+      "subcategory": "B1",
+      "themes": [
+        "teamwork",
+        "collaboration"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 45,
+      "category": "A",
+      "subcategory": "A2",
+      "themes": [
+        "timely",
+        "helpful"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 45,
+      "category": "C",
+      "subcategory": "C1",
+      "themes": [
+        "results",
+        "achievement"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 46,
+      "category": "A",
+      "subcategory": "A2",
+      "themes": [
+        "Partnership",
+        "Collaboration"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 46,
+      "category": "F",
+      "subcategory": "F1",
+      "themes": [
+        "Leadership",
+        "Achievement"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 46,
+      "category": "C",
+      "subcategory": "C3",
+      "themes": [
+        "Innovation",
+        "Achievement"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 46,
+      "category": "B",
+      "subcategory": "B2",
+      "themes": [
+        "Collaboration",
+        "Problem-Solving"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 46,
+      "category": "C",
+      "subcategory": "C1",
+      "themes": [
+        "Innovation",
+        "Excellence"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 47,
+      "category": "A",
+      "subcategory": "A2",
+      "themes": [
+        "timely",
+        "responsive"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 47,
+      "category": "B",
+      "subcategory": "B2",
+      "themes": [
+        "supportive",
+        "coaching"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 47,
+      "category": "D",
+      "subcategory": "D1",
+      "themes": [
+        "mentoring",
+        "partnership"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 47,
+      "category": "C",
+      "subcategory": "C1",
+      "themes": [
+        "results",
+        "visibility"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 47,
+      "category": "E",
+      "subcategory": "E3",
+      "themes": [
+        "dedication",
+        "helpful"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 48,
+      "category": "C",
+      "subcategory": "C2",
+      "themes": [
+        "Innovative Thinking",
+        "Driving Results"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 48,
+      "category": "A",
+      "subcategory": "A2",
+      "themes": [
+        "Proactive Help",
+        "Timely Assistance"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 48,
+      "category": "D",
+      "subcategory": "D1",
+      "themes": [
+        "Guiding Others",
+        "Mentorship"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 48,
+      "category": "C",
+      "subcategory": "C1",
+      "themes": [
+        "Driving Results",
+        "Excellence in Work"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 48,
+      "category": "B",
+      "subcategory": "B2",
+      "themes": [
+        "Supporting Colleagues",
+        "Collaboration"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 49,
+      "category": "A",
+      "subcategory": "A2",
+      "themes": [
+        "proactive help",
+        "expert guidance"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 49,
+      "category": "F",
+      "subcategory": "F3",
+      "themes": [
+        "team success",
+        "celebration"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 49,
+      "category": "G",
+      "subcategory": null,
+      "themes": [
+        "appreciation",
+        "gratitude"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 49,
+      "category": "C",
+      "subcategory": "C1",
+      "themes": [
+        "results-driven",
+        "collaboration"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 49,
+      "category": "D",
+      "subcategory": "D2",
+      "themes": [
+        "leadership",
+        "mentoring"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 50,
+      "category": "B",
+      "subcategory": "B2",
+      "themes": [
+        "teamwork",
+        "support"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 50,
+      "category": "G",
+      "subcategory": "G3",
+      "themes": [
+        "appreciation",
+        "gratitude"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 50,
+      "category": "B",
+      "subcategory": "B3",
+      "themes": [
+        "teamwork",
+        "partnership"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 50,
+      "category": "C",
+      "subcategory": "C1",
+      "themes": [
+        "achievement",
+        "execution"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 50,
+      "category": "E",
+      "subcategory": "E2",
+      "themes": [
+        "kindness",
+        "care"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 51,
+      "category": "G",
+      "subcategory": null,
+      "themes": [
+        "appreciation",
+        "help"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 51,
+      "category": "A",
+      "subcategory": "A2",
+      "themes": [
+        "proactive",
+        "communication"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 51,
+      "category": "C",
+      "subcategory": "C1",
+      "themes": [
+        "excellence",
+        "documentation"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 51,
+      "category": "A",
+      "subcategory": "A2",
+      "themes": [
+        "support",
+        "collaboration"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 51,
+      "category": "B",
+      "subcategory": "B1",
+      "themes": [
+        "teamwork",
+        "collaboration"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 52,
+      "category": "C",
+      "subcategory": "A3",
+      "themes": [
+        "excellence",
+        "work"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 52,
+      "category": "B",
+      "subcategory": "B2",
+      "themes": [
+        "collaboration",
+        "appreciation"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 52,
+      "category": "D",
+      "subcategory": "D1",
+      "themes": [
+        "leadership",
+        "partnership"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 52,
+      "category": "B",
+      "subcategory": "B2",
+      "themes": [
+        "teamwork",
+        "appreciation"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 52,
+      "category": "A",
+      "subcategory": "A1",
+      "themes": [
+        "timely",
+        "efficient"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 53,
+      "category": "A",
+      "subcategory": "A2",
+      "themes": [
+        "timely",
+        "supportive"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 53,
+      "category": "B",
+      "subcategory": "B3",
+      "themes": [
+        "collaborative",
+        "helpful"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 53,
+      "category": "D",
+      "subcategory": "D1",
+      "themes": [
+        "leading",
+        "informed"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 53,
+      "category": "A",
+      "subcategory": "A2",
+      "themes": [
+        "proactive",
+        "supportive"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 53,
+      "category": "G",
+      "subcategory": "G1",
+      "themes": [
+        "expressing",
+        "gratitude"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 54,
+      "category": "A",
+      "subcategory": "A2",
+      "themes": [
+        "proactive",
+        "help"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 54,
+      "category": "B",
+      "subcategory": "B3",
+      "themes": [
+        "collaboration",
+        "teamwork"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 54,
+      "category": "G",
+      "subcategory": "G2",
+      "themes": [
+        "appreciation",
+        "effort"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 54,
+      "category": "D",
+      "subcategory": "D1",
+      "themes": [
+        "guiding",
+        "mentoring"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 54,
+      "category": "C",
+      "subcategory": "C2",
+      "themes": [
+        "innovative",
+        "thinking"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 55,
+      "category": "G",
+      "subcategory": null,
+      "themes": [
+        "appreciation",
+        "gratitude"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 55,
+      "category": "F",
+      "subcategory": "F1",
+      "themes": [
+        "milestone",
+        "celebration"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 55,
+      "category": "C",
+      "subcategory": "C3",
+      "themes": [
+        "achievement",
+        "excellence"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 55,
+      "category": "A",
+      "subcategory": "A1",
+      "themes": [
+        "timely",
+        "assistance"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 55,
+      "category": "F",
+      "subcategory": "F3",
+      "themes": [
+        "teamwork",
+        "success"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 56,
+      "category": "H",
+      "subcategory": "H3",
+      "themes": [
+        "culture",
+        "teamwork"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 56,
+      "category": "G",
+      "subcategory": "G2",
+      "themes": [
+        "appreciation",
+        "effort"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 56,
+      "category": "C",
+      "subcategory": "C1",
+      "themes": [
+        "achievement",
+        "impact"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 56,
+      "category": "B",
+      "subcategory": "B2",
+      "themes": [
+        "teamwork",
+        "collaboration"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 56,
+      "category": "D",
+      "subcategory": "D1",
+      "themes": [
+        "mentoring",
+        "leadership"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 57,
+      "category": "H",
+      "subcategory": "H3",
+      "themes": [
+        "community",
+        "culture"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 57,
+      "category": "C",
+      "subcategory": "C1",
+      "themes": [
+        "innovation",
+        "results"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 57,
+      "category": "G",
+      "subcategory": "G1",
+      "themes": [
+        "appreciation",
+        "collaboration"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 57,
+      "category": "E",
+      "subcategory": "E2",
+      "themes": [
+        "kindness",
+        "support"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 57,
+      "category": "B",
+      "subcategory": "B1",
+      "themes": [
+        "teamwork",
+        "player"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 58,
+      "category": "A",
+      "subcategory": "A2",
+      "themes": [
+        "timely",
+        "help"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 58,
+      "category": "F",
+      "subcategory": "F1",
+      "themes": [
+        "milestone",
+        "achievement"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 58,
+      "category": "B",
+      "subcategory": "B1",
+      "themes": [
+        "teamwork",
+        "collaboration"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 58,
+      "category": "A",
+      "subcategory": "A2",
+      "themes": [
+        "help",
+        "effort"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 58,
+      "category": "C",
+      "subcategory": "C1",
+      "themes": [
+        "results",
+        "collaboration"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 59,
+      "category": "G",
+      "subcategory": "G1",
+      "themes": [
+        "appreciation",
+        "thanks"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 59,
+      "category": "A",
+      "subcategory": "A2",
+      "themes": [
+        "knowledge",
+        "support",
+        "response"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 59,
+      "category": "H",
+      "subcategory": "H1",
+      "themes": [
+        "culture",
+        "teamwork",
+        "celebration"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 59,
+      "category": "E",
+      "subcategory": "E2",
+      "themes": [
+        "kindness",
+        "care",
+        "support"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 59,
+      "category": "A",
+      "subcategory": "A2",
+      "themes": [
+        "knowledge",
+        "guidance",
+        "response"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 60,
+      "category": "C",
+      "subcategory": "C3",
+      "themes": [
+        "Excellence",
+        "Collaboration"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 60,
+      "category": "B",
+      "subcategory": "B1",
+      "themes": [
+        "Teamwork",
+        "Support"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 60,
+      "category": "D",
+      "subcategory": "D1",
+      "themes": [
+        "Leadership",
+        "Mentorship"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 60,
+      "category": "A",
+      "subcategory": "A2",
+      "themes": [
+        "Proactive",
+        "Expertise"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 60,
+      "category": "B",
+      "subcategory": "B1",
+      "themes": [
+        "Collaboration",
+        "Productivity"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 61,
+      "category": "B",
+      "subcategory": "B2",
+      "themes": [
+        "Supporting Colleagues",
+        "Building Strong Relationships"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 61,
+      "category": "D",
+      "subcategory": "D2",
+      "themes": [
+        "Leading by Example",
+        "Fostering Growth"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 61,
+      "category": "A",
+      "subcategory": "A2",
+      "themes": [
+        "Proactive Help",
+        "Teamwork and Collaboration"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 61,
+      "category": "D",
+      "subcategory": "D1",
+      "themes": [
+        "Guiding Others",
+        "Cultural Energizer"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 61,
+      "category": "C",
+      "subcategory": "C1",
+      "themes": [
+        "Driving Results",
+        "Momentum and Impact"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 62,
+      "category": "B",
+      "subcategory": "B2",
+      "themes": [
+        "teamwork",
+        "support"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 62,
+      "category": "A",
+      "subcategory": "A2",
+      "themes": [
+        "help",
+        "coordination"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 62,
+      "category": "F",
+      "subcategory": "F1",
+      "themes": [
+        "milestone",
+        "goodbye"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 62,
+      "category": "G",
+      "subcategory": "G2",
+      "themes": [
+        "appreciation",
+        "celebration"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 62,
+      "category": "E",
+      "subcategory": "E1",
+      "themes": [
+        "professionalism",
+        "expertise"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 63,
+      "category": "D",
+      "subcategory": "D2",
+      "themes": [
+        "leadership",
+        "example"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 63,
+      "category": "F",
+      "subcategory": "F3",
+      "themes": [
+        "milestone",
+        "success"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 63,
+      "category": "C",
+      "subcategory": "C1",
+      "themes": [
+        "innovation",
+        "results"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 63,
+      "category": "F",
+      "subcategory": "F3",
+      "themes": [
+        "milestone",
+        "success"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 63,
+      "category": "G",
+      "subcategory": "G1",
+      "themes": [
+        "celebration",
+        "family"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 64,
+      "category": "A",
+      "subcategory": "A2",
+      "themes": [
+        "Timely Assistance",
+        "Proactive Help"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 64,
+      "category": "B",
+      "subcategory": "B2",
+      "themes": [
+        "Collaborative Spirit",
+        "Supporting Colleagues"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 64,
+      "category": "C",
+      "subcategory": "C1",
+      "themes": [
+        "Driving Results"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 64,
+      "category": "G",
+      "subcategory": "G2",
+      "themes": [
+        "Recognizing Effort",
+        "Kindness and Empathy"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 64,
+      "category": "C",
+      "subcategory": "C1",
+      "themes": [
+        "Driving Results",
+        "Innovative Thinking"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 65,
+      "category": "A",
+      "subcategory": "A3",
+      "themes": [
+        "expert",
+        "help"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 65,
+      "category": "C",
+      "subcategory": "C1",
+      "themes": [
+        "achievement",
+        "impact"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 65,
+      "category": "E",
+      "subcategory": "E2",
+      "themes": [
+        "kindness",
+        "skills"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 65,
+      "category": "G",
+      "subcategory": "G1",
+      "themes": [
+        "gratitude",
+        "teamwork"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 65,
+      "category": "C",
+      "subcategory": "C3",
+      "themes": [
+        "excellence",
+        "design"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 66,
+      "category": "B",
+      "subcategory": "B2",
+      "themes": [
+        "Collaborative",
+        "Teamwork"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 66,
+      "category": "G",
+      "subcategory": "G1",
+      "themes": [
+        "Gratitude",
+        "Appreciation"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 66,
+      "category": "A",
+      "subcategory": "A2",
+      "themes": [
+        "Expertise",
+        "Supportive"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 66,
+      "category": "G",
+      "subcategory": "G1",
+      "themes": [
+        "Gratitude",
+        "Appreciation"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 66,
+      "category": "C",
+      "subcategory": "C1",
+      "themes": [
+        "Achievement",
+        "Success"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 67,
+      "category": "C",
+      "subcategory": "C3",
+      "themes": [
+        "achievement",
+        "results"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 67,
+      "category": "H",
+      "subcategory": "H1",
+      "themes": [
+        "teamwork",
+        "success"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 67,
+      "category": "B",
+      "subcategory": "B1",
+      "themes": [
+        "teamwork",
+        "collaboration"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 67,
+      "category": "C",
+      "subcategory": "C2",
+      "themes": [
+        "innovation",
+        "results"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 67,
+      "category": "G",
+      "subcategory": "G1",
+      "themes": [
+        "appreciation",
+        "thanks"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 68,
+      "category": "C",
+      "subcategory": "A2",
+      "themes": [
+        "Collaboration",
+        "Teamwork"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 68,
+      "category": "E",
+      "subcategory": "E3",
+      "themes": [
+        "Inspirational Leadership",
+        "Mentorship"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 68,
+      "category": "G",
+      "subcategory": "G1",
+      "themes": [
+        "Appreciation",
+        "Gratitude"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 68,
+      "category": "D",
+      "subcategory": "D2",
+      "themes": [
+        "Leadership",
+        "Empowerment"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 68,
+      "category": "G",
+      "subcategory": "G1",
+      "themes": [
+        "Appreciation",
+        "Gratitude"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 69,
+      "category": "A",
+      "subcategory": "A2",
+      "themes": [
+        "teamwork",
+        "appreciation"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 69,
+      "category": "A",
+      "subcategory": "A1",
+      "themes": [
+        "expertise",
+        "support"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 69,
+      "category": "C",
+      "subcategory": "C1",
+      "themes": [
+        "achievement",
+        "results"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 69,
+      "category": "C",
+      "subcategory": "C1",
+      "themes": [
+        "achievement",
+        "results"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 69,
+      "category": "B",
+      "subcategory": "B2",
+      "themes": [
+        "collaboration",
+        "innovation"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 70,
+      "category": "D",
+      "subcategory": "D2",
+      "themes": [
+        "leadership",
+        "mentoring"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 70,
+      "category": "C",
+      "subcategory": "C2",
+      "themes": [
+        "innovation",
+        "creativity"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 70,
+      "category": "G",
+      "subcategory": "G1",
+      "themes": [
+        "appreciation",
+        "gratitude"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 70,
+      "category": "B",
+      "subcategory": "B1",
+      "themes": [
+        "collaboration",
+        "teamwork"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 70,
+      "category": "C",
+      "subcategory": "C1",
+      "themes": [
+        "achievement",
+        "performance"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 72,
+      "category": "A",
+      "subcategory": "A2",
+      "themes": [
+        "expert guidance",
+        "leadership"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 72,
+      "category": "C",
+      "subcategory": "C1",
+      "themes": [
+        "innovation",
+        "results-driven"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 72,
+      "category": "B",
+      "subcategory": "B2",
+      "themes": [
+        "teamwork",
+        "collaboration",
+        "support"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 72,
+      "category": "G",
+      "subcategory": "G1",
+      "themes": [
+        "gratitude",
+        "appreciation"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 72,
+      "category": "E",
+      "subcategory": "E3",
+      "themes": [
+        "dedication",
+        "positive attitude"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 73,
+      "category": "A",
+      "subcategory": "A2",
+      "themes": [
+        "Support",
+        "Mentorship"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 73,
+      "category": "B",
+      "subcategory": "B3",
+      "themes": [
+        "Collaboration",
+        "Communication"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 73,
+      "category": "A",
+      "subcategory": "A1",
+      "themes": [
+        "Timely",
+        "Helpful"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 73,
+      "category": "B",
+      "subcategory": "B2",
+      "themes": [
+        "Teamwork",
+        "Investigation"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 73,
+      "category": "G",
+      "subcategory": "G1",
+      "themes": [
+        "Appreciation",
+        "Celebration"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 74,
+      "category": "A",
+      "subcategory": "A2",
+      "themes": [
+        "Proactive Help",
+        "Collaboration"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 74,
+      "category": "F",
+      "subcategory": "F1",
+      "themes": [
+        "Milestones",
+        "Successes"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 74,
+      "category": "B",
+      "subcategory": "B2",
+      "themes": [
+        "Kindness",
+        "Inclusion"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 74,
+      "category": "A",
+      "subcategory": "A1",
+      "themes": [
+        "Timely Assistance",
+        "Error Prevention"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 74,
+      "category": "B",
+      "subcategory": "B3",
+      "themes": [
+        "Teamwork",
+        "Support"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 75,
+      "category": "A",
+      "subcategory": "A2",
+      "themes": [
+        "proactive",
+        "help"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 75,
+      "category": "C",
+      "subcategory": "C2",
+      "themes": [
+        "innovative",
+        "results"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 75,
+      "category": "B",
+      "subcategory": "B1",
+      "themes": [
+        "teamwork",
+        "support"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 75,
+      "category": "B",
+      "subcategory": "B2",
+      "themes": [
+        "solidarity",
+        "communication"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 75,
+      "category": "C",
+      "subcategory": "C1",
+      "themes": [
+        "achievement",
+        "innovation"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 76,
+      "category": "B",
+      "subcategory": "A2",
+      "themes": [
+        "teamwork",
+        "support"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 76,
+      "category": "D",
+      "subcategory": "D3",
+      "themes": [
+        "mentoring",
+        "leadership"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 76,
+      "category": "F",
+      "subcategory": "F1",
+      "themes": [
+        "celebration",
+        "teamwork"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 76,
+      "category": "C",
+      "subcategory": "C2",
+      "themes": [
+        "innovation",
+        "collaboration"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 76,
+      "category": "G",
+      "subcategory": "G1",
+      "themes": [
+        "appreciation",
+        "gratitude"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 77,
+      "category": "A",
+      "subcategory": "A2",
+      "themes": [
+        "proactive",
+        "helpful"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 77,
+      "category": "D",
+      "subcategory": "D2",
+      "themes": [
+        "guiding",
+        "supportive"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 77,
+      "category": "B",
+      "subcategory": "B1",
+      "themes": [
+        "collaborative",
+        "helpful"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 77,
+      "category": "G",
+      "subcategory": "G1",
+      "themes": [
+        "appreciative",
+        "grateful"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 77,
+      "category": "H",
+      "subcategory": "H3",
+      "themes": [
+        "celebratory",
+        "acknowledging"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 78,
+      "category": "C",
+      "subcategory": "A2",
+      "themes": [
+        "teamwork",
+        "impact"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 78,
+      "category": "D",
+      "subcategory": "D3",
+      "themes": [
+        "leadership",
+        "collaboration"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 78,
+      "category": "G",
+      "subcategory": "G1",
+      "themes": [
+        "appreciation",
+        "thanks"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 78,
+      "category": "A",
+      "subcategory": "A2",
+      "themes": [
+        "support",
+        "collaboration"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 78,
+      "category": "B",
+      "subcategory": "B1",
+      "themes": [
+        "help",
+        "collaboration"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 79,
+      "category": "A",
+      "subcategory": "A2",
+      "themes": [
+        "proactive",
+        "help"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 79,
+      "category": "C",
+      "subcategory": "C3",
+      "themes": [
+        "excellence",
+        "commitment"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 79,
+      "category": "F",
+      "subcategory": "F1",
+      "themes": [
+        "milestone",
+        "achievement"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 79,
+      "category": "D",
+      "subcategory": "D2",
+      "themes": [
+        "initiative",
+        "leadership"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 79,
+      "category": "B",
+      "subcategory": "B1",
+      "themes": [
+        "collaboration",
+        "teamwork"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 80,
+      "category": "F",
+      "subcategory": null,
+      "themes": [
+        "milestones",
+        "success"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 80,
+      "category": "D",
+      "subcategory": "D2",
+      "themes": [
+        "leadership",
+        "collaboration"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 80,
+      "category": "C",
+      "subcategory": "C1",
+      "themes": [
+        "results",
+        "achievement"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 80,
+      "category": "B",
+      "subcategory": "B2",
+      "themes": [
+        "collaboration",
+        "support"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 80,
+      "category": "G",
+      "subcategory": "G1",
+      "themes": [
+        "appreciation",
+        "gratitude"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 81,
+      "category": "B",
+      "subcategory": "B3",
+      "themes": [
+        "Teamwork",
+        "Collaboration"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 81,
+      "category": "A",
+      "subcategory": "A2",
+      "themes": [
+        "Proactive Help",
+        "Expert Guidance"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 81,
+      "category": "B",
+      "subcategory": "B1",
+      "themes": [
+        "Collaboration",
+        "Support"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 81,
+      "category": "C",
+      "subcategory": "C2",
+      "themes": [
+        "Innovation",
+        "Achievement"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 81,
+      "category": "D",
+      "subcategory": "D1",
+      "themes": [
+        "Leadership",
+        "Mentoring"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 82,
+      "category": "G",
+      "subcategory": null,
+      "themes": [
+        "support",
+        "recovery"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 82,
+      "category": "C",
+      "subcategory": "C3",
+      "themes": [
+        "excellence",
+        "partnership"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 82,
+      "category": "H",
+      "subcategory": "H1",
+      "themes": [
+        "community",
+        "delight"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 82,
+      "category": "C",
+      "subcategory": "A2",
+      "themes": [
+        "excellence",
+        "attention to detail"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 82,
+      "category": "F",
+      "subcategory": "F1",
+      "themes": [
+        "success",
+        "achievement"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 83,
+      "category": "A",
+      "subcategory": "A2",
+      "themes": [
+        "expert guidance",
+        "support"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 83,
+      "category": "G",
+      "subcategory": "G1",
+      "themes": [
+        "gratitude",
+        "appreciation"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 83,
+      "category": "C",
+      "subcategory": "C3",
+      "themes": [
+        "excellence",
+        "achievement"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 83,
+      "category": "B",
+      "subcategory": "B2",
+      "themes": [
+        "collaboration",
+        "support"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 83,
+      "category": "F",
+      "subcategory": "F1",
+      "themes": [
+        "milestone",
+        "celebration"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 84,
+      "category": "A",
+      "subcategory": "A2",
+      "themes": [
+        "proactive",
+        "help"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 84,
+      "category": "B",
+      "subcategory": "B1",
+      "themes": [
+        "collaboration",
+        "teamwork"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 84,
+      "category": "G",
+      "subcategory": "G1",
+      "themes": [
+        "appreciation",
+        "thanks"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 84,
+      "category": "E",
+      "subcategory": "E2",
+      "themes": [
+        "kindness",
+        "legacy"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 84,
+      "category": "C",
+      "subcategory": "C1",
+      "themes": [
+        "achievement",
+        "results"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 85,
+      "category": "A",
+      "subcategory": "A3",
+      "themes": [
+        "expert guidance"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 85,
+      "category": "G",
+      "subcategory": "G1",
+      "themes": [
+        "appreciation",
+        "thanks"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 85,
+      "category": "A",
+      "subcategory": "A1",
+      "themes": [
+        "timely assistance",
+        "quick action"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 85,
+      "category": "B",
+      "subcategory": "B2",
+      "themes": [
+        "support",
+        "help"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 85,
+      "category": "C",
+      "subcategory": "C1",
+      "themes": [
+        "driving results",
+        "urgency"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 86,
+      "category": "A",
+      "subcategory": "A2",
+      "themes": [
+        "timely",
+        "collaboration"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 86,
+      "category": "A",
+      "subcategory": "A2",
+      "themes": [
+        "quick",
+        "helpful"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 86,
+      "category": "F",
+      "subcategory": "F1",
+      "themes": [
+        "milestone",
+        "celebration"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 86,
+      "category": "A",
+      "subcategory": "A2",
+      "themes": [
+        "responsive",
+        "supportive"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 86,
+      "category": "H",
+      "subcategory": "H1",
+      "themes": [
+        "fun",
+        "community"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 87,
+      "category": "A",
+      "subcategory": "A1",
+      "themes": [
+        "Timely Assistance"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 87,
+      "category": "B",
+      "subcategory": "D1",
+      "themes": [
+        "Leadership",
+        "Support"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 87,
+      "category": "E",
+      "subcategory": "A2",
+      "themes": [
+        "Guidance",
+        "Patience"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 87,
+      "category": "G",
+      "subcategory": "G1",
+      "themes": [
+        "Appreciation",
+        "Gratitude"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 87,
+      "category": "C",
+      "subcategory": "A2",
+      "themes": [
+        "Organization",
+        "Helpfulness"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 89,
+      "category": "F",
+      "subcategory": "F3",
+      "themes": [
+        "team success",
+        "extended cover"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 89,
+      "category": "C",
+      "subcategory": "C2",
+      "themes": [
+        "innovative thinking",
+        "change management",
+        "excellence program"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 89,
+      "category": "D",
+      "subcategory": "D1",
+      "themes": [
+        "guiding others",
+        "expertise",
+        "leadership"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 89,
+      "category": "B",
+      "subcategory": "B2",
+      "themes": [
+        "collaboration",
+        "customer service",
+        "outstanding support"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 89,
+      "category": "D",
+      "subcategory": "D1",
+      "themes": [
+        "guiding others",
+        "partnership",
+        "support and collaboration"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 90,
+      "category": "B",
+      "subcategory": "B1",
+      "themes": [
+        "Collaboration",
+        "Teamwork"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 90,
+      "category": "E",
+      "subcategory": "E1",
+      "themes": [
+        "Positive Energy",
+        "Dedication"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 90,
+      "category": "B",
+      "subcategory": "B2",
+      "themes": [
+        "Cross-Functional Collaboration",
+        "Teamwork"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 90,
+      "category": "A",
+      "subcategory": "A2",
+      "themes": [
+        "Proactive Help",
+        "Expert Guidance"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 90,
+      "category": "F",
+      "subcategory": "F1",
+      "themes": [
+        "Milestone",
+        "Long-Service Award"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 91,
+      "category": "C",
+      "subcategory": "C3",
+      "themes": [
+        "excellence",
+        "results"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 91,
+      "category": "G",
+      "subcategory": "G1",
+      "themes": [
+        "appreciation",
+        "thanks"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 91,
+      "category": "D",
+      "subcategory": "D2",
+      "themes": [
+        "leadership",
+        "expertise"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 91,
+      "category": "E",
+      "subcategory": "E1",
+      "themes": [
+        "perseverance",
+        "determination"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 91,
+      "category": "D",
+      "subcategory": "D2",
+      "themes": [
+        "leadership",
+        "mentoring"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 92,
+      "category": "G",
+      "subcategory": "G3",
+      "themes": [
+        "gratitude",
+        "teamwork"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 92,
+      "category": "A",
+      "subcategory": "A2",
+      "themes": [
+        "timely assistance",
+        "expert guidance"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 92,
+      "category": "F",
+      "subcategory": "F1",
+      "themes": [
+        "milestones",
+        "successes"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 92,
+      "category": "C",
+      "subcategory": "C2",
+      "themes": [
+        "innovative thinking",
+        "quick support"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 92,
+      "category": "F",
+      "subcategory": "F3",
+      "themes": [
+        "teamwork",
+        "successes"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 93,
+      "category": "G",
+      "subcategory": "G2",
+      "themes": [
+        "gratitude",
+        "help"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 93,
+      "category": "B",
+      "subcategory": "A3",
+      "themes": [
+        "collaboration",
+        "guidance"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 93,
+      "category": "D",
+      "subcategory": "D1",
+      "themes": [
+        "leadership",
+        "growth"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 93,
+      "category": "G",
+      "subcategory": "G2",
+      "themes": [
+        "teamwork",
+        "appreciation"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 93,
+      "category": "C",
+      "subcategory": "C1",
+      "themes": [
+        "innovation",
+        "excellence"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 94,
+      "category": "F",
+      "subcategory": "F3",
+      "themes": [
+        "team success"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 94,
+      "category": "G",
+      "subcategory": "G1",
+      "themes": [
+        "expressing thanks",
+        "appreciation"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 94,
+      "category": "A",
+      "subcategory": "A2",
+      "themes": [
+        "proactive help",
+        "timely responses"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 94,
+      "category": "C",
+      "subcategory": "C1",
+      "themes": [
+        "driving results",
+        "excellence in work"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 94,
+      "category": "D",
+      "subcategory": "D1",
+      "themes": [
+        "guiding others",
+        "mentoring"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 95,
+      "category": "A",
+      "subcategory": "A2",
+      "themes": [
+        "timely",
+        "helpful"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 95,
+      "category": "A",
+      "subcategory": "A2",
+      "themes": [
+        "proactive",
+        "supportive"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 95,
+      "category": "F",
+      "subcategory": "F1",
+      "themes": [
+        "celebrating",
+        "teamwork"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 95,
+      "category": "C",
+      "subcategory": "C1",
+      "themes": [
+        "achievement",
+        "leadership"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 95,
+      "category": "F",
+      "subcategory": "F2",
+      "themes": [
+        "celebrating",
+        "success"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 96,
+      "category": "A",
+      "subcategory": "A2",
+      "themes": [
+        "support",
+        "appreciation"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 96,
+      "category": "F",
+      "subcategory": "F3",
+      "themes": [
+        "success",
+        "teamwork"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 96,
+      "category": "F",
+      "subcategory": "F3",
+      "themes": [
+        "success",
+        "teamwork"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 96,
+      "category": "A",
+      "subcategory": "A2",
+      "themes": [
+        "support",
+        "helpfulness"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 96,
+      "category": "G",
+      "subcategory": "G1",
+      "themes": [
+        "appreciation",
+        "gratitude"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 97,
+      "category": "C",
+      "subcategory": "C3",
+      "themes": [
+        "excellence",
+        "work"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 97,
+      "category": "B",
+      "subcategory": "A2",
+      "themes": [
+        "help",
+        "support"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 97,
+      "category": "C",
+      "subcategory": "C1",
+      "themes": [
+        "results",
+        "output"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 97,
+      "category": "B",
+      "subcategory": "B2",
+      "themes": [
+        "collaboration",
+        "partnership"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 97,
+      "category": "E",
+      "subcategory": "E1",
+      "themes": [
+        "attitude",
+        "effort"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 98,
+      "category": "A",
+      "subcategory": "A2",
+      "themes": [
+        "participation",
+        "teamwork"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 98,
+      "category": "D",
+      "subcategory": "D3",
+      "themes": [
+        "mentoring",
+        "leadership"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 98,
+      "category": "A",
+      "subcategory": "A1",
+      "themes": [
+        "expertise",
+        "flexibility"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 98,
+      "category": "G",
+      "subcategory": "G2",
+      "themes": [
+        "appreciation",
+        "recognition"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 98,
+      "category": "B",
+      "subcategory": "B1",
+      "themes": [
+        "collaboration",
+        "resilience"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 99,
+      "category": "A",
+      "subcategory": "A2",
+      "themes": [
+        "support",
+        "proactive"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 99,
+      "category": "B",
+      "subcategory": "B3",
+      "themes": [
+        "collaboration",
+        "teamwork"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 99,
+      "category": "E",
+      "subcategory": null,
+      "themes": [
+        "energy",
+        "enthusiasm"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 99,
+      "category": "C",
+      "subcategory": "C1",
+      "themes": [
+        "results",
+        "achievement"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 99,
+      "category": "B",
+      "subcategory": "B2",
+      "themes": [
+        "collaboration",
+        "teamwork"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 100,
+      "category": "A",
+      "subcategory": "A2",
+      "themes": [
+        "guidance",
+        "support"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 100,
+      "category": "A",
+      "subcategory": "A2",
+      "themes": [
+        "help",
+        "patience"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 100,
+      "category": "B",
+      "subcategory": "B1",
+      "themes": [
+        "teamwork",
+        "commitment"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 100,
+      "category": "G",
+      "subcategory": "G2",
+      "themes": [
+        "appreciation",
+        "flexibility"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 100,
+      "category": "C",
+      "subcategory": "C1",
+      "themes": [
+        "innovation",
+        "results"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 101,
+      "category": "G",
+      "subcategory": "G2",
+      "themes": [
+        "welcome",
+        "support"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 101,
+      "category": "C",
+      "subcategory": "C3",
+      "themes": [
+        "success",
+        "teamwork"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 101,
+      "category": "E",
+      "subcategory": "E1",
+      "themes": [
+        "achievement",
+        "excellence"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 101,
+      "category": "A",
+      "subcategory": "A2",
+      "themes": [
+        "help",
+        "support"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 101,
+      "category": "D",
+      "subcategory": "D3",
+      "themes": [
+        "leadership",
+        "efficiency"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 102,
+      "category": "A",
+      "subcategory": "A2",
+      "themes": [
+        "Support",
+        "Collaboration"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 102,
+      "category": "C",
+      "subcategory": "C3",
+      "themes": [
+        "Achievement",
+        "Excellence"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 102,
+      "category": "G",
+      "subcategory": "G1",
+      "themes": [
+        "Gratitude",
+        "Appreciation"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 102,
+      "category": "B",
+      "subcategory": "B2",
+      "themes": [
+        "Collaboration",
+        "Teamwork"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 102,
+      "category": "A",
+      "subcategory": "A1",
+      "themes": [
+        "Timely Assistance",
+        "Customer Service"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 103,
+      "category": "F",
+      "subcategory": null,
+      "themes": [
+        "career milestone",
+        "team success"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 103,
+      "category": "A",
+      "subcategory": "A2",
+      "themes": [
+        "proactive help",
+        "problem-solving"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 103,
+      "category": "C",
+      "subcategory": "C1",
+      "themes": [
+        "innovative thinking",
+        "creativity"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 103,
+      "category": "B",
+      "subcategory": "B2",
+      "themes": [
+        "collaboration",
+        "kindness"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 103,
+      "category": "G",
+      "subcategory": null,
+      "themes": [
+        "appreciation",
+        "gratitude"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 104,
+      "category": "H",
+      "subcategory": null,
+      "themes": [
+        "community",
+        "culture"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 104,
+      "category": "C",
+      "subcategory": "C3",
+      "themes": [
+        "excellence",
+        "results"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 104,
+      "category": "B",
+      "subcategory": "A2",
+      "themes": [
+        "collaboration",
+        "support"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 104,
+      "category": "F",
+      "subcategory": "F1",
+      "themes": [
+        "milestones",
+        "successes"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 104,
+      "category": "B",
+      "subcategory": "C3",
+      "themes": [
+        "teamwork",
+        "achievement"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 105,
+      "category": "C",
+      "subcategory": "A2",
+      "themes": [
+        "domain",
+        "knowledge"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 105,
+      "category": "D",
+      "subcategory": "D3",
+      "themes": [
+        "guidance",
+        "support"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 105,
+      "category": "B",
+      "subcategory": "B2",
+      "themes": [
+        "professionalism",
+        "discretion"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 105,
+      "category": "G",
+      "subcategory": "G1",
+      "themes": [
+        "appreciation",
+        "teamwork"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 105,
+      "category": "D",
+      "subcategory": "D2",
+      "themes": [
+        "leadership",
+        "mentoring"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 106,
+      "category": "G",
+      "subcategory": null,
+      "themes": [
+        "teamwork",
+        "appreciation"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 106,
+      "category": "A",
+      "subcategory": "A2",
+      "themes": [
+        "expertise",
+        "support"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 106,
+      "category": "G",
+      "subcategory": null,
+      "themes": [
+        "effort",
+        "appreciation"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 106,
+      "category": "C",
+      "subcategory": "C1",
+      "themes": [
+        "achievement",
+        "innovation"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 106,
+      "category": "C",
+      "subcategory": "C2",
+      "themes": [
+        "innovation",
+        "excellence"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 107,
+      "category": "A",
+      "subcategory": "A2",
+      "themes": [
+        "teamwork",
+        "support"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 107,
+      "category": "E",
+      "subcategory": null,
+      "themes": [
+        "friendship",
+        "appreciation"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 107,
+      "category": "A",
+      "subcategory": "A1",
+      "themes": [
+        "help",
+        "guidance"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 107,
+      "category": "B",
+      "subcategory": "B1",
+      "themes": [
+        "collaboration",
+        "teamwork"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 107,
+      "category": "G",
+      "subcategory": "G2",
+      "themes": [
+        "appreciation",
+        "gratitude"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 108,
+      "category": "A",
+      "subcategory": "A2",
+      "themes": [
+        "timely",
+        "supportive"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 108,
+      "category": "C",
+      "subcategory": "C2",
+      "themes": [
+        "innovative",
+        "helpful"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 108,
+      "category": "A",
+      "subcategory": "A1",
+      "themes": [
+        "timely",
+        "efficient"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 108,
+      "category": "F",
+      "subcategory": "F1",
+      "themes": [
+        "success",
+        "achievement"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 108,
+      "category": "F",
+      "subcategory": "F1",
+      "themes": [
+        "success",
+        "achievement"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 109,
+      "category": "A",
+      "subcategory": "A2",
+      "themes": [
+        "proactive",
+        "help"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 109,
+      "category": "G",
+      "subcategory": "G1",
+      "themes": [
+        "thanks",
+        "appreciation"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 109,
+      "category": "B",
+      "subcategory": "B2",
+      "themes": [
+        "teamwork",
+        "collaboration"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 109,
+      "category": "E",
+      "subcategory": "E1",
+      "themes": [
+        "positive",
+        "attitude"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 109,
+      "category": "F",
+      "subcategory": "F2",
+      "themes": [
+        "successes",
+        "milestones"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 110,
+      "category": "F",
+      "subcategory": "F3",
+      "themes": [
+        "team success",
+        "collaboration"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 110,
+      "category": "A",
+      "subcategory": "A2",
+      "themes": [
+        "timely support",
+        "commitment"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 110,
+      "category": "B",
+      "subcategory": "B1",
+      "themes": [
+        "energy",
+        "engagement",
+        "teamwork"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 110,
+      "category": "C",
+      "subcategory": "C1",
+      "themes": [
+        "results-driven",
+        "problem-solving"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 110,
+      "category": "G",
+      "subcategory": "G2",
+      "themes": [
+        "appreciation",
+        "support"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 111,
+      "category": "G",
+      "subcategory": "G3",
+      "themes": [
+        "appreciation",
+        "gratitude"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 111,
+      "category": "C",
+      "subcategory": "C1",
+      "themes": [
+        "innovation",
+        "results"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 111,
+      "category": "D",
+      "subcategory": "D1",
+      "themes": [
+        "mentoring",
+        "growth"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 111,
+      "category": "C",
+      "subcategory": "C2",
+      "themes": [
+        "teamwork",
+        "achievement"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 111,
+      "category": "D",
+      "subcategory": "D2",
+      "themes": [
+        "leadership",
+        "guidance"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 112,
+      "category": "A",
+      "subcategory": "A2",
+      "themes": [
+        "proactive",
+        "help"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 112,
+      "category": "F",
+      "subcategory": "F1",
+      "themes": [
+        "celebrate",
+        "birthday"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 112,
+      "category": "C",
+      "subcategory": "C1",
+      "themes": [
+        "achievement",
+        "success"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 112,
+      "category": "D",
+      "subcategory": "D2",
+      "themes": [
+        "leadership",
+        "guidance"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 112,
+      "category": "C",
+      "subcategory": "C1",
+      "themes": [
+        "innovation",
+        "collaboration"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 113,
+      "category": "C",
+      "subcategory": "C3",
+      "themes": [
+        "Excellence",
+        "Results"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 113,
+      "category": "G",
+      "subcategory": "G2",
+      "themes": [
+        "Effort",
+        "Support"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 113,
+      "category": "C",
+      "subcategory": "C1",
+      "themes": [
+        "Innovation",
+        "Productivity"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 113,
+      "category": "D",
+      "subcategory": "D2",
+      "themes": [
+        "Leadership",
+        "Collaboration"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 113,
+      "category": "C",
+      "subcategory": "C2",
+      "themes": [
+        "Innovation",
+        "Achievement"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 114,
+      "category": "C",
+      "subcategory": "C2",
+      "themes": [
+        "innovation",
+        "achievement"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 114,
+      "category": "C",
+      "subcategory": "C2",
+      "themes": [
+        "innovation",
+        "teamwork"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 114,
+      "category": "G",
+      "subcategory": "G1",
+      "themes": [
+        "appreciation",
+        "gratitude"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 114,
+      "category": "A",
+      "subcategory": "A2",
+      "themes": [
+        "support",
+        "proactivity"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 114,
+      "category": "G",
+      "subcategory": "G1",
+      "themes": [
+        "appreciation",
+        "thanks"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 115,
+      "category": "A",
+      "subcategory": "A2",
+      "themes": [
+        "support",
+        "help"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 115,
+      "category": "B",
+      "subcategory": "B3",
+      "themes": [
+        "teamwork",
+        "collaboration"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 115,
+      "category": "C",
+      "subcategory": "A2",
+      "themes": [
+        "knowledge sharing",
+        "support"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 115,
+      "category": "F",
+      "subcategory": "F1",
+      "themes": [
+        "milestone",
+        "achievement"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 115,
+      "category": "C",
+      "subcategory": "A2",
+      "themes": [
+        "help",
+        "assistance"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 116,
+      "category": "A",
+      "subcategory": "A2",
+      "themes": [
+        "proactive",
+        "help"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 116,
+      "category": "C",
+      "subcategory": "C1",
+      "themes": [
+        "initiative",
+        "excellence"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 116,
+      "category": "B",
+      "subcategory": "B1",
+      "themes": [
+        "teamwork",
+        "collaboration"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 116,
+      "category": "G",
+      "subcategory": "G2",
+      "themes": [
+        "effort",
+        "appreciation"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 116,
+      "category": "C",
+      "subcategory": "C1",
+      "themes": [
+        "achievement",
+        "dedication"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 117,
+      "category": "F",
+      "subcategory": "F2",
+      "themes": [
+        "celebration",
+        "milestone"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 117,
+      "category": "C",
+      "subcategory": "C3",
+      "themes": [
+        "excellence",
+        "results",
+        "teamwork"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 117,
+      "category": "B",
+      "subcategory": "B1",
+      "themes": [
+        "collaboration",
+        "support",
+        "partnership"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 117,
+      "category": "A",
+      "subcategory": "A2",
+      "themes": [
+        "proactive",
+        "help",
+        "expertise"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 117,
+      "category": "E",
+      "subcategory": "E1",
+      "themes": [
+        "energy",
+        "enthusiasm",
+        "inspiration"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 118,
+      "category": "G",
+      "subcategory": "G3",
+      "themes": [
+        "teamwork",
+        "appreciation"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 118,
+      "category": "C",
+      "subcategory": "C3",
+      "themes": [
+        "achievement",
+        "collaboration"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 118,
+      "category": "E",
+      "subcategory": "E1",
+      "themes": [
+        "exceptional work",
+        "talent"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 118,
+      "category": "D",
+      "subcategory": "D2",
+      "themes": [
+        "leadership",
+        "teamwork"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 118,
+      "category": "C",
+      "subcategory": "C1",
+      "themes": [
+        "achievement",
+        "innovation"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 119,
+      "category": "B",
+      "subcategory": "B3",
+      "themes": [
+        "teamwork",
+        "support"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 119,
+      "category": "C",
+      "subcategory": "C1",
+      "themes": [
+        "innovation",
+        "impact"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 119,
+      "category": "B",
+      "subcategory": "B2",
+      "themes": [
+        "collaboration",
+        "help"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 119,
+      "category": "C",
+      "subcategory": "C3",
+      "themes": [
+        "achievement",
+        "excellence"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 119,
+      "category": "G",
+      "subcategory": "G1",
+      "themes": [
+        "appreciation",
+        "teamwork"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 120,
+      "category": "C",
+      "subcategory": "C3",
+      "themes": [
+        "excellence",
+        "achievement"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 120,
+      "category": "B",
+      "subcategory": "B1",
+      "themes": [
+        "collaboration",
+        "teamwork"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 120,
+      "category": "G",
+      "subcategory": "G1",
+      "themes": [
+        "appreciation",
+        "gratitude"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 120,
+      "category": "A",
+      "subcategory": "A2",
+      "themes": [
+        "proactive help",
+        "expertise"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 120,
+      "category": "E",
+      "subcategory": "E3",
+      "themes": [
+        "dedication",
+        "perseverance"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 121,
+      "category": "G",
+      "subcategory": "G3",
+      "themes": [
+        "appreciation",
+        "teamwork"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 121,
+      "category": "D",
+      "subcategory": "D2",
+      "themes": [
+        "leadership",
+        "resilience"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 121,
+      "category": "C",
+      "subcategory": "C1",
+      "themes": [
+        "achievement",
+        "perseverance"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 121,
+      "category": "A",
+      "subcategory": "A2",
+      "themes": [
+        "expertise",
+        "collaboration"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 121,
+      "category": "B",
+      "subcategory": "B1",
+      "themes": [
+        "teamwork",
+        "partnership"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 122,
+      "category": "C",
+      "subcategory": "C3",
+      "themes": [
+        "excellence",
+        "teamwork"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 122,
+      "category": "D",
+      "subcategory": "D2",
+      "themes": [
+        "leadership",
+        "appreciation"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 122,
+      "category": "C",
+      "subcategory": "C1",
+      "themes": [
+        "achievement",
+        "teamwork"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 122,
+      "category": "G",
+      "subcategory": "G2",
+      "themes": [
+        "appreciation",
+        "gratitude"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 122,
+      "category": "F",
+      "subcategory": "F1",
+      "themes": [
+        "milestone",
+        "celebration"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 123,
+      "category": "C",
+      "subcategory": "C2",
+      "themes": [
+        "Innovative Thinking",
+        "Recognition"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 123,
+      "category": "C",
+      "subcategory": "C3",
+      "themes": [
+        "Excellence in Work",
+        "Process Improvement"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 123,
+      "category": "B",
+      "subcategory": "B1",
+      "themes": [
+        "Teamwork",
+        "Collaboration"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 123,
+      "category": "G",
+      "subcategory": "G2",
+      "themes": [
+        "Appreciation",
+        "Support"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 123,
+      "category": "A",
+      "subcategory": "A1",
+      "themes": [
+        "Timely Assistance",
+        "Help"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 124,
+      "category": "A",
+      "subcategory": "A2",
+      "themes": [
+        "proactive",
+        "helpful"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 124,
+      "category": "E",
+      "subcategory": "E3",
+      "themes": [
+        "dedicated",
+        "careful"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 124,
+      "category": "G",
+      "subcategory": "G1",
+      "themes": [
+        "appreciation",
+        "teamwork"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 124,
+      "category": "A",
+      "subcategory": "A2",
+      "themes": [
+        "swift",
+        "helpful"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 124,
+      "category": "C",
+      "subcategory": "C1",
+      "themes": [
+        "expertise",
+        "supportive"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 125,
+      "category": "A",
+      "subcategory": "A3",
+      "themes": [
+        "Expert Guidance",
+        "Reliability"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 125,
+      "category": "B",
+      "subcategory": "D2",
+      "themes": [
+        "Partnership",
+        "Gratitude"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 125,
+      "category": "C",
+      "subcategory": "C1",
+      "themes": [
+        "Commitment",
+        "Excellence"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 125,
+      "category": "B",
+      "subcategory": "B2",
+      "themes": [
+        "Support",
+        "Teamwork"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 125,
+      "category": "G",
+      "subcategory": "G1",
+      "themes": [
+        "Appreciation",
+        "Dedication"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 126,
+      "category": "A",
+      "subcategory": "A2",
+      "themes": [
+        "timely",
+        "helpful"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 126,
+      "category": "G",
+      "subcategory": "G2",
+      "themes": [
+        "appreciation",
+        "gratitude"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 126,
+      "category": "B",
+      "subcategory": "B1",
+      "themes": [
+        "collaboration",
+        "teamwork"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 126,
+      "category": "D",
+      "subcategory": "D2",
+      "themes": [
+        "mentoring",
+        "guidance"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 126,
+      "category": "C",
+      "subcategory": "C1",
+      "themes": [
+        "achievement",
+        "results"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 127,
+      "category": "A",
+      "subcategory": "A2",
+      "themes": [
+        "teamwork",
+        "support"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 127,
+      "category": "D",
+      "subcategory": "D2",
+      "themes": [
+        "leadership",
+        "guiding"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 127,
+      "category": "C",
+      "subcategory": "C1",
+      "themes": [
+        "planning",
+        "collaboration"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 127,
+      "category": "B",
+      "subcategory": "B2",
+      "themes": [
+        "collaboration",
+        "volunteering"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 127,
+      "category": "C",
+      "subcategory": "C3",
+      "themes": [
+        "teamwork",
+        "achievement"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 128,
+      "category": "C",
+      "subcategory": "C3",
+      "themes": [
+        "excellence",
+        "work"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 128,
+      "category": "D",
+      "subcategory": "D2",
+      "themes": [
+        "leadership",
+        "guidance"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 128,
+      "category": "H",
+      "subcategory": null,
+      "themes": [
+        "culture",
+        "team"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 128,
+      "category": "D",
+      "subcategory": "D1",
+      "themes": [
+        "leadership",
+        "growth"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 128,
+      "category": "G",
+      "subcategory": "G2",
+      "themes": [
+        "gratitude",
+        "support"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 129,
+      "category": "A",
+      "subcategory": "A2",
+      "themes": [
+        "teamwork",
+        "support"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 129,
+      "category": "F",
+      "subcategory": "F1",
+      "themes": [
+        "celebration",
+        "milestone"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 129,
+      "category": "A",
+      "subcategory": "A2",
+      "themes": [
+        "help",
+        "review"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 129,
+      "category": "A",
+      "subcategory": "A1",
+      "themes": [
+        "timely",
+        "assistance"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 129,
+      "category": "G",
+      "subcategory": "G2",
+      "themes": [
+        "appreciation",
+        "support"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 130,
+      "category": "C",
+      "subcategory": "A3",
+      "themes": [
+        "Expert Guidance",
+        "Achievement"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 130,
+      "category": "B",
+      "subcategory": "F1",
+      "themes": [
+        "Teamwork",
+        "Milestone"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 130,
+      "category": "G",
+      "subcategory": "E1",
+      "themes": [
+        "Appreciation",
+        "Relationship"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 130,
+      "category": "C",
+      "subcategory": "A2",
+      "themes": [
+        "Innovation",
+        "Achievement"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 130,
+      "category": "A",
+      "subcategory": "A1",
+      "themes": [
+        "Timely Assistance",
+        "Responsiveness"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 131,
+      "category": "G",
+      "subcategory": "G2",
+      "themes": [
+        "appreciation",
+        "effort"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 131,
+      "category": "A",
+      "subcategory": "A2",
+      "themes": [
+        "timely assistance",
+        "expert guidance"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 131,
+      "category": "F",
+      "subcategory": "F1",
+      "themes": [
+        "milestone",
+        "achievement"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 131,
+      "category": "G",
+      "subcategory": "G1",
+      "themes": [
+        "thanks",
+        "appreciation"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 131,
+      "category": "B",
+      "subcategory": "B2",
+      "themes": [
+        "partnership",
+        "collaboration"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 132,
+      "category": "F",
+      "subcategory": "F2",
+      "themes": [
+        "milestones",
+        "success"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 132,
+      "category": "A",
+      "subcategory": "A2",
+      "themes": [
+        "support",
+        "help"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 132,
+      "category": "G",
+      "subcategory": "G1",
+      "themes": [
+        "appreciation",
+        "thanks"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 132,
+      "category": "C",
+      "subcategory": "C2",
+      "themes": [
+        "performance",
+        "achievement"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 132,
+      "category": "F",
+      "subcategory": "F1",
+      "themes": [
+        "celebration",
+        "birthday"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 133,
+      "category": "F",
+      "subcategory": "F3",
+      "themes": [
+        "team success",
+        "achievement"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 133,
+      "category": "D",
+      "subcategory": "D2",
+      "themes": [
+        "leadership",
+        "support"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 133,
+      "category": "G",
+      "subcategory": "G1",
+      "themes": [
+        "appreciation",
+        "helpful"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 133,
+      "category": "B",
+      "subcategory": "B2",
+      "themes": [
+        "teamwork",
+        "supportive"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 133,
+      "category": "F",
+      "subcategory": "F1",
+      "themes": [
+        "celebration",
+        "milestone"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 134,
+      "category": "F",
+      "subcategory": "F1",
+      "themes": [
+        "celebration",
+        "milestone"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 134,
+      "category": "A",
+      "subcategory": "A2",
+      "themes": [
+        "helpful",
+        "timely"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 134,
+      "category": "B",
+      "subcategory": "B1",
+      "themes": [
+        "collaboration",
+        "appreciation"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 134,
+      "category": "E",
+      "subcategory": "E2",
+      "themes": [
+        "dedication",
+        "excellence"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 134,
+      "category": "B",
+      "subcategory": "B3",
+      "themes": [
+        "teamwork",
+        "coordination"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 136,
+      "category": "E",
+      "subcategory": "E3",
+      "themes": [
+        "dedication",
+        "perseverance"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 136,
+      "category": "A",
+      "subcategory": "A2",
+      "themes": [
+        "timely",
+        "proactive"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 136,
+      "category": "G",
+      "subcategory": "G1",
+      "themes": [
+        "appreciation",
+        "gratitude"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 136,
+      "category": "A",
+      "subcategory": "A2",
+      "themes": [
+        "professional",
+        "helpful"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 136,
+      "category": "E",
+      "subcategory": "E2",
+      "themes": [
+        "kindness",
+        "professionalism"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 137,
+      "category": "A",
+      "subcategory": "A2",
+      "themes": [
+        "timely",
+        "help"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 137,
+      "category": "B",
+      "subcategory": "B3",
+      "themes": [
+        "teamwork",
+        "support"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 137,
+      "category": "F",
+      "subcategory": "F1",
+      "themes": [
+        "milestone",
+        "celebrate"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 137,
+      "category": "D",
+      "subcategory": "D2",
+      "themes": [
+        "mentorship",
+        "knowledge"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 137,
+      "category": "G",
+      "subcategory": null,
+      "themes": [
+        "congratulate",
+        "celebrate"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 138,
+      "category": "A",
+      "subcategory": "A2",
+      "themes": [
+        "Timely Assistance",
+        "Communication"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 138,
+      "category": "B",
+      "subcategory": "B1",
+      "themes": [
+        "Collaboration",
+        "Partnership",
+        "Positive Energy"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 138,
+      "category": "A",
+      "subcategory": "A2",
+      "themes": [
+        "Agility",
+        "Proactivity",
+        "Flexibility"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 138,
+      "category": "C",
+      "subcategory": "C1",
+      "themes": [
+        "Innovation",
+        "Achievement",
+        "Excellence"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 138,
+      "category": "G",
+      "subcategory": "G2",
+      "themes": [
+        "Knowledge Sharing",
+        "Integration",
+        "Collaboration"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 139,
+      "category": "B",
+      "subcategory": "B1",
+      "themes": [
+        "teamwork",
+        "collaboration"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 139,
+      "category": "G",
+      "subcategory": "G3",
+      "themes": [
+        "appreciation",
+        "gratitude"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 139,
+      "category": "D",
+      "subcategory": "D1",
+      "themes": [
+        "leadership",
+        "mentoring"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 139,
+      "category": "C",
+      "subcategory": "A2",
+      "themes": [
+        "innovation",
+        "support"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 139,
+      "category": "E",
+      "subcategory": "E3",
+      "themes": [
+        "dedication",
+        "professionalism"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 140,
+      "category": "E",
+      "subcategory": "E3",
+      "themes": [
+        "dedication",
+        "perseverance"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 140,
+      "category": "C",
+      "subcategory": "C2",
+      "themes": [
+        "initiative",
+        "innovation"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 140,
+      "category": "A",
+      "subcategory": "A2",
+      "themes": [
+        "proactive",
+        "helpful"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 140,
+      "category": "G",
+      "subcategory": "G1",
+      "themes": [
+        "appreciation",
+        "thanks"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 140,
+      "category": "F",
+      "subcategory": "F2",
+      "themes": [
+        "celebration",
+        "birthday"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 141,
+      "category": "D",
+      "subcategory": "D2",
+      "themes": [
+        "leadership",
+        "mentoring"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 141,
+      "category": "B",
+      "subcategory": "A2",
+      "themes": [
+        "teamwork",
+        "collaboration",
+        "support"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 141,
+      "category": "C",
+      "subcategory": "A2",
+      "themes": [
+        "innovation",
+        "expertise",
+        "proactivity"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 141,
+      "category": "E",
+      "subcategory": "A1",
+      "themes": [
+        "helpfulness",
+        "kindness",
+        "timeliness"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 141,
+      "category": "F",
+      "subcategory": "F2",
+      "themes": [
+        "success",
+        "achievement",
+        "appreciation"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 142,
+      "category": "A",
+      "subcategory": "A2",
+      "themes": [
+        "timely",
+        "proactive"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 142,
+      "category": "G",
+      "subcategory": "G3",
+      "themes": [
+        "appreciation",
+        "teamwork"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 142,
+      "category": "A",
+      "subcategory": "A1",
+      "themes": [
+        "expertise",
+        "supportive"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 142,
+      "category": "G",
+      "subcategory": "G2",
+      "themes": [
+        "appreciation",
+        "effort"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 142,
+      "category": "A",
+      "subcategory": "A1",
+      "themes": [
+        "timely",
+        "supportive"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 143,
+      "category": "F",
+      "subcategory": "F1",
+      "themes": [
+        "celebration",
+        "teamwork"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 143,
+      "category": "G",
+      "subcategory": "G1",
+      "themes": [
+        "gratitude",
+        "appreciation"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 143,
+      "category": "C",
+      "subcategory": "C1",
+      "themes": [
+        "support",
+        "achievement"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 143,
+      "category": "A",
+      "subcategory": "A2",
+      "themes": [
+        "help",
+        "expertise"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 143,
+      "category": "B",
+      "subcategory": "B1",
+      "themes": [
+        "collaboration",
+        "teamwork"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 144,
+      "category": "A",
+      "subcategory": "A3",
+      "themes": [
+        "Expert Guidance"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 144,
+      "category": "D",
+      "subcategory": "D2",
+      "themes": [
+        "Leading by Example",
+        "Proactiveness"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 144,
+      "category": "B",
+      "subcategory": "B1",
+      "themes": [
+        "Collaboration",
+        "Teamwork"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 144,
+      "category": "C",
+      "subcategory": "C2",
+      "themes": [
+        "Innovative Thinking",
+        "Prototype"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 144,
+      "category": "F",
+      "subcategory": "F1",
+      "themes": [
+        "Welcoming",
+        "Success"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 145,
+      "category": "A",
+      "subcategory": "A2",
+      "themes": [
+        "timely assistance",
+        "guidance"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 145,
+      "category": "A",
+      "subcategory": "A2",
+      "themes": [
+        "expert guidance",
+        "support"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 145,
+      "category": "C",
+      "subcategory": "C1",
+      "themes": [
+        "achievement",
+        "results"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 145,
+      "category": "E",
+      "subcategory": "E2",
+      "themes": [
+        "kindness",
+        "empathy"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 145,
+      "category": "B",
+      "subcategory": "B1",
+      "themes": [
+        "teamwork",
+        "collaboration"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 146,
+      "category": "G",
+      "subcategory": "G1",
+      "themes": [
+        "appreciation",
+        "teamwork"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 146,
+      "category": "C",
+      "subcategory": "C3",
+      "themes": [
+        "excellence",
+        "results"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 146,
+      "category": "A",
+      "subcategory": "A2",
+      "themes": [
+        "help",
+        "support"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 146,
+      "category": "C",
+      "subcategory": "C1",
+      "themes": [
+        "drive",
+        "results"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 146,
+      "category": "D",
+      "subcategory": "D2",
+      "themes": [
+        "guiding",
+        "mentoring"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 147,
+      "category": "A",
+      "subcategory": "A2",
+      "themes": [
+        "proactive",
+        "helpful"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 147,
+      "category": "G",
+      "subcategory": "G1",
+      "themes": [
+        "appreciation",
+        "thanks"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 147,
+      "category": "C",
+      "subcategory": "C1",
+      "themes": [
+        "drive",
+        "achievement"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 147,
+      "category": "B",
+      "subcategory": "B2",
+      "themes": [
+        "teamwork",
+        "supportive"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 147,
+      "category": "A",
+      "subcategory": "A1",
+      "themes": [
+        "timely",
+        "helpful"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 148,
+      "category": "A",
+      "subcategory": "A2",
+      "themes": [
+        "timely",
+        "supportive"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 148,
+      "category": "C",
+      "subcategory": "C3",
+      "themes": [
+        "excellent",
+        "translation"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 148,
+      "category": "G",
+      "subcategory": "G1",
+      "themes": [
+        "appreciative",
+        "managerial"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 148,
+      "category": "C",
+      "subcategory": "C2",
+      "themes": [
+        "creative",
+        "quick"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 148,
+      "category": "F",
+      "subcategory": "F1",
+      "themes": [
+        "congratulatory",
+        "achievement"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 149,
+      "category": "F",
+      "subcategory": "F1",
+      "themes": [
+        "birthday",
+        "celebration"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 149,
+      "category": "B",
+      "subcategory": "B3",
+      "themes": [
+        "teamwork",
+        "collaboration",
+        "partnership"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 149,
+      "category": "E",
+      "subcategory": "E1",
+      "themes": [
+        "positivity",
+        "energy",
+        "team lift"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 149,
+      "category": "G",
+      "subcategory": "G2",
+      "themes": [
+        "appreciation",
+        "gratitude",
+        "support"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 149,
+      "category": "C",
+      "subcategory": "C3",
+      "themes": [
+        "excellence",
+        "leadership",
+        "workshop"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 150,
+      "category": "A",
+      "subcategory": "A2",
+      "themes": [
+        "Expert Guidance",
+        "Timely Assistance"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 150,
+      "category": "G",
+      "subcategory": "G1",
+      "themes": [
+        "Expressing Thanks",
+        "Appreciation"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 150,
+      "category": "B",
+      "subcategory": "B3",
+      "themes": [
+        "Collaboration",
+        "Teamwork"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 150,
+      "category": "C",
+      "subcategory": "C1",
+      "themes": [
+        "Innovative Thinking",
+        "Results-Driven"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 150,
+      "category": "G",
+      "subcategory": "G2",
+      "themes": [
+        "Recognizing Effort",
+        "Supportive Colleagues"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 151,
+      "category": "F",
+      "subcategory": "F2",
+      "themes": [
+        "success",
+        "customer"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 151,
+      "category": "B",
+      "subcategory": "B2",
+      "themes": [
+        "teamwork",
+        "help"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 151,
+      "category": "A",
+      "subcategory": "A2",
+      "themes": [
+        "support",
+        "proactive"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 151,
+      "category": "B",
+      "subcategory": "B2",
+      "themes": [
+        "teamwork",
+        "help"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 151,
+      "category": "C",
+      "subcategory": "C1",
+      "themes": [
+        "achievement",
+        "progress"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 152,
+      "category": "C",
+      "subcategory": "A3",
+      "themes": [
+        "driving results",
+        "expert guidance"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 152,
+      "category": "B",
+      "subcategory": "B2",
+      "themes": [
+        "supporting colleagues",
+        "collaboration"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 152,
+      "category": "G",
+      "subcategory": "G1",
+      "themes": [
+        "expressing thanks",
+        "appreciation"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 152,
+      "category": "C",
+      "subcategory": "A2",
+      "themes": [
+        "proactive help",
+        "quick thinking"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 152,
+      "category": "E",
+      "subcategory": "E1",
+      "themes": [
+        "positive attitude",
+        "reliability"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 153,
+      "category": "C",
+      "subcategory": "C1",
+      "themes": [
+        "innovation",
+        "achievement"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 153,
+      "category": "A",
+      "subcategory": "A2",
+      "themes": [
+        "support",
+        "help"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 153,
+      "category": "G",
+      "subcategory": "G1",
+      "themes": [
+        "appreciation",
+        "gratitude"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 153,
+      "category": "E",
+      "subcategory": null,
+      "themes": [
+        "inspiration",
+        "teamwork"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 153,
+      "category": "F",
+      "subcategory": "F1",
+      "themes": [
+        "celebration",
+        "success"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 154,
+      "category": "A",
+      "subcategory": "A2",
+      "themes": [
+        "timely",
+        "supportive"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 154,
+      "category": "C",
+      "subcategory": "C3",
+      "themes": [
+        "achievement",
+        "success"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 154,
+      "category": "D",
+      "subcategory": "D1",
+      "themes": [
+        "leadership",
+        "mentorship"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 154,
+      "category": "C",
+      "subcategory": "C3",
+      "themes": [
+        "hard work",
+        "dedication"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 154,
+      "category": "G",
+      "subcategory": "G1",
+      "themes": [
+        "appreciation",
+        "gratitude"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 155,
+      "category": "C",
+      "subcategory": "A2",
+      "themes": [
+        "drive",
+        "results"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 155,
+      "category": "B",
+      "subcategory": "B2",
+      "themes": [
+        "teamwork",
+        "support"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 155,
+      "category": "D",
+      "subcategory": "D2",
+      "themes": [
+        "leadership",
+        "collaboration"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 155,
+      "category": "B",
+      "subcategory": "B1",
+      "themes": [
+        "teamwork",
+        "collaboration"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 155,
+      "category": "D",
+      "subcategory": "D1",
+      "themes": [
+        "leadership",
+        "mentoring"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 156,
+      "category": "C",
+      "subcategory": "C3",
+      "themes": [
+        "Excellence",
+        "Work"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 156,
+      "category": "G",
+      "subcategory": "G1",
+      "themes": [
+        "Appreciation",
+        "Teamwork"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 156,
+      "category": "C",
+      "subcategory": "C1",
+      "themes": [
+        "Innovation",
+        "Presentation"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 156,
+      "category": "A",
+      "subcategory": "A2",
+      "themes": [
+        "Proactive",
+        "Support"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 156,
+      "category": "G",
+      "subcategory": "G1",
+      "themes": [
+        "Appreciation",
+        "Collaboration"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 157,
+      "category": "A",
+      "subcategory": "A2",
+      "themes": [
+        "Proactive Help",
+        "Expert Guidance"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 157,
+      "category": "B",
+      "subcategory": "B1",
+      "themes": [
+        "Collaborative Spirit",
+        "Supporting Colleagues"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 157,
+      "category": "G",
+      "subcategory": "G2",
+      "themes": [
+        "Recognizing Effort",
+        "Appreciation"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 157,
+      "category": "A",
+      "subcategory": "A1",
+      "themes": [
+        "Timely Assistance",
+        "Proactive Help"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 157,
+      "category": "C",
+      "subcategory": "C1",
+      "themes": [
+        "Driving Results",
+        "Urgency"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 158,
+      "category": "B",
+      "subcategory": "B2",
+      "themes": [
+        "Teamwork",
+        "Collaboration"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 158,
+      "category": "D",
+      "subcategory": "D2",
+      "themes": [
+        "Leadership",
+        "Mentoring"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 158,
+      "category": "E",
+      "subcategory": "E1",
+      "themes": [
+        "Coaching",
+        "Insightful"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 158,
+      "category": "G",
+      "subcategory": "G2",
+      "themes": [
+        "Support",
+        "Appreciation"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 158,
+      "category": "C",
+      "subcategory": "C1",
+      "themes": [
+        "Results",
+        "Achievement"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 159,
+      "category": "C",
+      "subcategory": "A3",
+      "themes": [
+        "Achievement",
+        "Excellence"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 159,
+      "category": "F",
+      "subcategory": "F2",
+      "themes": [
+        "Success",
+        "Milestone"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 159,
+      "category": "G",
+      "subcategory": "G1",
+      "themes": [
+        "Appreciation",
+        "Thanks"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 159,
+      "category": "B",
+      "subcategory": "A2",
+      "themes": [
+        "Collaboration",
+        "Partnership"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 159,
+      "category": "G",
+      "subcategory": "G1",
+      "themes": [
+        "Appreciation",
+        "Thanks"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 160,
+      "category": "E",
+      "subcategory": "E1",
+      "themes": [
+        "Positive Attitude",
+        "Teamwork"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 160,
+      "category": "F",
+      "subcategory": "F3",
+      "themes": [
+        "Team Success",
+        "Recognition"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 160,
+      "category": "C",
+      "subcategory": "C1",
+      "themes": [
+        "Innovation",
+        "Support"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 160,
+      "category": "G",
+      "subcategory": "G2",
+      "themes": [
+        "Gratitude",
+        "Appreciation"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 160,
+      "category": "C",
+      "subcategory": "C1",
+      "themes": [
+        "Achievement",
+        "Recognition"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 161,
+      "category": "C",
+      "subcategory": "C2",
+      "themes": [
+        "Innovative Thinking",
+        "Achievement"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 161,
+      "category": "B",
+      "subcategory": "B3",
+      "themes": [
+        "Collaboration",
+        "Supporting Colleagues"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 161,
+      "category": "F",
+      "subcategory": "F1",
+      "themes": [
+        "Milestones",
+        "Celebrating Successes"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 161,
+      "category": "A",
+      "subcategory": "A2",
+      "themes": [
+        "Proactive Help",
+        "Support"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 161,
+      "category": "A",
+      "subcategory": "A2",
+      "themes": [
+        "Timely Assistance",
+        "Expert Guidance"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 162,
+      "category": "A",
+      "subcategory": "A3",
+      "themes": [
+        "expert guidance",
+        "timely assistance"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 162,
+      "category": "D",
+      "subcategory": "D2",
+      "themes": [
+        "mentoring",
+        "kindness"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 162,
+      "category": "A",
+      "subcategory": "A1",
+      "themes": [
+        "timely assistance",
+        "help"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 162,
+      "category": "B",
+      "subcategory": "B2",
+      "themes": [
+        "collaboration",
+        "partnership"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 162,
+      "category": "G",
+      "subcategory": "G1",
+      "themes": [
+        "appreciation",
+        "thanks"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 163,
+      "category": "F",
+      "subcategory": "F3",
+      "themes": [
+        "celebrating",
+        "successes"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 163,
+      "category": "A",
+      "subcategory": "A2",
+      "themes": [
+        "proactive",
+        "help"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 163,
+      "category": "B",
+      "subcategory": "B1",
+      "themes": [
+        "teamwork",
+        "collaboration"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 163,
+      "category": "F",
+      "subcategory": "F3",
+      "themes": [
+        "celebrating",
+        "successes"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 163,
+      "category": "C",
+      "subcategory": "C1",
+      "themes": [
+        "results",
+        "excellence"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 164,
+      "category": "D",
+      "subcategory": "D2",
+      "themes": [
+        "mentoring",
+        "leadership"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 164,
+      "category": "A",
+      "subcategory": "A2",
+      "themes": [
+        "support",
+        "expertise"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 164,
+      "category": "F",
+      "subcategory": "F1",
+      "themes": [
+        "celebration",
+        "achievement"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 164,
+      "category": "G",
+      "subcategory": "G2",
+      "themes": [
+        "appreciation",
+        "teamwork"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 164,
+      "category": "C",
+      "subcategory": "C1",
+      "themes": [
+        "achievement",
+        "success"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 165,
+      "category": "C",
+      "subcategory": "C3",
+      "themes": [
+        "Excellence",
+        "Work"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 165,
+      "category": "B",
+      "subcategory": "B2",
+      "themes": [
+        "Support",
+        "Colleagues"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 165,
+      "category": "F",
+      "subcategory": "F1",
+      "themes": [
+        "Milestone",
+        "Teamwork"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 165,
+      "category": "D",
+      "subcategory": "D2",
+      "themes": [
+        "Leadership",
+        "Vision"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 165,
+      "category": "C",
+      "subcategory": "C1",
+      "themes": [
+        "Results",
+        "Drive"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 166,
+      "category": "A",
+      "subcategory": "A2",
+      "themes": [
+        "timely",
+        "help"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 166,
+      "category": "C",
+      "subcategory": "C3",
+      "themes": [
+        "excellence",
+        "presentation"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 166,
+      "category": "G",
+      "subcategory": null,
+      "themes": [
+        "help",
+        "appreciation"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 166,
+      "category": "C",
+      "subcategory": "C1",
+      "themes": [
+        "performance",
+        "success"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 166,
+      "category": "D",
+      "subcategory": "D2",
+      "themes": [
+        "support",
+        "leadership"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 167,
+      "category": "F",
+      "subcategory": "F3",
+      "themes": [
+        "team success",
+        "celebration"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 167,
+      "category": "C",
+      "subcategory": "C2",
+      "themes": [
+        "excellence",
+        "research"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 167,
+      "category": "G",
+      "subcategory": "G1",
+      "themes": [
+        "appreciation",
+        "teamwork"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 167,
+      "category": "C",
+      "subcategory": "C1",
+      "themes": [
+        "achievement",
+        "progress"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 167,
+      "category": "B",
+      "subcategory": "B2",
+      "themes": [
+        "teamwork",
+        "problem-solving"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 169,
+      "category": "A",
+      "subcategory": "A2",
+      "themes": [
+        "Timely Assistance",
+        "Support"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 169,
+      "category": "E",
+      "subcategory": "E3",
+      "themes": [
+        "Dedication",
+        "Impact"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 169,
+      "category": "C",
+      "subcategory": "C1",
+      "themes": [
+        "Innovation",
+        "Achievement"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 169,
+      "category": "F",
+      "subcategory": "F1",
+      "themes": [
+        "Milestone",
+        "Success"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 169,
+      "category": "G",
+      "subcategory": "G2",
+      "themes": [
+        "Appreciation",
+        "Teamwork"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 170,
+      "category": "D",
+      "subcategory": "D1",
+      "themes": [
+        "leadership",
+        "mentoring"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 170,
+      "category": "B",
+      "subcategory": "B3",
+      "themes": [
+        "teamwork",
+        "support"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 170,
+      "category": "D",
+      "subcategory": "D1",
+      "themes": [
+        "guidance",
+        "culture"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 170,
+      "category": "E",
+      "subcategory": "E2",
+      "themes": [
+        "kindness",
+        "supportive"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 170,
+      "category": "A",
+      "subcategory": "A1",
+      "themes": [
+        "timely",
+        "assistance"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 171,
+      "category": "A",
+      "subcategory": "A2",
+      "themes": [
+        "timely",
+        "help"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 171,
+      "category": "C",
+      "subcategory": "C1",
+      "themes": [
+        "driving",
+        "results"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 171,
+      "category": "A",
+      "subcategory": "A1",
+      "themes": [
+        "quick",
+        "assistance"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 171,
+      "category": "D",
+      "subcategory": "D2",
+      "themes": [
+        "partnering",
+        "success"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 171,
+      "category": "C",
+      "subcategory": "C1",
+      "themes": [
+        "driving",
+        "fix"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 172,
+      "category": "A",
+      "subcategory": "A2",
+      "themes": [
+        "timely",
+        "help"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 172,
+      "category": "D",
+      "subcategory": "D2",
+      "themes": [
+        "leadership",
+        "presentation"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 172,
+      "category": "C",
+      "subcategory": "C1",
+      "themes": [
+        "expertise",
+        "practical"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 172,
+      "category": "D",
+      "subcategory": "D1",
+      "themes": [
+        "mentorship",
+        "support"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 172,
+      "category": "E",
+      "subcategory": "E1",
+      "themes": [
+        "commitment",
+        "enthusiasm"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 173,
+      "category": "A",
+      "subcategory": "A2",
+      "themes": [
+        "support",
+        "help"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 173,
+      "category": "D",
+      "subcategory": "D2",
+      "themes": [
+        "leadership",
+        "teamwork"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 173,
+      "category": "B",
+      "subcategory": "B1",
+      "themes": [
+        "collaboration",
+        "joy"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 173,
+      "category": "C",
+      "subcategory": "C2",
+      "themes": [
+        "knowledge",
+        "guidance"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 173,
+      "category": "G",
+      "subcategory": "G1",
+      "themes": [
+        "appreciation",
+        "help"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 174,
+      "category": "A",
+      "subcategory": "A2",
+      "themes": [
+        "timely",
+        "proactive"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 174,
+      "category": "C",
+      "subcategory": "C3",
+      "themes": [
+        "collaborative",
+        "excellence"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 174,
+      "category": "D",
+      "subcategory": "D1",
+      "themes": [
+        "leadership",
+        "adaptability"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 174,
+      "category": "C",
+      "subcategory": "C2",
+      "themes": [
+        "innovative",
+        "confident"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 174,
+      "category": "G",
+      "subcategory": "G1",
+      "themes": [
+        "appreciative",
+        "supportive"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 175,
+      "category": "C",
+      "subcategory": "A2",
+      "themes": [
+        "innovation",
+        "initiative"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 175,
+      "category": "B",
+      "subcategory": "B2",
+      "themes": [
+        "teamwork",
+        "support"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 175,
+      "category": "G",
+      "subcategory": "G1",
+      "themes": [
+        "appreciation",
+        "gratitude"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 175,
+      "category": "C",
+      "subcategory": "C2",
+      "themes": [
+        "innovation",
+        "achievement"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 175,
+      "category": "F",
+      "subcategory": "F1",
+      "themes": [
+        "celebration",
+        "birthday"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 176,
+      "category": "F",
+      "subcategory": null,
+      "themes": [
+        "celebration",
+        "milestone"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 176,
+      "category": "A",
+      "subcategory": "A2",
+      "themes": [
+        "support",
+        "initiative"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 176,
+      "category": "C",
+      "subcategory": "C1",
+      "themes": [
+        "excellence",
+        "management"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 176,
+      "category": "E",
+      "subcategory": "E2",
+      "themes": [
+        "kindness",
+        "appreciation"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 176,
+      "category": "C",
+      "subcategory": "C3",
+      "themes": [
+        "excellence",
+        "collaboration"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 177,
+      "category": "C",
+      "subcategory": "C3",
+      "themes": [
+        "excellence",
+        "achievement"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 177,
+      "category": "B",
+      "subcategory": "A2",
+      "themes": [
+        "support",
+        "teamwork"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 177,
+      "category": "D",
+      "subcategory": "D1",
+      "themes": [
+        "mentorship",
+        "guidance"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 177,
+      "category": "A",
+      "subcategory": "A2",
+      "themes": [
+        "support",
+        "help"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 177,
+      "category": "C",
+      "subcategory": "C1",
+      "themes": [
+        "results",
+        "achievement"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 178,
+      "category": "A",
+      "subcategory": "A2",
+      "themes": [
+        "support",
+        "help"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 178,
+      "category": "B",
+      "subcategory": "B1",
+      "themes": [
+        "teamwork",
+        "collaboration"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 178,
+      "category": "C",
+      "subcategory": "C1",
+      "themes": [
+        "results",
+        "achievement"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 178,
+      "category": "D",
+      "subcategory": "D2",
+      "themes": [
+        "leadership",
+        "mentoring"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 178,
+      "category": "C",
+      "subcategory": "C1",
+      "themes": [
+        "results",
+        "innovation"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 179,
+      "category": "A",
+      "subcategory": "A2",
+      "themes": [
+        "expert guidance",
+        "team support"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 179,
+      "category": "E",
+      "subcategory": "E1",
+      "themes": [
+        "gratitude",
+        "appreciation"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 179,
+      "category": "D",
+      "subcategory": "D1",
+      "themes": [
+        "guiding others",
+        "mentoring"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 179,
+      "category": "G",
+      "subcategory": "G1",
+      "themes": [
+        "appreciation",
+        "gratitude"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 179,
+      "category": "B",
+      "subcategory": "B3",
+      "themes": [
+        "teamwork",
+        "collaboration"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 180,
+      "category": "A",
+      "subcategory": "A2",
+      "themes": [
+        "Collaboration",
+        "Communication"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 180,
+      "category": "C",
+      "subcategory": "C3",
+      "themes": [
+        "Innovation",
+        "Achievement"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 180,
+      "category": "B",
+      "subcategory": "B1",
+      "themes": [
+        "Teamwork",
+        "Collaboration"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 180,
+      "category": "G",
+      "subcategory": "G2",
+      "themes": [
+        "Appreciation",
+        "Support"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 180,
+      "category": "A",
+      "subcategory": "A1",
+      "themes": [
+        "Timely Assistance",
+        "Help"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 181,
+      "category": "G",
+      "subcategory": "G2",
+      "themes": [
+        "Appreciation",
+        "Support"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 181,
+      "category": "C",
+      "subcategory": "C2",
+      "themes": [
+        "Innovation",
+        "Leadership"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 181,
+      "category": "A",
+      "subcategory": "A1",
+      "themes": [
+        "Help",
+        "Explaination"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 181,
+      "category": "D",
+      "subcategory": "D2",
+      "themes": [
+        "Leadership",
+        "Mentorship"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 181,
+      "category": "D",
+      "subcategory": "D1",
+      "themes": [
+        "Leadership",
+        "Inspiration"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 182,
+      "category": "D",
+      "subcategory": "A2",
+      "themes": [
+        "Mentorship",
+        "Support"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 182,
+      "category": "B",
+      "subcategory": "A3",
+      "themes": [
+        "Teamwork",
+        "Collaboration"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 182,
+      "category": "C",
+      "subcategory": "A1",
+      "themes": [
+        "Timeliness",
+        "Attention to detail"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 182,
+      "category": "E",
+      "subcategory": "E2",
+      "themes": [
+        "Kindness",
+        "Empathy"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 182,
+      "category": "C",
+      "subcategory": "A3",
+      "themes": [
+        "Innovation",
+        "Resourcefulness"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 183,
+      "category": "F",
+      "subcategory": "F1",
+      "themes": [
+        "Milestone",
+        "Success"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 183,
+      "category": "C",
+      "subcategory": "C3",
+      "themes": [
+        "Innovation",
+        "Achievement"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 183,
+      "category": "D",
+      "subcategory": "D1",
+      "themes": [
+        "Leadership",
+        "Mentorship"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 183,
+      "category": "G",
+      "subcategory": "G2",
+      "themes": [
+        "Appreciation",
+        "Gratitude"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 183,
+      "category": "C",
+      "subcategory": "C3",
+      "themes": [
+        "Innovation",
+        "Collaboration"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 184,
+      "category": "A",
+      "subcategory": "A2",
+      "themes": [
+        "timely",
+        "support"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 184,
+      "category": "G",
+      "subcategory": "G1",
+      "themes": [
+        "thanks",
+        "appreciation"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 184,
+      "category": "C",
+      "subcategory": "C2",
+      "themes": [
+        "helpful",
+        "insightful"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 184,
+      "category": "B",
+      "subcategory": "B1",
+      "themes": [
+        "collaborative",
+        "teamwork"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 184,
+      "category": "G",
+      "subcategory": "G2",
+      "themes": [
+        "effort",
+        "recognition"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 185,
+      "category": "A",
+      "subcategory": "A2",
+      "themes": [
+        "proactive",
+        "support"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 185,
+      "category": "D",
+      "subcategory": "D2",
+      "themes": [
+        "leadership",
+        "dedication"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 185,
+      "category": "G",
+      "subcategory": "G1",
+      "themes": [
+        "appreciation",
+        "teamwork"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 185,
+      "category": "C",
+      "subcategory": "C2",
+      "themes": [
+        "innovation",
+        "achievement"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 185,
+      "category": "A",
+      "subcategory": "A1",
+      "themes": [
+        "timely",
+        "support"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 186,
+      "category": "G",
+      "subcategory": "G2",
+      "themes": [
+        "thoughtfulness",
+        "teamwork"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 186,
+      "category": "A",
+      "subcategory": "A2",
+      "themes": [
+        "cooperation",
+        "support"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 186,
+      "category": "E",
+      "subcategory": "E1",
+      "themes": [
+        "knowledge sharing",
+        "helpfulness"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 186,
+      "category": "B",
+      "subcategory": "B2",
+      "themes": [
+        "team building",
+        "initiative"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 186,
+      "category": "C",
+      "subcategory": "C3",
+      "themes": [
+        "workload management",
+        "leadership"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 187,
+      "category": "B",
+      "subcategory": "B3",
+      "themes": [
+        "teamwork",
+        "relationship"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 187,
+      "category": "D",
+      "subcategory": "D1",
+      "themes": [
+        "leadership",
+        "mentorship"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 187,
+      "category": "F",
+      "subcategory": "F3",
+      "themes": [
+        "success",
+        "celebration"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 187,
+      "category": "A",
+      "subcategory": "A2",
+      "themes": [
+        "support",
+        "help"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 187,
+      "category": "C",
+      "subcategory": "C1",
+      "themes": [
+        "achievement",
+        "result"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 188,
+      "category": "B",
+      "subcategory": "B2",
+      "themes": [
+        "collaboration",
+        "teamwork"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 188,
+      "category": "C",
+      "subcategory": "C3",
+      "themes": [
+        "excellence",
+        "achievement"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 188,
+      "category": "G",
+      "subcategory": "G1",
+      "themes": [
+        "appreciation",
+        "celebration"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 188,
+      "category": "F",
+      "subcategory": "F2",
+      "themes": [
+        "milestone",
+        "birthday"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 188,
+      "category": "A",
+      "subcategory": "A1",
+      "themes": [
+        "timely",
+        "support"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 189,
+      "category": "A",
+      "subcategory": "A2",
+      "themes": [
+        "timely",
+        "helpful"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 189,
+      "category": "B",
+      "subcategory": "B1",
+      "themes": [
+        "teamwork",
+        "positive"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 189,
+      "category": "C",
+      "subcategory": "C1",
+      "themes": [
+        "achievement",
+        "result"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 189,
+      "category": "G",
+      "subcategory": "G2",
+      "themes": [
+        "appreciation",
+        "helpful"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 189,
+      "category": "E",
+      "subcategory": "E1",
+      "themes": [
+        "dedication",
+        "helpful"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 190,
+      "category": "A",
+      "subcategory": "A2",
+      "themes": [
+        "teamwork",
+        "collaboration"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 190,
+      "category": "C",
+      "subcategory": "C3",
+      "themes": [
+        "impact",
+        "success"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 190,
+      "category": "G",
+      "subcategory": "G1",
+      "themes": [
+        "appreciation",
+        "thankfulness"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 190,
+      "category": "F",
+      "subcategory": "F2",
+      "themes": [
+        "achievement",
+        "hard work"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 190,
+      "category": "E",
+      "subcategory": "E1",
+      "themes": [
+        "support",
+        "collaboration"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 191,
+      "category": "B",
+      "subcategory": "B2",
+      "themes": [
+        "Supporting Colleagues",
+        "Teamwork"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 191,
+      "category": "C",
+      "subcategory": "C3",
+      "themes": [
+        "Excellence in Work",
+        "Perseverance"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 191,
+      "category": "A",
+      "subcategory": "A2",
+      "themes": [
+        "Proactive Help",
+        "Timely Assistance"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 191,
+      "category": "C",
+      "subcategory": "C1",
+      "themes": [
+        "Driving Results",
+        "Innovation"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 191,
+      "category": "G",
+      "subcategory": "G2",
+      "themes": [
+        "Recognizing Effort",
+        "Appreciation"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 192,
+      "category": "A",
+      "subcategory": "A2",
+      "themes": [
+        "Proactive Help"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 192,
+      "category": "D",
+      "subcategory": "D3",
+      "themes": [
+        "Fostering Growth",
+        "Appreciation"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 192,
+      "category": "C",
+      "subcategory": "C1",
+      "themes": [
+        "Driving Results",
+        "Innovation"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 192,
+      "category": "A",
+      "subcategory": "A1",
+      "themes": [
+        "Timely Assistance",
+        "Expert Help"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 192,
+      "category": "G",
+      "subcategory": "G3",
+      "themes": [
+        "Appreciation",
+        "Recognition"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 193,
+      "category": "D",
+      "subcategory": "D2",
+      "themes": [
+        "leadership",
+        "guiding"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 193,
+      "category": "C",
+      "subcategory": "A2",
+      "themes": [
+        "innovation",
+        "expert guidance"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 193,
+      "category": "B",
+      "subcategory": "B1",
+      "themes": [
+        "teamwork",
+        "collaboration"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 193,
+      "category": "D",
+      "subcategory": "D2",
+      "themes": [
+        "partnership",
+        "leadership"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 193,
+      "category": "E",
+      "subcategory": "E1",
+      "themes": [
+        "appreciation",
+        "dedication"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 194,
+      "category": "C",
+      "subcategory": "C3",
+      "themes": [
+        "Excellence",
+        "Achievement"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 194,
+      "category": "G",
+      "subcategory": "G3",
+      "themes": [
+        "Appreciation",
+        "Gratitude"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 194,
+      "category": "G",
+      "subcategory": "G3",
+      "themes": [
+        "Appreciation",
+        "Gratitude"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 194,
+      "category": "B",
+      "subcategory": "B1",
+      "themes": [
+        "Teamwork",
+        "Collaboration"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 194,
+      "category": "C",
+      "subcategory": "C2",
+      "themes": [
+        "Innovation",
+        "Quality"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 195,
+      "category": "B",
+      "subcategory": "B2",
+      "themes": [
+        "collaboration",
+        "support"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 195,
+      "category": "D",
+      "subcategory": "D3",
+      "themes": [
+        "mentoring",
+        "guidance"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 195,
+      "category": "B",
+      "subcategory": "B2",
+      "themes": [
+        "teamwork",
+        "support"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 195,
+      "category": "E",
+      "subcategory": "E1",
+      "themes": [
+        "kindness",
+        "welcome"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 195,
+      "category": "C",
+      "subcategory": "C2",
+      "themes": [
+        "partnership",
+        "innovation"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 196,
+      "category": "A",
+      "subcategory": "A2",
+      "themes": [
+        "Mentorship",
+        "Support"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 196,
+      "category": "D",
+      "subcategory": "D2",
+      "themes": [
+        "Leadership",
+        "Collaboration"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 196,
+      "category": "C",
+      "subcategory": "C1",
+      "themes": [
+        "Innovation",
+        "Results"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 196,
+      "category": "E",
+      "subcategory": "E2",
+      "themes": [
+        "Teamwork",
+        "Quality"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 196,
+      "category": "G",
+      "subcategory": "G1",
+      "themes": [
+        "Appreciation",
+        "Recognition"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 197,
+      "category": "A",
+      "subcategory": "A2",
+      "themes": [
+        "timely assistance",
+        "appreciation"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 197,
+      "category": "B",
+      "subcategory": "B2",
+      "themes": [
+        "supporting colleagues",
+        "perseverance"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 197,
+      "category": "G",
+      "subcategory": "G1",
+      "themes": [
+        "appreciation",
+        "acknowledgement"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 197,
+      "category": "B",
+      "subcategory": "B1",
+      "themes": [
+        "teamwork",
+        "collaboration"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 197,
+      "category": "C",
+      "subcategory": "C2",
+      "themes": [
+        "innovative thinking",
+        "resilience"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 198,
+      "category": "A",
+      "subcategory": "A2",
+      "themes": [
+        "quick adaptation",
+        "support"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 198,
+      "category": "C",
+      "subcategory": "C1",
+      "themes": [
+        "results driven",
+        "team success"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 198,
+      "category": "G",
+      "subcategory": "G2",
+      "themes": [
+        "acknowledgment",
+        "appreciation"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 198,
+      "category": "B",
+      "subcategory": "B2",
+      "themes": [
+        "team support",
+        "helping others"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 198,
+      "category": "G",
+      "subcategory": "G1",
+      "themes": [
+        "gratitude",
+        "appreciation"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 199,
+      "category": "C",
+      "subcategory": "C1",
+      "themes": [
+        "Teamwork",
+        "Success"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 199,
+      "category": "A",
+      "subcategory": "A2",
+      "themes": [
+        "Support",
+        "Collaboration"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 199,
+      "category": "G",
+      "subcategory": "G1",
+      "themes": [
+        "Appreciation",
+        "Effort"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 199,
+      "category": "B",
+      "subcategory": "B2",
+      "themes": [
+        "Collaboration",
+        "Partnership"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 199,
+      "category": "C",
+      "subcategory": "C3",
+      "themes": [
+        "Teamwork",
+        "Achievement"
+      ],
+      "new_category": null
+    }
+  ],
+  "candidate_categories": {}
+}

@@ -1,0 +1,330 @@
+{
+  "basic": {
+    "total_rows": 1000,
+    "total_columns": 4,
+    "columns": [
+      "message",
+      "award_title",
+      "recipient_title",
+      "nominator_title"
+    ],
+    "null_counts": {
+      "message": 0,
+      "award_title": 1,
+      "recipient_title": 0,
+      "nominator_title": 1
+    },
+    "empty_string_counts": {
+      "message": 0,
+      "award_title": 1,
+      "recipient_title": 0,
+      "nominator_title": 1
+    }
+  },
+  "message": {
+    "count": 1000,
+    "null_count": 0,
+    "char_length": {
+      "mean": 521.3,
+      "median": 441.5,
+      "std": 309.5,
+      "min": 47,
+      "max": 1995,
+      "p5": 169.9,
+      "p25": 316.8,
+      "p75": 642.0,
+      "p95": 1126.1
+    },
+    "word_count": {
+      "mean": 88.6,
+      "median": 77.0,
+      "min": 9,
+      "max": 326
+    },
+    "shortest_messages": [
+      "Congrats on your podium finish for ROUND 1 QUIZ",
+      "Happy Birthday Maya! Hope you have a great day!",
+      "Congrats on being a wheel spin winner for week 2",
+      "Congrats on a podium finish in todays team flags quiz",
+      "Happy birthday from TechFlow Solutions, have a great day!"
+    ],
+    "longest_messages_preview": [
+      "Thank you all for the exceptional work behind last week's Executive Activation series, spanning FOUR CXO-level events in...",
+      "The TechCorp RFP has been no small feat, and Victoria, you led the strategy with a calm confidence, a truly thoughtful a...",
+      "Team, I want to take a moment to sincerely thank each of you for the highly insightful and immensely valuable meetings w...",
+      "As the year comes to a close, I want to take a moment to thank you for your incredible leadership in 2025. This year has...",
+      "I want to take a moment to share just how deeply grateful I am for the tremendous effort you each put into making our re..."
+    ]
+  },
+  "award_title": {
+    "count": 999,
+    "null_count": 1,
+    "empty_count": 0,
+    "unique_count": 926,
+    "top_10_titles": [
+      [
+        "Thank you",
+        15
+      ],
+      [
+        "Thank you!",
+        14
+      ],
+      [
+        "Thank you for 2025",
+        11
+      ],
+      [
+        "Thank You",
+        6
+      ],
+      [
+        "2025 Support",
+        3
+      ],
+      [
+        "Thank you for your support through 2025 !",
+        3
+      ],
+      [
+        "Moments that Matter",
+        3
+      ],
+      [
+        "Thank you for 2025.",
+        3
+      ],
+      [
+        "Thank you for your partnership",
+        3
+      ],
+      [
+        "Closing the year with appreciation!",
+        2
+      ]
+    ],
+    "title_length": {
+      "mean": 25.2,
+      "median": 23.0,
+      "max": 55
+    }
+  },
+  "recipient_title": {
+    "label": "Recipient",
+    "count": 1000,
+    "null_count": 0,
+    "unique_count": 314,
+    "top_15_titles": [
+      [
+        "Customer Service Executive",
+        53
+      ],
+      [
+        "Senior Software Engineer",
+        29
+      ],
+      [
+        "Senior Customer Service Executive",
+        17
+      ],
+      [
+        "Principal Engineer",
+        16
+      ],
+      [
+        "Accounts Payable Specialist",
+        15
+      ],
+      [
+        "Principal Product Designer",
+        15
+      ],
+      [
+        "Buyer",
+        13
+      ],
+      [
+        "Helpdesk Engineer III",
+        13
+      ],
+      [
+        "Team Leader, Customer Service Operations",
+        12
+      ],
+      [
+        "Director, Engineering",
+        12
+      ],
+      [
+        "Customer Success Manager",
+        10
+      ],
+      [
+        "Technical Services Specialist II",
+        10
+      ],
+      [
+        "Payroll Specialist",
+        9
+      ],
+      [
+        "Senior Product Designer",
+        9
+      ],
+      [
+        "Senior QA Engineer",
+        9
+      ]
+    ],
+    "seniority_distribution": {
+      "Senior": 320,
+      "Junior": 10,
+      "Lead": 23,
+      "Principal": 54,
+      "Associate": 59,
+      "Director": 104,
+      "VP": 14,
+      "Vice President": 22,
+      "Manager": 243
+    }
+  },
+  "nominator_title": {
+    "label": "Nominator",
+    "count": 999,
+    "null_count": 1,
+    "unique_count": 255,
+    "top_15_titles": [
+      [
+        "Team Leader, Customer Service Operations",
+        42
+      ],
+      [
+        "Accounts Payable Specialist",
+        34
+      ],
+      [
+        "Customer Service Executive",
+        31
+      ],
+      [
+        "Associate Manager, Customer Service Operations",
+        27
+      ],
+      [
+        "Senior Manager, Engineering",
+        23
+      ],
+      [
+        "Director, Engineering",
+        20
+      ],
+      [
+        "Manager, Engineering",
+        18
+      ],
+      [
+        "Product Manager",
+        18
+      ],
+      [
+        "Senior Customer Service Executive",
+        16
+      ],
+      [
+        "Senior Software Engineer",
+        14
+      ],
+      [
+        "Buyer",
+        13
+      ],
+      [
+        "Senior Manager, Linguistics and WHiQ Operations",
+        13
+      ],
+      [
+        "Senior Director, Thought Leadership and Brand Narrative",
+        12
+      ],
+      [
+        "Senior Director, Engineering",
+        12
+      ],
+      [
+        "Senior Product Manager",
+        11
+      ]
+    ],
+    "seniority_distribution": {
+      "Senior": 331,
+      "Junior": 9,
+      "Lead": 77,
+      "Principal": 25,
+      "Associate": 77,
+      "Director": 147,
+      "VP": 22,
+      "Vice President": 12,
+      "Manager": 318
+    }
+  },
+  "interactions": {
+    "total_interactions": 999,
+    "unique_pairs": 819,
+    "unique_recipients": 314,
+    "unique_nominators": 255,
+    "self_recognition_count": 66,
+    "bidirectional_pairs": 77,
+    "top_10_pairs": [
+      {
+        "nominator": "Customer Service Executive",
+        "recipient": "Customer Service Executive",
+        "count": 20
+      },
+      {
+        "nominator": "Team Leader, Customer Service Operations",
+        "recipient": "Customer Service Executive",
+        "count": 13
+      },
+      {
+        "nominator": "Customer Service Executive",
+        "recipient": "Senior Customer Service Executive",
+        "count": 7
+      },
+      {
+        "nominator": "Accounts Payable Specialist",
+        "recipient": "Accounts Payable Specialist",
+        "count": 6
+      },
+      {
+        "nominator": "Senior Customer Service Executive",
+        "recipient": "Customer Service Executive",
+        "count": 6
+      },
+      {
+        "nominator": "Senior Manager, Engineering",
+        "recipient": "Senior Software Engineer",
+        "count": 5
+      },
+      {
+        "nominator": "Senior Manager, Customer Success",
+        "recipient": "Customer Success Manager",
+        "count": 5
+      },
+      {
+        "nominator": "Manager, Engineering",
+        "recipient": "Senior Software Engineer",
+        "count": 5
+      },
+      {
+        "nominator": "Manager, Engineering Support",
+        "recipient": "Software Support Engineer III",
+        "count": 4
+      },
+      {
+        "nominator": "Technical Services Specialist II",
+        "recipient": "Technical Services Specialist II",
+        "count": 4
+      }
+    ]
+  }
+}

@@ -1,0 +1,7 @@
+pandas
+pyyaml
+numpy
+anthropic
+python-dotenv
+requests
+google-generativeai

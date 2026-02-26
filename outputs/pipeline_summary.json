@@ -1,0 +1,31 @@
+{
+  "pipeline": {
+    "total_time_seconds": 5458.5,
+    "phases_run": [
+      1,
+      2,
+      3
+    ],
+    "llm_provider_priority": [
+      "claude",
+      "gemini",
+      "groq"
+    ],
+    "phase_1_models": {
+      "claude": "claude-sonnet-4-5-20250929",
+      "gemini": "gemini-2.5-flash-lite"
+    },
+    "phase_2_model": "llama3:8b",
+    "phase_3_models": {
+      "claude": "claude-sonnet-4-5-20250929",
+      "gemini": "gemini-2.5-flash-lite",
+      "groq": "llama-3.3-70b-versatile"
+    }
+  },
+  "results": {
+    "final_categories": 8,
+    "total_subcategories": 24,
+    "candidates_found": 0,
+    "changes_applied": 0
+  }
+}

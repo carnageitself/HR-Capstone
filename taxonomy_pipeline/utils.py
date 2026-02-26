@@ -1,10 +1,3 @@
-"""
-utils.py — Shared helpers for the taxonomy pipeline.
-
-Handles: CSV loading, JSON extraction, LLM provider abstraction
-         (Claude + Gemini fallback), Ollama client, file I/O, logging.
-"""
-
 import json
 import re
 import logging
@@ -15,10 +8,6 @@ from pathlib import Path
 
 import config as cfg
 
-# =============================================================================
-# LOGGING
-# =============================================================================
-
 def get_logger(name: str) -> logging.Logger:
     """Consistent logger across all phases."""
     logger = logging.getLogger(name)
@@ -28,12 +17,9 @@ def get_logger(name: str) -> logging.Logger:
         handler.setFormatter(fmt)
         logger.addHandler(handler)
     logger.setLevel(getattr(logging, cfg.LOG_LEVEL, logging.INFO))
+    logger.propagate = False  # prevent duplicate messages from root logger
     return logger
 
-
-# =============================================================================
-# DATA LOADING
-# =============================================================================
 
 def load_awards(path: Path = None) -> pd.DataFrame:
     """
@@ -68,10 +54,6 @@ def load_awards(path: Path = None) -> pd.DataFrame:
     return df
 
 
-# =============================================================================
-# JSON PARSING
-# =============================================================================
-
 def extract_json(text: str) -> dict:
     """
     Robustly extract JSON from LLM responses.
@@ -95,10 +77,6 @@ def extract_json(text: str) -> dict:
 
     raise ValueError(f"Could not extract valid JSON from response:\n{text[:300]}...")
 
-
-# =============================================================================
-# LLM PROVIDER ABSTRACTION
-# =============================================================================
 
 _logger_llm = get_logger("utils.llm")
 
@@ -228,11 +206,81 @@ def list_gemini_models() -> list[str]:
     return names
 
 
+# ── Groq ──
+
+def _call_groq(prompt: str, model: str, max_tokens: int, system: str = None) -> str:
+    """
+    Call Groq API via REST.
+    Free tier: 30 RPM, 1000 RPD, 500K tokens/day.
+    """
+    if not cfg.GROQ_API_KEY:
+        raise EnvironmentError("GROQ_API_KEY not set")
+
+    url = "https://api.groq.com/openai/v1/chat/completions"
+
+    messages = []
+    if system:
+        messages.append({"role": "system", "content": system})
+    messages.append({"role": "user", "content": prompt})
+
+    payload = {
+        "model": model,
+        "messages": messages,
+        "max_tokens": max_tokens,
+        "temperature": 0.3,
+    }
+
+    max_retries = getattr(cfg, "LLM_MAX_RETRIES", 3)
+    retry_delay = getattr(cfg, "LLM_RETRY_DELAY", 5)
+
+    for attempt in range(max_retries + 1):
+        response = requests.post(
+            url,
+            headers={
+                "Authorization": f"Bearer {cfg.GROQ_API_KEY}",
+                "Content-Type": "application/json",
+            },
+            json=payload,
+            timeout=120,
+        )
+
+        if response.status_code == 200:
+            data = response.json()
+            try:
+                text = data["choices"][0]["message"]["content"]
+                usage = data.get("usage", {})
+                _logger_llm.info(
+                    f"[Groq] {usage.get('prompt_tokens', '?')} in / "
+                    f"{usage.get('completion_tokens', '?')} out "
+                    f"(model={model})"
+                )
+                return text
+            except (KeyError, IndexError) as e:
+                raise ValueError(f"Unexpected Groq response structure: {e}\n{data}")
+
+        elif response.status_code == 429 and attempt < max_retries:
+            wait = retry_delay * (attempt + 1)
+            _logger_llm.warning(
+                f"[Groq] Rate limited (429). "
+                f"Retry {attempt + 1}/{max_retries} in {wait}s..."
+            )
+            time.sleep(wait)
+            continue
+
+        else:
+            error = response.json().get("error", {})
+            raise RuntimeError(
+                f"Groq API error {response.status_code}: "
+                f"{error.get('message', response.text)}"
+            )
+
+
 # ── Provider dispatcher ──
 
 PROVIDER_CALLERS = {
     "claude": _call_claude,
     "gemini": _call_gemini,
+    "groq": _call_groq,
 }
 
 
@@ -266,10 +314,14 @@ def call_llm(
             providers_to_try.append(p)
         elif p == "gemini" and cfg.GOOGLE_API_KEY:
             providers_to_try.append(p)
+        elif p == "groq" and cfg.GROQ_API_KEY:
+            providers_to_try.append(p)
 
     if not providers_to_try:
         raise EnvironmentError(
-            "No LLM provider available. Set at least one API key."
+            "No LLM provider available. Set at least one API key:\n"
+            "  export GOOGLE_API_KEY='AIza...'   (Gemini)\n"
+            "  export GROQ_API_KEY='gsk_...'     (Groq)"
         )
 
     last_error = None
@@ -277,7 +329,11 @@ def call_llm(
     for i, provider in enumerate(providers_to_try):
         model = (models or {}).get(provider)
         if not model:
-            defaults = {"claude": "claude-sonnet-4-5-20250929", "gemini": cfg.GEMINI_DEFAULT_MODEL}
+            defaults = {
+                "claude": "claude-sonnet-4-5-20250929",
+                "gemini": cfg.GEMINI_DEFAULT_MODEL,
+                "groq": cfg.GROQ_DEFAULT_MODEL,
+            }
             model = defaults.get(provider, cfg.GEMINI_DEFAULT_MODEL)
 
         caller = PROVIDER_CALLERS[provider]
@@ -313,7 +369,9 @@ def call_llm(
                     f"Error: {e}\n\n"
                     f"To fix, set a fallback API key:\n"
                     f"  export GOOGLE_API_KEY='AIza...'  "
-                    f"(free at https://aistudio.google.com/apikey)"
+                    f"(free at https://aistudio.google.com/apikey)\n"
+                    f"  export GROQ_API_KEY='gsk_...'    "
+                    f"(free at https://console.groq.com/keys)"
                 ) from e
             else:
                 raise
@@ -335,17 +393,32 @@ def call_claude(prompt: str, model: str = None, max_tokens: int = None,
     return call_llm(prompt=prompt, models=models, max_tokens=max_tokens, system=system)
 
 
-# =============================================================================
-# OLLAMA CLIENT (unchanged — local, no API key needed)
-# =============================================================================
+def check_ollama(model: str = None) -> dict:
+    """
+    Check Ollama service AND verify the model is available.
+    Returns {"running": bool, "model_available": bool, "models": list}.
+    """
+    model = model or cfg.P2_MODEL
+    result = {"running": False, "model_available": False, "models": []}
 
-def check_ollama() -> bool:
-    """Check if Ollama service is reachable."""
     try:
-        r = requests.get(cfg.P2_OLLAMA_URL.replace("/api/generate", "/"), timeout=5)
-        return r.status_code == 200
+        r = requests.get(
+            cfg.P2_OLLAMA_URL.replace("/api/generate", "/api/tags"),
+            timeout=5,
+        )
+        if r.status_code != 200:
+            return result
+
+        result["running"] = True
+        data = r.json()
+        available = [m.get("name", "").split(":")[0] for m in data.get("models", [])]
+        result["models"] = available
+        result["model_available"] = model in available
+
     except (requests.ConnectionError, requests.Timeout):
-        return False
+        pass
+
+    return result
 
 
 def call_ollama(prompt: str, model: str = None, temperature: float = None) -> str | None:
@@ -381,11 +454,6 @@ def call_ollama(prompt: str, model: str = None, temperature: float = None) -> st
     except requests.ConnectionError:
         logger.error("Cannot reach Ollama — is it running?")
         return None
-
-
-# =============================================================================
-# FILE I/O
-# =============================================================================
 
 def ensure_dir(path: Path) -> Path:
     """Create directory if it doesn't exist, return the path."""
