@@ -108,9 +108,32 @@ hr-analytics/                       # Project root (Next.js app)
 │   ├── favicon.ico
 │   ├── globals.css                 # Global styles
 │   ├── layout.tsx                  # Root layout
-│   ├── page.tsx                    # Entry page (redirects to dashboard)
-│   ├── components/                 # Shared React components
-│   └── constants/                  # App-wide constants
+│   └── page.tsx                    # Entry page
+│
+├── components/                     # All React components
+│   ├── intelligence/               # HR Intelligence sub-components
+│   │   ├── CrossDeptmap.tsx
+│   │   ├── EquityLens.tsx
+│   │   ├── InvisibleRadar.tsx
+│   │   ├── MomentumTracker.tsx
+│   │   ├── OrgConnectors.tsx
+│   │   ├── SeasonalityHeatmap.tsx
+│   │   ├── SkillGapRadar.tsx
+│   │   └── ValueEquityAudit.tsx
+│   ├── ComparativePeriodAnalysis.tsx
+│   ├── Departments.tsx
+│   ├── EmployeeDirectory.tsx
+│   ├── HealthScoreCard.tsx
+│   ├── HRDashboardClient.tsx       # Main dashboard shell & navigation
+│   ├── HRIntelligence.tsx          # HR Intelligence tab
+│   ├── MessageInsights.tsx
+│   ├── NetworkGraph.tsx
+│   ├── Overview.tsx
+│   ├── RecognitionActivity.tsx
+│   ├── SkillsTab.tsx
+│   └── TeamLens.tsx
+│
+├── constants/                      # App-wide constants
 │
 ├── data/                           # All CSV data files
 │   ├── award_categories.csv
@@ -153,8 +176,8 @@ hr-analytics/                       # Project root (Next.js app)
 ├── .env.local                      # API keys (never commit this)
 ├── .gitignore
 ├── eslint.config.mjs
-├── mockup_awards.csv               # Mockup data for pipeline testing
-├── next.config.ts                  # Next.js configuration
+├── mockup_awards.csv
+├── next.config.ts
 ├── next-env.d.ts
 ├── package.json
 ├── package-lock.json
