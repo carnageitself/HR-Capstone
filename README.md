@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="public/Northeastern_Banner.png" alt="Northeastern University" width="100%" height="80" style="object-fit:cover"/>
+  <img src="public/Northeastern_Banner.png" alt="Northeastern University" width="60%"/>
 </p>
 
 # 🏆 HR Recognition Analytics Dashboard
