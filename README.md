@@ -1,7 +1,3 @@
-<p align="center">
-  <img src="public/Northeastern_Banner.png" alt="Northeastern University" height="120"/>
-</p>
-
 # 🏆 HR Recognition Analytics Dashboard
 
 <p align="center">A full-stack data science project that transforms raw employee recognition data into actionable HR intelligence. Built in partnership with <strong>Workhuman</strong> as part of a Master's Capstone at <strong>Northeastern University</strong>.</p>
