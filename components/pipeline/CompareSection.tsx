@@ -9,6 +9,9 @@ import PipelineComparison from "./PipelineComparison";
 export default function CompareSection() {
   const [runs, setRuns] = useState<PipelineRun[]>([]);
   const [loading, setLoading] = useState(true);
+  const [comparisonMode, setComparisonMode] = useState<"single" | "dual">(
+    "dual"
+  );
 
   useEffect(() => {
     fetchRuns();
@@ -49,9 +52,42 @@ export default function CompareSection() {
   // Always show latest run
   const latestRun = runs[runs.length - 1];
 
+  const toggleComparisonMode = () => {
+    setComparisonMode(comparisonMode === "single" ? "dual" : "single");
+  };
+
   return (
     <div className="space-y-6">
-      <SingleRunView run={latestRun} />
+      {/* Mode Selector */}
+      <div className="bg-white border border-gray-200 rounded-lg p-4">
+        <div className="flex items-center justify-between">
+          <div>
+            <h3 className="text-sm font-medium text-gray-900">View Mode</h3>
+            <p className="text-xs text-gray-500 mt-1">
+              {comparisonMode === "single"
+                ? "Viewing latest run details"
+                : "Comparing Llama vs Qwen Phase 1 results"}
+            </p>
+          </div>
+          <button
+            onClick={toggleComparisonMode}
+            className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${
+              comparisonMode === "dual"
+                ? "bg-blue-600 text-white"
+                : "bg-gray-100 text-gray-700 hover:bg-gray-200"
+            }`}
+          >
+            {comparisonMode === "single" ? "Compare LLMs" : "Back to Single"}
+          </button>
+        </div>
+      </div>
+
+      {/* Content Display */}
+      {comparisonMode === "single" ? (
+        <SingleRunView run={latestRun} />
+      ) : (
+        <LLMComparison run={latestRun} />
+      )}
     </div>
   );
 }
@@ -266,5 +302,47 @@ function DualRunComparison({ runs }: { runs: PipelineRun[] }) {
 
   return (
     <PipelineComparison runs={runs} />
+  );
+}
+
+function LLMComparison({ run }: { run: PipelineRun }) {
+  // Create synthetic PipelineRun objects from phase_1_all_models results
+  // This allows us to reuse PipelineComparison component
+  const syntheticRuns: PipelineRun[] = [];
+
+  // If we have summary with phase_1_models, create a run for each model
+  if (run.summary?.pipeline?.phase_1_models) {
+    const models = run.summary.pipeline.phase_1_models;
+    for (const [modelKey, modelName] of Object.entries(models)) {
+      // Create a synthetic run for this model using the actual run's data
+      const syntheticRun: PipelineRun = {
+        ...run,
+        name: `${run.name} (${modelKey})`,
+        provider: modelKey as string,
+      };
+      syntheticRuns.push(syntheticRun);
+    }
+  }
+
+  if (syntheticRuns.length < 2) {
+    return (
+      <div className="bg-blue-50 border border-blue-200 rounded-lg p-6">
+        <p className="text-blue-900">
+          This run only has one Phase 1 model. Run with both Llama and Qwen checked to see comparison.
+        </p>
+      </div>
+    );
+  }
+
+  return (
+    <div className="space-y-6">
+      <div className="bg-white border border-gray-200 rounded-lg p-6">
+        <h3 className="text-lg font-semibold mb-2">Phase 1 LLM Comparison</h3>
+        <p className="text-sm text-gray-600">
+          Side-by-side comparison of Groq models (Llama vs Qwen) from this run's Phase 1 evaluation
+        </p>
+      </div>
+      <PipelineComparison runs={syntheticRuns} />
+    </div>
   );
 }
