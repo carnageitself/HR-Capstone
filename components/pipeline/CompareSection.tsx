@@ -9,10 +9,6 @@ import PipelineComparison from "./PipelineComparison";
 export default function CompareSection() {
   const [runs, setRuns] = useState<PipelineRun[]>([]);
   const [loading, setLoading] = useState(true);
-  const [selectedRunIndices, setSelectedRunIndices] = useState<number[]>([0]);
-  const [comparisonMode, setComparisonMode] = useState<"single" | "dual">(
-    "single"
-  );
 
   useEffect(() => {
     fetchRuns();
@@ -26,12 +22,7 @@ export default function CompareSection() {
       const res = await fetch("/api/pipeline/runs");
       const data = await res.json();
       if (data.ok) {
-        const newRuns = data.runs;
-        setRuns(newRuns);
-        // Auto-select latest run (most recent) on first load or when new run appears
-        if (newRuns.length > 0 && selectedRunIndices[0] === undefined) {
-          setSelectedRunIndices([newRuns.length - 1]);
-        }
+        setRuns(data.runs);
       }
     } catch (error) {
       console.error("Failed to fetch runs:", error);
@@ -49,140 +40,18 @@ export default function CompareSection() {
       <div className="bg-blue-50 border border-blue-200 rounded-lg p-6 text-center">
         <p className="text-blue-800 font-medium">No pipeline runs found yet.</p>
         <p className="text-sm text-blue-600 mt-2">
-          Go to "Run Pipeline" to start a comparison between Groq and Gemini.
+          Go to "Run Pipeline" to create your first pipeline run.
         </p>
       </div>
     );
   }
 
-  const selectedRuns = selectedRunIndices
-    .map((idx) => runs[idx])
-    .filter(Boolean);
-
-  const handleRunSelect = (idx: number, event: React.ChangeEvent<HTMLSelectElement>) => {
-    const newIdx = parseInt(event.target.value);
-    const newIndices = [...selectedRunIndices];
-    newIndices[idx] = newIdx;
-    setSelectedRunIndices(newIndices);
-  };
-
-  const toggleComparisonMode = () => {
-    if (comparisonMode === "single") {
-      setComparisonMode("dual");
-      if (selectedRunIndices.length === 1) {
-        // Find a different run to compare
-        const otherIdx = runs.findIndex(
-          (_, i) => i !== selectedRunIndices[0]
-        );
-        if (otherIdx >= 0) {
-          setSelectedRunIndices([selectedRunIndices[0], otherIdx]);
-        }
-      }
-    } else {
-      setComparisonMode("single");
-      setSelectedRunIndices([selectedRunIndices[0]]);
-    }
-  };
+  // Always show latest run
+  const latestRun = runs[runs.length - 1];
 
   return (
     <div className="space-y-6">
-      {/* Mode Selector */}
-      <div className="bg-white border border-gray-200 rounded-lg p-4">
-        <div className="flex items-center justify-between">
-          <div>
-            <h3 className="text-sm font-medium text-gray-900">View Mode</h3>
-            <p className="text-xs text-gray-500 mt-1">
-              {comparisonMode === "single"
-                ? "Viewing single run details"
-                : "Comparing two runs side-by-side"}
-            </p>
-          </div>
-          <button
-            onClick={toggleComparisonMode}
-            className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${
-              comparisonMode === "dual"
-                ? "bg-blue-600 text-white"
-                : "bg-gray-100 text-gray-700 hover:bg-gray-200"
-            }`}
-          >
-            {comparisonMode === "single" ? "Compare Two Runs" : "Back to Single"}
-          </button>
-        </div>
-      </div>
-
-      {/* Run Selection */}
-      <div className="bg-white border border-gray-200 rounded-lg p-4">
-        <div
-          className={`grid gap-4 ${
-            comparisonMode === "dual" ? "grid-cols-2" : "grid-cols-1"
-          }`}
-        >
-          {comparisonMode === "single" ? (
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Select Run
-              </label>
-              <select
-                value={selectedRunIndices[0] || 0}
-                onChange={(e) => handleRunSelect(0, e)}
-                className="w-full px-3 py-2 border border-gray-300 rounded-md"
-              >
-                {runs.map((run, idx) => (
-                  <option key={idx} value={idx}>
-                    {run.name}
-                  </option>
-                ))}
-              </select>
-            </div>
-          ) : (
-            <>
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Run 1 (Left)
-                </label>
-                <select
-                  value={selectedRunIndices[0] || 0}
-                  onChange={(e) => handleRunSelect(0, e)}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md"
-                >
-                  {runs.map((run, idx) => (
-                    <option key={idx} value={idx}>
-                      {run.name} ({run.provider})
-                    </option>
-                  ))}
-                </select>
-              </div>
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Run 2 (Right)
-                </label>
-                <select
-                  value={selectedRunIndices[1] ?? (runs.length > 1 ? 1 : 0)}
-                  onChange={(e) => handleRunSelect(1, e)}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md"
-                >
-                  {runs.map((run, idx) => (
-                    <option key={idx} value={idx}>
-                      {run.name} ({run.provider})
-                    </option>
-                  ))}
-                </select>
-              </div>
-            </>
-          )}
-        </div>
-      </div>
-
-      {/* Content Display */}
-      {selectedRuns.length > 0 && (
-        <>
-          {comparisonMode === "single" ? (
-            <SingleRunView run={selectedRuns[0]} />
-          ) : (
-            <DualRunComparison runs={selectedRuns} />
-          )}
-        </>
-      )}
+      <SingleRunView run={latestRun} />
     </div>
   );
 }
