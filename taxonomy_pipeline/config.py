@@ -78,10 +78,10 @@ P1_MSG_TRUNCATE = 500         # max chars per message sent to LLM
 P1_MAX_TOKENS = 3000          # headroom for 6-8 categories with descriptions + reasoning
 
 # Models to evaluate in Phase 1 (run all for comparison)
-# Note: Using Groq's Qwen instead of OpenRouter (better quality, same provider)
+# Using only Groq models (both Llama and Qwen)
+# Reference models (Gemini, GPT Mini, Gemma) shown in UI for cost comparison only
 P1_MODELS = {
     "groq": GROQ_DEFAULT_MODEL,        # Llama 3.3 70B (best reasoning)
-    "gemini": GEMINI_DEFAULT_MODEL,    # Gemini Flash 2.0 (balanced)
     "groq_qwen": GROQ_QWEN_MODEL,      # Qwen 3 32B (via Groq, good reasoning)
 }
 
