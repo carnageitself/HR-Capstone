@@ -184,7 +184,7 @@ export default function RunSection({
           {/* Active Models - Groq */}
           <div className="mb-4">
             <p className="text-xs font-semibold text-gray-600 mb-2 uppercase tracking-wide">
-              ✓ Active (Groq)
+              Active (Groq)
             </p>
             <div className="flex gap-6 ml-2">
               <label className="flex items-center">
@@ -215,7 +215,7 @@ export default function RunSection({
           {/* Reference Models - Other Providers */}
           <div>
             <p className="text-xs font-semibold text-gray-600 mb-2 uppercase tracking-wide">
-              📚 Reference (For Comparison)
+              Reference (For Comparison)
             </p>
             <div className="space-y-2 ml-2">
               <div className="flex gap-6">
