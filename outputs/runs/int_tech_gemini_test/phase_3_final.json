@@ -1,0 +1,173 @@
+{
+  "metadata": {
+    "phase": 3,
+    "models": {
+      "claude": "claude-sonnet-4-5-20250929",
+      "gemini": "gemini-flash-lite-latest",
+      "groq": "llama-3.3-70b-versatile"
+    },
+    "candidates_reviewed": 0,
+    "changes_applied": 0
+  },
+  "input_taxonomy_categories": 6,
+  "candidates_submitted": {},
+  "result": {
+    "final_taxonomy": {
+      "categories": [
+        {
+          "id": "C1",
+          "name": "Process & Efficiency Optimization",
+          "description": "Recognition focused on improving internal workflows, reducing manual effort, or enhancing system performance through automation or redesign.",
+          "subcategories": [
+            {
+              "id": "C1.1",
+              "name": "Automation & Time Savings",
+              "description": "Implementing solutions that drastically reduce manual workload or testing time.",
+              "examples": [
+                "automated 80% of our monthly reporting",
+                "reducing regression testing time by 50%"
+              ]
+            },
+            {
+              "id": "C1.2",
+              "name": "System Reliability & Performance",
+              "description": "Direct improvements to the stability, speed, or uptime of core products or infrastructure.",
+              "examples": [
+                "optimized the mobile app reducing load time by 60%",
+                "increasing reliability to 99.9% uptime"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "C2",
+          "name": "Business Growth & Market Impact",
+          "description": "Recognition tied directly to measurable financial outcomes, market expansion, or significant revenue generation.",
+          "subcategories": [
+            {
+              "id": "C2.1",
+              "name": "Revenue Generation & Expansion",
+              "description": "Achieving significant financial results or successfully entering new revenue streams.",
+              "examples": [
+                "resulting in 2 million additional revenue",
+                "exceeded targets by 150%"
+              ]
+            },
+            {
+              "id": "C2.2",
+              "name": "Audience Engagement & Reach",
+              "description": "Increasing user interaction, traffic, or adoption metrics.",
+              "examples": [
+                "increasing user retention significantly",
+                "increased blog traffic 250%"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "C3",
+          "name": "Product Strategy & Insight",
+          "description": "Recognition for high-level planning, strategic direction setting, and delivering data-driven insights that shape the product or business direction.",
+          "subcategories": [
+            {
+              "id": "C3.1",
+              "name": "Strategic Planning & Roadmapping",
+              "description": "Leading the definition of future direction for products or business units.",
+              "examples": [
+                "led the Q1 product strategy",
+                "clear roadmap for the team"
+              ]
+            },
+            {
+              "id": "C3.2",
+              "name": "Data-Driven Decision Making",
+              "description": "Providing critical analysis that directly influences business choices and performance metrics.",
+              "examples": [
+                "consistently delivers insights that drive business decisions",
+                "led analysis and strategy for entering 3 new markets"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "C4",
+          "name": "Team & People Development",
+          "description": "Awards focused on building, mentoring, and fostering the growth and success of team members.",
+          "subcategories": [
+            {
+              "id": "C4.1",
+              "name": "Mentorship & Skill Transfer",
+              "description": "Directly coaching individuals to improve skills or achieve career milestones.",
+              "examples": [
+                "mentored 5 junior developers",
+                "helping all achieve promotion readiness"
+              ]
+            },
+            {
+              "id": "C4.2",
+              "name": "Team Building & Retention",
+              "description": "Creating an environment that attracts and retains top talent.",
+              "examples": [
+                "built and developed high-performing team",
+                "100% retention"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "C5",
+          "name": "Quality & Execution Excellence",
+          "description": "Recognition for maintaining high standards in daily work, ensuring quality output, and delivering exceptional results under pressure.",
+          "subcategories": [
+            {
+              "id": "C5.1",
+              "name": "Quality Assurance & Standards",
+              "description": "Focus on the meticulousness and quality inherent in the work product itself.",
+              "examples": [
+                "provides thoughtful code reviews",
+                "improving team quality and maintainability"
+              ]
+            },
+            {
+              "id": "C5.2",
+              "name": "Rapid Onboarding & Delivery",
+              "description": "Achieving high performance quickly or delivering complex features ahead of expectations.",
+              "examples": [
+                "ramped up incredibly fast",
+                "delivering exceptional results in first 90 days"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "C6",
+          "name": "Customer & Stakeholder Service",
+          "description": "Recognition for outstanding performance in direct interaction with customers or cross-functional partners, often measured by satisfaction scores.",
+          "subcategories": [
+            {
+              "id": "C6.1",
+              "name": "Customer Satisfaction & Support",
+              "description": "Exceeding expectations in resolving issues and maintaining high user happiness.",
+              "examples": [
+                "achieved 98% satisfaction score",
+                "proactive support and going above and beyond"
+              ]
+            },
+            {
+              "id": "C6.2",
+              "name": "Cross-Functional Collaboration",
+              "description": "Successfully integrating efforts across different departments to achieve a unified goal.",
+              "examples": [
+                "worked seamlessly with sales and product",
+                "launch integrated campaign"
+              ]
+            }
+          ]
+        }
+      ],
+      "reasoning": "The taxonomy moves from high-level impact (Business Growth, Strategy) down to execution quality (Process Optimization, Quality Excellence) and interpersonal contributions (Team Development, Service). This structure avoids generic terms by focusing on the *type of contribution* evident in the messages, such as measurable efficiency gains (C1) versus strategic planning (C3)."
+    },
+    "changes": [],
+    "summary": "No new categories met the frequency threshold. Phase 1 taxonomy used as-is."
+  }
+}

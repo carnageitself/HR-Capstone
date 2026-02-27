@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import type { DashboardData } from "@/lib/loadDashboardData";
 import { Num } from "@/constants/primitives";
 import { Overview } from "./Overview";
@@ -9,7 +9,14 @@ import { RecognitionActivity } from "./RecognitionActivity";
 import { EmployeeDirectory } from "./EmployeeDirectory";
 import { HRIntelligence } from "./HRIntelligence";
 import { TeamLens } from "./TeamLens";
+import PipelineTab from "./PipelineTab";
 import { DateRangeProvider, DateRangeFilter, useDateRange } from "@/utils/DateRangeFilter";
+
+interface Company {
+  id: string;
+  name: string;
+  industry?: string;
+}
 
 // ── Sidebar icons (inline SVG, 16×16) ────────────────────────────────────────
 const Icons = {
@@ -19,12 +26,31 @@ const Icons = {
   recognition:  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>,
   intelligence: <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M12 2a7 7 0 017 7c0 2.5-1.3 4.7-3.3 6l-.7 4H9l-.7-4A7 7 0 0112 2z"/><path d="M9 18h6"/><path d="M10 22h4"/></svg>,
   workforce:    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><line x1="23" y1="11" x2="23" y2="17"/><line x1="20" y1="14" x2="26" y2="14"/></svg>,
+  pipeline:     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M6 9h12M6 9a3 3 0 013-3h6a3 3 0 013 3M6 9v6a3 3 0 003 3h6a3 3 0 003-3V9"/></svg>,
 };
 
-export function HRDashboardClient({ data }: { data: DashboardData }) {
+export function HRDashboardClient({ data: initialData }: { data: DashboardData }) {
+  const [data, setData] = useState<DashboardData>(initialData);
+  const [selectedCompanyId, setSelectedCompanyId] = useState<string>("default");
+  const [loading, setLoading] = useState(false);
+
+  // Fetch dashboard data when company changes
+  useEffect(() => {
+    setLoading(true);
+    fetch(`/api/dashboard/data?companyId=${selectedCompanyId}`)
+      .then(res => res.json())
+      .then(result => {
+        if (result.ok && result.data) {
+          setData(result.data);
+        }
+      })
+      .catch(err => console.error("Failed to fetch dashboard data:", err))
+      .finally(() => setLoading(false));
+  }, [selectedCompanyId]);
+
   return (
     <DateRangeProvider allMonths={data.monthly.map(m => m.yearMonth)}>
-      <DashboardShell data={data} />
+      <DashboardShell data={data} selectedCompanyId={selectedCompanyId} setSelectedCompanyId={setSelectedCompanyId} isLoading={loading} />
     </DateRangeProvider>
   );
 }
@@ -43,12 +69,39 @@ function NoData({ message = "No data available for selected period" }: { message
 }
 
 // ── Inner shell ───────────────────────────────────────────────────────────────
-function DashboardShell({ data }: { data: DashboardData }) {
-  type Tab = "overview" | "employees" | "departments" | "recognition" | "intelligence" | "manager";
+function DashboardShell({
+  data,
+  selectedCompanyId,
+  setSelectedCompanyId,
+  isLoading
+}: {
+  data: DashboardData;
+  selectedCompanyId: string;
+  setSelectedCompanyId: (id: string) => void;
+  isLoading: boolean;
+}) {
+  type Tab = "overview" | "employees" | "departments" | "recognition" | "intelligence" | "manager" | "pipeline";
 
   const [tab, setTab] = useState<Tab>("overview");
+  const [companies, setCompanies] = useState<Company[]>([]);
   const { start, end, isActive } = useDateRange();
   const wf = data.workforce;
+
+  // Fetch companies on mount
+  useEffect(() => {
+    async function fetchCompanies() {
+      try {
+        const res = await fetch("/api/companies");
+        const apiData = await res.json();
+        if (apiData.ok) {
+          setCompanies(apiData.companies);
+        }
+      } catch (error) {
+        console.error("Failed to fetch companies:", error);
+      }
+    }
+    fetchCompanies();
+  }, []);
 
   // ── Filtered data object — overrides monthly + derived fields ──────────────
   const filteredData = useMemo((): DashboardData => {
@@ -125,6 +178,10 @@ function DashboardShell({ data }: { data: DashboardData }) {
     { id: "manager"      as Tab, label: "Team Lens",           icon: Icons.workforce    },
   ];
 
+  const NAV_PIPELINE = [
+    { id: "pipeline" as Tab, label: "Pipeline & Uploads",     icon: Icons.pipeline     },
+  ];
+
   const ALL_NAV = [...NAV_WORKFORCE, ...NAV_FEATURES];
 
   return (
@@ -142,6 +199,28 @@ function DashboardShell({ data }: { data: DashboardData }) {
           </div>
         </div>
 
+        {/* Company Selector */}
+        <div className="px-3.5 py-3 border-b border-gray-200">
+          <label className="font-mono text-[8px] tracking-widest uppercase text-gray-400 block mb-2">Company</label>
+          <select
+            value={selectedCompanyId}
+            onChange={(e) => setSelectedCompanyId(e.target.value)}
+            className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-orange-500 cursor-pointer text-gray-700"
+          >
+            {companies.map((company) => (
+              <option key={company.id} value={company.id}>
+                {company.name}
+                {company.readonly ? " (default)" : ""}
+              </option>
+            ))}
+          </select>
+          {selectedCompanyId !== "default" && (
+            <div className="mt-2 text-xs bg-blue-50 text-blue-700 px-2 py-1 rounded font-medium">
+              Custom Company
+            </div>
+          )}
+        </div>
+
         <nav className="px-2 py-2.5 flex-1">
           <div className="font-mono text-[9px] tracking-[.16em] uppercase text-gray-400 px-1.5 py-2">Workforce</div>
           {NAV_WORKFORCE.map(n => (
@@ -157,6 +236,18 @@ function DashboardShell({ data }: { data: DashboardData }) {
             <span className="bg-[#F96400] text-white text-[8px] px-1.5 py-0.5 rounded-full font-bold">NEW</span>
           </div>
           {NAV_FEATURES.map(n => (
+            <button key={n.id} onClick={() => setTab(n.id)}
+              className={`flex items-center gap-2.5 w-full px-3.5 py-2 rounded-lg text-[13px] font-medium cursor-pointer transition-all duration-150 border-none ${
+                tab === n.id ? "bg-orange-50 text-[#F96400] font-bold" : "text-gray-500 hover:bg-orange-50 hover:text-[#F96400]"
+              }`}>
+              <span className="w-4 flex items-center justify-center shrink-0">{n.icon}</span>{n.label}
+            </button>
+          ))}
+          <div className="font-mono text-[9px] tracking-[.16em] uppercase text-gray-400 px-1.5 pt-4 pb-1 flex items-center gap-1.5">
+            Data & Pipeline
+            <span className="bg-blue-600 text-white text-[8px] px-1.5 py-0.5 rounded-full font-bold">BETA</span>
+          </div>
+          {NAV_PIPELINE.map(n => (
             <button key={n.id} onClick={() => setTab(n.id)}
               className={`flex items-center gap-2.5 w-full px-3.5 py-2 rounded-lg text-[13px] font-medium cursor-pointer transition-all duration-150 border-none ${
                 tab === n.id ? "bg-orange-50 text-[#F96400] font-bold" : "text-gray-500 hover:bg-orange-50 hover:text-[#F96400]"
@@ -245,12 +336,21 @@ function DashboardShell({ data }: { data: DashboardData }) {
 
           {/* ── TAB CONTENT ───────────────────────────────────────────── */}
           {/* All tabs receive filteredData — each component uses data.monthly which is already filtered */}
-          {tab === "overview"     && (hasData || !isActive ? <Overview            data={filteredData} /> : <NoData />)}
-          {tab === "departments"  && <Departments         data={data} />}
-          {tab === "recognition"  && (hasData || !isActive ? <RecognitionActivity data={filteredData} /> : <NoData />)}
-          {tab === "employees"    && <EmployeeDirectory   data={data} />}
-          {tab === "intelligence" && <HRIntelligence      data={data} />}
-          {tab === "manager"      && <TeamLens            data={data} />}
+          {isLoading ? (
+            <div className="flex items-center justify-center py-16 px-6">
+              <div className="text-gray-400 text-sm">Loading dashboard data...</div>
+            </div>
+          ) : (
+            <>
+              {tab === "overview"     && (hasData || !isActive ? <Overview            data={filteredData} /> : <NoData />)}
+              {tab === "departments"  && <Departments         data={data} />}
+              {tab === "recognition"  && (hasData || !isActive ? <RecognitionActivity data={filteredData} /> : <NoData />)}
+              {tab === "employees"    && <EmployeeDirectory   data={data} />}
+              {tab === "intelligence" && <HRIntelligence      data={data} />}
+              {tab === "manager"      && <TeamLens            data={data} />}
+              {tab === "pipeline"     && <PipelineTab         />}
+            </>
+          )}
 
         </main>
       </div>

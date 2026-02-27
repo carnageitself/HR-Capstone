@@ -190,8 +190,17 @@ export interface DashboardData {
 }
 
 // ── helpers ───────────────────────────────────────────────────────────────────
-function readCSV<T>(filename: string): T[] {
-  const p = path.join(process.cwd(), "data", filename);
+function readCSV<T>(filename: string, companyId?: string): T[] {
+  let p: string;
+
+  if (companyId && companyId !== "default") {
+    // Load from company-specific folder
+    p = path.join(process.cwd(), "data", "companies", companyId, filename);
+  } else {
+    // Load from default folder
+    p = path.join(process.cwd(), "data", "default", filename);
+  }
+
   if (!fs.existsSync(p)) return [];
   const raw = fs.readFileSync(p, "utf-8");
   return parseCSV<Record<string, string>>(raw) as unknown as T[];
@@ -217,11 +226,94 @@ const STOP = new Set([
 ]);
 
 // ── main loader ───────────────────────────────────────────────────────────────
-export function loadDashboardData(): DashboardData {
-  const rows = readCSV<EnrichedAward>("awards_enriched.csv");
+export function loadDashboardData(companyId?: string): DashboardData {
+  const rows = readCSV<EnrichedAward>("awards_enriched.csv", companyId);
 
-  // Safety: if file is missing or empty return a zero-state so the UI doesn't crash
+  // If no awards exist yet, try to load employee/department data to at least show basic info
   if (!rows || rows.length === 0) {
+    // Try to load employees and departments for the company
+    interface Employee {
+      employee_id: string;
+      first_name: string;
+      last_name: string;
+      email: string;
+      department_id: string;
+      job_title: string;
+      seniority_level: string;
+    }
+
+    interface Department {
+      department_id: string;
+      department_name: string;
+      company_id?: string;
+      manager_id?: string;
+      head_count?: string;
+      location?: string;
+    }
+
+    const employees = readCSV<Employee>("employees.csv", companyId);
+    const deptsCsv = readCSV<Department>("departments.csv", companyId);
+
+    // If we have at least employees or departments, build a minimal dashboard
+    if ((employees && employees.length > 0) || (deptsCsv && deptsCsv.length > 0)) {
+      const deptMap: Record<string, number> = {};
+      const employeesByDept: Record<string, number> = {};
+
+      if (employees) {
+        for (const emp of employees) {
+          employeesByDept[emp.department_id] = (employeesByDept[emp.department_id] || 0) + 1;
+        }
+      }
+
+      const departments = (deptsCsv || []).map(d => ({
+        name: d.department_name,
+        awards: 0,
+        totalValue: 0,
+        avgValue: 0,
+        uniqueRecipients: 0,
+        uniqueNominators: 0,
+      }));
+
+      const seniority = employees
+        ? Array.from(new Set(employees.map(e => e.seniority_level)))
+            .map(level => ({
+              level,
+              count: employees.filter(e => e.seniority_level === level).length,
+              pct: Math.round((employees.filter(e => e.seniority_level === level).length / employees.length) * 100),
+            }))
+        : [];
+
+      const employeeDirectory = (employees || []).map(emp => ({
+        id: emp.employee_id,
+        name: `${emp.first_name} ${emp.last_name}`,
+        dept: emp.department_id,
+        title: emp.job_title,
+        seniority: emp.seniority_level,
+        skills: [],
+        received: 0,
+        given: 0,
+        valueReceived: 0,
+        engagementScore: 0,
+        status: "passive" as const,
+        daysSinceLast: 999,
+        lastAwardDate: null,
+        categoryBreakdown: [],
+        recentAwards: [],
+      }));
+
+      return {
+        kpi:{ totalAwards:0,totalMonetary:0,avgAwardValue:0,uniqueRecipients:0,uniqueNominators:0,uniqueDepartments: deptsCsv?.length || 0,recognitionRate:0,highPerformers:0,cultureCarriers:0,atRiskCount:0,neverRecognizedCount: employees?.length || 0,crossDeptPct:0,peerRecognitionPct:0,icRatio:0,execRatio:0,momTrend:0,avgMonthlyAwards:0 },
+        categories:[],subcategories:[],monthly:[],departments,seniority,
+        topRecipients:[],topNominators:[],skills:[],valueDistribution:[],
+        network:{nodes:[],edges:[]},cultureHealth:[],wordCloud:[],messageThemes:[],
+        skillInsights:{topSkills:[],byDepartment:{},skillCategoryMatrix:[]},
+        workforce:{totalPeople: employees?.length || 0,neverRecognized: employees?.length || 0,neverGiven: employees?.length || 0,coveragePct:0,participationPct:0,byDept:[],bySeniority:[],people:[]},
+        intelligence:{invisibleContributors:[],risingStars:[],decliningRecognition:[],crossDeptFlow:[],depts:[],equityData:[],managerReach:[],skillGaps:[],seasonality:[],orgConnectors:[],valueEquity:{byDept:[],bySeniority:[],concentration:{top10Pct:0,top10Value:0,giniCoeff:0}}},
+        employeeDirectory,
+      };
+    }
+
+    // No data at all
     return {
       kpi:{ totalAwards:0,totalMonetary:0,avgAwardValue:0,uniqueRecipients:0,uniqueNominators:0,uniqueDepartments:0,recognitionRate:0,highPerformers:0,cultureCarriers:0,atRiskCount:0,neverRecognizedCount:0,crossDeptPct:0,peerRecognitionPct:0,icRatio:0,execRatio:0,momTrend:0,avgMonthlyAwards:0 },
       categories:[],subcategories:[],monthly:[],departments:[],seniority:[],

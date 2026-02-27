@@ -1,0 +1,153 @@
+{
+  "categories": [
+    {
+      "id": "A",
+      "name": "Process Improvement",
+      "description": "Recognizing efforts that optimize workflows, reduce time, and increase efficiency",
+      "subcategories": [
+        {
+          "id": "A1",
+          "name": "Technical Optimization",
+          "description": "Improving technical processes, such as code reviews and automation",
+          "examples": [
+            "reducing load time",
+            "automating monthly reporting"
+          ]
+        },
+        {
+          "id": "A2",
+          "name": "Operational Efficiency",
+          "description": "Streamlining operations, such as testing and data pipelines",
+          "examples": [
+            "reducing regression testing time",
+            "enabling real-time analytics"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "B",
+      "name": "Business Growth",
+      "description": "Recognizing contributions that drive revenue, user engagement, and market expansion",
+      "subcategories": [
+        {
+          "id": "B1",
+          "name": "Revenue Increase",
+          "description": "Driving revenue growth through new markets, products, or strategies",
+          "examples": [
+            "entering new markets",
+            "exceeding targets"
+          ]
+        },
+        {
+          "id": "B2",
+          "name": "User Engagement",
+          "description": "Improving user experience, retention, and satisfaction",
+          "examples": [
+            "increasing user retention",
+            "improving user engagement"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "C",
+      "name": "Leadership and Mentorship",
+      "description": "Recognizing leaders and mentors who develop teams and individuals",
+      "subcategories": [
+        {
+          "id": "C1",
+          "name": "Team Development",
+          "description": "Building and leading high-performing teams",
+          "examples": [
+            "building high-performing team",
+            "mentoring junior developers"
+          ]
+        },
+        {
+          "id": "C2",
+          "name": "Individual Growth",
+          "description": "Guiding individuals towards skill growth and promotion readiness",
+          "examples": [
+            "helping achieve promotion readiness",
+            "delivering exceptional results"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "D",
+      "name": "Customer Satisfaction",
+      "description": "Recognizing efforts that improve customer satisfaction and support",
+      "subcategories": [
+        {
+          "id": "D1",
+          "name": "Proactive Support",
+          "description": "Providing exceptional support and going above and beyond for customers",
+          "examples": [
+            "proactive support",
+            "going above and beyond"
+          ]
+        },
+        {
+          "id": "D2",
+          "name": "Response Time Improvement",
+          "description": "Reducing response times and improving overall customer experience",
+          "examples": [
+            "improving team response time",
+            "increasing satisfaction score"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "E",
+      "name": "Data-Driven Insights",
+      "description": "Recognizing contributions that drive business decisions through data analysis",
+      "subcategories": [
+        {
+          "id": "E1",
+          "name": "Insight Generation",
+          "description": "Delivering insights that inform business decisions and improve KPI performance",
+          "examples": [
+            "delivering insights",
+            "driving business decisions"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "F",
+      "name": "Collaboration and Partnership",
+      "description": "Recognizing efforts that facilitate cross-functional collaboration and partnership",
+      "subcategories": [
+        {
+          "id": "F1",
+          "name": "Cross-Functional Collaboration",
+          "description": "Working seamlessly with other teams to achieve shared goals",
+          "examples": [
+            "working with sales and product",
+            "collaborative campaign launch"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "G",
+      "name": "Rapid Impact",
+      "description": "Recognizing individuals who make a significant impact in a short amount of time",
+      "subcategories": [
+        {
+          "id": "G1",
+          "name": "Fast Ramp-Up",
+          "description": "Quickly taking ownership of major features and delivering exceptional results",
+          "examples": [
+            "ramping up incredibly fast",
+            "delivering exceptional results in first 90 days"
+          ]
+        }
+      ]
+    }
+  ],
+  "reasoning": "This structure fits the data because it captures the distinct types of recognition present in the messages, such as process improvement, business growth, and leadership. The subcategories provide further granularity, highlighting specific aspects of each category, such as technical optimization and revenue increase. The taxonomy is grounded in the language and themes used in the messages, ensuring that it accurately reflects the types of recognition that are valued within the company."
+}

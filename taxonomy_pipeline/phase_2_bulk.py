@@ -172,13 +172,16 @@ def run(taxonomy: dict = None, batch_size: int = None, resume: bool = True) -> t
             logger.error(f"No taxonomy found at {tax_path}. Run Phase 1 first.")
             raise FileNotFoundError(f"Run Phase 1 first: {tax_path}")
 
-    # Check Ollama
+    # Check Ollama — fallback to simple classification if unavailable
     if not check_ollama():
-        logger.error(
+        logger.warning(
             "Ollama not running. Install: https://ollama.ai\n"
-            f"Then: ollama pull {cfg.P2_MODEL}"
+            f"Or: ollama pull {cfg.P2_MODEL}\n"
+            "Falling back to simple keyword-based classification..."
         )
-        raise ConnectionError("Ollama not available")
+        # Import and use simple classification as fallback
+        import phase_2_simple
+        return phase_2_simple.run(taxonomy=taxonomy, awards_csv=cfg.AWARDS_CSV)
 
     logger.info(f"Ollama connected, using model: {cfg.P2_MODEL}")
 

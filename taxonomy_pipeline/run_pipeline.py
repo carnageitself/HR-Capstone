@@ -1,10 +1,37 @@
 import argparse
 import time
+import json
+from datetime import datetime
+from pathlib import Path
 
 import config as cfg
 from utils import save_json, ensure_dir, get_logger
 
 logger = get_logger("pipeline")
+
+STATUS_FILE = None
+
+
+def write_status(phase: int, status_str: str, provider: str = "", duration: float = 0.0):
+    """Write phase status to JSON file for API polling"""
+    global STATUS_FILE
+    if not STATUS_FILE:
+        return
+
+    try:
+        status_data = {
+            "phase": phase,
+            "status": status_str,
+            "provider": provider or cfg.LLM_PROVIDER_PRIORITY[0],
+            "timestamp": datetime.utcnow().isoformat(),
+        }
+        if duration > 0:
+            status_data["duration_seconds"] = round(duration, 1)
+
+        with open(STATUS_FILE, "w") as f:
+            json.dump(status_data, f, indent=2)
+    except Exception as e:
+        logger.warning(f"Failed to write status: {e}")
 
 
 def setup_run(run_name: str = None, provider: str = None):
@@ -32,8 +59,11 @@ def run_phase_1():
     logger.info(f"PHASE 1: {cfg.LLM_PROVIDER_PRIORITY[0].title()} Discovers Taxonomy")
     logger.info("=" * 60)
 
+    write_status(1, "running")
     from phase_1_seed import run as phase_1_run
-    return phase_1_run()
+    result = phase_1_run()
+    write_status(1, "complete")
+    return result
 
 
 def run_phase_2(taxonomy: dict = None):
@@ -42,8 +72,11 @@ def run_phase_2(taxonomy: dict = None):
     logger.info("PHASE 2: Llama Bulk Classification")
     logger.info("=" * 60)
 
+    write_status(2, "running")
     from phase_2_bulk import run as phase_2_run
-    return phase_2_run(taxonomy=taxonomy)
+    result = phase_2_run(taxonomy=taxonomy)
+    write_status(2, "complete")
+    return result
 
 
 def run_phase_3(taxonomy: dict = None, candidates: dict = None):
@@ -52,8 +85,11 @@ def run_phase_3(taxonomy: dict = None, candidates: dict = None):
     logger.info(f"PHASE 3: {cfg.LLM_PROVIDER_PRIORITY[0].title()} Finalizes Taxonomy")
     logger.info("=" * 60)
 
+    write_status(3, "running")
     from phase_3_finalize import run as phase_3_run
-    return phase_3_run(taxonomy=taxonomy, candidates=candidates)
+    result = phase_3_run(taxonomy=taxonomy, candidates=candidates)
+    write_status(3, "complete")
+    return result
 
 
 def run_full(skip_phase2: bool = False):
@@ -81,8 +117,28 @@ def run_full(skip_phase2: bool = False):
     candidates = {}
     if not skip_phase2:
         t2 = time.time()
-        _, candidates = run_phase_2(taxonomy=taxonomy)
+        phase2_data, candidates = run_phase_2(taxonomy=taxonomy)
         logger.info(f"Phase 2 completed in {time.time() - t2:.1f}s\n")
+
+        # Normalize and save phase 2 results
+        if phase2_data and phase2_data.get('classifications'):
+            clf_dict = phase2_data['classifications']
+            clf_array = [
+                {
+                    "award_id": aid,
+                    "category": v.get("category_id", ""),
+                    "subcategory": v.get("subcategory_id", ""),
+                    "themes": [],
+                    "new_category": None,
+                }
+                for aid, v in clf_dict.items()
+            ] if isinstance(clf_dict, dict) else clf_dict
+            phase2_to_save = {
+                "metadata": phase2_data.get("metadata", {}),
+                "classifications": clf_array,
+                "candidate_categories": candidates,
+            }
+            save_json(phase2_to_save, cfg.OUTPUT_DIR / "phase_2_results.json", "Phase 2 results")
     else:
         logger.info("Phase 2 skipped (--skip-phase2 flag)")
         logger.info("Phase 3 will finalize Phase 1 taxonomy without new candidates\n")
@@ -154,14 +210,36 @@ def main():
     parser.add_argument(
         "--provider",
         type=str,
-        choices=["claude", "gemini"],
+        choices=["claude", "gemini", "groq"],
         default=None,
         help="Force a specific LLM provider (overrides config priority)",
     )
+    parser.add_argument(
+        "--awards-csv",
+        type=str,
+        default=None,
+        help="Path to awards CSV file (overrides config default)",
+    )
+    parser.add_argument(
+        "--status-file",
+        type=str,
+        default=None,
+        help="Path to write pipeline status JSON file for progress tracking",
+    )
     args = parser.parse_args()
+
+    # Set global status file path if provided
+    global STATUS_FILE
+    if args.status_file:
+        STATUS_FILE = Path(args.status_file)
 
     # Apply runtime overrides BEFORE importing phase modules
     setup_run(run_name=args.run_name, provider=args.provider)
+
+    # Override awards CSV path if provided
+    if args.awards_csv:
+        cfg.AWARDS_CSV = Path(args.awards_csv)
+        logger.info(f"Awards CSV overridden to: {cfg.AWARDS_CSV}")
 
     ensure_dir(cfg.OUTPUT_DIR)
 

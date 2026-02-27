@@ -228,11 +228,44 @@ def list_gemini_models() -> list[str]:
     return names
 
 
+def _call_groq(prompt: str, model: str, max_tokens: int, system: str = None) -> str:
+    """Call Groq API. Raises on auth/billing errors so fallback can trigger."""
+    try:
+        from groq import Groq
+    except ImportError:
+        raise ImportError("groq package not installed. Install with: pip install groq")
+
+    api_key = cfg.GROQ_API_KEY
+    if not api_key:
+        raise ValueError("GROQ_API_KEY not set")
+
+    client = Groq(api_key=api_key)
+
+    kwargs = {
+        "model": model,
+        "max_tokens": max_tokens,
+        "temperature": 0.7,
+        "messages": [{"role": "user", "content": prompt}],
+    }
+    if system:
+        kwargs["messages"].insert(0, {"role": "system", "content": system})
+
+    response = client.chat.completions.create(**kwargs)
+    text = response.choices[0].message.content
+
+    _logger_llm.info(
+        f"[Groq] {response.usage.prompt_tokens} in / {response.usage.completion_tokens} out "
+        f"(model={model})"
+    )
+    return text
+
+
 # ── Provider dispatcher ──
 
 PROVIDER_CALLERS = {
     "claude": _call_claude,
     "gemini": _call_gemini,
+    "groq": _call_groq,
 }
 
 
@@ -266,6 +299,8 @@ def call_llm(
             providers_to_try.append(p)
         elif p == "gemini" and cfg.GOOGLE_API_KEY:
             providers_to_try.append(p)
+        elif p == "groq" and cfg.GROQ_API_KEY:
+            providers_to_try.append(p)
 
     if not providers_to_try:
         raise EnvironmentError(
@@ -277,7 +312,11 @@ def call_llm(
     for i, provider in enumerate(providers_to_try):
         model = (models or {}).get(provider)
         if not model:
-            defaults = {"claude": "claude-sonnet-4-5-20250929", "gemini": cfg.GEMINI_DEFAULT_MODEL}
+            defaults = {
+                "claude": "claude-sonnet-4-5-20250929",
+                "gemini": cfg.GEMINI_DEFAULT_MODEL,
+                "groq": cfg.GROQ_DEFAULT_MODEL,
+            }
             model = defaults.get(provider, cfg.GEMINI_DEFAULT_MODEL)
 
         caller = PROVIDER_CALLERS[provider]
@@ -348,7 +387,7 @@ def check_ollama() -> bool:
         return False
 
 
-def call_ollama(prompt: str, model: str = None, temperature: float = None) -> str | None:
+def call_ollama(prompt: str, model: str = None, temperature: float = None):
     """
     Call local Ollama and return text response.
     Returns None on failure (caller decides how to handle).

@@ -1,0 +1,17 @@
+employee_id,first_name,last_name,department_id,job_title
+E101,Sarah,Johnson,D01,Senior Developer
+E102,Mike,Chen,D01,Staff Engineer
+E103,Jessica,Williams,D02,Product Manager
+E104,David,Brown,D02,Senior PM
+E105,Robert,Martinez,D03,Data Analyst
+E106,Emily,Davis,D03,Analytics Lead
+E107,Amanda,Thompson,D04,Marketing Specialist
+E108,James,Wilson,D04,Marketing Director
+E109,Kevin,Lee,D05,Customer Support
+E110,Lisa,Anderson,D05,Support Manager
+E111,Patricia,Garcia,D01,QA Engineer
+E112,Thomas,Anderson,D02,Associate PM
+E113,Michelle,Brown,D03,Data Engineer
+E114,Charles,White,D04,Content Writer
+E115,Diana,Parker,D05,Implementation Specialist
+E116,Mark,Johnson,D01,Junior Developer

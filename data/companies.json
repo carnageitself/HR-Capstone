@@ -1,0 +1,28 @@
+{
+  "companies": [
+    {
+      "id": "default",
+      "name": "Default Company",
+      "description": "Sample/demo company with mockup data",
+      "industry": "Technology",
+      "size": "Large",
+      "created": "2025-02-26",
+      "readonly": true,
+      "data_dir": "data/default"
+    },
+    {
+      "id": "int_tech",
+      "name": "Int Tech",
+      "description": "Int Tech HR Analytics",
+      "industry": "Eductaion",
+      "size": "Small",
+      "created": "2026-02-26T16:55:04.067Z",
+      "readonly": false,
+      "data_dir": "data/companies/int_tech"
+    }
+  ],
+  "metadata": {
+    "lastUpdated": "2026-02-26T16:55:04.067Z",
+    "totalCompanies": 2
+  }
+}

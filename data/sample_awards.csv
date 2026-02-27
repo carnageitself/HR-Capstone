@@ -1,0 +1,16 @@
+award_id,recipient_id,nominator_id,award_title,award_message,category_id,reasoning,award_date,monetary_value_usd,award_status
+AW001,E101,E102,Code Review Champion,"Sarah consistently provides thoughtful code reviews that improve team quality and maintainability.",B,Improved code quality through detailed reviews,2025-01-15,500,Approved
+AW002,E103,E104,Strategic Vision Implementation,"Jessica led the Q1 product strategy that resulted in a 35% increase in user engagement and clear roadmap for the team.",A,Delivered strategic vision on time,2025-01-20,750,Approved
+AW003,E105,E106,Dashboard Automation Project,"Robert automated 80% of our monthly reporting dashboards saving 40 hours per month of manual work.",B,Process automation and efficiency,2025-01-25,400,Approved
+AW004,E107,E108,Cross-Team Campaign Success,"Amanda worked seamlessly with sales and product to launch integrated campaign that exceeded targets by 150%.",C,Exceptional cross-functional collaboration,2025-02-01,300,Approved
+AW005,E109,E110,Customer Satisfaction Excellence,"Kevin achieved 98% satisfaction score through proactive support and going above and beyond for challenging cases.",D,Outstanding customer service,2025-02-05,350,Approved
+AW006,E111,E102,Test Automation Framework,"Patricia built comprehensive test automation framework reducing regression testing time by 50% and improving reliability.",B,Improved testing efficiency and reliability,2025-02-10,400,Approved
+AW007,E113,E103,Rapid Learning and Growth,"Thomas ramped up incredibly fast, taking ownership of major features and delivering exceptional results in first 90 days.",E,Strong performance and learning,2025-02-15,200,Approved
+AW008,E114,E106,Data Pipeline Architecture,"Michelle redesigned our data pipeline increasing reliability to 99.9% uptime and enabling real-time analytics.",B,Architectural excellence and reliability,2025-02-20,500,Approved
+AW009,E115,E108,Blog Readership Growth,"Charles increased blog traffic 250% through SEO optimization and engaging content strategy.",B,Exceptional content and organic growth,2025-02-25,300,Approved
+AW010,E116,E110,Mobile App Performance,"Lisa optimized the mobile app reducing load time by 60% and improving user retention significantly.",B,Technical excellence and user impact,2025-02-28,450,Approved
+AW011,E102,E101,Technical Mentoring Program,"Mike mentored 5 junior developers this year helping all achieve promotion readiness and skill growth.",A,Strong mentorship and team development,2025-03-05,450,Approved
+AW012,E104,E103,Market Expansion Strategy,"David led analysis and strategy for entering 3 new markets resulting in 2 million additional revenue.",A,Strategic market expansion,2025-03-10,600,Approved
+AW013,E106,E105,Analytics Insights Delivery,"Emily consistently delivers insights that drive business decisions and improve KPI performance.",A,Data-driven decision making,2025-03-15,250,Approved
+AW014,E108,E107,Marketing Team Development,"James built and developed high-performing team with 100% retention and all on promotion track.",A,Team building and leadership,2025-03-20,550,Approved
+AW015,E110,E109,Support Team Performance,"Lisa improved team response time 40% while increasing satisfaction from 85% to 98%.",A,Team performance improvement,2025-03-25,400,Approved
