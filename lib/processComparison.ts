@@ -95,11 +95,13 @@ function computeScore(run: PipelineRun): PipelineScore {
     // Collect all Phase 1 models tested
     phase1Models = Object.values(models).filter(m => m) as string[];
 
-    // Add pricing info for each model
+    // Add pricing info for each model (active + reference)
     phase1Pricing = {
-      "groq": { input: 0.10, output: 0.32, name: "Llama 3.3 70B (Groq)" },
-      "gemini": { input: 0.075, output: 0.30, name: "Gemini Flash 2.0" },
-      "groq_qwen": { input: 0.29, output: 0.59, name: "Qwen 3 32B (Groq)" },
+      "groq": { input: 0.10, output: 0.32, name: "Llama 3.3 70B (Groq)", status: "active" },
+      "groq_qwen": { input: 0.29, output: 0.59, name: "Qwen 3 32B (Groq)", status: "active" },
+      "gemini": { input: 0.075, output: 0.30, name: "Gemini Flash 2.0", status: "reference" },
+      "gpt_mini": { input: 0.075, output: 0.30, name: "GPT 4.5 Mini (OpenAI)", status: "reference" },
+      "gemma_openrouter": { input: 0.04, output: 0.15, name: "Gemma 3 27B (OpenRouter)", status: "reference" },
     };
   }
 

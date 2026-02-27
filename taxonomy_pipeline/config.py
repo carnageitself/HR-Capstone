@@ -60,12 +60,15 @@ GROQ_QWEN_MODEL = "qwen/qwen3-32b"              # Groq's Qwen 3 32B (better than
 
 # Model pricing per 1M tokens (input / output)
 # Used for cost comparison in results
+# Note: Only P1_MODELS are actually evaluated; others shown for reference/comparison
 MODEL_PRICING = {
-    "groq_llama": {"input": 0.10, "output": 0.32, "name": "Llama 3.3 70B (Groq)"},
-    "groq_qwen": {"input": 0.29, "output": 0.59, "name": "Qwen 3 32B (Groq)"},
-    "gemini": {"input": 0.075, "output": 0.30, "name": "Gemini Flash 2.0"},
-    "mistral": {"input": 0.06, "output": 0.18, "name": "Mistral Small 3.2"},
-    "claude": {"input": 15.0, "output": 90.0, "name": "Claude Opus"},
+    "groq_llama": {"input": 0.10, "output": 0.32, "name": "Llama 3.3 70B (Groq)", "status": "active"},
+    "groq_qwen": {"input": 0.29, "output": 0.59, "name": "Qwen 3 32B (Groq)", "status": "active"},
+    "gemini": {"input": 0.075, "output": 0.30, "name": "Gemini Flash 2.0", "status": "reference"},
+    "gemma_openrouter": {"input": 0.04, "output": 0.15, "name": "Gemma 3 27B (OpenRouter)", "status": "reference"},
+    "gpt_mini": {"input": 0.075, "output": 0.30, "name": "GPT 4.5 Mini (OpenAI)", "status": "reference"},
+    "mistral": {"input": 0.06, "output": 0.18, "name": "Mistral Small 3.2", "status": "reference"},
+    "claude": {"input": 15.0, "output": 90.0, "name": "Claude Opus", "status": "reference"},
 }
 
 # PHASE 1 — Multiple Models Comparison

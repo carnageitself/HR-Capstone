@@ -20,7 +20,13 @@ export default function RunSection({
   onCompanyChange,
 }: RunSectionProps) {
   const [runName, setRunName] = useState("");
-  const [phase1Models, setPhase1Models] = useState({ groq: true, groq_qwen: true });
+  const [phase1Models, setPhase1Models] = useState({
+    groq: true,
+    groq_qwen: true,
+    gemini: false,
+    gemma_openrouter: false,
+    gpt_mini: false,
+  });
   const [isRunning, setIsRunning] = useState(false);
   const [statuses, setStatuses] = useState<Record<string, RunStatus>>({});
   const [companies, setCompanies] = useState<any[]>([]);
@@ -172,31 +178,87 @@ export default function RunSection({
 
         <div className="mt-6">
           <label className="block text-sm font-medium text-gray-700 mb-3">
-            Phase 1 Models to Evaluate (All via Groq)
+            Phase 1 Models to Evaluate
           </label>
-          <div className="flex gap-6">
-            <label className="flex items-center">
-              <input
-                type="checkbox"
-                checked={phase1Models.groq}
-                onChange={(e) =>
-                  setPhase1Models({ ...phase1Models, groq: e.target.checked })
-                }
-                className="mr-2"
-              />
-              <span className="text-sm">Llama 3.3 70B - $0.10/$0.32</span>
-            </label>
-            <label className="flex items-center">
-              <input
-                type="checkbox"
-                checked={phase1Models.groq_qwen}
-                onChange={(e) =>
-                  setPhase1Models({ ...phase1Models, groq_qwen: e.target.checked })
-                }
-                className="mr-2"
-              />
-              <span className="text-sm">Qwen 3 32B - $0.29/$0.59</span>
-            </label>
+
+          {/* Active Models - Groq */}
+          <div className="mb-4">
+            <p className="text-xs font-semibold text-gray-600 mb-2 uppercase tracking-wide">
+              ✓ Active (Groq)
+            </p>
+            <div className="flex gap-6 ml-2">
+              <label className="flex items-center">
+                <input
+                  type="checkbox"
+                  checked={phase1Models.groq}
+                  onChange={(e) =>
+                    setPhase1Models({ ...phase1Models, groq: e.target.checked })
+                  }
+                  className="mr-2"
+                />
+                <span className="text-sm">Llama 3.3 70B - $0.10/$0.32</span>
+              </label>
+              <label className="flex items-center">
+                <input
+                  type="checkbox"
+                  checked={phase1Models.groq_qwen}
+                  onChange={(e) =>
+                    setPhase1Models({ ...phase1Models, groq_qwen: e.target.checked })
+                  }
+                  className="mr-2"
+                />
+                <span className="text-sm">Qwen 3 32B - $0.29/$0.59</span>
+              </label>
+            </div>
+          </div>
+
+          {/* Reference Models - Other Providers */}
+          <div>
+            <p className="text-xs font-semibold text-gray-600 mb-2 uppercase tracking-wide">
+              📚 Reference (For Comparison)
+            </p>
+            <div className="space-y-2 ml-2">
+              <div className="flex gap-6">
+                <label className="flex items-center">
+                  <input
+                    type="checkbox"
+                    checked={phase1Models.gemini}
+                    onChange={(e) =>
+                      setPhase1Models({ ...phase1Models, gemini: e.target.checked })
+                    }
+                    disabled
+                    className="mr-2 opacity-50 cursor-not-allowed"
+                  />
+                  <span className="text-sm text-gray-600">Gemini Flash 2.0 - $0.075/$0.30</span>
+                </label>
+                <label className="flex items-center">
+                  <input
+                    type="checkbox"
+                    checked={phase1Models.gpt_mini}
+                    onChange={(e) =>
+                      setPhase1Models({ ...phase1Models, gpt_mini: e.target.checked })
+                    }
+                    disabled
+                    className="mr-2 opacity-50 cursor-not-allowed"
+                  />
+                  <span className="text-sm text-gray-600">GPT 4.5 Mini (OpenAI) - $0.075/$0.30</span>
+                </label>
+              </div>
+              <div className="flex gap-6">
+                <label className="flex items-center">
+                  <input
+                    type="checkbox"
+                    checked={phase1Models.gemma_openrouter}
+                    onChange={(e) =>
+                      setPhase1Models({ ...phase1Models, gemma_openrouter: e.target.checked })
+                    }
+                    disabled
+                    className="mr-2 opacity-50 cursor-not-allowed"
+                  />
+                  <span className="text-sm text-gray-600">Gemma 3 27B (OpenRouter) - $0.04/$0.15</span>
+                </label>
+              </div>
+            </div>
           </div>
         </div>
 
