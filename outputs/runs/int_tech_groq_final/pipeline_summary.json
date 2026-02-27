@@ -1,0 +1,30 @@
+{
+  "pipeline": {
+    "total_time_seconds": 45.5,
+    "phases_run": [
+      1,
+      2,
+      3
+    ],
+    "llm_provider_priority": [
+      "groq"
+    ],
+    "phase_1_models": {
+      "groq": "llama-3.3-70b-versatile",
+      "gemini": "gemini-flash-lite-latest",
+      "groq_qwen": "qwen/qwen3-32b"
+    },
+    "phase_2_model": "llama3:8b",
+    "phase_3_models": {
+      "claude": "claude-sonnet-4-5-20250929",
+      "gemini": "gemini-flash-lite-latest",
+      "groq": "llama-3.3-70b-versatile"
+    }
+  },
+  "results": {
+    "final_categories": 5,
+    "total_subcategories": 12,
+    "candidates_found": 0,
+    "changes_applied": 0
+  }
+}

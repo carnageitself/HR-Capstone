@@ -1,0 +1,165 @@
+{
+  "metadata": {
+    "phase": 1,
+    "sample_size": 15,
+    "random_state": 42,
+    "models": {
+      "groq": "llama-3.3-70b-versatile",
+      "gemini": "gemini-flash-lite-latest",
+      "groq_qwen": "qwen/qwen3-32b"
+    },
+    "selected_model": "groq",
+    "all_results": [
+      "groq",
+      "gemini"
+    ]
+  },
+  "taxonomy": {
+    "categories": [
+      {
+        "id": "A",
+        "name": "Technical Achievements",
+        "description": "Recognizing individuals for their technical skills and accomplishments that improve processes, systems, or tools.",
+        "subcategories": [
+          {
+            "id": "A1",
+            "name": "Process Optimization",
+            "description": "Improving the efficiency or effectiveness of internal processes or systems.",
+            "examples": [
+              "reducing load time by 60%",
+              "reducing regression testing time by 50%"
+            ]
+          },
+          {
+            "id": "A2",
+            "name": "Innovation and Development",
+            "description": "Creating new or improving existing products, features, or technologies.",
+            "examples": [
+              "built comprehensive test automation framework",
+              "redesigned our data pipeline"
+            ]
+          },
+          {
+            "id": "A3",
+            "name": "Automation and Efficiency",
+            "description": "Automating manual tasks or improving the efficiency of existing workflows.",
+            "examples": [
+              "automated 80% of our monthly reporting dashboards",
+              "saving 40 hours per month of manual work"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "B",
+        "name": "Leadership and Strategy",
+        "description": "Recognizing individuals for their leadership, strategic thinking, and decision-making.",
+        "subcategories": [
+          {
+            "id": "B1",
+            "name": "Market Growth and Expansion",
+            "description": "Developing and executing strategies that drive business growth and expansion.",
+            "examples": [
+              "entering 3 new markets",
+              "increasing user engagement by 35%"
+            ]
+          },
+          {
+            "id": "B2",
+            "name": "Team Leadership and Development",
+            "description": "Leading, mentoring, and developing high-performing teams.",
+            "examples": [
+              "built and developed high-performing team",
+              "mentored 5 junior developers"
+            ]
+          },
+          {
+            "id": "B3",
+            "name": "Product and Campaign Strategy",
+            "description": "Developing and executing product or campaign strategies that drive business results.",
+            "examples": [
+              "led the Q1 product strategy",
+              "launched integrated campaign that exceeded targets"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "C",
+        "name": "Customer and User Focus",
+        "description": "Recognizing individuals for their focus on customer or user satisfaction and experience.",
+        "subcategories": [
+          {
+            "id": "C1",
+            "name": "Customer Satisfaction and Support",
+            "description": "Providing exceptional support and ensuring high customer satisfaction.",
+            "examples": [
+              "achieved 98% satisfaction score",
+              "improving user retention significantly"
+            ]
+          },
+          {
+            "id": "C2",
+            "name": "User Experience and Engagement",
+            "description": "Improving user experience, engagement, and retention through various initiatives.",
+            "examples": [
+              "increased blog traffic 250%",
+              "improved team response time 40%"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "D",
+        "name": "Collaboration and Enablement",
+        "description": "Recognizing individuals for their collaboration, enablement, and support of others.",
+        "subcategories": [
+          {
+            "id": "D1",
+            "name": "Cross-Functional Collaboration",
+            "description": "Collaborating with other teams or functions to achieve shared goals.",
+            "examples": [
+              "worked seamlessly with sales and product",
+              "provided thoughtful code reviews"
+            ]
+          },
+          {
+            "id": "D2",
+            "name": "Mentorship and Knowledge Sharing",
+            "description": "Mentoring, training, or sharing knowledge with others to enhance their skills and performance.",
+            "examples": [
+              "mentored 5 junior developers",
+              "consistently delivers insights that drive business decisions"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "E",
+        "name": "Personal Achievements and Growth",
+        "description": "Recognizing individuals for their personal achievements, growth, and contributions.",
+        "subcategories": [
+          {
+            "id": "E1",
+            "name": "Ramp-Up and Onboarding",
+            "description": "Quickly adapting to new roles or responsibilities and delivering results.",
+            "examples": [
+              "ramped up incredibly fast",
+              "taking ownership of major features"
+            ]
+          },
+          {
+            "id": "E2",
+            "name": "Skill Development and Expertise",
+            "description": "Developing and demonstrating expertise in specific areas or skills.",
+            "examples": [
+              "helping all achieve promotion readiness and skill growth",
+              "consistently provides thoughtful code reviews"
+            ]
+          }
+        ]
+      }
+    ],
+    "reasoning": "This taxonomy structure fits the data because it captures the distinct types of recognition present in the messages, such as technical achievements, leadership and strategy, customer and user focus, collaboration and enablement, and personal achievements and growth. The subcategories provide further granularity and specificity, allowing for more precise recognition and categorization of employee achievements. The structure is grounded in the language and themes present in the messages, ensuring that it is relevant and meaningful to the organization."
+  }
+}

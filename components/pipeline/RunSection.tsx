@@ -20,7 +20,7 @@ export default function RunSection({
   onCompanyChange,
 }: RunSectionProps) {
   const [runName, setRunName] = useState("");
-  const [providers, setProviders] = useState({ groq: true, gemini: true });
+  const [providers, setProviders] = useState({ groq: true, gemini: true, groq_qwen: true });
   const [isRunning, setIsRunning] = useState(false);
   const [statuses, setStatuses] = useState<Record<string, RunStatus>>({});
   const [companies, setCompanies] = useState<any[]>([]);
@@ -197,28 +197,44 @@ export default function RunSection({
               />
               <span className="text-sm">Gemini (Free Tier)</span>
             </label>
+            <label className="flex items-center">
+              <input
+                type="checkbox"
+                checked={providers.groq_qwen}
+                onChange={(e) =>
+                  setProviders({ ...providers, groq_qwen: e.target.checked })
+                }
+                className="mr-2"
+              />
+              <span className="text-sm">Qwen (via Groq)</span>
+            </label>
           </div>
         </div>
 
-        <div className="mt-6 flex gap-3">
-          {providers.groq && (
-            <button
-              onClick={() => triggerPipeline("groq")}
-              disabled={isRunning}
-              className="px-6 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 disabled:bg-gray-400 text-sm font-medium"
-            >
-              Run with Groq
-            </button>
-          )}
-          {providers.gemini && (
-            <button
-              onClick={() => triggerPipeline("gemini")}
-              disabled={isRunning}
-              className="px-6 py-2 bg-purple-600 text-white rounded-md hover:bg-purple-700 disabled:bg-gray-400 text-sm font-medium"
-            >
-              Run with Gemini
-            </button>
-          )}
+        <div className="mt-6">
+          <p className="text-xs text-gray-600 mb-3 bg-blue-50 border border-blue-200 rounded p-3">
+            <span className="font-medium">Multi-Model Evaluation:</span> All checked models run in parallel for automatic comparison. Phase 1 will test all selected models and show results side-by-side in the scorecard.
+          </p>
+          <div className="flex gap-3">
+            {providers.groq && (
+              <button
+                onClick={() => triggerPipeline("groq")}
+                disabled={isRunning}
+                className="px-6 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 disabled:bg-gray-400 text-sm font-medium"
+              >
+                Run Pipeline
+              </button>
+            )}
+            {providers.gemini && !providers.groq && (
+              <button
+                onClick={() => triggerPipeline("gemini")}
+                disabled={isRunning}
+                className="px-6 py-2 bg-purple-600 text-white rounded-md hover:bg-purple-700 disabled:bg-gray-400 text-sm font-medium"
+              >
+                Run Pipeline
+              </button>
+            )}
+          </div>
         </div>
       </div>
 

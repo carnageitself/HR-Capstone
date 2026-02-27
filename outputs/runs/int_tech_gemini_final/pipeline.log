@@ -1,0 +1,26 @@
+[pipeline] INFO — Run name: int_tech_gemini_final
+[pipeline] INFO — Output redirected to: C:\Users\deeps\hrproject\final_project\outputs\runs\int_tech_gemini_final
+[pipeline] INFO — Provider forced to: gemini
+[pipeline] INFO — Awards CSV overridden to: C:\Users\deeps\hrproject\final_project\data\companies\int_tech\awards.csv
+[pipeline] INFO — ============================================================
+[pipeline] INFO — TAXONOMY REFINEMENT PIPELINE
+[pipeline] INFO — ============================================================
+[pipeline] INFO — Data:   C:\Users\deeps\hrproject\final_project\data\companies\int_tech\awards.csv
+[pipeline] INFO — Output: C:\Users\deeps\hrproject\final_project\outputs\runs\int_tech_gemini_final
+[pipeline] INFO — LLM priority: ['gemini']
+[pipeline] INFO — Phase 1 models: {'groq': 'llama-3.3-70b-versatile', 'gemini': 'gemini-flash-lite-latest', 'groq_qwen': 'qwen/qwen3-32b'}
+[pipeline] INFO — Phase 2 model: llama3:8b (local Ollama)
+[pipeline] INFO — Phase 3 models: {'claude': 'claude-sonnet-4-5-20250929', 'gemini': 'gemini-flash-lite-latest', 'groq': 'llama-3.3-70b-versatile'}
+[pipeline] INFO — ============================================================
+[pipeline] INFO — ============================================================
+[pipeline] INFO — PHASE 1: Gemini Discovers Taxonomy
+[pipeline] INFO — ============================================================
+[utils] INFO — Loaded 15 rows from awards.csv
+[phase_1] ERROR — Failed to call groq_qwen (qwen/qwen3-32b): 'groq_qwen'
+[phase_1] INFO — Sampled 15 messages, building prompt...
+[phase_1] INFO — Running Phase 1 with 3 model(s): [('groq', 'llama-3.3-70b-versatile'), ('gemini', 'gemini-flash-lite-latest'), ('groq_qwen', 'qwen/qwen3-32b')]
+[phase_1] WARNING — Model groq_qwen/qwen/qwen3-32b failed: 'groq_qwen'
+[phase_1] INFO — Phase 1: Sampling 100 messages (seed=42)
+[utils.llm] INFO — [Groq] 633 in / 1120 out (model=llama-3.3-70b-versatile)
+[utils.llm] INFO — [Groq] 633 in / 1120 out (model=llama-3.3-70b-versatile)
+[phase_1] INFO — Received response from groq
