@@ -91,6 +91,7 @@ export default function PipelineComparison({ runs }: Props) {
               {[
                 { label: "LLM Provider",          key: "llmProvider"      as const, unit: "",  lower: false, isString: true },
                 { label: "Phase 1 Model",         key: "phase1Model"      as const, unit: "",  lower: false, isString: true },
+                { label: "Phase 1 Cost (in/out)", key: "phase1Price"       as const, unit: "",  lower: true,  isPrice: true },
                 { label: "Phase 2 Model",         key: "phase2Model"      as const, unit: "",  lower: false, isString: true },
                 { label: "Phase 3 Model",         key: "phase3Model"      as const, unit: "",  lower: false, isString: true },
                 { label: "Success Rate",         key: "successRate"      as const, unit: "%", lower: false },
@@ -106,16 +107,27 @@ export default function PipelineComparison({ runs }: Props) {
                   <td className="px-3 py-2 border-b border-gray-100 font-medium text-gray-700">{row.label}</td>
                   {scores.map((s) => {
                     const isString = (row as any).isString;
-                    const best = !isString && isBest(s.pipeline, row.key, row.lower);
-                    const worst = !isString && isBest(s.pipeline, row.key, !row.lower);
+                    const isPrice = (row as any).isPrice;
+                    let cellValue = "";
+
+                    if (isPrice) {
+                      const pricing = s.phase1Pricing?.[s.llmProvider || ""];
+                      cellValue = pricing ? `$${pricing.input.toFixed(2)} / $${pricing.output.toFixed(2)}` : "N/A";
+                    } else {
+                      cellValue = String(s[row.key as keyof typeof s] || "");
+                    }
+
+                    const best = !isString && !isPrice && isBest(s.pipeline, row.key, row.lower);
+                    const worst = !isString && !isPrice && isBest(s.pipeline, row.key, !row.lower);
+
                     return (
                       <td
                         key={s.pipeline}
                         className={`px-3 py-2 border-b border-gray-100 text-center font-semibold ${
-                          isString ? "text-gray-700" : best ? "text-green-600" : worst ? "text-red-500" : "text-gray-700"
+                          isString || isPrice ? "text-gray-700" : best ? "text-green-600" : worst ? "text-red-500" : "text-gray-700"
                         }`}
                       >
-                        {s[row.key as keyof typeof s]}{row.unit}
+                        {cellValue}{!isPrice && !isString && row.unit}
                       </td>
                     );
                   })}

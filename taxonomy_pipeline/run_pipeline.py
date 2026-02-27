@@ -153,12 +153,22 @@ def run_full(skip_phase2: bool = False):
     final_cats = final.get("final_taxonomy", {}).get("categories", [])
     changes = final.get("changes", [])
 
+    # Extract Phase 1 model info from taxonomy metadata if available
+    phase1_models = cfg.P1_MODELS
+    try:
+        from utils import load_json
+        phase1_tax = load_json(cfg.OUTPUT_DIR / "phase_1_taxonomy.json")
+        if "metadata" in phase1_tax:
+            phase1_models = phase1_tax["metadata"].get("models", cfg.P1_MODELS)
+    except Exception:
+        pass
+
     summary = {
         "pipeline": {
             "total_time_seconds": round(elapsed, 1),
             "phases_run": [1, 3] if skip_phase2 else [1, 2, 3],
             "llm_provider_priority": cfg.LLM_PROVIDER_PRIORITY,
-            "phase_1_models": cfg.P1_MODELS,
+            "phase_1_models": phase1_models,
             "phase_2_model": cfg.P2_MODEL if not skip_phase2 else "skipped",
             "phase_3_models": cfg.P3_MODELS,
         },

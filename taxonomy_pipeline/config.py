@@ -9,17 +9,26 @@ load_dotenv(Path(__file__).resolve().parent.parent / ".env")
 ANTHROPIC_API_KEY = os.environ.get("ANTHROPIC_API_KEY")
 GOOGLE_API_KEY = os.environ.get("GOOGLE_API_KEY")
 GROQ_API_KEY = os.environ.get("GROQ_API_KEY")
+OPENROUTER_API_KEY = os.environ.get("OPENROUTER_API_KEY")
 
 # LLM Provider availability
 LLM_PROVIDERS = {
-    "claude": bool(ANTHROPIC_API_KEY),      # Paid, highest quality
-    "gemini": bool(GOOGLE_API_KEY),         # Free tier available
-    "groq": bool(GROQ_API_KEY),             # Free tier, fast
+    "claude": bool(ANTHROPIC_API_KEY),       # Paid, highest quality
+    "gemini": bool(GOOGLE_API_KEY),          # Free tier available
+    "groq": bool(GROQ_API_KEY),              # Free tier, fast
+    "openrouter": bool(OPENROUTER_API_KEY),  # Unified API for Qwen, Mistral, etc
+}
+
+# Models to evaluate in Phase 1 (run all available)
+# Default: all enabled for comparison
+EVAL_MODELS = {
+    "groq": True,       # Llama 3.3 70B
+    "gemini": True,     # Gemini Flash
+    "qwen": True,       # Via OpenRouter (Gemma 3 27B recommended)
 }
 
 # Provider priority: tries in order, falls back on failure
-# Updated to prioritize free options (groq, gemini) over paid (claude)
-LLM_PROVIDER_PRIORITY = ["groq", "gemini", "claude"]
+LLM_PROVIDER_PRIORITY = ["groq", "gemini"]
 
 if not any([ANTHROPIC_API_KEY, GOOGLE_API_KEY, GROQ_API_KEY]):
     import warnings
@@ -49,18 +58,29 @@ COL_RECIPIENT_TITLE = "recipient_id"
 COL_NOMINATOR_TITLE = "nominator_id"
 GEMINI_DEFAULT_MODEL = "gemini-flash-lite-latest"
 GROQ_DEFAULT_MODEL = "llama-3.3-70b-versatile"  # Balanced quality and speed
+QWEN_DEFAULT_MODEL = "google/gemma-3-27b-it"    # Via OpenRouter (best value)
 
-# PHASE 1 — Claude/Gemini Seeds Taxonomy
+# Model pricing per 1M tokens (input / output)
+# Used for cost comparison in results
+MODEL_PRICING = {
+    "groq": {"input": 0.10, "output": 0.32, "name": "Llama 3.3 70B"},
+    "gemini": {"input": 0.075, "output": 0.30, "name": "Gemini Flash 2.0"},
+    "qwen": {"input": 0.04, "output": 0.15, "name": "Gemma 3 27B (OpenRouter)"},
+    "mistral": {"input": 0.06, "output": 0.18, "name": "Mistral Small 3.2"},
+    "claude": {"input": 15.0, "output": 90.0, "name": "Claude Opus"},
+}
+
+# PHASE 1 — Multiple Models Comparison
 P1_SAMPLE_SIZE = 100          # messages to sample for taxonomy discovery
 P1_RANDOM_STATE = 42          # reproducibility seed (set None for true random)
 P1_MSG_TRUNCATE = 500         # max chars per message sent to LLM
 P1_MAX_TOKENS = 3000          # headroom for 6-8 categories with descriptions + reasoning
 
-# Model per provider (pipeline picks based on what's available)
+# Models to evaluate in Phase 1 (run all for comparison)
 P1_MODELS = {
-    "claude": "claude-sonnet-4-5-20250929",
-    "gemini": GEMINI_DEFAULT_MODEL,
     "groq": GROQ_DEFAULT_MODEL,
+    "gemini": GEMINI_DEFAULT_MODEL,
+    "qwen": QWEN_DEFAULT_MODEL,  # New: via OpenRouter
 }
 
 # PHASE 2 — Local SLM Bulk Processing

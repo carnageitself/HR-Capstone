@@ -260,12 +260,73 @@ def _call_groq(prompt: str, model: str, max_tokens: int, system: str = None) -> 
     return text
 
 
+# ── Qwen via OpenRouter ──
+
+def _call_qwen(prompt: str, model: str, max_tokens: int, system: str = None) -> str:
+    """Call Qwen via OpenRouter API. Raises on auth/billing errors so fallback can trigger."""
+    api_key = cfg.OPENROUTER_API_KEY
+    if not api_key:
+        raise ValueError("OPENROUTER_API_KEY not set")
+
+    url = "https://openrouter.ai/api/v1/chat/completions"
+
+    messages = []
+    if system:
+        messages.append({"role": "system", "content": system})
+    messages.append({"role": "user", "content": prompt})
+
+    payload = {
+        "model": model,
+        "messages": messages,
+        "max_tokens": max_tokens,
+        "temperature": 0.7,
+    }
+
+    headers = {
+        "Authorization": f"Bearer {api_key}",
+        "Content-Type": "application/json",
+    }
+
+    max_retries = getattr(cfg, "LLM_MAX_RETRIES", 3)
+    retry_delay = getattr(cfg, "LLM_RETRY_DELAY", 5)
+
+    for attempt in range(max_retries + 1):
+        response = requests.post(url, json=payload, headers=headers, timeout=120)
+
+        if response.status_code == 200:
+            data = response.json()
+            text = data["choices"][0]["message"]["content"]
+            usage = data.get("usage", {})
+            _logger_llm.info(
+                f"[Qwen/OpenRouter] {usage.get('prompt_tokens', '?')} in / "
+                f"{usage.get('completion_tokens', '?')} out (model={model})"
+            )
+            return text
+
+        elif response.status_code == 429 and attempt < max_retries:
+            wait = retry_delay * (attempt + 1)
+            _logger_llm.warning(
+                f"[Qwen/OpenRouter] Rate limited (429). "
+                f"Retry {attempt + 1}/{max_retries} in {wait}s..."
+            )
+            time.sleep(wait)
+            continue
+
+        else:
+            error = response.json().get("error", {})
+            raise RuntimeError(
+                f"OpenRouter API error {response.status_code}: "
+                f"{error.get('message', response.text)}"
+            )
+
+
 # ── Provider dispatcher ──
 
 PROVIDER_CALLERS = {
     "claude": _call_claude,
     "gemini": _call_gemini,
     "groq": _call_groq,
+    "qwen": _call_qwen,
 }
 
 
@@ -301,6 +362,8 @@ def call_llm(
             providers_to_try.append(p)
         elif p == "groq" and cfg.GROQ_API_KEY:
             providers_to_try.append(p)
+        elif p == "qwen" and cfg.OPENROUTER_API_KEY:
+            providers_to_try.append(p)
 
     if not providers_to_try:
         raise EnvironmentError(
@@ -316,6 +379,7 @@ def call_llm(
                 "claude": "claude-sonnet-4-5-20250929",
                 "gemini": cfg.GEMINI_DEFAULT_MODEL,
                 "groq": cfg.GROQ_DEFAULT_MODEL,
+                "qwen": cfg.QWEN_DEFAULT_MODEL,
             }
             model = defaults.get(provider, cfg.GEMINI_DEFAULT_MODEL)
 

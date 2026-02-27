@@ -66,10 +66,18 @@ export interface PipelineRun {
   summary?: PipelineSummary;
 }
 
+export interface ModelPrice {
+  input: number;
+  output: number;
+  name: string;
+}
+
 export interface PipelineScore {
   pipeline: string;
   llmProvider?: string;
   phase1Model?: string;
+  phase1Models?: string[];
+  phase1Pricing?: Record<string, ModelPrice>;
   phase2Model?: string;
   phase3Model?: string;
   successRate: number;

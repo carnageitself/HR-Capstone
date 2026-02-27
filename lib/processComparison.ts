@@ -80,8 +80,10 @@ function computeScore(run: PipelineRun): PipelineScore {
 
   // Extract model names from summary
   let phase1Model = "";
+  let phase1Models: string[] = [];
   let phase2Model = "";
   let phase3Model = "";
+  let phase1Pricing: Record<string, any> = {};
 
   if (summary?.pipeline) {
     const models = summary.pipeline.phase_1_models || {};
@@ -89,12 +91,24 @@ function computeScore(run: PipelineRun): PipelineScore {
     phase2Model = summary.pipeline.phase_2_model || "llama3:8b";
     const models3 = summary.pipeline.phase_3_models || {};
     phase3Model = models3[llmProvider] || `Unknown (${llmProvider})`;
+
+    // Collect all Phase 1 models tested
+    phase1Models = Object.values(models).filter(m => m) as string[];
+
+    // Add pricing info for each model
+    phase1Pricing = {
+      "groq": { input: 0.10, output: 0.32, name: "Llama 3.3 70B" },
+      "gemini": { input: 0.075, output: 0.30, name: "Gemini Flash 2.0" },
+      "qwen": { input: 0.04, output: 0.15, name: "Gemma 3 27B (OpenRouter)" },
+    };
   }
 
   return {
     pipeline: run.name,
     llmProvider,
     phase1Model,
+    phase1Models: phase1Models.length > 0 ? phase1Models : undefined,
+    phase1Pricing: Object.keys(phase1Pricing).length > 0 ? phase1Pricing : undefined,
     phase2Model,
     phase3Model,
     successRate,
