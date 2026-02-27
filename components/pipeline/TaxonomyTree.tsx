@@ -76,20 +76,45 @@ export default function TaxonomyTree({
 
             {/* Subcategories - Expanded */}
             {expandedCategories.has(category.id) && (
-              <div className="mt-4 ml-6 space-y-2 border-t pt-4">
+              <div className="mt-4 ml-6 space-y-3 border-t pt-4">
                 {category.subcategories.length > 0 ? (
                   category.subcategories.map((subcategory) => (
                     <div
                       key={subcategory.id}
                       className="border-l-2 border-gray-300 pl-3 py-2"
                     >
-                      <p className="text-sm font-medium text-gray-800">
-                        {subcategory.name}
-                      </p>
+                      <div className="flex items-baseline gap-2">
+                        <p className="text-sm font-medium text-gray-800">
+                          {subcategory.name}
+                        </p>
+                        <span className="text-xs text-gray-400">
+                          ({subcategory.id})
+                        </span>
+                      </div>
                       {subcategory.description && (
                         <p className="text-xs text-gray-600 mt-1">
                           {subcategory.description}
                         </p>
+                      )}
+                      {subcategory.examples && subcategory.examples.length > 0 && (
+                        <div className="mt-2 bg-gray-50 rounded p-2">
+                          <p className="text-xs font-medium text-gray-700 mb-1">
+                            Annotations:
+                          </p>
+                          <ul className="space-y-1">
+                            {subcategory.examples.map((example, idx) => (
+                              <li
+                                key={idx}
+                                className="text-xs text-gray-600 flex items-start gap-2"
+                              >
+                                <span className="text-gray-400 flex-shrink-0">
+                                  •
+                                </span>
+                                <span>{example}</span>
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
                       )}
                     </div>
                   ))

@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { PipelineRun } from "@/lib/pipelineTypes";
 import TaxonomyTree from "./TaxonomyTree";
+import CategoryDetails from "./CategoryDetails";
 import PipelineComparison from "./PipelineComparison";
 
 export default function CompareSection() {
@@ -187,6 +188,8 @@ export default function CompareSection() {
 }
 
 function SingleRunView({ run }: { run: PipelineRun }) {
+  const [detailsTab, setDetailsTab] = useState<"tree" | "details">("tree");
+
   // Extract provider from run name (e.g., "demo_groq_final" → "groq")
   const provider = run.name.includes("gemini")
     ? "Gemini"
@@ -292,8 +295,41 @@ function SingleRunView({ run }: { run: PipelineRun }) {
         </div>
       </div>
 
-      {/* Taxonomy Tree */}
-      {run.taxonomy && <TaxonomyTree taxonomy={run.taxonomy} />}
+      {/* Taxonomy View - Tabs */}
+      {run.taxonomy && (
+        <div>
+          <div className="bg-white border border-gray-200 rounded-lg p-4 mb-6">
+            <div className="flex gap-2">
+              <button
+                onClick={() => setDetailsTab("tree")}
+                className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${
+                  detailsTab === "tree"
+                    ? "bg-blue-600 text-white"
+                    : "bg-gray-100 text-gray-700 hover:bg-gray-200"
+                }`}
+              >
+                Taxonomy Structure
+              </button>
+              <button
+                onClick={() => setDetailsTab("details")}
+                className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${
+                  detailsTab === "details"
+                    ? "bg-blue-600 text-white"
+                    : "bg-gray-100 text-gray-700 hover:bg-gray-200"
+                }`}
+              >
+                Category & Annotations
+              </button>
+            </div>
+          </div>
+
+          {detailsTab === "tree" ? (
+            <TaxonomyTree taxonomy={run.taxonomy} />
+          ) : (
+            <CategoryDetails taxonomy={run.taxonomy} />
+          )}
+        </div>
+      )}
 
       {/* Classification Results */}
       {run.phase2 && (
