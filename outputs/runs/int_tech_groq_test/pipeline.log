@@ -75,3 +75,88 @@ Falling back to simple keyword-based classification...
 [pipeline] INFO —   Changes applied:  0
 [pipeline] INFO —   Outputs in:     C:\Users\deeps\hrproject\final_project\outputs\runs\int_tech_groq_test
 [pipeline] INFO — ============================================================
+[pipeline] INFO — Awards CSV overridden to: C:\Users\deeps\hrproject\final_project\data\companies\int_tech\awards.csv
+[pipeline] INFO — ============================================================
+[pipeline] INFO — TAXONOMY REFINEMENT PIPELINE
+[pipeline] INFO — ============================================================
+[pipeline] INFO — Data:   C:\Users\deeps\hrproject\final_project\data\companies\int_tech\awards.csv
+[pipeline] INFO — Output: C:\Users\deeps\hrproject\final_project\outputs\runs\int_tech_groq_test
+[pipeline] INFO — LLM priority: ['groq']
+[pipeline] INFO — Phase 1 models: {'groq': 'llama-3.3-70b-versatile', 'gemini': 'gemini-flash-lite-latest', 'groq_qwen': 'qwen/qwen3-32b'}
+[pipeline] INFO — Phase 2 model: llama3:8b (local Ollama)
+[pipeline] INFO — Phase 3 models: {'claude': 'claude-sonnet-4-5-20250929', 'gemini': 'gemini-flash-lite-latest', 'groq': 'llama-3.3-70b-versatile'}
+[pipeline] INFO — ============================================================
+[pipeline] INFO — ============================================================
+[pipeline] INFO — PHASE 1: Groq Discovers Taxonomy
+[pipeline] INFO — ============================================================
+[pipeline] INFO — Run name: int_tech_groq_test
+[pipeline] INFO — Output redirected to: C:\Users\deeps\hrproject\final_project\outputs\runs\int_tech_groq_test
+[pipeline] INFO — Provider forced to: groq
+[phase_1] INFO — Phase 1: Sampling 100 messages (seed=42)
+[utils] INFO — Loaded 15 rows from awards.csv
+[phase_1] INFO — Sampled 15 messages, building prompt...
+[phase_1] INFO — Running Phase 1 with 3 model(s): [('groq', 'llama-3.3-70b-versatile'), ('gemini', 'gemini-flash-lite-latest'), ('groq_qwen', 'qwen/qwen3-32b')]
+[phase_1] ERROR — Failed to call groq_qwen (qwen/qwen3-32b): 'groq_qwen'
+[phase_1] WARNING — Model groq_qwen/qwen/qwen3-32b failed: 'groq_qwen'
+[utils.llm] INFO — [Groq] 633 in / 1071 out (model=llama-3.3-70b-versatile)
+[utils.llm] INFO — [Groq] 633 in / 1071 out (model=llama-3.3-70b-versatile)
+[phase_1] INFO — Received response from groq
+[utils.llm] INFO — [Gemini] ~737 in / ~1464 out (model=gemini-flash-lite-latest)
+[utils.llm] INFO — [Gemini] ~737 in / ~1464 out (model=gemini-flash-lite-latest)
+[phase_1] INFO — Received response from gemini
+[phase_1] INFO — groq: 6 categories
+[phase_1] INFO — gemini: 6 categories
+[phase_1] INFO — Selected groq as best
+[phase_1] INFO — Taxonomy: 6 categories
+[phase_1] INFO —   A: Process Improvement (2 subcategories)
+[phase_1] INFO —   B: Business Growth and Expansion (2 subcategories)
+[phase_1] INFO —   C: Team Development and Leadership (2 subcategories)
+[phase_1] INFO —   D: Quality and Excellence (2 subcategories)
+[phase_1] INFO —   E: Collaboration and Partnership (1 subcategories)
+[phase_1] INFO —   F: Innovation and Insight (1 subcategories)
+[utils.io] INFO — Saved Phase 1 taxonomy \u2192 C:\Users\deeps\hrproject\final_project\outputs\runs\int_tech_groq_test\phase_1_taxonomy.json
+[utils.io] INFO — Saved Phase 1 taxonomy \u2192 C:\Users\deeps\hrproject\final_project\outputs\runs\int_tech_groq_test\phase_1_taxonomy.json
+[utils.io] INFO — Saved Phase 1 all models \u2192 C:\Users\deeps\hrproject\final_project\outputs\runs\int_tech_groq_test\phase_1_all_models.json
+[utils.io] INFO — Saved Phase 1 all models \u2192 C:\Users\deeps\hrproject\final_project\outputs\runs\int_tech_groq_test\phase_1_all_models.json
+[pipeline] INFO — Phase 1 completed in 5.2s
+
+[pipeline] INFO — ============================================================
+[pipeline] INFO — PHASE 2: Llama Bulk Classification
+[pipeline] INFO — ============================================================
+[phase_2] WARNING — Ollama not running. Install: https://ollama.ai
+Or: ollama pull llama3:8b
+Falling back to simple keyword-based classification...
+[phase_2] INFO — Phase 2: Simple Award Classification
+[phase_2] INFO — Loaded 15 awards from CSV
+[phase_2] INFO — Classified 0 awards
+[pipeline] INFO — ============================================================
+[pipeline] INFO — PHASE 3: Groq Finalizes Taxonomy
+[pipeline] INFO — ============================================================
+[phase_3] INFO — Filtered candidates: 0 total \u2192 0 with freq >= 3
+[pipeline] INFO — Phase 2 completed in 4.1s
+
+[phase_3] INFO — No significant candidates — using Phase 1 taxonomy as final
+[phase_3] INFO — Final taxonomy: 6 categories
+[phase_3] INFO —   A: Process Improvement (2 subcategories)
+[phase_3] INFO —   B: Business Growth and Expansion (2 subcategories)
+[phase_3] INFO —   C: Team Development and Leadership (2 subcategories)
+[utils.io] INFO — Saved Phase 3 final \u2192 C:\Users\deeps\hrproject\final_project\outputs\runs\int_tech_groq_test\phase_3_final.json
+[utils.io] INFO — Saved Phase 3 final \u2192 C:\Users\deeps\hrproject\final_project\outputs\runs\int_tech_groq_test\phase_3_final.json
+[phase_3] INFO — Summary: No new categories met the frequency threshold. Phase 1 taxonomy used as-is.
+[phase_3] INFO —   D: Quality and Excellence (2 subcategories)
+[phase_3] INFO —   E: Collaboration and Partnership (1 subcategories)
+[phase_3] INFO —   F: Innovation and Insight (1 subcategories)
+[utils.io] INFO — Saved Final taxonomy (standalone) \u2192 C:\Users\deeps\hrproject\final_project\outputs\runs\int_tech_groq_test\final_taxonomy.json
+[utils.io] INFO — Saved Final taxonomy (standalone) \u2192 C:\Users\deeps\hrproject\final_project\outputs\runs\int_tech_groq_test\final_taxonomy.json
+[pipeline] INFO — Phase 3 completed in 0.0s
+
+[utils.io] INFO — Saved Pipeline summary \u2192 C:\Users\deeps\hrproject\final_project\outputs\runs\int_tech_groq_test\pipeline_summary.json
+[utils.io] INFO — Saved Pipeline summary \u2192 C:\Users\deeps\hrproject\final_project\outputs\runs\int_tech_groq_test\pipeline_summary.json
+[pipeline] INFO — ============================================================
+[pipeline] INFO — PIPELINE COMPLETE
+[pipeline] INFO — ============================================================
+[pipeline] INFO —   Time:           9.3s
+[pipeline] INFO —   Final categories: 6
+[pipeline] INFO —   Changes applied:  0
+[pipeline] INFO —   Outputs in:     C:\Users\deeps\hrproject\final_project\outputs\runs\int_tech_groq_test
+[pipeline] INFO — ============================================================

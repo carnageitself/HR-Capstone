@@ -1,0 +1,291 @@
+{
+  "groq": {
+    "categories_count": 6,
+    "taxonomy": {
+      "categories": [
+        {
+          "id": "A",
+          "name": "Process Improvement",
+          "description": "Recognizing employees for improving internal processes, reducing time and effort, and increasing efficiency",
+          "subcategories": [
+            {
+              "id": "A1",
+              "name": "Automation and Efficiency",
+              "description": "Improving processes by automating tasks, reducing manual work, and saving time",
+              "examples": [
+                "automated 80% of our monthly reporting dashboards",
+                "reducing regression testing time by 50%"
+              ]
+            },
+            {
+              "id": "A2",
+              "name": "Optimization and Enhancement",
+              "description": "Improving existing processes, systems, or tools to increase performance, quality, or reliability",
+              "examples": [
+                "optimized the mobile app reducing load time by 60%",
+                "increasing reliability to 99.9% uptime"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "B",
+          "name": "Business Growth and Expansion",
+          "description": "Recognizing employees for contributing to business growth, expansion, and revenue increase",
+          "subcategories": [
+            {
+              "id": "B1",
+              "name": "Market Expansion and Revenue Growth",
+              "description": "Contributing to entering new markets, increasing revenue, and driving business growth",
+              "examples": [
+                "entering 3 new markets resulting in 2 million additional revenue",
+                "exceeded targets by 150%"
+              ]
+            },
+            {
+              "id": "B2",
+              "name": "User Engagement and Acquisition",
+              "description": "Improving user engagement, increasing traffic, and driving user acquisition",
+              "examples": [
+                "increased blog traffic 250% through SEO optimization",
+                "35% increase in user engagement"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "C",
+          "name": "Team Development and Leadership",
+          "description": "Recognizing employees for building, leading, and developing high-performing teams",
+          "subcategories": [
+            {
+              "id": "C1",
+              "name": "Team Building and Management",
+              "description": "Building and managing high-performing teams, including retention and development",
+              "examples": [
+                "built and developed high-performing team with 100% retention",
+                "mentored 5 junior developers"
+              ]
+            },
+            {
+              "id": "C2",
+              "name": "Leadership and Strategy",
+              "description": "Providing leadership, guidance, and strategic direction to teams or projects",
+              "examples": [
+                "led the Q1 product strategy",
+                "led analysis and strategy for entering 3 new markets"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "D",
+          "name": "Quality and Excellence",
+          "description": "Recognizing employees for delivering high-quality work, exceeding expectations, and demonstrating excellence",
+          "subcategories": [
+            {
+              "id": "D1",
+              "name": "Exceptional Performance",
+              "description": "Delivering exceptional results, exceeding expectations, and demonstrating outstanding performance",
+              "examples": [
+                "delivered exceptional results in first 90 days",
+                "achieved 98% satisfaction score"
+              ]
+            },
+            {
+              "id": "D2",
+              "name": "Quality Assurance and Improvement",
+              "description": "Improving quality, maintaining high standards, and ensuring reliability and accuracy",
+              "examples": [
+                "consistently provides thoughtful code reviews",
+                "improved team response time 40%"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "E",
+          "name": "Collaboration and Partnership",
+          "description": "Recognizing employees for collaborating with others, building partnerships, and driving cross-functional projects",
+          "subcategories": [
+            {
+              "id": "E1",
+              "name": "Cross-Functional Collaboration",
+              "description": "Working with other teams, departments, or functions to drive projects and initiatives",
+              "examples": [
+                "worked seamlessly with sales and product",
+                "collaborated with multiple teams to launch integrated campaign"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "F",
+          "name": "Innovation and Insight",
+          "description": "Recognizing employees for driving innovation, providing valuable insights, and informing business decisions",
+          "subcategories": [
+            {
+              "id": "F1",
+              "name": "Data-Driven Insights",
+              "description": "Providing valuable insights, analysis, and data-driven recommendations to inform business decisions",
+              "examples": [
+                "consistently delivers insights that drive business decisions",
+                "enabling real-time analytics"
+              ]
+            }
+          ]
+        }
+      ],
+      "reasoning": "This structure fits the data because it captures the distinct types of recognition present in the messages, such as process improvement, business growth, team development, quality and excellence, collaboration, and innovation. The subcategories provide further granularity and specificity, allowing for a more nuanced understanding of the recognition patterns. The categories and subcategories are derived from the language and themes present in the messages, ensuring that the taxonomy is grounded in the data."
+    }
+  },
+  "gemini": {
+    "categories_count": 6,
+    "taxonomy": {
+      "categories": [
+        {
+          "id": "C1",
+          "name": "Efficiency & Process Optimization",
+          "description": "Recognition focused on improving internal workflows, reducing manual effort, or speeding up existing processes through automation or redesign.",
+          "subcategories": [
+            {
+              "id": "C1A",
+              "name": "Automation & Time Savings",
+              "description": "Implementing tools or systems that drastically reduce manual workload or testing time.",
+              "examples": [
+                "automated 80% of our monthly reporting",
+                "reducing regression testing time by 50%"
+              ]
+            },
+            {
+              "id": "C1B",
+              "name": "System Performance Improvement",
+              "description": "Directly enhancing the speed, reliability, or uptime of core systems or applications.",
+              "examples": [
+                "optimized the mobile app reducing load time by 60%",
+                "increasing reliability to 99.9% uptime"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "C2",
+          "name": "Revenue Generation & Market Impact",
+          "description": "Recognition tied directly to measurable financial outcomes, market expansion, or exceeding commercial targets.",
+          "subcategories": [
+            {
+              "id": "C2A",
+              "name": "Business Growth & Expansion",
+              "description": "Successful entry into new areas or driving significant top-line revenue increases.",
+              "examples": [
+                "resulting in 2 million additional revenue",
+                "exceeded targets by 150%"
+              ]
+            },
+            {
+              "id": "C2B",
+              "name": "Audience & Engagement Growth",
+              "description": "Significant improvements in external metrics like traffic, user interaction, or customer satisfaction.",
+              "examples": [
+                "increasing user engagement by 35%",
+                "increased blog traffic 250%"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "C3",
+          "name": "Product & Technical Excellence",
+          "description": "Awards for high-quality technical output, strategic product direction, and deep analytical contributions.",
+          "subcategories": [
+            {
+              "id": "C3A",
+              "name": "Strategic Product Leadership",
+              "description": "Defining and executing successful product roadmaps that set clear direction.",
+              "examples": [
+                "led the Q1 product strategy",
+                "delivers insights that drive business decisions"
+              ]
+            },
+            {
+              "id": "C3B",
+              "name": "Code Quality & Maintainability",
+              "description": "Contributions focused on improving the underlying technical health and quality of the codebase.",
+              "examples": [
+                "provides thoughtful code reviews",
+                "improving team quality and maintainability"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "C4",
+          "name": "Team & People Development",
+          "description": "Recognition for efforts focused on building, mentoring, and retaining high-performing teams.",
+          "subcategories": [
+            {
+              "id": "C4A",
+              "name": "Talent Cultivation & Mentorship",
+              "description": "Directly investing time in developing junior colleagues and preparing them for advancement.",
+              "examples": [
+                "mentored 5 junior developers",
+                "helping all achieve promotion readiness"
+              ]
+            },
+            {
+              "id": "C4B",
+              "name": "Team Building & Retention",
+              "description": "Creating an environment where the team thrives, resulting in high retention and promotion rates.",
+              "examples": [
+                "built and developed high-performing team",
+                "100% retention"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "C5",
+          "name": "Customer & Stakeholder Service",
+          "description": "Recognition for exceptional external-facing performance, whether supporting customers or collaborating across departments.",
+          "subcategories": [
+            {
+              "id": "C5A",
+              "name": "Exceptional Customer Support",
+              "description": "Achieving high satisfaction scores through proactive and diligent handling of user needs.",
+              "examples": [
+                "achieved 98% satisfaction score",
+                "proactive support and going above and beyond"
+              ]
+            },
+            {
+              "id": "C5B",
+              "name": "Cross-Functional Collaboration",
+              "description": "Successfully partnering with other departments to achieve shared goals.",
+              "examples": [
+                "worked seamlessly with sales and product",
+                "launch integrated campaign"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "C6",
+          "name": "Adaptability & Speed to Impact",
+          "description": "Recognition for individuals who quickly integrate, take immediate ownership, and deliver significant results in a short timeframe.",
+          "subcategories": [
+            {
+              "id": "C6A",
+              "name": "Rapid Onboarding & Ownership",
+              "description": "Demonstrating immediate high performance and taking charge of critical tasks very early in their tenure.",
+              "examples": [
+                "ramped up incredibly fast",
+                "delivering exceptional results in first 90 days"
+              ]
+            }
+          ]
+        }
+      ],
+      "reasoning": "The taxonomy moves from tangible business outcomes (Revenue, Efficiency) to internal execution quality (Product/Technical, Team Building) and finally to behavioral attributes (Service, Adaptability). This structure avoids generic labels by focusing on the *action* recognized (e.g., Optimization vs. Mentoring) rather than just the job function. The categories clearly separate financial wins from process improvements and people investments."
+    }
+  }
+}
