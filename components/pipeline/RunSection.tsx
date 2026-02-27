@@ -20,7 +20,7 @@ export default function RunSection({
   onCompanyChange,
 }: RunSectionProps) {
   const [runName, setRunName] = useState("");
-  const [providers, setProviders] = useState({ groq: true, gemini: true, groq_qwen: true });
+  const [phase1Models, setPhase1Models] = useState({ groq: true, gemini: true, groq_qwen: true });
   const [isRunning, setIsRunning] = useState(false);
   const [statuses, setStatuses] = useState<Record<string, RunStatus>>({});
   const [companies, setCompanies] = useState<any[]>([]);
@@ -178,9 +178,9 @@ export default function RunSection({
             <label className="flex items-center">
               <input
                 type="checkbox"
-                checked={providers.groq}
+                checked={phase1Models.groq}
                 onChange={(e) =>
-                  setProviders({ ...providers, groq: e.target.checked })
+                  setPhase1Models({ ...phase1Models, groq: e.target.checked })
                 }
                 className="mr-2"
               />
@@ -189,9 +189,9 @@ export default function RunSection({
             <label className="flex items-center">
               <input
                 type="checkbox"
-                checked={providers.gemini}
+                checked={phase1Models.gemini}
                 onChange={(e) =>
-                  setProviders({ ...providers, gemini: e.target.checked })
+                  setPhase1Models({ ...phase1Models, gemini: e.target.checked })
                 }
                 className="mr-2"
               />
@@ -200,9 +200,9 @@ export default function RunSection({
             <label className="flex items-center">
               <input
                 type="checkbox"
-                checked={providers.groq_qwen}
+                checked={phase1Models.groq_qwen}
                 onChange={(e) =>
-                  setProviders({ ...providers, groq_qwen: e.target.checked })
+                  setPhase1Models({ ...phase1Models, groq_qwen: e.target.checked })
                 }
                 className="mr-2"
               />
@@ -216,7 +216,7 @@ export default function RunSection({
             <span className="font-medium">Multi-Model Evaluation:</span> All checked models run in parallel for automatic comparison. Phase 1 will test all selected models and show results side-by-side in the scorecard.
           </p>
           <div className="flex gap-3">
-            {providers.groq && (
+            {phase1Models.groq && (
               <button
                 onClick={() => triggerPipeline("groq")}
                 disabled={isRunning}
@@ -225,7 +225,7 @@ export default function RunSection({
                 Run Pipeline
               </button>
             )}
-            {providers.gemini && !providers.groq && (
+            {phase1Models.gemini && !phase1Models.groq && (
               <button
                 onClick={() => triggerPipeline("gemini")}
                 disabled={isRunning}

@@ -1,0 +1,187 @@
+{
+  "metadata": {
+    "phase": 3,
+    "models": {
+      "claude": "claude-sonnet-4-5-20250929",
+      "gemini": "gemini-flash-lite-latest",
+      "groq": "llama-3.3-70b-versatile"
+    },
+    "candidates_reviewed": 0,
+    "changes_applied": 0
+  },
+  "input_taxonomy_categories": 8,
+  "candidates_submitted": {},
+  "result": {
+    "final_taxonomy": {
+      "categories": [
+        {
+          "id": "A",
+          "name": "Process Improvement",
+          "description": "Recognition for streamlining processes, increasing efficiency, and reducing manual work",
+          "subcategories": [
+            {
+              "id": "A1",
+              "name": "Automation",
+              "description": "Implementing automated solutions to reduce manual effort",
+              "examples": [
+                "automated 80% of our monthly reporting dashboards",
+                "reducing regression testing time by 50%"
+              ]
+            },
+            {
+              "id": "A2",
+              "name": "Optimization",
+              "description": "Improving existing processes to achieve better outcomes",
+              "examples": [
+                "optimized the mobile app reducing load time by 60%",
+                "improving user retention significantly"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "B",
+          "name": "Leadership and Team Development",
+          "description": "Recognition for leadership, team growth, and mentorship",
+          "subcategories": [
+            {
+              "id": "B1",
+              "name": "Team Leadership",
+              "description": "Leading teams to achieve high performance and growth",
+              "examples": [
+                "built and developed high-performing team",
+                "led the Q1 product strategy"
+              ]
+            },
+            {
+              "id": "B2",
+              "name": "Mentorship",
+              "description": "Guiding and supporting team members in their development",
+              "examples": [
+                "mentored 5 junior developers",
+                "helping all achieve promotion readiness"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "C",
+          "name": "Technical Expertise",
+          "description": "Recognition for exceptional technical skills and contributions",
+          "subcategories": [
+            {
+              "id": "C1",
+              "name": "Code Quality",
+              "description": "Delivering high-quality code and improving team quality",
+              "examples": [
+                "provides thoughtful code reviews",
+                "improve team quality and maintainability"
+              ]
+            },
+            {
+              "id": "C2",
+              "name": "Technical Innovation",
+              "description": "Implementing innovative technical solutions",
+              "examples": [
+                "redesigned our data pipeline",
+                "enabling real-time analytics"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "D",
+          "name": "Business Growth and Impact",
+          "description": "Recognition for driving business growth and achieving significant impact",
+          "subcategories": [
+            {
+              "id": "D1",
+              "name": "Revenue Growth",
+              "description": "Contributing to increased revenue and business expansion",
+              "examples": [
+                "resulting in 2 million additional revenue",
+                "exceeded targets by 150%"
+              ]
+            },
+            {
+              "id": "D2",
+              "name": "User Engagement",
+              "description": "Improving user engagement and satisfaction",
+              "examples": [
+                "increased blog traffic 250%",
+                "35% increase in user engagement"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "E",
+          "name": "Customer Satisfaction",
+          "description": "Recognition for delivering exceptional customer support and satisfaction",
+          "subcategories": [
+            {
+              "id": "E1",
+              "name": "Proactive Support",
+              "description": "Providing proactive and high-quality customer support",
+              "examples": [
+                "proactive support and going above and beyond",
+                "increasing satisfaction from 85% to 98%"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "F",
+          "name": "Data-Driven Insights",
+          "description": "Recognition for delivering data-driven insights and driving business decisions",
+          "subcategories": [
+            {
+              "id": "F1",
+              "name": "Data Analysis",
+              "description": "Providing insightful data analysis to inform business decisions",
+              "examples": [
+                "delivers insights that drive business decisions",
+                "improve KPI performance"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "G",
+          "name": "Collaboration and Partnership",
+          "description": "Recognition for effective collaboration and partnership with other teams",
+          "subcategories": [
+            {
+              "id": "G1",
+              "name": "Cross-Functional Collaboration",
+              "description": "Working effectively with other teams to achieve common goals",
+              "examples": [
+                "worked seamlessly with sales and product",
+                "launch integrated campaign"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "H",
+          "name": "Ramp-Up and Onboarding",
+          "description": "Recognition for quickly adapting to new roles and delivering results",
+          "subcategories": [
+            {
+              "id": "H1",
+              "name": "Fast Ramp-Up",
+              "description": "Ramping up quickly in a new role and delivering exceptional results",
+              "examples": [
+                "ramped up incredibly fast",
+                "taking ownership of major features"
+              ]
+            }
+          ]
+        }
+      ],
+      "reasoning": "This structure fits the data because it captures the distinct types of recognition present in the messages, such as process improvement, leadership, technical expertise, and business growth. The subcategories provide further granularity and help to group similar recognition themes together. The categories and subcategories are derived from the language and content of the messages, rather than relying on generic HR labels."
+    },
+    "changes": [],
+    "summary": "No new categories met the frequency threshold. Phase 1 taxonomy used as-is."
+  }
+}

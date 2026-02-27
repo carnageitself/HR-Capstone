@@ -24,3 +24,66 @@
 [utils.llm] INFO — [Groq] 633 in / 1120 out (model=llama-3.3-70b-versatile)
 [utils.llm] INFO — [Groq] 633 in / 1120 out (model=llama-3.3-70b-versatile)
 [phase_1] INFO — Received response from groq
+[utils.llm] INFO — [Gemini] ~737 in / ~1453 out (model=gemini-flash-lite-latest)
+[utils.llm] INFO — [Gemini] ~737 in / ~1453 out (model=gemini-flash-lite-latest)
+[phase_1] INFO — Received response from gemini
+[phase_1] INFO — groq: 8 categories
+[phase_1] INFO — gemini: 6 categories
+[phase_1] INFO — Selected groq as best
+[phase_1] INFO — Taxonomy: 8 categories
+[phase_1] INFO —   A: Process Improvement (2 subcategories)
+[phase_1] INFO —   B: Leadership and Team Development (2 subcategories)
+[phase_1] INFO —   C: Technical Expertise (2 subcategories)
+[phase_1] INFO —   D: Business Growth and Impact (2 subcategories)
+[phase_1] INFO —   E: Customer Satisfaction (1 subcategories)
+[phase_1] INFO —   F: Data-Driven Insights (1 subcategories)
+[phase_1] INFO —   G: Collaboration and Partnership (1 subcategories)
+[phase_1] INFO —   H: Ramp-Up and Onboarding (1 subcategories)
+[utils.io] INFO — Saved Phase 1 taxonomy \u2192 C:\Users\deeps\hrproject\final_project\outputs\runs\int_tech_gemini_final\phase_1_taxonomy.json
+[utils.io] INFO — Saved Phase 1 taxonomy \u2192 C:\Users\deeps\hrproject\final_project\outputs\runs\int_tech_gemini_final\phase_1_taxonomy.json
+[utils.io] INFO — Saved Phase 1 all models \u2192 C:\Users\deeps\hrproject\final_project\outputs\runs\int_tech_gemini_final\phase_1_all_models.json
+[utils.io] INFO — Saved Phase 1 all models \u2192 C:\Users\deeps\hrproject\final_project\outputs\runs\int_tech_gemini_final\phase_1_all_models.json
+[pipeline] INFO — Phase 1 completed in 55.2s
+
+[pipeline] INFO — ============================================================
+[pipeline] INFO — PHASE 2: Llama Bulk Classification
+[pipeline] INFO — ============================================================
+[phase_2] INFO — Classified 0 awards
+[pipeline] INFO — Phase 2 completed in 4.1s
+
+[pipeline] INFO — ============================================================
+[pipeline] INFO — PHASE 3: Gemini Finalizes Taxonomy
+[pipeline] INFO — ============================================================
+[phase_2] INFO — Phase 2: Simple Award Classification
+[phase_2] INFO — Loaded 15 awards from CSV
+[phase_3] INFO — Filtered candidates: 0 total \u2192 0 with freq >= 3
+[phase_3] INFO — No significant candidates — using Phase 1 taxonomy as final
+[phase_3] INFO — Final taxonomy: 8 categories
+[phase_3] INFO —   A: Process Improvement (2 subcategories)
+[phase_3] INFO —   B: Leadership and Team Development (2 subcategories)
+[phase_3] INFO —   C: Technical Expertise (2 subcategories)
+[phase_3] INFO —   D: Business Growth and Impact (2 subcategories)
+[phase_3] INFO —   E: Customer Satisfaction (1 subcategories)
+[phase_3] INFO —   F: Data-Driven Insights (1 subcategories)
+[phase_3] INFO —   G: Collaboration and Partnership (1 subcategories)
+[phase_3] INFO —   H: Ramp-Up and Onboarding (1 subcategories)
+[phase_3] INFO — Summary: No new categories met the frequency threshold. Phase 1 taxonomy used as-is.
+[utils.io] INFO — Saved Phase 3 final \u2192 C:\Users\deeps\hrproject\final_project\outputs\runs\int_tech_gemini_final\phase_3_final.json
+[utils.io] INFO — Saved Phase 3 final \u2192 C:\Users\deeps\hrproject\final_project\outputs\runs\int_tech_gemini_final\phase_3_final.json
+[utils.io] INFO — Saved Final taxonomy (standalone) \u2192 C:\Users\deeps\hrproject\final_project\outputs\runs\int_tech_gemini_final\final_taxonomy.json
+[utils.io] INFO — Saved Final taxonomy (standalone) \u2192 C:\Users\deeps\hrproject\final_project\outputs\runs\int_tech_gemini_final\final_taxonomy.json
+[phase_2] WARNING — Ollama not running. Install: https://ollama.ai
+Or: ollama pull llama3:8b
+Falling back to simple keyword-based classification...
+[pipeline] INFO — Phase 3 completed in 0.0s
+
+[utils.io] INFO — Saved Pipeline summary \u2192 C:\Users\deeps\hrproject\final_project\outputs\runs\int_tech_gemini_final\pipeline_summary.json
+[utils.io] INFO — Saved Pipeline summary \u2192 C:\Users\deeps\hrproject\final_project\outputs\runs\int_tech_gemini_final\pipeline_summary.json
+[pipeline] INFO — ============================================================
+[pipeline] INFO — PIPELINE COMPLETE
+[pipeline] INFO — ============================================================
+[pipeline] INFO —   Time:           59.3s
+[pipeline] INFO —   Final categories: 8
+[pipeline] INFO —   Changes applied:  0
+[pipeline] INFO —   Outputs in:     C:\Users\deeps\hrproject\final_project\outputs\runs\int_tech_gemini_final
+[pipeline] INFO — ============================================================
