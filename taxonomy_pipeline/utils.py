@@ -326,7 +326,7 @@ PROVIDER_CALLERS = {
     "claude": _call_claude,
     "gemini": _call_gemini,
     "groq": _call_groq,
-    "qwen": _call_qwen,
+    # "qwen": _call_qwen,  # Not used: Qwen is available via Groq's API
 }
 
 
@@ -362,8 +362,6 @@ def call_llm(
             providers_to_try.append(p)
         elif p == "groq" and cfg.GROQ_API_KEY:
             providers_to_try.append(p)
-        elif p == "qwen" and cfg.OPENROUTER_API_KEY:
-            providers_to_try.append(p)
 
     if not providers_to_try:
         raise EnvironmentError(
@@ -379,7 +377,6 @@ def call_llm(
                 "claude": "claude-sonnet-4-5-20250929",
                 "gemini": cfg.GEMINI_DEFAULT_MODEL,
                 "groq": cfg.GROQ_DEFAULT_MODEL,
-                "qwen": cfg.QWEN_DEFAULT_MODEL,
             }
             model = defaults.get(provider, cfg.GEMINI_DEFAULT_MODEL)
 

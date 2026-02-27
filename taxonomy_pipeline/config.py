@@ -9,14 +9,12 @@ load_dotenv(Path(__file__).resolve().parent.parent / ".env")
 ANTHROPIC_API_KEY = os.environ.get("ANTHROPIC_API_KEY")
 GOOGLE_API_KEY = os.environ.get("GOOGLE_API_KEY")
 GROQ_API_KEY = os.environ.get("GROQ_API_KEY")
-OPENROUTER_API_KEY = os.environ.get("OPENROUTER_API_KEY")
 
 # LLM Provider availability
 LLM_PROVIDERS = {
     "claude": bool(ANTHROPIC_API_KEY),       # Paid, highest quality
     "gemini": bool(GOOGLE_API_KEY),          # Free tier available
-    "groq": bool(GROQ_API_KEY),              # Free tier, fast
-    "openrouter": bool(OPENROUTER_API_KEY),  # Unified API for Qwen, Mistral, etc
+    "groq": bool(GROQ_API_KEY),              # Free tier, fast (has Llama + Qwen)
 }
 
 # Models to evaluate in Phase 1 (run all available)
@@ -58,14 +56,14 @@ COL_RECIPIENT_TITLE = "recipient_id"
 COL_NOMINATOR_TITLE = "nominator_id"
 GEMINI_DEFAULT_MODEL = "gemini-flash-lite-latest"
 GROQ_DEFAULT_MODEL = "llama-3.3-70b-versatile"  # Balanced quality and speed
-QWEN_DEFAULT_MODEL = "google/gemma-3-27b-it"    # Via OpenRouter (best value)
+GROQ_QWEN_MODEL = "qwen/qwen3-32b"              # Groq's Qwen 3 32B (better than OpenRouter alternative)
 
 # Model pricing per 1M tokens (input / output)
 # Used for cost comparison in results
 MODEL_PRICING = {
-    "groq": {"input": 0.10, "output": 0.32, "name": "Llama 3.3 70B"},
+    "groq_llama": {"input": 0.10, "output": 0.32, "name": "Llama 3.3 70B (Groq)"},
+    "groq_qwen": {"input": 0.29, "output": 0.59, "name": "Qwen 3 32B (Groq)"},
     "gemini": {"input": 0.075, "output": 0.30, "name": "Gemini Flash 2.0"},
-    "qwen": {"input": 0.04, "output": 0.15, "name": "Gemma 3 27B (OpenRouter)"},
     "mistral": {"input": 0.06, "output": 0.18, "name": "Mistral Small 3.2"},
     "claude": {"input": 15.0, "output": 90.0, "name": "Claude Opus"},
 }
@@ -77,10 +75,11 @@ P1_MSG_TRUNCATE = 500         # max chars per message sent to LLM
 P1_MAX_TOKENS = 3000          # headroom for 6-8 categories with descriptions + reasoning
 
 # Models to evaluate in Phase 1 (run all for comparison)
+# Note: Using Groq's Qwen instead of OpenRouter (better quality, same provider)
 P1_MODELS = {
-    "groq": GROQ_DEFAULT_MODEL,
-    "gemini": GEMINI_DEFAULT_MODEL,
-    "qwen": QWEN_DEFAULT_MODEL,  # New: via OpenRouter
+    "groq": GROQ_DEFAULT_MODEL,        # Llama 3.3 70B (best reasoning)
+    "gemini": GEMINI_DEFAULT_MODEL,    # Gemini Flash 2.0 (balanced)
+    "groq_qwen": GROQ_QWEN_MODEL,      # Qwen 3 32B (via Groq, good reasoning)
 }
 
 # PHASE 2 — Local SLM Bulk Processing

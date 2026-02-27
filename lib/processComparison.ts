@@ -97,9 +97,9 @@ function computeScore(run: PipelineRun): PipelineScore {
 
     // Add pricing info for each model
     phase1Pricing = {
-      "groq": { input: 0.10, output: 0.32, name: "Llama 3.3 70B" },
+      "groq": { input: 0.10, output: 0.32, name: "Llama 3.3 70B (Groq)" },
       "gemini": { input: 0.075, output: 0.30, name: "Gemini Flash 2.0" },
-      "qwen": { input: 0.04, output: 0.15, name: "Gemma 3 27B (OpenRouter)" },
+      "groq_qwen": { input: 0.29, output: 0.59, name: "Qwen 3 32B (Groq)" },
     };
   }
 
