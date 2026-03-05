@@ -1,0 +1,65 @@
+{
+  "version": "1.1",
+  "pricing_updated": "2025-03-05",
+  "pricing": {
+    "anthropic": {
+      "claude-sonnet-4-20250514": {
+        "input_per_1m": 3.00,
+        "output_per_1m": 15.00,
+        "currency": "USD"
+      }
+    },
+    "google": {
+      "gemini-2.0-flash": {
+        "input_per_1m": 0.10,
+        "output_per_1m": 0.40,
+        "currency": "USD"
+      }
+    },
+    "ollama": {
+      "llama3:8b": {
+        "input_per_1m": 0,
+        "output_per_1m": 0,
+        "currency": "USD"
+      }
+    }
+  },
+  "configs": [
+    {
+      "id": "claude_with_llama",
+      "display_name": "Claude + Llama (Hybrid)",
+      "description": "Claude seeds taxonomy, Llama-3-8B classifies bulk, Claude finalizes",
+      "color": "#F96400",
+      "phases": {
+        "phase_1": { "provider": "anthropic", "model": "claude-sonnet-4-20250514", "role": "Taxonomy Discovery" },
+        "phase_2": { "provider": "ollama", "model": "llama3:8b", "role": "Bulk Classification (Local)" },
+        "phase_3": { "provider": "anthropic", "model": "claude-sonnet-4-20250514", "role": "Taxonomy Finalization" }
+      },
+      "enabled": true
+    },
+    {
+      "id": "gemini_with_llama",
+      "display_name": "Gemini + Llama (Hybrid)",
+      "description": "Gemini seeds taxonomy, Llama-3-8B classifies bulk, Gemini finalizes",
+      "color": "#3B5BDB",
+      "phases": {
+        "phase_1": { "provider": "google", "model": "gemini-2.0-flash", "role": "Taxonomy Discovery" },
+        "phase_2": { "provider": "ollama", "model": "llama3:8b", "role": "Bulk Classification (Local)" },
+        "phase_3": { "provider": "google", "model": "gemini-2.0-flash", "role": "Taxonomy Finalization" }
+      },
+      "enabled": true
+    },
+    {
+      "id": "gemini_only",
+      "display_name": "Gemini Only",
+      "description": "Gemini handles all phases — no local SLM",
+      "color": "#00A98F",
+      "phases": {
+        "phase_1": { "provider": "google", "model": "gemini-2.0-flash", "role": "Taxonomy Discovery" },
+        "phase_2": { "provider": "google", "model": "gemini-2.0-flash", "role": "Bulk Classification (API)" },
+        "phase_3": { "provider": "google", "model": "gemini-2.0-flash", "role": "Taxonomy Finalization" }
+      },
+      "enabled": true
+    }
+  ]
+}

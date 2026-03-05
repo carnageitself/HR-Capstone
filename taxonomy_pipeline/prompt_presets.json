@@ -1,0 +1,61 @@
+{
+  "version": "1.0",
+  "presets": [
+    {
+      "id": "general_discovery",
+      "name": "General Discovery",
+      "description": "Pure grounded theory — no seed categories, fully emergent taxonomy",
+      "task_instruction": "Analyze the following employee recognition messages and discover a taxonomy of recognition categories. Identify the key themes, behaviors, and values being recognized. Focus on emergent patterns from the data rather than applying predefined frameworks.",
+      "category_seeds": [],
+      "additional_constraints": "Aim for 5-10 top-level categories. Each should have 2-5 subcategories."
+    },
+    {
+      "id": "seeded_discovery",
+      "name": "Seeded Discovery",
+      "description": "Starts with common HR recognition categories as hints, but allows new ones to emerge",
+      "task_instruction": "Analyze the following employee recognition messages and build a taxonomy of recognition categories. Use the provided seed categories as starting points, but freely add new categories or discard seeds that aren't supported by the data.",
+      "category_seeds": [
+        "Leadership & Management",
+        "Innovation & Business Impact",
+        "Customer & Client Focus",
+        "Teamwork & Collaboration",
+        "Professional Excellence",
+        "Social Responsibility & Culture"
+      ],
+      "additional_constraints": "Keep 5-8 top-level categories. Merge or split seeds as the data warrants."
+    },
+    {
+      "id": "mentorship_focus",
+      "name": "Mentorship Focus",
+      "description": "Narrow lens on coaching, professional development, and knowledge transfer patterns",
+      "task_instruction": "Analyze these recognition messages specifically for mentorship and professional development patterns. What coaching behaviors are being recognized? How do senior employees support junior ones? What knowledge transfer dynamics are visible?",
+      "category_seeds": [
+        "Coaching & Guidance",
+        "Knowledge Transfer",
+        "Career Development Support",
+        "Onboarding & Training"
+      ],
+      "additional_constraints": "Focus on developmental relationships. Limit to 4-7 categories. Include evidence strength (how many messages support each category)."
+    },
+    {
+      "id": "cross_functional",
+      "name": "Cross-Functional Collaboration",
+      "description": "Focus on how teams recognize work that spans department boundaries",
+      "task_instruction": "Analyze these recognition messages for cross-functional and cross-departmental collaboration patterns. How do people recognize work that bridges organizational boundaries? What types of cross-team contributions get celebrated?",
+      "category_seeds": [
+        "Cross-Department Collaboration",
+        "Shared Ownership",
+        "Bridge-Building & Liaison Work"
+      ],
+      "additional_constraints": "Pay special attention to nominator/recipient title differences as signals of cross-functional recognition. Limit to 4-7 categories."
+    },
+    {
+      "id": "values_alignment",
+      "name": "Values Alignment",
+      "description": "Map recognition messages to implicit company values — useful for culture audits",
+      "task_instruction": "Analyze these recognition messages to identify the core company values they reflect. Don't look for official value statements — instead discover what behaviors and qualities employees actually celebrate and reward each other for. These are the lived values of the organization.",
+      "category_seeds": [],
+      "additional_constraints": "Frame each category as a value (e.g., 'Ownership', 'Customer Obsession', 'Psychological Safety'). Aim for 5-8 values with concrete behavioral subcategories under each."
+    }
+  ]
+}

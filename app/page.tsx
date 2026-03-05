@@ -8,7 +8,7 @@ import { HRDashboardClient } from "../components/HRDashboardClient";
 
 export const dynamic = "force-dynamic";
 
-export default function DashboardPage() {
-  const data = loadDashboardData();
+export default async function DashboardPage() {
+  const data = await loadDashboardData();
   return <HRDashboardClient data={data} />;
 }

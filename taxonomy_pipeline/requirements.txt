@@ -5,3 +5,7 @@ anthropic
 python-dotenv
 requests
 google-generativeai
+fastapi
+uvicorn
+supabase
+python-multipart
