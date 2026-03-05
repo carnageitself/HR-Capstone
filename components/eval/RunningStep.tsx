@@ -11,11 +11,13 @@ const PHASE_LABELS: Record<number, string> = {
 };
 
 const STATUS_STYLES: Record<string, { bg: string; text: string; dot: string }> = {
-  queued:    { bg: "bg-gray-50",   text: "text-gray-500",   dot: "bg-gray-400" },
-  running:   { bg: "bg-blue-50",   text: "text-blue-700",   dot: "bg-blue-500" },
-  completed: { bg: "bg-green-50",  text: "text-green-700",  dot: "bg-green-500" },
-  failed:    { bg: "bg-red-50",    text: "text-red-700",    dot: "bg-red-500" },
+  queued: { bg: "bg-gray-50", text: "text-gray-500", dot: "bg-gray-400" },
+  running: { bg: "bg-blue-50", text: "text-blue-700", dot: "bg-blue-500" },
+  completed: { bg: "bg-green-50", text: "text-green-700", dot: "bg-green-500" },
+  failed: { bg: "bg-red-50", text: "text-red-700", dot: "bg-red-500" },
 };
+
+const MAX_POLL_FAILURES = 5;
 
 export function RunningStep({
   jobs,
@@ -31,6 +33,7 @@ export function RunningStep({
   const pollRef = useRef<NodeJS.Timeout | null>(null);
   const fetchedResults = useRef<Set<string>>(new Set());
   const jobsRef = useRef(jobs);
+  const failureCounts = useRef<Record<string, number>>({});
 
   // Keep ref in sync without triggering poll effect
   useEffect(() => {
@@ -48,8 +51,8 @@ export function RunningStep({
           try {
             const result = await apiGetResults(jobId);
             onAddResult(job.config_id, result);
-          } catch (e) {
-            console.error("Failed to fetch results:", e);
+          } catch {
+            // Result fetch failed — will retry on next poll
           }
         }
         continue;
@@ -59,9 +62,22 @@ export function RunningStep({
 
       try {
         const updated = await apiPollStatus(jobId);
+        failureCounts.current[jobId] = 0; // Reset on success
         onUpdateJob(jobId, updated);
       } catch (e) {
-        console.error("Poll error:", e);
+        const count = (failureCounts.current[jobId] || 0) + 1;
+        failureCounts.current[jobId] = count;
+
+        if (count >= MAX_POLL_FAILURES) {
+          // Mark job as failed after repeated polling failures
+          const errMsg = e instanceof Error ? e.message : String(e);
+          onUpdateJob(jobId, {
+            ...job,
+            status: "failed",
+            error_message: `Pipeline API unreachable after ${MAX_POLL_FAILURES} attempts: ${errMsg}`,
+          });
+        }
+        // Otherwise silently retry on next poll interval
       }
     }
 
@@ -159,7 +175,7 @@ export function RunningStep({
                     style={{
                       width: `${job.progress_pct}%`,
                       background: job.status === "failed" ? "#E74C3C" :
-                                  job.status === "completed" ? "#27AE60" : color,
+                        job.status === "completed" ? "#27AE60" : color,
                     }}
                   />
                 </div>
@@ -170,11 +186,10 @@ export function RunningStep({
                     const active = job.current_phase === phase && job.status === "running";
                     return (
                       <div key={phase} className="flex items-center gap-1">
-                        <div className={`w-4 h-4 rounded-full grid place-items-center text-[8px] font-bold ${
-                          done   ? "bg-green-500 text-white" :
-                          active ? "text-white" :
-                                  "bg-gray-200 text-gray-400"
-                        }`}
+                        <div className={`w-4 h-4 rounded-full grid place-items-center text-[8px] font-bold ${done ? "bg-green-500 text-white" :
+                            active ? "text-white" :
+                              "bg-gray-200 text-gray-400"
+                          }`}
                           style={active ? { background: color } : undefined}
                         >
                           {done ? "✓" : phase}

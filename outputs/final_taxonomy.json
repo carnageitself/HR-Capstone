@@ -2,243 +2,118 @@
   "categories": [
     {
       "id": "A",
-      "name": "Problem Solving & Technical Expertise",
-      "description": "Recognition for individuals or teams who demonstrate exceptional skill in identifying, diagnosing, and resolving complex issues, often involving technical knowledge, critical thinking, and efficient execution.",
+      "name": "Leadership & People Development",
+      "description": "Guiding teams and developing others' growth",
       "subcategories": [
         {
           "id": "A1",
-          "name": "Issue Resolution & Fixes",
-          "description": "Acknowledging individuals who quickly and effectively address and fix problems, bugs, or errors, ensuring minimal disruption and smooth operations.",
-          "examples": [
-            "found the source of the problem and quickly managed to prep the hotfix",
-            "helped in resolving the Revenue Recognition data population issues"
-          ]
+          "name": "Team Leadership",
+          "description": "Leading and motivating teams toward goals",
+          "examples": []
         },
         {
           "id": "A2",
-          "name": "Technical Contribution & Innovation",
-          "description": "Highlighting contributions that involve deep technical knowledge, developing new solutions, or significantly improving existing systems and processes.",
-          "examples": [
-            "building brand-new components",
-            "Automated Translations innovation will make a meaningful difference"
-          ]
-        },
-        {
-          "id": "A3",
-          "name": "Expert Guidance & Troubleshooting",
-          "description": "Recognizing those who provide expert advice, troubleshoot difficult situations, and share their knowledge to help others overcome technical challenges.",
-          "examples": [
-            "Your deep knowledge and expertise, you're the person everyone turns to",
-            "helped me to better understand the most common integration issues"
-          ]
+          "name": "Mentoring",
+          "description": "Investing in others' professional growth",
+          "examples": []
         }
       ]
     },
     {
       "id": "B",
-      "name": "Collaboration & Teamwork",
-      "description": "Praise for individuals and groups who actively contribute to a positive team environment, support colleagues, and work effectively together to achieve shared goals.",
+      "name": "Innovation & Problem Solving",
+      "description": "Finding new approaches and driving improvements",
       "subcategories": [
         {
           "id": "B1",
-          "name": "Mutual Support & Assistance",
-          "description": "Acknowledging those who consistently offer help, support, and assistance to their colleagues, making work easier and more efficient for others.",
-          "examples": [
-            "you never hesitate to give up your time to help me",
-            "always offering a helping hand"
-          ]
+          "name": "Process Improvement",
+          "description": "Streamlining or automating workflows",
+          "examples": []
         },
         {
           "id": "B2",
-          "name": "Team Project Success",
-          "description": "Recognizing collective efforts and successful outcomes achieved through strong teamwork and collaboration on specific projects or initiatives.",
-          "examples": [
-            "incredible collaboration over the past few months",
-            "your hard work, dedication and teamwork throughout 2025"
-          ]
-        },
-        {
-          "id": "B3",
-          "name": "Positive Team Environment",
-          "description": "Highlighting individuals who contribute to a positive, energetic, and supportive team atmosphere, fostering morale and camaraderie.",
-          "examples": [
-            "positive energy you've brought throughout the year",
-            "bring the BEST energy into every room"
-          ]
+          "name": "Creative Solutions",
+          "description": "Novel approaches to challenges",
+          "examples": []
         }
       ]
     },
     {
       "id": "C",
-      "name": "Client & Customer Focus",
-      "description": "Recognition for individuals and teams who go above and beyond to ensure excellent customer experiences, manage client relationships effectively, and deliver value to external stakeholders.",
+      "name": "Client & Customer Impact",
+      "description": "Delivering value to customers and clients",
       "subcategories": [
         {
           "id": "C1",
-          "name": "Exceptional Client Partnership",
-          "description": "Praising individuals who build strong relationships with clients, act as trusted partners, and consistently deliver outstanding service and value.",
-          "examples": [
-            "You are such a wonderful partner to your clients",
-            "amazing partnership - not just for the recent company meeting, but all the support throughout the year"
-          ]
+          "name": "Client Satisfaction",
+          "description": "Going above and beyond for clients",
+          "examples": []
         },
         {
           "id": "C2",
-          "name": "Customer Experience Enhancement",
-          "description": "Acknowledging efforts that directly improve the customer experience, solve customer issues, or ensure customer satisfaction.",
-          "examples": [
-            "ensuring our customers experience is at the forefront of every interaction",
-            "providing our customers with the best possible experience"
-          ]
-        },
-        {
-          "id": "C3",
-          "name": "Client Deliverables & Success",
-          "description": "Recognizing contributions that lead to the successful delivery of client projects, meeting client needs, and achieving positive client outcomes.",
-          "examples": [
-            "enabled us to make meaningful progress on a client deliverable",
-            "successfully delivering the Budget Management 2.0 fix for TechCorp"
-          ]
+          "name": "Customer Advocacy",
+          "description": "Championing the customer perspective",
+          "examples": []
         }
       ]
     },
     {
       "id": "D",
-      "name": "Initiative & Proactivity",
-      "description": "Awards for individuals who take ownership, act independently, anticipate needs, and drive tasks forward without explicit instruction, demonstrating a strong work ethic and commitment.",
+      "name": "Collaboration & Partnership",
+      "description": "Working effectively across teams and functions",
       "subcategories": [
         {
           "id": "D1",
-          "name": "Taking Ownership & Driving Action",
-          "description": "Highlighting individuals who proactively take responsibility for tasks and see them through to completion, often in challenging circumstances.",
-          "examples": [
-            "take ownership of the problem, driving home the fix",
-            "you immediately rolled up your sleeves and put all old and"
-          ]
+          "name": "Cross-functional Work",
+          "description": "Bridging departments and disciplines",
+          "examples": []
         },
         {
           "id": "D2",
-          "name": "Anticipating Needs & Proactive Support",
-          "description": "Recognizing those who foresee potential issues or needs and take action in advance, providing support or solutions before being asked.",
-          "examples": [
-            "Your proactive approach and willingness to collaborate",
-            "your support as I took a few days off"
-          ]
-        },
-        {
-          "id": "D3",
-          "name": "Stepping Up & Going Above and Beyond",
-          "description": "Praising individuals who consistently go the extra mile, take on additional responsibilities, or perform tasks outside their usual scope.",
-          "examples": [
-            "Thank you for stepping up and keeping momentum strong",
-            "willingness to go above and beyond to ensure everything was up and running smoothly"
-          ]
+          "name": "Team Support",
+          "description": "Helping colleagues succeed",
+          "examples": []
         }
       ]
     },
     {
       "id": "E",
-      "name": "Leadership & Mentorship",
-      "description": "Recognition for individuals who guide, inspire, and develop others, demonstrating strong leadership qualities and a commitment to fostering growth in their colleagues.",
+      "name": "Execution & Delivery",
+      "description": "Consistently delivering high-quality results",
       "subcategories": [
         {
           "id": "E1",
-          "name": "Mentorship & Guidance",
-          "description": "Acknowledging individuals who provide valuable advice, share knowledge, and guide the development of others, helping them grow professionally.",
-          "examples": [
-            "best mentor I could ask for",
-            "all your mentorship and leadership this last sprint"
-          ]
+          "name": "Quality & Reliability",
+          "description": "Dependable, thorough work output",
+          "examples": []
         },
         {
           "id": "E2",
-          "name": "Inspiring Leadership",
-          "description": "Highlighting individuals who lead by example, motivate their teams, and create an environment where others can excel.",
-          "examples": [
-            "You were truly born to be a leader",
-            "showing that you have strong leadership skills"
-          ]
-        },
-        {
-          "id": "E3",
-          "name": "Team Development & Support",
-          "description": "Recognizing contributions that focus on developing the team, supporting their growth, and ensuring their success.",
-          "examples": [
-            "ensure our new sales reps get up to speed ASAP",
-            "support you and the BDR team provided in helping to generate registrations"
-          ]
+          "name": "Deadline Performance",
+          "description": "Delivering under time pressure",
+          "examples": []
         }
       ]
     },
     {
       "id": "F",
-      "name": "Dedication & Resilience",
-      "description": "Awards for individuals who ,
-          "examples": [
-            "take ownership of the problem",
-            "consistently stepped up"
-          ]
-        },
-        {
-          "id": "F3",
-          "name": "Positive Attitude & Resilience",
-          "description": "Praise for maintaining a positive outlook, handling challenges with grace, and demonstrating resilience.",
-          "examples": [
-            "always with a positive mindset",
-            "kindness and resilience shine so brightly"
-          ]
-        },
-        {
-          "id": "F4",
-          "name": "Attention to Detail & Quality",
-          "description": "Acknowledging meticulousness, a focus on high-quality output, and thoroughness in work.",
-          "examples": [
-            "attention to detail",
-            "commitment to quality"
-          ]
-        }
-      ]
-    },
-    {
-      "id": "G",
-      "name": "Special Occasions & Milestones",
-      "description": "Recognition for personal life events and significant company or team achievements.",
+      "name": "Culture & Community",
+      "description": "Building positive workplace culture",
       "subcategories": [
         {
-          "id": "G1",
-          "name": "Personal Life Events",
-          "description": "Acknowledging and celebrating significant personal milestones like birthdays or new arrivals.",
-          "examples": [
-            "Congratulations on the arrival of your beautiful baby boy",
-            "Happy birthday"
-          ]
+          "id": "F1",
+          "name": "Culture Building",
+          "description": "Contributing to a positive environment",
+          "examples": []
         },
         {
-          "id": "G2",
-          "name": "Program & Award Achievements",
-          "description": "Celebrating completion of development programs or winning specific company awards.",
-          "examples": [
-            "Leadership Development Program graduates",
-            "Best Overall Innovation Award"
-          ]
+          "id": "F2",
+          "name": "Recognition & Celebration",
+          "description": "Celebrating milestones and achievements",
+          "examples": []
         }
       ]
     }
   ],
-  "reasoning": "This taxonomy captures the core themes of recognition by categorizing them into how individuals contribute (Problem Solving, Collaboration, Project Delivery, Client Focus), their personal qualities (Leadership, Attributes), and specific events (Occasions). The subcategories provide granular detail on the specific actions and impacts being celebrated within each main theme, directly reflecting the language and sentiment found in the provided messages."
-}     ]
-        },
-        {
-          "id": "G2",
-          "name": "Personal Growth & Achievements",
-          "description": "Acknowledging individuals for personal development, educational pursuits, or significant life transitions that are celebrated by the team.",
-          "examples": [
-            "unwavering determination for education and your relentless pursuit of higher aims",
-            "excited to see all of things you achieve!"
-          ]
-        }
-      ]
-    }
-  ],
-  "reasoning": "This taxonomy captures the core themes of recognition by categorizing them into Problem Solving, Collaboration, Client Focus, Initiative, Leadership, Dedication, and Personal Milestones. These categories are derived directly from the recurring patterns and sentiments expressed in the award messages, avoiding generic HR jargon and reflecting the specific ways employees are valued within this dataset."
+  "reasoning": "Default fallback taxonomy. Replace with Phase 1 discovery output."
 }
