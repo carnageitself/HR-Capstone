@@ -1,10 +1,3 @@
-"""
-utils.py — Shared helpers for the taxonomy pipeline.
-
-Handles: CSV loading, JSON extraction, LLM provider abstraction
-         (Claude + Gemini fallback), Ollama client, file I/O, logging.
-"""
-
 import json
 import re
 import logging
@@ -15,9 +8,49 @@ from pathlib import Path
 
 import config as cfg
 
-# =============================================================================
-# LOGGING
-# =============================================================================
+class TokenTracker:
+    """
+    Module-level accumulator for token usage across LLM calls.
+
+    Usage:
+        token_tracker.reset()          # before a phase
+        call_llm(...)                  # tokens auto-accumulated
+        usage = token_tracker.get()    # after a phase
+    """
+    def __init__(self):
+        self._usage = {
+            "input_tokens": 0,
+            "output_tokens": 0,
+            "calls": 0,
+            "provider": None,
+            "model": None,
+        }
+
+    def reset(self):
+        self._usage = {
+            "input_tokens": 0,
+            "output_tokens": 0,
+            "calls": 0,
+            "provider": None,
+            "model": None,
+        }
+
+    def record(self, input_tokens: int, output_tokens: int, provider: str, model: str):
+        self._usage["input_tokens"] += input_tokens
+        self._usage["output_tokens"] += output_tokens
+        self._usage["calls"] += 1
+        self._usage["provider"] = provider
+        self._usage["model"] = model
+
+    def get(self) -> dict:
+        return {
+            **self._usage,
+            "total_tokens": self._usage["input_tokens"] + self._usage["output_tokens"],
+        }
+
+
+token_tracker = TokenTracker()
+
 
 def get_logger(name: str) -> logging.Logger:
     """Consistent logger across all phases."""
@@ -28,12 +61,12 @@ def get_logger(name: str) -> logging.Logger:
         handler.setFormatter(fmt)
         logger.addHandler(handler)
     logger.setLevel(getattr(logging, cfg.LOG_LEVEL, logging.INFO))
+    logger.propagate = False
     return logger
 
 
-# =============================================================================
-# DATA LOADING
-# =============================================================================
+_logger_llm = get_logger("utils.llm")
+
 
 def load_awards(path: Path = None) -> pd.DataFrame:
     """
@@ -49,8 +82,10 @@ def load_awards(path: Path = None) -> pd.DataFrame:
     df = pd.read_csv(path)
     logger.info(f"Loaded {len(df)} rows from {path.name}")
 
-    required = [cfg.COL_MESSAGE, cfg.COL_AWARD_TITLE,
-                cfg.COL_RECIPIENT_TITLE, cfg.COL_NOMINATOR_TITLE]
+    required = [
+        cfg.COL_MESSAGE, cfg.COL_AWARD_TITLE,
+        cfg.COL_RECIPIENT_TITLE, cfg.COL_NOMINATOR_TITLE,
+    ]
     missing = [c for c in required if c not in df.columns]
     if missing:
         raise KeyError(
@@ -67,10 +102,6 @@ def load_awards(path: Path = None) -> pd.DataFrame:
 
     return df
 
-
-# =============================================================================
-# JSON PARSING
-# =============================================================================
 
 def extract_json(text: str) -> dict:
     """
@@ -96,15 +127,8 @@ def extract_json(text: str) -> dict:
     raise ValueError(f"Could not extract valid JSON from response:\n{text[:300]}...")
 
 
-# =============================================================================
-# LLM PROVIDER ABSTRACTION
-# =============================================================================
-
-_logger_llm = get_logger("utils.llm")
-
-# ── Claude ──
-
 _claude_client = None
+
 
 def _get_claude_client():
     global _claude_client
@@ -117,7 +141,7 @@ def _get_claude_client():
 
 
 def _call_claude(prompt: str, model: str, max_tokens: int, system: str = None) -> str:
-    """Call Claude API. Raises on auth/billing errors so fallback can trigger."""
+    """Call Claude API. Records real token usage to tracker."""
     client = _get_claude_client()
 
     kwargs = {
@@ -132,6 +156,12 @@ def _call_claude(prompt: str, model: str, max_tokens: int, system: str = None) -
     text = response.content[0].text
 
     usage = response.usage
+    token_tracker.record(
+        input_tokens=usage.input_tokens,
+        output_tokens=usage.output_tokens,
+        provider="anthropic",
+        model=model,
+    )
     _logger_llm.info(
         f"[Claude] {usage.input_tokens} in / {usage.output_tokens} out "
         f"(model={model})"
@@ -139,12 +169,10 @@ def _call_claude(prompt: str, model: str, max_tokens: int, system: str = None) -
     return text
 
 
-# ── Gemini ──
-
 def _call_gemini(prompt: str, model: str, max_tokens: int, system: str = None) -> str:
     """
     Call Google Gemini API via REST with retry on rate limits.
-    Free tier (gemini-1.5-flash): 15 RPM, 1M tokens/day.
+    Records real token usage from usageMetadata.
     """
     if not cfg.GOOGLE_API_KEY:
         raise EnvironmentError("GOOGLE_API_KEY not set")
@@ -176,10 +204,20 @@ def _call_gemini(prompt: str, model: str, max_tokens: int, system: str = None) -
             data = response.json()
             try:
                 text = data["candidates"][0]["content"]["parts"][0]["text"]
-                est_in = len(full_prompt) // 4
-                est_out = len(text) // 4
+
+                # Extract real token counts from Gemini's usageMetadata
+                usage_meta = data.get("usageMetadata", {})
+                input_tokens = usage_meta.get("promptTokenCount", len(full_prompt) // 4)
+                output_tokens = usage_meta.get("candidatesTokenCount", len(text) // 4)
+
+                token_tracker.record(
+                    input_tokens=input_tokens,
+                    output_tokens=output_tokens,
+                    provider="google",
+                    model=model,
+                )
                 _logger_llm.info(
-                    f"[Gemini] ~{est_in} in / ~{est_out} out "
+                    f"[Gemini] {input_tokens} in / {output_tokens} out "
                     f"(model={model})"
                 )
                 return text
@@ -187,8 +225,7 @@ def _call_gemini(prompt: str, model: str, max_tokens: int, system: str = None) -
                 raise ValueError(f"Unexpected Gemini response structure: {e}\n{data}")
 
         elif response.status_code == 429 and attempt < max_retries:
-            # Rate limited — wait and retry
-            wait = retry_delay * (attempt + 1)  # linear backoff
+            wait = retry_delay * (attempt + 1)
             _logger_llm.warning(
                 f"[Gemini] Rate limited (429). "
                 f"Retry {attempt + 1}/{max_retries} in {wait}s..."
@@ -228,11 +265,84 @@ def list_gemini_models() -> list[str]:
     return names
 
 
-# ── Provider dispatcher ──
+def _call_groq(prompt: str, model: str, max_tokens: int, system: str = None) -> str:
+    """
+    Call Groq API via REST. Records real token usage.
+    Free tier: 30 RPM, 1000 RPD, 500K tokens/day.
+    """
+    if not cfg.GROQ_API_KEY:
+        raise EnvironmentError("GROQ_API_KEY not set")
+
+    url = "https://api.groq.com/openai/v1/chat/completions"
+
+    messages = []
+    if system:
+        messages.append({"role": "system", "content": system})
+    messages.append({"role": "user", "content": prompt})
+
+    payload = {
+        "model": model,
+        "messages": messages,
+        "max_tokens": max_tokens,
+        "temperature": 0.3,
+    }
+
+    max_retries = getattr(cfg, "LLM_MAX_RETRIES", 3)
+    retry_delay = getattr(cfg, "LLM_RETRY_DELAY", 5)
+
+    for attempt in range(max_retries + 1):
+        response = requests.post(
+            url,
+            headers={
+                "Authorization": f"Bearer {cfg.GROQ_API_KEY}",
+                "Content-Type": "application/json",
+            },
+            json=payload,
+            timeout=120,
+        )
+
+        if response.status_code == 200:
+            data = response.json()
+            try:
+                text = data["choices"][0]["message"]["content"]
+                usage = data.get("usage", {})
+
+                token_tracker.record(
+                    input_tokens=usage.get("prompt_tokens", 0),
+                    output_tokens=usage.get("completion_tokens", 0),
+                    provider="groq",
+                    model=model,
+                )
+                _logger_llm.info(
+                    f"[Groq] {usage.get('prompt_tokens', '?')} in / "
+                    f"{usage.get('completion_tokens', '?')} out "
+                    f"(model={model})"
+                )
+                return text
+            except (KeyError, IndexError) as e:
+                raise ValueError(f"Unexpected Groq response structure: {e}\n{data}")
+
+        elif response.status_code == 429 and attempt < max_retries:
+            wait = retry_delay * (attempt + 1)
+            _logger_llm.warning(
+                f"[Groq] Rate limited (429). "
+                f"Retry {attempt + 1}/{max_retries} in {wait}s..."
+            )
+            time.sleep(wait)
+            continue
+
+        else:
+            error = response.json().get("error", {})
+            raise RuntimeError(
+                f"Groq API error {response.status_code}: "
+                f"{error.get('message', response.text)}"
+            )
+
 
 PROVIDER_CALLERS = {
     "claude": _call_claude,
     "gemini": _call_gemini,
+    "groq": _call_groq,
 }
 
 
@@ -250,7 +360,7 @@ def call_llm(
 
     Args:
         prompt:     User message content
-        models:     Dict of provider → model name (e.g. P1_MODELS from config)
+        models:     Dict of provider -> model name (e.g. P1_MODELS from config)
         max_tokens: Max response tokens
         system:     Optional system prompt
 
@@ -259,17 +369,20 @@ def call_llm(
     """
     max_tokens = max_tokens or cfg.P1_MAX_TOKENS
 
-    # Build ordered list of providers to try
     providers_to_try = []
     for p in cfg.LLM_PROVIDER_PRIORITY:
         if p == "claude" and cfg.ANTHROPIC_API_KEY:
             providers_to_try.append(p)
         elif p == "gemini" and cfg.GOOGLE_API_KEY:
             providers_to_try.append(p)
+        elif p == "groq" and cfg.GROQ_API_KEY:
+            providers_to_try.append(p)
 
     if not providers_to_try:
         raise EnvironmentError(
-            "No LLM provider available. Set at least one API key."
+            "No LLM provider available. Set at least one API key:\n"
+            "  export GOOGLE_API_KEY='AIza...'   (Gemini)\n"
+            "  export GROQ_API_KEY='gsk_...'     (Groq)"
         )
 
     last_error = None
@@ -277,7 +390,11 @@ def call_llm(
     for i, provider in enumerate(providers_to_try):
         model = (models or {}).get(provider)
         if not model:
-            defaults = {"claude": "claude-sonnet-4-5-20250929", "gemini": cfg.GEMINI_DEFAULT_MODEL}
+            defaults = {
+                "claude": "claude-sonnet-4-5-20250929",
+                "gemini": cfg.GEMINI_DEFAULT_MODEL,
+                "groq": cfg.GROQ_DEFAULT_MODEL,
+            }
             model = defaults.get(provider, cfg.GEMINI_DEFAULT_MODEL)
 
         caller = PROVIDER_CALLERS[provider]
@@ -295,9 +412,11 @@ def call_llm(
             error_str = str(e).lower()
             is_retryable = any(
                 kw in error_str
-                for kw in ["credit", "balance", "billing", "quota",
-                           "unauthorized", "authentication",
-                           "403", "401", "429", "400"]
+                for kw in [
+                    "credit", "balance", "billing", "quota",
+                    "unauthorized", "authentication",
+                    "403", "401", "429", "400",
+                ]
             )
 
             if is_retryable and remaining:
@@ -313,7 +432,9 @@ def call_llm(
                     f"Error: {e}\n\n"
                     f"To fix, set a fallback API key:\n"
                     f"  export GOOGLE_API_KEY='AIza...'  "
-                    f"(free at https://aistudio.google.com/apikey)"
+                    f"(free at https://aistudio.google.com/apikey)\n"
+                    f"  export GROQ_API_KEY='gsk_...'    "
+                    f"(free at https://console.groq.com/keys)"
                 ) from e
             else:
                 raise
@@ -324,33 +445,50 @@ def call_llm(
 
 
 # Backwards-compatible alias
-def call_claude(prompt: str, model: str = None, max_tokens: int = None,
-                system: str = None) -> str:
+def call_claude(
+    prompt: str, model: str = None, max_tokens: int = None,
+    system: str = None,
+) -> str:
     """Legacy alias — now routes through call_llm with fallback."""
     models = {}
     if model:
-        # Caller specified a Claude model — map it and provide Gemini default
         models["claude"] = model
         models["gemini"] = cfg.GEMINI_DEFAULT_MODEL
     return call_llm(prompt=prompt, models=models, max_tokens=max_tokens, system=system)
 
 
-# =============================================================================
-# OLLAMA CLIENT (unchanged — local, no API key needed)
-# =============================================================================
+def check_ollama(model: str = None) -> dict:
+    """
+    Check Ollama service AND verify the model is available.
+    Returns {"running": bool, "model_available": bool, "models": list}.
+    """
+    model = model or cfg.P2_MODEL
+    result = {"running": False, "model_available": False, "models": []}
 
-def check_ollama() -> bool:
-    """Check if Ollama service is reachable."""
     try:
-        r = requests.get(cfg.P2_OLLAMA_URL.replace("/api/generate", "/"), timeout=5)
-        return r.status_code == 200
+        r = requests.get(
+            cfg.P2_OLLAMA_URL.replace("/api/generate", "/api/tags"),
+            timeout=5,
+        )
+        if r.status_code != 200:
+            return result
+
+        result["running"] = True
+        data = r.json()
+        available = [m.get("name", "").split(":")[0] for m in data.get("models", [])]
+        result["models"] = available
+        result["model_available"] = model in available
+
     except (requests.ConnectionError, requests.Timeout):
-        return False
+        pass
+
+    return result
 
 
 def call_ollama(prompt: str, model: str = None, temperature: float = None) -> str | None:
     """
     Call local Ollama and return text response.
+    Records token usage from response metadata (prompt_eval_count, eval_count).
     Returns None on failure (caller decides how to handle).
     """
     logger = get_logger("utils.ollama")
@@ -370,7 +508,20 @@ def call_ollama(prompt: str, model: str = None, temperature: float = None) -> st
             timeout=cfg.P2_TIMEOUT,
         )
         if r.status_code == 200:
-            return r.json().get("response", "")
+            data = r.json()
+            text = data.get("response", "")
+
+            # Ollama returns prompt_eval_count and eval_count
+            input_tokens = data.get("prompt_eval_count", 0)
+            output_tokens = data.get("eval_count", 0)
+
+            token_tracker.record(
+                input_tokens=input_tokens,
+                output_tokens=output_tokens,
+                provider="ollama",
+                model=model,
+            )
+            return text
 
         logger.warning(f"Ollama returned status {r.status_code}")
         return None
@@ -382,10 +533,6 @@ def call_ollama(prompt: str, model: str = None, temperature: float = None) -> st
         logger.error("Cannot reach Ollama — is it running?")
         return None
 
-
-# =============================================================================
-# FILE I/O
-# =============================================================================
 
 def ensure_dir(path: Path) -> Path:
     """Create directory if it doesn't exist, return the path."""

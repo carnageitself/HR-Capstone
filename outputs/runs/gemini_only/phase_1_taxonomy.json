@@ -1,0 +1,202 @@
+{
+  "metadata": {
+    "phase": 1,
+    "sample_size": 100,
+    "random_state": 42,
+    "models": {
+      "claude": "claude-sonnet-4-5-20250929",
+      "gemini": "gemini-flash-lite-latest"
+    }
+  },
+  "taxonomy": {
+    "categories": [
+      {
+        "id": "C1",
+        "name": "Operational Support & Troubleshooting",
+        "description": "Recognition focused on immediate, specific actions taken to resolve technical issues, fix errors, or ensure continuity during critical periods (like launches or holidays).",
+        "subcategories": [
+          {
+            "id": "C1a",
+            "name": "Rapid Incident Response",
+            "description": "Quickly identifying, fixing, and deploying solutions for urgent technical problems or application errors.",
+            "examples": [
+              "found the source of the problem and quickly managed to prep the hotfix",
+              "tackling the security scanning issues"
+            ]
+          },
+          {
+            "id": "C1b",
+            "name": "System/Data Integrity & Maintenance",
+            "description": "Ensuring accuracy, stability, and proper function of core systems, data models, or processes, often involving testing or complex data handling.",
+            "examples": [
+              "system calculation checks, updating reports",
+              "cancelling 2000 anniversary awards"
+            ]
+          },
+          {
+            "id": "C1c",
+            "name": "Urgent/Time-Sensitive Delivery",
+            "description": "Action taken under pressure to meet tight deadlines or support time-sensitive client deliverables.",
+            "examples": [
+              "support with a time sensitive data model deploy",
+              "ensured they were efficiently reviewed and actioned"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "C2",
+        "name": "Knowledge Sharing & Mentorship",
+        "description": "Recognition for teaching, guiding, or sharing specialized expertise that enables others to learn, grow, or solve complex problems independently.",
+        "subcategories": [
+          {
+            "id": "C2a",
+            "name": "Direct Mentoring & Guidance",
+            "description": "Providing structured or informal coaching, advice, and sharing of best practices to develop a colleague's skills.",
+            "examples": [
+              "best mentor I could ask for... sharing all of your tips, templates and advice",
+              "guidance whether its around the wilson score work, skills"
+            ]
+          },
+          {
+            "id": "C2b",
+            "name": "Expert Consultation & Unblocking",
+            "description": "Using deep knowledge to explain complex topics, resolve tricky customer cases, or unblock others' thinking.",
+            "examples": [
+              "help me find answers buried deep in documentation",
+              "clarity and patience in the way he explained everything"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "C3",
+        "name": "Proactive Ownership & Initiative",
+        "description": "Recognition for taking independent responsibility, driving work forward without being asked, or demonstrating exceptional drive and commitment.",
+        "subcategories": [
+          {
+            "id": "C3a",
+            "name": "Driving Momentum & Hustle",
+            "description": "Recognition for sustained high activity, consistent effort, and maintaining pace, especially during slow periods.",
+            "examples": [
+              "activity and hustle you have put in lately",
+              "keeping the momentum of cold calling and outreach going"
+            ]
+          },
+          {
+            "id": "C3b",
+            "name": "Taking Ownership of Problems",
+            "description": "Stepping up to own a problem end-to-end, from identification through to resolution and communication.",
+            "examples": [
+              "see you take ownership of the problem, driving home the fix",
+              "your proactive approach"
+            ]
+          },
+          {
+            "id": "C3c",
+            "name": "Forward-Thinking & Foundation Setting",
+            "description": "Work that establishes significant, long-term value or sets the stage for future initiatives.",
+            "examples": [
+              "will serve as the foundation for the Spend 2.0 initiatives",
+              "work on solving the next big thing"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "C4",
+        "name": "Cross-Functional Partnership & Collaboration",
+        "description": "Appreciation for seamless teamwork, effective coordination across different teams or stakeholders, and maintaining positive working relationships.",
+        "subcategories": [
+          {
+            "id": "C4a",
+            "name": "Seamless Teamwork & Coverage",
+            "description": "Providing reliable support to cover for absent colleagues or ensuring smooth operations across shared responsibilities.",
+            "examples": [
+              "looking after my tasks while I was away",
+              "support, teamwork, and positive energy you've brought throughout the year"
+            ]
+          },
+          {
+            "id": "C4b",
+            "name": "Stakeholder Alignment & Coordination",
+            "description": "Effectively managing complex dependencies, scheduling, and communication between multiple internal/external groups (Legal, Finance, Clients).",
+            "examples": [
+              "scheduling calls with the right folks... worked closely with our Legal/Finance teams",
+              "ensured that we had the smoothest week"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "C5",
+        "name": "Impactful Delivery & Quality of Work",
+        "description": "Recognition tied directly to the successful completion of major projects, innovations, or achieving measurable business results.",
+        "subcategories": [
+          {
+            "id": "C5a",
+            "name": "Major Project/Feature Launch Success",
+            "description": "Successful delivery of significant, complex, or high-visibility initiatives.",
+            "examples": [
+              "delivering the initial Out-of-the-Box Spend 2.0 UI",
+              "successfully delivering the Budget Management 2.0 fix"
+            ]
+          },
+          {
+            "id": "C5b",
+            "name": "Innovation & Technical Advancement",
+            "description": "Creating new tools, processes, or technical solutions that improve efficiency or product capability significantly.",
+            "examples": [
+              "Automated Translations innovation will make a meaningful difference",
+              "content extraction tool that formed the basis of tons of Smart Assistant rules"
+            ]
+          },
+          {
+            "id": "C5c",
+            "name": "Client/User Value Focus",
+            "description": "Demonstrating exceptional attention to detail specifically aimed at improving the end-user or client experience.",
+            "examples": [
+              "attention to detail with focus towards bringing great value to our users",
+              "ensuring our customers experience is at the forefront"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "C6",
+        "name": "Cultural & Interpersonal Excellence",
+        "description": "Recognition for embodying positive personal attributes, maintaining team morale, and demonstrating strong character traits.",
+        "subcategories": [
+          {
+            "id": "C6a",
+            "name": "Positive Attitude & Energy",
+            "description": "Bringing enthusiasm, positivity, and a good sense of humor to daily interactions and challenging situations.",
+            "examples": [
+              "always with a positive mindset",
+              "bring the BEST energy into every room"
+            ]
+          },
+          {
+            "id": "C6b",
+            "name": "Team Cohesion & Support",
+            "description": "Actions that foster a strong sense of community, kindness, and mutual support within the team structure.",
+            "examples": [
+              "care, kindness, and resilience shine so brightly",
+              "being a real team in all senses of the word"
+            ]
+          },
+          {
+            "id": "C6c",
+            "name": "Personal Milestones & Appreciation",
+            "description": "Non-work related recognition, such as celebrating birthdays, life events, or acknowledging personal achievements outside of immediate job scope.",
+            "examples": [
+              "Congratulations on winning the Best Overall Innovation Award",
+              "Congratulations James and Grace on the arrival of your beautiful baby boy"
+            ]
+          }
+        ]
+      }
+    ],
+    "reasoning": "The messages heavily emphasize immediate, reactive support (C1) and proactive effort/ownership (C3), which are distinct from the successful outcomes (C5). Collaboration (C4) is a frequent theme, often involving cross-functional partners. Finally, a significant portion of recognition is dedicated to interpersonal skills, mentorship (C2), and general positive culture contribution (C6), necessitating categories beyond just task completion."
+  }
+}

@@ -1,0 +1,202 @@
+{
+  "metadata": {
+    "phase": 1,
+    "sample_size": 100,
+    "random_state": 42,
+    "models": {
+      "claude": "claude-sonnet-4-5-20250929",
+      "gemini": "gemini-flash-lite-latest"
+    }
+  },
+  "taxonomy": {
+    "categories": [
+      {
+        "id": "C1",
+        "name": "Reactive Problem Solving & Support",
+        "description": "Recognition focused on immediate, often urgent, responses to unexpected issues, errors, or time-sensitive needs.",
+        "subcategories": [
+          {
+            "id": "C1a",
+            "name": "Urgent Technical/System Fixes",
+            "description": "Addressing immediate bugs, errors, hotfixes, or system failures, often outside normal hours.",
+            "examples": [
+              "prep the hotfix and navigated through the approval process",
+              "help in resolving the Revenue Recognition data population issues"
+            ]
+          },
+          {
+            "id": "C1b",
+            "name": "Handling Time-Sensitive Requests",
+            "description": "Responding quickly and efficiently to urgent operational or client requests that require immediate action.",
+            "examples": [
+              "support and respect for urgency of late",
+              "responded so quickly with the utmost discretion"
+            ]
+          },
+          {
+            "id": "C1c",
+            "name": "Unblocking/Troubleshooting Assistance",
+            "description": "Providing direct help to unblock a colleague's work, often involving deep knowledge or investigation.",
+            "examples": [
+              "help me find answers buried deep in documentation",
+              "collaborate recreating the issue and providing specific details"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "C2",
+        "name": "Proactive Project & Delivery Excellence",
+        "description": "Recognition for high-quality execution, ownership, and successful completion of planned projects, initiatives, or foundational work.",
+        "subcategories": [
+          {
+            "id": "C2a",
+            "name": "Significant Deliverable Completion",
+            "description": "Achieving major milestones, launching products, or delivering foundational work that has a large impact.",
+            "examples": [
+              "delivering the initial Out-of-the-Box Spend 2.0 UI",
+              "successfully delivering the Budget Management 2.0 fix"
+            ]
+          },
+          {
+            "id": "C2b",
+            "name": "Ownership and Momentum Maintenance",
+            "description": "Taking full responsibility for a task or area, especially during transitions or when others are absent, ensuring continuity.",
+            "examples": [
+              "stepped up and keeping momentum strong\u2014you made the handoff seamless",
+              "taking ownership of the problem, driving home the fix"
+            ]
+          },
+          {
+            "id": "C2c",
+            "name": "Quality and Attention to Detail",
+            "description": "Praise for thoroughness, accuracy, and high standards applied to deliverables or processes.",
+            "examples": [
+              "attention to detail with focus towards bringing great value to our users",
+              "Your questions are a reflection of the care you take in helping our customers"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "C3",
+        "name": "Collaboration and Partnership",
+        "description": "Recognition centered on how individuals interact with others, emphasizing teamwork, relationship building, and cross-functional support.",
+        "subcategories": [
+          {
+            "id": "C3a",
+            "name": "Cross-Functional Support",
+            "description": "Helping teams outside the immediate group or providing support across different functional areas.",
+            "examples": [
+              "incredible collaboration over the past few months",
+              "support you and the BDR team provided in helping to generate registrations"
+            ]
+          },
+          {
+            "id": "C3b",
+            "name": "Teamwork and Mutual Support",
+            "description": "General appreciation for being a reliable teammate who contributes positively to the group dynamic.",
+            "examples": [
+              "support, teamwork, and positive energy you've brought throughout the year",
+              "willingness to step in whenever I needed support"
+            ]
+          },
+          {
+            "id": "C3c",
+            "name": "Client/Vendor Relationship Management",
+            "description": "Excellence in external partnership, communication, and maintaining positive stakeholder relationships.",
+            "examples": [
+              "wonderful partner to your clients",
+              "amazing partnership - not just for the recent company meeting"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "C4",
+        "name": "Knowledge Sharing and Development",
+        "description": "Recognition for efforts dedicated to teaching, mentoring, sharing expertise, and fostering growth in others.",
+        "subcategories": [
+          {
+            "id": "C4a",
+            "name": "Mentorship and Guidance",
+            "description": "Formal or informal coaching, sharing of best practices, and helping newer team members grow.",
+            "examples": [
+              "being the best mentor I could ask for",
+              "thanks for all your mentorship and leadership this last sprint"
+            ]
+          },
+          {
+            "id": "C4b",
+            "name": "Sharing Critical Expertise",
+            "description": "Being the go-to expert whose knowledge unblocks strategic thinking or complex problem-solving.",
+            "examples": [
+              "your deep knowledge and expertise, you're the person everyone turns to",
+              "highly valuable wisdom you share"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "C5",
+        "name": "Sustained Positive Influence & Culture",
+        "description": "Recognition for consistent behavioral contributions that improve team morale, uphold values, or drive long-term positive change.",
+        "subcategories": [
+          {
+            "id": "C5a",
+            "name": "Cultural Energy and Positivity",
+            "description": "Bringing enthusiasm, a positive mindset, or specific energy that uplifts the team environment.",
+            "examples": [
+              "bring the BEST energy into every room",
+              "always with a positive mindset"
+            ]
+          },
+          {
+            "id": "C5b",
+            "name": "Upholding Values/Ethics",
+            "description": "Recognition for embodying core company values through actions, especially regarding respect or integrity.",
+            "examples": [
+              "embody the company value 'Respect for All'",
+              "professionalism and support this week and last"
+            ]
+          },
+          {
+            "id": "C5c",
+            "name": "Consistency and Reliability",
+            "description": "Being consistently dependable, hardworking, and showing high levels of commitment over time.",
+            "examples": [
+              "your hard work, reliability, and support throughout the year",
+              "continually impressed by your drive and will to achieve"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "C6",
+        "name": "Personal Milestones & Occasions",
+        "description": "Recognition tied to personal life events or formal organizational achievements outside of standard project work.",
+        "subcategories": [
+          {
+            "id": "C6a",
+            "name": "Life Events Recognition",
+            "description": "Acknowledging personal milestones such as birthdays or the arrival of a new baby.",
+            "examples": [
+              "Congratulations on winning the Best Overall Innovation Award",
+              "Congratulations on the arrival of your beautiful baby boy"
+            ]
+          },
+          {
+            "id": "C6b",
+            "name": "Program/Development Completion",
+            "description": "Celebrating successful completion of formal training, development programs, or specific team events.",
+            "examples": [
+              "Leadership Development Program graduates!",
+              "bringing the designers together in such warm and festive ways"
+            ]
+          }
+        ]
+      }
+    ],
+    "reasoning": "The messages heavily emphasize immediate, reactive support (C1) and the successful execution of complex projects (C2), which are distinct from general teamwork. Collaboration (C3) captures the 'how' of working together, while Knowledge Sharing (C4) addresses the transfer of skills. Finally, Culture/Consistency (C5) covers the behavioral aspects that sustain the team environment, separating them from one-off events (C6)."
+  }
+}

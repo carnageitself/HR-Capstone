@@ -1,8 +1,6 @@
-import fs from "fs";
-import path from "path";
-import { parseCSV } from "./parseCSV";
+import { supabase } from "@/lib/supabase";
 
-// ── Enriched award row (awards_enriched.csv) ─────────────────────────────────
+// ── Enriched award row (matches awards_enriched table) ───────────────────────
 interface EnrichedAward {
   award_id: string;
   award_date: string;
@@ -14,23 +12,22 @@ interface EnrichedAward {
   recipient_title: string;
   recipient_department: string;
   recipient_seniority: string;
-  recipient_skills: string;        // comma-separated e.g. "Leadership,Communication"
+  recipient_skills: string;
   nominator_id: string;
   nominator_name: string;
   nominator_title: string;
   nominator_department: string;
   nominator_seniority: string;
-  category_id: string;             // A–F
+  category_id: string;
   category_name: string;
-  subcategory_id: string;          // A1, A2, B1 …
+  subcategory_id: string;
   subcategory_name: string;
   reasoning: string;
 }
 
-// ── DashboardData contract (kept backward-compatible + extended) ──────────────
+// ── DashboardData contract ───────────────────────────────────────────────────
 export interface DashboardData {
   kpi: {
-    // workforce
     totalAwards: number;
     totalMonetary: number;
     avgAwardValue: number;
@@ -38,44 +35,29 @@ export interface DashboardData {
     uniqueNominators: number;
     uniqueDepartments: number;
     recognitionRate: number;
-    // people health
-    highPerformers: number;         // received >= 5 recognitions
-    cultureCarriers: number;        // given >= 5 recognitions
-    atRiskCount: number;            // received > 0 but > 120 days since last
-    neverRecognizedCount: number;   // received = 0
-    // org dynamics
-    crossDeptPct: number;           // % of awards given across departments
-    peerRecognitionPct: number;     // % within ±1 seniority level
-    icRatio: number;                // % of workforce who are IC/Senior IC
-    execRatio: number;              // % of workforce who are Director/VP
-    // momentum
-    momTrend: number;               // month-over-month % change (last 3 vs prev 3 months)
-    avgMonthlyAwards: number;       // average awards per active month
+    highPerformers: number;
+    cultureCarriers: number;
+    atRiskCount: number;
+    neverRecognizedCount: number;
+    crossDeptPct: number;
+    peerRecognitionPct: number;
+    icRatio: number;
+    execRatio: number;
+    momTrend: number;
+    avgMonthlyAwards: number;
   };
-  // category + subcategory breakdowns
   categories: { id: string; name: string; count: number; pct: number; totalValue: number }[];
   subcategories: { id: string; name: string; categoryId: string; categoryName: string; count: number; pct: number }[];
-  // time series — yearMonth added for date range filter
   monthly: { month: string; label: string; yearMonth: string; awards: number; value: number }[];
-  // department-level
   departments: {
-    name: string;
-    awards: number;
-    totalValue: number;
-    avgValue: number;
-    uniqueRecipients: number;
-    uniqueNominators: number;
+    name: string; awards: number; totalValue: number; avgValue: number;
+    uniqueRecipients: number; uniqueNominators: number;
   }[];
-  // seniority distribution
   seniority: { level: string; count: number; pct: number }[];
-  // top lists
   topRecipients: { id: string; name: string; dept: string; title: string; seniority: string; awards: number }[];
   topNominators: { id: string; name: string; dept: string; title: string; nominations: number }[];
-  // skills from recipient_skills column
   skills: { name: string; count: number; dominantCategory: string }[];
-  // award value distribution
   valueDistribution: { value: number; count: number }[];
-  // ── advanced features ─────────────────────────────────────────────────────
   network: {
     nodes: {
       id: string; name: string; dept: string; title: string; seniority: string;
@@ -97,13 +79,12 @@ export interface DashboardData {
     byDepartment: Record<string, { skill: string; count: number }[]>;
     skillCategoryMatrix: { skill: string; categories: Record<string, number> }[];
   };
-  // ── Workforce (HR-centric people view, not award-centric) ────────────────
   workforce: {
     totalPeople: number;
-    neverRecognized: number;       // received = 0
-    neverGiven: number;            // given = 0
-    coveragePct: number;           // % of people who received at least 1
-    participationPct: number;      // % of people who gave at least 1
+    neverRecognized: number;
+    neverGiven: number;
+    coveragePct: number;
+    participationPct: number;
     byDept: {
       dept: string; headcount: number; recognized: number; givers: number;
       coveragePct: number; participationPct: number; avgAwards: number; totalValue: number;
@@ -142,17 +123,14 @@ export interface DashboardData {
       id: string; name: string; dept: string; seniority: string;
       total: number; unique_depts: number; avg_value: number;
     }[];
-    // ── New features ──────────────────────────────────────────────────────
     skillGaps: {
       skill: string; count: number; deptCount: number;
       depts: string[]; rarity: "common" | "moderate" | "rare";
       byDept: Record<string, number>;
     }[];
     seasonality: {
-      month: number; monthName: string;
-      total: number;
-      byCategory: Record<string, number>;
-      dominantCategory: string;
+      month: number; monthName: string; total: number;
+      byCategory: Record<string, number>; dominantCategory: string;
     }[];
     orgConnectors: {
       id: string; name: string; dept: string; seniority: string; title: string;
@@ -165,21 +143,12 @@ export interface DashboardData {
       concentration: { top10Pct: number; top10Value: number; giniCoeff: number };
     };
   };
-  // ── Employee Directory ────────────────────────────────────────────────────
   employeeDirectory: {
-    id: string;
-    name: string;
-    dept: string;
-    title: string;
-    seniority: string;
-    skills: string[];
-    received: number;
-    given: number;
-    valueReceived: number;
+    id: string; name: string; dept: string; title: string; seniority: string;
+    skills: string[]; received: number; given: number; valueReceived: number;
     engagementScore: number;
     status: "thriving" | "active" | "passive" | "at_risk" | "never_recognized";
-    daysSinceLast: number;
-    lastAwardDate: string | null;
+    daysSinceLast: number; lastAwardDate: string | null;
     categoryBreakdown: { id: string; count: number }[];
     recentAwards: {
       date: string; title: string; value: number;
@@ -190,16 +159,9 @@ export interface DashboardData {
 }
 
 // ── helpers ───────────────────────────────────────────────────────────────────
-function readCSV<T>(filename: string): T[] {
-  const p = path.join(process.cwd(), "data", filename);
-  if (!fs.existsSync(p)) return [];
-  const raw = fs.readFileSync(p, "utf-8");
-  return parseCSV<Record<string, string>>(raw) as unknown as T[];
-}
-
 const DEPT_COLORS: Record<string, string> = {
-  Marketing: "#FD79A8",  "Data Science": "#4ECDC4", Finance: "#FFEAA7",
-  "Customer Service": "#FF6B6B", Product: "#00CEC9",  Design: "#45B7D1",
+  Marketing: "#FD79A8", "Data Science": "#4ECDC4", Finance: "#FFEAA7",
+  "Customer Service": "#FF6B6B", Product: "#00CEC9", Design: "#45B7D1",
   Sales: "#FDCB6E", Legal: "#A29BFE", HR: "#DDA15E", IT: "#6C5CE7",
   Engineering: "#96CEB4", Operations: "#74B9FF",
 };
@@ -216,25 +178,52 @@ const STOP = new Set([
   "month","quick","people","across","these","those","many","another",
 ]);
 
-// ── main loader ───────────────────────────────────────────────────────────────
-export function loadDashboardData(): DashboardData {
-  const rows = readCSV<EnrichedAward>("awards_enriched.csv");
+const EMPTY_DATA: DashboardData = {
+  kpi:{ totalAwards:0,totalMonetary:0,avgAwardValue:0,uniqueRecipients:0,uniqueNominators:0,uniqueDepartments:0,recognitionRate:0,highPerformers:0,cultureCarriers:0,atRiskCount:0,neverRecognizedCount:0,crossDeptPct:0,peerRecognitionPct:0,icRatio:0,execRatio:0,momTrend:0,avgMonthlyAwards:0 },
+  categories:[],subcategories:[],monthly:[],departments:[],seniority:[],
+  topRecipients:[],topNominators:[],skills:[],valueDistribution:[],
+  network:{nodes:[],edges:[]},cultureHealth:[],wordCloud:[],messageThemes:[],
+  skillInsights:{topSkills:[],byDepartment:{},skillCategoryMatrix:[]},
+  workforce:{totalPeople:0,neverRecognized:0,neverGiven:0,coveragePct:0,participationPct:0,byDept:[],bySeniority:[],people:[]},
+  intelligence:{invisibleContributors:[],risingStars:[],decliningRecognition:[],crossDeptFlow:[],depts:[],equityData:[],managerReach:[],skillGaps:[],seasonality:[],orgConnectors:[],valueEquity:{byDept:[],bySeniority:[],concentration:{top10Pct:0,top10Value:0,giniCoeff:0}}},
+  employeeDirectory:[],
+};
 
-  // Safety: if file is missing or empty return a zero-state so the UI doesn't crash
-  if (!rows || rows.length === 0) {
-    return {
-      kpi:{ totalAwards:0,totalMonetary:0,avgAwardValue:0,uniqueRecipients:0,uniqueNominators:0,uniqueDepartments:0,recognitionRate:0,highPerformers:0,cultureCarriers:0,atRiskCount:0,neverRecognizedCount:0,crossDeptPct:0,peerRecognitionPct:0,icRatio:0,execRatio:0,momTrend:0,avgMonthlyAwards:0 },
-      categories:[],subcategories:[],monthly:[],departments:[],seniority:[],
-      topRecipients:[],topNominators:[],skills:[],valueDistribution:[],
-      network:{nodes:[],edges:[]},cultureHealth:[],wordCloud:[],messageThemes:[],
-      skillInsights:{topSkills:[],byDepartment:{},skillCategoryMatrix:[]},
-      workforce:{totalPeople:0,neverRecognized:0,neverGiven:0,coveragePct:0,participationPct:0,byDept:[],bySeniority:[],people:[]},
-      intelligence:{invisibleContributors:[],risingStars:[],decliningRecognition:[],crossDeptFlow:[],depts:[],equityData:[],managerReach:[],skillGaps:[],seasonality:[],orgConnectors:[],valueEquity:{byDept:[],bySeniority:[],concentration:{top10Pct:0,top10Value:0,giniCoeff:0}}},
-      employeeDirectory:[],
-    };
+// ── Fetch all rows from awards_enriched (handles Supabase 1000-row limit) ────
+async function fetchAllEnriched(): Promise<EnrichedAward[]> {
+  const PAGE = 1000;
+  const all: EnrichedAward[] = [];
+  let from = 0;
+  let done = false;
+
+  while (!done) {
+    const { data, error } = await supabase
+      .from("awards_enriched")
+      .select("*")
+      .range(from, from + PAGE - 1)
+      .order("award_id", { ascending: true });
+
+    if (error) {
+      console.error("Supabase fetch error:", error.message);
+      return [];
+    }
+    if (!data || data.length === 0) { done = true; break; }
+    all.push(...(data as EnrichedAward[]));
+    if (data.length < PAGE) done = true;
+    else from += PAGE;
   }
 
+  return all;
+}
+
+// ── main loader (now async) ──────────────────────────────────────────────────
+export async function loadDashboardData(): Promise<DashboardData> {
+  const rows = await fetchAllEnriched();
+
+  if (!rows || rows.length === 0) return EMPTY_DATA;
+
   const MO = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+  const REF_DATE = new Date().getTime();  // dynamic — always "now"
 
   // ── KPIs ─────────────────────────────────────────────────────────────────
   const totalMonetary = rows.reduce((s, r) => s + (parseInt(r.value) || 0), 0);
@@ -349,7 +338,7 @@ export function loadDashboardData(): DashboardData {
     .sort((a,b) => b[1]-a[1]).slice(0,10)
     .map(([id, nominations]) => ({ id, nominations, ...nomMeta[id] }));
 
-  // ── Skills (from recipient_skills column) ────────────────────────────────
+  // ── Skills ───────────────────────────────────────────────────────────────
   const skillCount: Record<string, number> = {};
   const skillCat:   Record<string, Record<string, number>> = {};
   for (const r of rows) {
@@ -684,8 +673,8 @@ export function loadDashboardData(): DashboardData {
     ];
     for (const [uid, name, dept, title, sen, skillsRaw] of pairs) {
       if (!dirMap[uid]) {
-        const skills = skillsRaw.split(",").map(s => s.trim()).filter(s => s && s.toLowerCase() !== "nan");
-        dirMap[uid] = { id:uid, name, dept, title, seniority:sen, skills, received:0, given:0, valueReceived:0, catIds:[], recentAwards:[] };
+        const sk = skillsRaw.split(",").map(s => s.trim()).filter(s => s && s.toLowerCase() !== "nan");
+        dirMap[uid] = { id:uid, name, dept, title, seniority:sen, skills:sk, received:0, given:0, valueReceived:0, catIds:[], recentAwards:[] };
       }
     }
     dirMap[r.recipient_id].received++;
@@ -706,8 +695,6 @@ export function loadDashboardData(): DashboardData {
     }
     dirMap[r.nominator_id].given++;
   }
-
-  const REF_DATE = new Date("2026-01-01").getTime();
 
   const employeeDirectory = Object.values(dirMap).map(p => {
     p.recentAwards.sort((a, b) => b.date.localeCompare(a.date));
@@ -735,7 +722,7 @@ export function loadDashboardData(): DashboardData {
     let status: DashboardData["employeeDirectory"][0]["status"];
     if (p.received === 0)                                  status = "never_recognized";
     else if (daysSinceLast > 120)                          status = "at_risk";
-    else if (daysSinceLast <= 60 && p.received >= 3)       status = "thriving";
+    else if (daysSinceLast <= 120 && p.received >= 3)      status = "thriving";
     else if (p.given === 0)                                status = "passive";
     else                                                   status = "active";
 
@@ -746,19 +733,8 @@ export function loadDashboardData(): DashboardData {
     };
   }).sort((a, b) => b.received - a.received);
 
-  // ── EXTENDED HR KPIs ──────────────────────────────────────────────────────
-  const recCountMap: Record<string, number> = {};
-  const givenCountMap: Record<string, number> = {};
-  const lastAwardDateMap: Record<string, string> = {};
+  // ── EXTENDED HR KPIs (derived from employeeDirectory for consistency) ─────
   const seniorityCountMap: Record<string, number> = {};
-
-  for (const r of rows) {
-    recCountMap[r.recipient_id] = (recCountMap[r.recipient_id] || 0) + 1;
-    givenCountMap[r.nominator_id] = (givenCountMap[r.nominator_id] || 0) + 1;
-    if (!lastAwardDateMap[r.recipient_id] || r.award_date > lastAwardDateMap[r.recipient_id]) {
-      lastAwardDateMap[r.recipient_id] = r.award_date;
-    }
-  }
   const allPeopleForKpi: Record<string, string> = {};
   for (const r of rows) {
     allPeopleForKpi[r.recipient_id] = r.recipient_seniority;
@@ -769,14 +745,12 @@ export function loadDashboardData(): DashboardData {
   }
 
   const totalPeopleKpi = Object.keys(allPeopleForKpi).length;
-  const REF_MS = new Date("2026-01-01").getTime();
 
-  const highPerformers   = Object.values(recCountMap).filter(v => v >= 5).length;
-  const cultureCarriers  = Object.values(givenCountMap).filter(v => v >= 5).length;
-  const neverRecognizedCount = totalPeopleKpi - Object.keys(recCountMap).length;
-  const atRiskCount      = Object.entries(lastAwardDateMap).filter(([, d]) => {
-    try { return (REF_MS - new Date(d).getTime()) / 86400000 > 120; } catch { return false; }
-  }).length;
+  // Derive these from the directory statuses so KPI strip and directory always match
+  const highPerformers      = employeeDirectory.filter(p => p.received >= 5).length;
+  const cultureCarriers     = employeeDirectory.filter(p => p.given >= 5).length;
+  const neverRecognizedCount = employeeDirectory.filter(p => p.status === "never_recognized").length;
+  const atRiskCount          = employeeDirectory.filter(p => p.status === "at_risk").length;
 
   const crossDeptRows = rows.filter(r => r.recipient_department !== r.nominator_department);
   const crossDeptPct  = Math.round(crossDeptRows.length / rows.length * 100);
@@ -803,8 +777,8 @@ export function loadDashboardData(): DashboardData {
   const skillDepts: Record<string,Set<string>> = {};
   const skillByDept: Record<string,Record<string,number>> = {};
   for (const r of rows) {
-    const skills = (r.recipient_skills||"").split(",").map(s=>s.trim()).filter(s=>s&&s.toLowerCase()!=="nan");
-    for (const sk of skills) {
+    const sk2 = (r.recipient_skills||"").split(",").map(s=>s.trim()).filter(s=>s&&s.toLowerCase()!=="nan");
+    for (const sk of sk2) {
       skillFreq[sk] = (skillFreq[sk]||0)+1;
       if (!skillDepts[sk]) skillDepts[sk]=new Set();
       skillDepts[sk].add(r.recipient_department);

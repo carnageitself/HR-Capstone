@@ -1,0 +1,209 @@
+{
+  "categories": [
+    {
+      "id": "C1",
+      "name": "Operational Support & Troubleshooting",
+      "description": "Recognition focused on immediate, tactical assistance, fixing errors, or ensuring continuity during critical operations or time-sensitive events.",
+      "subcategories": [
+        {
+          "id": "C1a",
+          "name": "Incident Response & Hotfixes",
+          "description": "Rapid response to technical failures, application errors, or urgent system issues, often involving immediate deployment of fixes.",
+          "examples": [
+            "quickly managed to prep the hotfix",
+            "found the source of the problem and quickly managed to prep the hotfix"
+          ]
+        },
+        {
+          "id": "C1b",
+          "name": "Task Coverage & Continuity",
+          "description": "Stepping in to cover another person's responsibilities (e.g., during absence, holidays, or high-volume periods) to maintain service levels.",
+          "examples": [
+            "looking after my tasks while I was away",
+            "covering me when I was away... including a month end"
+          ]
+        },
+        {
+          "id": "C1c",
+          "name": "Data & System Integrity Support",
+          "description": "Assistance with complex data models, system checks, report updates, or resolving data population issues.",
+          "examples": [
+            "help with creating test data",
+            "system calculation checks, updating reports"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "C2",
+      "name": "Project & Deliverable Excellence",
+      "description": "Recognition for achieving significant milestones, successfully launching major initiatives, or demonstrating high-quality execution on defined projects.",
+      "subcategories": [
+        {
+          "id": "C2a",
+          "name": "Major Initiative Completion",
+          "description": "Successful delivery or launch of significant, often complex, projects or product features.",
+          "examples": [
+            "delivering the initial Out-of-the-Box Spend 2.0 UI",
+            "successfully delivering the Budget Management 2.0 fix"
+          ]
+        },
+        {
+          "id": "C2b",
+          "name": "Process Implementation & Improvement",
+          "description": "Successfully implementing new workflows, tools, or processes that result in efficiency gains or better customer experience.",
+          "examples": [
+            "Vendor Procurement workflow successfully completed",
+            "Automated Translations innovation"
+          ]
+        },
+        {
+          "id": "C2c",
+          "name": "High-Pressure Execution",
+          "description": "Delivering results under tight deadlines, during peak business periods (like Cyber Monday), or while managing high urgency.",
+          "examples": [
+            "team excellence under urgency",
+            "hard work and diligence over this thanksgiving weekend"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "C3",
+      "name": "Knowledge Sharing & Expertise Transfer",
+      "description": "Acknowledging individuals who leverage their deep knowledge to educate, guide, or unblock others, often through direct consultation or mentorship.",
+      "subcategories": [
+        {
+          "id": "C3a",
+          "name": "Mentorship & Coaching",
+          "description": "Formal or informal guidance provided to help newer or less experienced colleagues develop skills and confidence.",
+          "examples": [
+            "being the best mentor I could ask for",
+            "thanks for all your mentorship and leadership this last sprint"
+          ]
+        },
+        {
+          "id": "C3b",
+          "name": "Deep Dive Consultation",
+          "description": "Providing clarity, detailed explanations, or insights into complex documentation, technical issues, or client cases.",
+          "examples": [
+            "help me find answers buried deep in documentation",
+            "clarity and patience in the way he explained everything"
+          ]
+        },
+        {
+          "id": "C3c",
+          "name": "Unblocking Strategic Thinking",
+          "description": "Creating space for discussion, sharing wisdom, or providing guidance that moves strategic thinking or project direction forward.",
+          "examples": [
+            "unblock our thinking and move projects forward",
+            "review feedback and work towards resolutions"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "C4",
+      "name": "Proactive Partnership & Collaboration",
+      "description": "Recognition for consistent, positive teamwork, responsiveness, and acting as a reliable partner across functional boundaries.",
+      "subcategories": [
+        {
+          "id": "C4a",
+          "name": "Consistent Reliability & Responsiveness",
+          "description": "Being consistently available, quick to act, and dependable when requests come in, regardless of the request's size.",
+          "examples": [
+            "responsiveness and your urgency in getting things moving",
+            "always willing to help"
+          ]
+        },
+        {
+          "id": "C4b",
+          "name": "Cross-Functional Teamwork",
+          "description": "Exemplary collaboration between different teams (e.g., Legal/Finance, Product/Engineering) to achieve shared goals.",
+          "examples": [
+            "strong relationship between Financial Accounting and Financial Planning",
+            "collaboration throughout the year"
+          ]
+        },
+        {
+          "id": "C4c",
+          "name": "Client/Vendor Relationship Management",
+          "description": "Exhibiting exceptional partnership qualities when dealing with external stakeholders, leading to high satisfaction.",
+          "examples": [
+            "wonderful partner to your clients",
+            "great partnership... keep us so well informed and aligned globally"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "C5",
+      "name": "Attitude, Drive, and Culture Building",
+      "description": "Recognition focused on personal attributes, mindset, and contributions that positively influence team morale, culture, and sustained effort.",
+      "subcategories": [
+        {
+          "id": "C5a",
+          "name": "Sustained Drive & Hustle",
+          "description": "Acknowledging consistent high activity, perseverance, and effort over time, especially during slow periods.",
+          "examples": [
+            "activity and hustle you have put in lately",
+            "perseverance to get us to where we need to be"
+          ]
+        },
+        {
+          "id": "C5b",
+          "name": "Positive Cultural Contribution",
+          "description": "Bringing positive energy, humor, kindness, or enthusiasm that elevates the team environment.",
+          "examples": [
+            "phenomenal cultural energizer",
+            "wonderful sense of humor"
+          ]
+        },
+        {
+          "id": "C5c",
+          "name": "Ownership and Accountability",
+          "description": "Taking full responsibility for problems, seeing tasks through to completion, and demonstrating leadership without formal title.",
+          "examples": [
+            "take ownership of the problem, driving home the fix",
+            "strong leadership skills"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "C6",
+      "name": "Personal & Life Milestones",
+      "description": "Recognition dedicated to celebrating significant personal events outside of immediate work performance.",
+      "subcategories": [
+        {
+          "id": "C6a",
+          "name": "Life Events Celebration",
+          "description": "Congratulating employees on major personal milestones like births or weddings.",
+          "examples": [
+            "Congratulations on the arrival of your beautiful baby boy",
+            "enjoy this special time!"
+          ]
+        },
+        {
+          "id": "C6b",
+          "name": "Personal Achievement Recognition",
+          "description": "Acknowledging personal development achievements, such as completing education or programs.",
+          "examples": [
+            "Leadership Development Program graduates!",
+            "unwavering determination for education"
+          ]
+        },
+        {
+          "id": "C6c",
+          "name": "Farewell & Well Wishes",
+          "description": "Sending positive wishes to departing team members for their future endeavors.",
+          "examples": [
+            "Best of luck on your new adventure",
+            "excited to see all the things you achieve"
+          ]
+        }
+      ]
+    }
+  ],
+  "reasoning": "The messages heavily cluster around immediate problem-solving (Operational Support) and achieving defined goals (Project Excellence). A significant portion also focuses on relational aspects like teaching others (Knowledge Sharing) and general positive collaboration (Partnership). Finally, there are clear distinctions for recognizing personal attributes (Attitude/Culture) and non-work events (Milestones), leading to a structure that reflects both 'what' was done and 'how' it was done."
+}

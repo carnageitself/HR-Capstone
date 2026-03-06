@@ -1,0 +1,27 @@
+{
+  "pipeline": {
+    "total_time_seconds": 7.2,
+    "phases_run": [
+      1,
+      3
+    ],
+    "llm_provider_priority": [
+      "gemini"
+    ],
+    "phase_1_models": {
+      "claude": "claude-sonnet-4-5-20250929",
+      "gemini": "gemini-flash-lite-latest"
+    },
+    "phase_2_model": "skipped",
+    "phase_3_models": {
+      "claude": "claude-sonnet-4-5-20250929",
+      "gemini": "gemini-flash-lite-latest"
+    }
+  },
+  "results": {
+    "final_categories": 6,
+    "total_subcategories": 16,
+    "candidates_found": 0,
+    "changes_applied": 0
+  }
+}

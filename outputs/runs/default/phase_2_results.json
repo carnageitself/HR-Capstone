@@ -1,0 +1,9642 @@
+{
+  "metadata": {
+    "phase": 2,
+    "total_messages": 1000,
+    "total_classified": 960,
+    "batch_size": 5,
+    "model": "llama3:8b"
+  },
+  "classifications": [
+    {
+      "batch": 0,
+      "category": "C1",
+      "subcategory": "C1a",
+      "themes": [
+        "Troubleshooting",
+        "Support"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 0,
+      "category": "C4",
+      "subcategory": "C4c",
+      "themes": [
+        "Partnership",
+        "Collaboration"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 0,
+      "category": "C2",
+      "subcategory": "C2a",
+      "themes": [
+        "Project",
+        "Delivery"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 0,
+      "category": "C3",
+      "subcategory": "C3a",
+      "themes": [
+        "Knowledge",
+        "Sharing"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 0,
+      "category": "C1",
+      "subcategory": "C1b",
+      "themes": [
+        "Support",
+        "Partnership"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 1,
+      "category": "C2",
+      "subcategory": "C2a",
+      "themes": [
+        "teamwork",
+        "adapting"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 1,
+      "category": "C3",
+      "subcategory": "C3a",
+      "themes": [
+        "expertise",
+        "sharing"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 1,
+      "category": "C4",
+      "subcategory": "C1b",
+      "themes": [
+        "support",
+        "commitment"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 1,
+      "category": "C2",
+      "subcategory": "C2c",
+      "themes": [
+        "inspiration",
+        "engagement"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 1,
+      "category": "C2",
+      "subcategory": "C2a",
+      "themes": [
+        "success",
+        "growth"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 2,
+      "category": "C2",
+      "subcategory": "C2a",
+      "themes": [
+        "Project",
+        "Excellence"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 2,
+      "category": "C2",
+      "subcategory": "C2a",
+      "themes": [
+        "Project",
+        "Influence"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 2,
+      "category": "C4",
+      "subcategory": "C4c",
+      "themes": [
+        "Collaboration",
+        "Teamwork"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 2,
+      "category": "C2",
+      "subcategory": "C2b",
+      "themes": [
+        "Project",
+        "Success"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 2,
+      "category": "C1",
+      "subcategory": "C1a",
+      "themes": [
+        "Support",
+        "Design"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 3,
+      "category": "C4",
+      "subcategory": "C4a",
+      "themes": [
+        "collaboration",
+        "teamwork"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 3,
+      "category": "C2",
+      "subcategory": "C2c",
+      "themes": [
+        "deadline",
+        "delivery"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 3,
+      "category": "C1",
+      "subcategory": "C1c",
+      "themes": [
+        "support",
+        "approachability"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 3,
+      "category": "C1",
+      "subcategory": "C1a",
+      "themes": [
+        "initiative",
+        "focus"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 3,
+      "category": "C4",
+      "subcategory": "C4a",
+      "themes": [
+        "collaboration",
+        "engagement"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 4,
+      "category": "C4",
+      "subcategory": "A",
+      "themes": [
+        "Collaboration",
+        "Support"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 4,
+      "category": "C3",
+      "subcategory": "B",
+      "themes": [
+        "Knowledge Sharing",
+        "Expertise"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 4,
+      "category": "C1",
+      "subcategory": "A",
+      "themes": [
+        "Support",
+        "Trust"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 4,
+      "category": "C4",
+      "subcategory": "A",
+      "themes": [
+        "Collaboration",
+        "Partnership"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 4,
+      "category": "C1",
+      "subcategory": "B",
+      "themes": [
+        "Support",
+        "Data"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 5,
+      "category": "C2",
+      "subcategory": "C2a",
+      "themes": [
+        "project",
+        "excellence"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 5,
+      "category": "C4",
+      "subcategory": "C4c",
+      "themes": [
+        "collaboration",
+        "hire"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 5,
+      "category": "C1",
+      "subcategory": "C1b",
+      "themes": [
+        "support",
+        "help"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 5,
+      "category": "C2",
+      "subcategory": "C2c",
+      "themes": [
+        "training",
+        "leadership"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 5,
+      "category": "C4",
+      "subcategory": "C4a",
+      "themes": [
+        "collaboration",
+        "progress"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 6,
+      "category": "C4",
+      "subcategory": "C4a",
+      "themes": [
+        "Partnership",
+        "Collaboration"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 6,
+      "category": "C2",
+      "subcategory": "C2b",
+      "themes": [
+        "Project",
+        "Success"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 6,
+      "category": "C4",
+      "subcategory": "C1a",
+      "themes": [
+        "Support",
+        "Expertise"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 6,
+      "category": "C2",
+      "subcategory": "C2c",
+      "themes": [
+        "Teamwork",
+        "Delivery"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 6,
+      "category": "C2",
+      "subcategory": "C2a",
+      "themes": [
+        "Achievement",
+        "Collaboration"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 7,
+      "category": "C4",
+      "subcategory": "C4a",
+      "themes": [
+        "partnership",
+        "reliability"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 7,
+      "category": "C3",
+      "subcategory": "C3a",
+      "themes": [
+        "mentoring",
+        "support"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 7,
+      "category": "C4",
+      "subcategory": "C4c",
+      "themes": [
+        "teamwork",
+        "appreciation"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 7,
+      "category": "C4",
+      "subcategory": "C4a",
+      "themes": [
+        "collaboration",
+        "efficiency"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 7,
+      "category": "C1",
+      "subcategory": "C1c",
+      "themes": [
+        "dedication",
+        "meaningful"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 8,
+      "category": "C4",
+      "subcategory": "C4a",
+      "themes": [
+        "Collaboration",
+        "Support"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 8,
+      "category": "C2",
+      "subcategory": "C2b",
+      "themes": [
+        "Project",
+        "Excellence"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 8,
+      "category": "C4",
+      "subcategory": "C4a",
+      "themes": [
+        "Partnership",
+        "Collaboration"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 8,
+      "category": "C2",
+      "subcategory": "C1b",
+      "themes": [
+        "Delivery",
+        "Success"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 8,
+      "category": "C3",
+      "subcategory": "C3a",
+      "themes": [
+        "Mentorship",
+        "Guidance"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 9,
+      "category": "C4",
+      "subcategory": "C4a",
+      "themes": [
+        "reliability",
+        "responsiveness"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 9,
+      "category": "C4",
+      "subcategory": "C4b",
+      "themes": [
+        "teamwork",
+        "collaboration"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 9,
+      "category": "C2",
+      "subcategory": "C2a",
+      "themes": [
+        "project completion",
+        "initiative"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 9,
+      "category": "C4",
+      "subcategory": "C4b",
+      "themes": [
+        "collaboration",
+        "partnership"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 9,
+      "category": "C4",
+      "subcategory": "C4a",
+      "themes": [
+        "reliability",
+        "dedication"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 10,
+      "category": "C4",
+      "subcategory": "A",
+      "themes": [
+        "collaboration",
+        "teamwork"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 10,
+      "category": "C2",
+      "subcategory": "B",
+      "themes": [
+        "achievement",
+        "excellence"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 10,
+      "category": "C5",
+      "subcategory": "C",
+      "themes": [
+        "teamwork",
+        "appreciation"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 10,
+      "category": "C1",
+      "subcategory": "A1",
+      "themes": [
+        "help",
+        "troubleshooting"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 10,
+      "category": "C3",
+      "subcategory": "B",
+      "themes": [
+        "patience",
+        "understanding"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 11,
+      "category": "C4",
+      "subcategory": "C4c",
+      "themes": [
+        "teamwork",
+        "collaboration"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 11,
+      "category": "C4",
+      "subcategory": "C4c",
+      "themes": [
+        "teamwork",
+        "collaboration",
+        "appreciation"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 11,
+      "category": "C1",
+      "subcategory": "C1a",
+      "themes": [
+        "support",
+        "teamwork"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 11,
+      "category": "A5",
+      "subcategory": null,
+      "themes": [
+        "achievement",
+        "praise"
+      ],
+      "new_category": "Employee Recognition"
+    },
+    {
+      "batch": 11,
+      "category": "C4",
+      "subcategory": "C4c",
+      "themes": [
+        "appreciation",
+        "teamwork",
+        "support"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 12,
+      "category": "C4",
+      "subcategory": "A",
+      "themes": [
+        "Partnership",
+        "Collaboration"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 12,
+      "category": "C4",
+      "subcategory": "B",
+      "themes": [
+        "Partnership",
+        "Support"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 12,
+      "category": "C1",
+      "subcategory": "A",
+      "themes": [
+        "Troubleshooting",
+        "Problem-solving"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 12,
+      "category": "C1",
+      "subcategory": "B",
+      "themes": [
+        "Support",
+        "Reliability"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 12,
+      "category": "A",
+      "subcategory": "None",
+      "themes": [
+        "Appreciation",
+        "Recognition"
+      ],
+      "new_category": "Cultural"
+    },
+    {
+      "batch": 13,
+      "category": "C4",
+      "subcategory": "C4a",
+      "themes": [
+        "partnership",
+        "teamwork"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 13,
+      "category": "C4",
+      "subcategory": "C4c",
+      "themes": [
+        "appreciation",
+        "collaboration"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 13,
+      "category": "A",
+      "subcategory": "C1a",
+      "themes": [
+        "teamwork",
+        "support"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 13,
+      "category": "C2",
+      "subcategory": "C2c",
+      "themes": [
+        "achievement",
+        "dedication"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 13,
+      "category": "A",
+      "subcategory": "C1a",
+      "themes": [
+        "resilience",
+        "teamwork"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 14,
+      "category": "C4",
+      "subcategory": "A",
+      "themes": [
+        "partnership",
+        "teamwork"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 14,
+      "category": "C2",
+      "subcategory": "B",
+      "themes": [
+        "process",
+        "success"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 14,
+      "category": "C1",
+      "subcategory": "A",
+      "themes": [
+        "innovation",
+        "achievement"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 14,
+      "category": "C6",
+      "subcategory": "A",
+      "themes": [
+        "celebration",
+        "milestone"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 14,
+      "category": "C4",
+      "subcategory": "A",
+      "themes": [
+        "appreciation",
+        "support"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 15,
+      "category": "C4",
+      "subcategory": "C4a",
+      "themes": [
+        "Partnership",
+        "Collaboration"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 15,
+      "category": "C3",
+      "subcategory": null,
+      "themes": [
+        "Teamwork",
+        "Support"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 15,
+      "category": "C5",
+      "subcategory": null,
+      "themes": [
+        "Appreciation",
+        "Gratitude"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 15,
+      "category": "C4",
+      "subcategory": "C4a",
+      "themes": [
+        "Support",
+        "Appreciation"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 15,
+      "category": "C2",
+      "subcategory": "C2c",
+      "themes": [
+        "Collaboration",
+        "Complexity"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 16,
+      "category": "C3",
+      "subcategory": "C3a",
+      "themes": [
+        "Mentorship",
+        "Coaching"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 16,
+      "category": "C4",
+      "subcategory": "C4b",
+      "themes": [
+        "Collaboration",
+        "Teamwork"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 16,
+      "category": "C1",
+      "subcategory": "C1a",
+      "themes": [
+        "Leadership",
+        "Communication"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 16,
+      "category": "C5",
+      "subcategory": null,
+      "themes": [
+        "Leadership",
+        "Positive Influence"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 16,
+      "category": "C4",
+      "subcategory": null,
+      "themes": [
+        "Collaboration",
+        "Appreciation"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 17,
+      "category": "C4",
+      "subcategory": "C4a",
+      "themes": [
+        "collaboration",
+        "teamwork"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 17,
+      "category": "C1b",
+      "subcategory": null,
+      "themes": [
+        "support",
+        "appreciation"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 17,
+      "category": "C4",
+      "subcategory": "C4a",
+      "themes": [
+        "collaboration",
+        "teamwork"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 17,
+      "category": "C4",
+      "subcategory": "C4a",
+      "themes": [
+        "appreciation",
+        "merchandise support"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 17,
+      "category": "C1c",
+      "subcategory": null,
+      "themes": [
+        "problem-solving",
+        "customer service"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 18,
+      "category": "C4",
+      "subcategory": "C4a",
+      "themes": [
+        "Collaboration",
+        "Support"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 18,
+      "category": "C2",
+      "subcategory": "C2c",
+      "themes": [
+        "Leadership",
+        "Mentorship"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 18,
+      "category": "C4",
+      "subcategory": "C4b",
+      "themes": [
+        "Teamwork",
+        "Achievement"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 18,
+      "category": "A1",
+      "subcategory": "C1a",
+      "themes": [
+        "Operational",
+        "Support"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 18,
+      "category": "C4",
+      "subcategory": "C4b",
+      "themes": [
+        "Collaboration",
+        "Achievement"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 19,
+      "category": "C4",
+      "subcategory": "C4a",
+      "themes": [
+        "collaboration",
+        "reliability"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 19,
+      "category": "C5",
+      "subcategory": "C5b",
+      "themes": [
+        "leadership",
+        "gratitude"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 19,
+      "category": "C2",
+      "subcategory": "C2a",
+      "themes": [
+        "project success",
+        "teamwork"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 19,
+      "category": "C1",
+      "subcategory": "C1b",
+      "themes": [
+        "team spirit",
+        "collaboration"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 19,
+      "category": "C4",
+      "subcategory": "C4a",
+      "themes": [
+        "partnership",
+        "commitment"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 20,
+      "category": "C4",
+      "subcategory": "C4a",
+      "themes": [
+        "collaboration",
+        "reliability"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 20,
+      "category": "C4",
+      "subcategory": "C4a",
+      "themes": [
+        "partnership",
+        "appreciation"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 20,
+      "category": "C2",
+      "subcategory": "C2b",
+      "themes": [
+        "teamwork",
+        "excellence"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 20,
+      "category": "C2",
+      "subcategory": "C2a",
+      "themes": [
+        "initiative",
+        "achievement"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 20,
+      "category": "C3",
+      "subcategory": "C3c",
+      "themes": [
+        "support",
+        "collaboration"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 21,
+      "category": "C4",
+      "subcategory": "C4a",
+      "themes": [
+        "support",
+        "teamwork"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 21,
+      "category": "C3",
+      "subcategory": "null",
+      "themes": [
+        "knowledge",
+        "attitude"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 21,
+      "category": "C4",
+      "subcategory": "C4a",
+      "themes": [
+        "teamwork",
+        "efficiency"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 21,
+      "category": "C1",
+      "subcategory": "null",
+      "themes": [
+        "troubleshooting",
+        "support"
+      ],
+      "new_category": "Operational Support"
+    },
+    {
+      "batch": 21,
+      "category": "C2",
+      "subcategory": "C2a",
+      "themes": [
+        "project",
+        "success"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 22,
+      "category": "C2",
+      "subcategory": "C2a",
+      "themes": [
+        "project completion",
+        "teamwork"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 22,
+      "category": "C4",
+      "subcategory": "C4c",
+      "themes": [
+        "collaboration",
+        "office spirit"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 22,
+      "category": "C6",
+      "subcategory": "C6a",
+      "themes": [
+        "celebration",
+        "personal milestone"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 22,
+      "category": "C1",
+      "subcategory": "C1b",
+      "themes": [
+        "teamwork",
+        "appreciation"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 22,
+      "category": "C4",
+      "subcategory": "C4a",
+      "themes": [
+        "collaboration",
+        "process improvement"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 23,
+      "category": "C4",
+      "subcategory": "C4a",
+      "themes": [
+        "teamwork",
+        "responsiveness"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 23,
+      "category": "C6",
+      "subcategory": null,
+      "themes": [
+        "teammates",
+        "service"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 23,
+      "category": "C1",
+      "subcategory": "C1a",
+      "themes": [
+        "support",
+        "pivot"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 23,
+      "category": "C2",
+      "subcategory": "C2c",
+      "themes": [
+        "excellence",
+        "professionalism"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 23,
+      "category": "C1",
+      "subcategory": "C1b",
+      "themes": [
+        "processes",
+        "testing"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 24,
+      "category": "C4",
+      "subcategory": "C4a",
+      "themes": [
+        "Collaboration",
+        "Support"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 24,
+      "category": "C4",
+      "subcategory": "C4b",
+      "themes": [
+        "Partnership",
+        "Teamwork"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 24,
+      "category": "C2",
+      "subcategory": "C2c",
+      "themes": [
+        "Excellence",
+        "Teamwork"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 24,
+      "category": "C4",
+      "subcategory": "C4a",
+      "themes": [
+        "Collaboration",
+        "Support"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 24,
+      "category": "C4",
+      "subcategory": "C4c",
+      "themes": [
+        "Partnership",
+        "Appreciation"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 25,
+      "category": "C4",
+      "subcategory": "C4a",
+      "themes": [
+        "Collaboration",
+        "Teamwork"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 25,
+      "category": "C1",
+      "subcategory": "C1a",
+      "themes": [
+        "Support",
+        "Troubleshooting"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 25,
+      "category": "C5",
+      "subcategory": null,
+      "themes": [
+        "Guidance",
+        "Support"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 25,
+      "category": "C4",
+      "subcategory": "C4a",
+      "themes": [
+        "Flexibility",
+        "Cooperation"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 25,
+      "category": "C4",
+      "subcategory": "C4a",
+      "themes": [
+        "Support",
+        "Teamwork"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 26,
+      "category": "C4",
+      "subcategory": "C4a",
+      "themes": [
+        "teamwork",
+        "reliability"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 26,
+      "category": "C2",
+      "subcategory": "C2b",
+      "themes": [
+        "commitment",
+        "dedication"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 26,
+      "category": "C1a",
+      "subcategory": "C1a",
+      "themes": [
+        "success",
+        "record"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 26,
+      "category": "C4",
+      "subcategory": "C4a",
+      "themes": [
+        "support",
+        "teamwork"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 26,
+      "category": "C6",
+      "subcategory": "C6b",
+      "themes": [
+        "gratitude",
+        "appreciation"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 27,
+      "category": "C4",
+      "subcategory": "C4a",
+      "themes": [
+        "Collaboration",
+        "Teamwork"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 27,
+      "category": "C4",
+      "subcategory": "C4a",
+      "themes": [
+        "Appreciation",
+        "Positive Energy"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 27,
+      "category": "C4",
+      "subcategory": "C1b",
+      "themes": [
+        "Urgency",
+        "Helpfulness"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 27,
+      "category": "C4",
+      "subcategory": "C4a",
+      "themes": [
+        "Appreciation",
+        "Supportiveness"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 27,
+      "category": "C1c",
+      "subcategory": "null",
+      "themes": [
+        "Troubleshooting",
+        "Technical Support"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 28,
+      "category": "C4",
+      "subcategory": "C4a",
+      "themes": [
+        "support",
+        "reliability"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 28,
+      "category": "C2",
+      "subcategory": "C2b",
+      "themes": [
+        "project",
+        "collaboration"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 28,
+      "category": "C1",
+      "subcategory": "C1c",
+      "themes": [
+        "troubleshooting",
+        "problem-solving"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 28,
+      "category": "A",
+      "subcategory": "A1",
+      "themes": [
+        "expertise",
+        "delivery"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 28,
+      "category": "C4",
+      "subcategory": "C4a",
+      "themes": [
+        "support",
+        "collaboration"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 29,
+      "category": "C4",
+      "subcategory": "C4a",
+      "themes": [
+        "teamwork",
+        "responsiveness"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 29,
+      "category": "C1",
+      "subcategory": "C1a",
+      "themes": [
+        "support",
+        "urgency"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 29,
+      "category": "C2",
+      "subcategory": "C2c",
+      "themes": [
+        "excellence",
+        "collaboration"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 29,
+      "category": "C4",
+      "subcategory": "C4a",
+      "themes": [
+        "teamwork",
+        "flexibility"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 29,
+      "category": "C4",
+      "subcategory": "C4a",
+      "themes": [
+        "teamwork",
+        "appreciation"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 30,
+      "category": "C4",
+      "subcategory": "C4a",
+      "themes": [
+        "teamwork",
+        "collaboration"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 30,
+      "category": "A",
+      "subcategory": "C1c",
+      "themes": [
+        "support",
+        "initiative"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 30,
+      "category": "A",
+      "subcategory": "C1b",
+      "themes": [
+        "teamwork",
+        "hustle"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 30,
+      "category": "C4",
+      "subcategory": "C4a",
+      "themes": [
+        "collaboration",
+        "professionalism"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 30,
+      "category": "C4",
+      "subcategory": "C4c",
+      "themes": [
+        "partnership",
+        "commitment"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 31,
+      "category": "C4",
+      "subcategory": "A1",
+      "themes": [
+        "Partnership",
+        "Collaboration"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 31,
+      "category": "C6",
+      "subcategory": "A1",
+      "themes": [
+        "Teamwork",
+        "Celebration"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 31,
+      "category": "C4",
+      "subcategory": "A1",
+      "themes": [
+        "Partnership",
+        "Appreciation"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 31,
+      "category": "C6",
+      "subcategory": "A2",
+      "themes": [
+        "Family",
+        "Fun"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 31,
+      "category": "C4",
+      "subcategory": "B1",
+      "themes": [
+        "Leadership",
+        "Appreciation"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 32,
+      "category": "C4",
+      "subcategory": "A",
+      "themes": [
+        "collaboration",
+        "teamwork"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 32,
+      "category": "C1",
+      "subcategory": "A1",
+      "themes": [
+        "support",
+        "troubleshooting"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 32,
+      "category": "C4",
+      "subcategory": "B",
+      "themes": [
+        "engagement",
+        "collaboration"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 32,
+      "category": "A",
+      "subcategory": null,
+      "themes": [
+        "appreciation",
+        "teamwork"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 32,
+      "category": "C1",
+      "subcategory": "A1",
+      "themes": [
+        "support",
+        "proactivity"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 33,
+      "category": "C5",
+      "subcategory": "A",
+      "themes": [
+        "Drive",
+        "Culture"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 33,
+      "category": "C4",
+      "subcategory": "A",
+      "themes": [
+        "Partnership",
+        "Collaboration"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 33,
+      "category": "C2",
+      "subcategory": "B",
+      "themes": [
+        "Excellence",
+        "Teamwork"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 33,
+      "category": "C4",
+      "subcategory": "A",
+      "themes": [
+        "Partnership",
+        "Support"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 33,
+      "category": "C4",
+      "subcategory": "A",
+      "themes": [
+        "Teamwork",
+        "Recognition"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 34,
+      "category": "C4",
+      "subcategory": "C4a",
+      "themes": [
+        "teamwork",
+        "collaboration"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 34,
+      "category": "C4",
+      "subcategory": "C2c",
+      "themes": [
+        "partnership",
+        "achievement"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 34,
+      "category": "C4",
+      "subcategory": "C1a",
+      "themes": [
+        "teamwork",
+        "leadership"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 34,
+      "category": "C1",
+      "subcategory": "C1a",
+      "themes": [
+        "response",
+        "expertise"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 34,
+      "category": "",
+      "subcategory": "",
+      "themes": [
+        "celebration"
+      ],
+      "new_category": "Personal Recognition"
+    },
+    {
+      "batch": 35,
+      "category": "C2",
+      "subcategory": "C2a",
+      "themes": [
+        "Project",
+        "Excellence"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 35,
+      "category": "C4",
+      "subcategory": "C4b",
+      "themes": [
+        "Partnership",
+        "Collaboration"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 35,
+      "category": "C1",
+      "subcategory": "C1a",
+      "themes": [
+        "Support",
+        "Troubleshooting"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 35,
+      "category": "C2",
+      "subcategory": "C2c",
+      "themes": [
+        "Deliverable",
+        "Excellence"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 35,
+      "category": "C3",
+      "subcategory": "C3a",
+      "themes": [
+        "Knowledge",
+        "Sharing"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 36,
+      "category": "C2",
+      "subcategory": "C2a",
+      "themes": [
+        "Major Initiative Completion",
+        "Process Implementation"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 36,
+      "category": "C4",
+      "subcategory": "C4b",
+      "themes": [
+        "Cross-Functional Teamwork",
+        "Client/Vendor Relationship"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 36,
+      "category": "C1",
+      "subcategory": "C1c",
+      "themes": [
+        "Data & System Integrity Support",
+        "Post-Launch Support"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 36,
+      "category": "C1",
+      "subcategory": "C1b",
+      "themes": [
+        "Task Coverage & Continuity",
+        "Team Collaboration"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 36,
+      "category": "A",
+      "subcategory": null,
+      "themes": [
+        "Market Insight",
+        "Best Practices",
+        "Strategic Thinking"
+      ],
+      "new_category": "C8: Customer Service Excellence"
+    },
+    {
+      "batch": 37,
+      "category": "C1",
+      "subcategory": "C1a",
+      "themes": [
+        "Troubleshooting",
+        "Support"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 37,
+      "category": "C4",
+      "subcategory": "C4c",
+      "themes": [
+        "Collaboration",
+        "Client Relationship"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 37,
+      "category": "C5",
+      "subcategory": null,
+      "themes": [
+        "Professionalism",
+        "Expertise"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 37,
+      "category": "C2",
+      "subcategory": "C2a",
+      "themes": [
+        "Project Completion",
+        "Excellence"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 37,
+      "category": "C4",
+      "subcategory": "C4b",
+      "themes": [
+        "Teamwork",
+        "Collaboration"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 38,
+      "category": "C6",
+      "subcategory": "A",
+      "themes": [
+        "celebration",
+        "appreciation"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 38,
+      "category": "C4",
+      "subcategory": "A",
+      "themes": [
+        "teamwork",
+        "appreciation"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 38,
+      "category": "C1",
+      "subcategory": "a",
+      "themes": [
+        "support",
+        "dedication"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 38,
+      "category": "C6",
+      "subcategory": "A",
+      "themes": [
+        "celebration",
+        "friendship"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 38,
+      "category": "C2",
+      "subcategory": "c",
+      "themes": [
+        "excellence",
+        "appreciation"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 39,
+      "category": "C4",
+      "subcategory": "C4a",
+      "themes": [
+        "teamwork",
+        "collaboration"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 39,
+      "category": "C3",
+      "subcategory": "C3b",
+      "themes": [
+        "knowledge sharing",
+        "expertise"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 39,
+      "category": "C1",
+      "subcategory": "C1a",
+      "themes": [
+        "troubleshooting",
+        "support"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 39,
+      "category": "C4",
+      "subcategory": "C1c",
+      "themes": [
+        "system knowledge",
+        "support"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 39,
+      "category": "C2",
+      "subcategory": "C2b",
+      "themes": [
+        "project success",
+        "teamwork"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 40,
+      "category": "C4",
+      "subcategory": "A",
+      "themes": [
+        "Collaboration",
+        "Customer Service"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 40,
+      "category": "C2",
+      "subcategory": "B",
+      "themes": [
+        "Innovation",
+        "Teamwork"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 40,
+      "category": "C5",
+      "subcategory": "A",
+      "themes": [
+        "Leadership",
+        "Resilience"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 40,
+      "category": "C2",
+      "subcategory": "B",
+      "themes": [
+        "Innovation",
+        "Teamwork"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 40,
+      "category": "C4",
+      "subcategory": "A",
+      "themes": [
+        "Leadership",
+        "Mentorship"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 41,
+      "category": "C1",
+      "subcategory": "C1a",
+      "themes": [
+        "Incident Response",
+        "Troubleshooting"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 41,
+      "category": "C5",
+      "subcategory": null,
+      "themes": [
+        "Commitment",
+        "Collaboration",
+        "Leadership"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 41,
+      "category": "C1",
+      "subcategory": "C1c",
+      "themes": [
+        "Data Integrity",
+        "System Support"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 41,
+      "category": "C4",
+      "subcategory": "C4a",
+      "themes": [
+        "Collaboration",
+        "Support"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 41,
+      "category": null,
+      "subcategory": null,
+      "themes": [
+        "Appreciation",
+        "Gratitude",
+        "Teamwork"
+      ],
+      "new_category": "C6"
+    },
+    {
+      "batch": 42,
+      "category": "C1",
+      "subcategory": "C1a",
+      "themes": [
+        "Operational Support",
+        "Troubleshooting"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 42,
+      "category": "C4",
+      "subcategory": "C4c",
+      "themes": [
+        "Collaboration",
+        "Partnership"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 42,
+      "category": "C2",
+      "subcategory": "C2c",
+      "themes": [
+        "Excellence",
+        "Teamwork"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 42,
+      "category": "C1",
+      "subcategory": "C1a",
+      "themes": [
+        "Support",
+        "Project Management"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 42,
+      "category": "C4",
+      "subcategory": "C4a",
+      "themes": [
+        "Collaboration",
+        "Team Support"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 43,
+      "category": "C5",
+      "subcategory": "A",
+      "themes": [
+        "drives results",
+        "stays calm under pressure"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 43,
+      "category": "C4",
+      "subcategory": "B",
+      "themes": [
+        "collaboration",
+        "teamwork"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 43,
+      "category": "C4",
+      "subcategory": "A",
+      "themes": [
+        "responsiveness",
+        "teamwork"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 43,
+      "category": "C2",
+      "subcategory": "B",
+      "themes": [
+        "project delivery",
+        "process improvement"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 43,
+      "category": "C3",
+      "subcategory": "A",
+      "themes": [
+        "mentorship",
+        "expertise sharing"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 44,
+      "category": "C4",
+      "subcategory": "C4a",
+      "themes": [
+        "collaboration",
+        "teamwork"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 44,
+      "category": "C3",
+      "subcategory": "C3b",
+      "themes": [
+        "expertise",
+        "knowledge"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 44,
+      "category": "C2",
+      "subcategory": "C2a",
+      "themes": [
+        "planning",
+        "success"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 44,
+      "category": "C1",
+      "subcategory": "C1b",
+      "themes": [
+        "organization",
+        "teamwork"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 44,
+      "category": "C4",
+      "subcategory": "C4a",
+      "themes": [
+        "support",
+        "collaboration"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 45,
+      "category": "C4",
+      "subcategory": "C4a",
+      "themes": [
+        "Collaboration",
+        "Support"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 45,
+      "category": "C1",
+      "subcategory": "C1b",
+      "themes": [
+        "Teamwork",
+        "Support"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 45,
+      "category": "C4",
+      "subcategory": "C4a",
+      "themes": [
+        "Appreciation",
+        "Gratitude"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 45,
+      "category": "C1",
+      "subcategory": "C1c",
+      "themes": [
+        "Timely Help",
+        "Support"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 45,
+      "category": "C2",
+      "subcategory": "C2a",
+      "themes": [
+        "Progress",
+        "Communication"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 46,
+      "category": "C4",
+      "subcategory": "C4a",
+      "themes": [
+        "Collaboration",
+        "Partnership"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 46,
+      "category": "C3",
+      "subcategory": "C3c",
+      "themes": [
+        "Leadership Development",
+        "Growth"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 46,
+      "category": "C1",
+      "subcategory": "C1a",
+      "themes": [
+        "Engineering",
+        "Quality"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 46,
+      "category": "C2",
+      "subcategory": "C2c",
+      "themes": [
+        "Problem-Solving",
+        "Collaboration"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 46,
+      "category": "C3",
+      "subcategory": "C3a",
+      "themes": [
+        "Mentorship",
+        "Technical Expertise"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 47,
+      "category": "C4",
+      "subcategory": "A2",
+      "themes": [
+        "responsiveness",
+        "teamwork"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 47,
+      "category": "C3",
+      "subcategory": "A1",
+      "themes": [
+        "mentorship",
+        "coaching"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 47,
+      "category": "C4",
+      "subcategory": "B1",
+      "themes": [
+        "partnership",
+        "support"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 47,
+      "category": "C2",
+      "subcategory": "A1",
+      "themes": [
+        "excellence",
+        "execution"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 47,
+      "category": "C4",
+      "subcategory": "A2",
+      "themes": [
+        "support",
+        "dedication"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 48,
+      "category": "C2",
+      "subcategory": "C2a",
+      "themes": [
+        "project",
+        "completion"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 48,
+      "category": "C4",
+      "subcategory": "C4a",
+      "themes": [
+        "reliability",
+        "responsiveness"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 48,
+      "category": "C3",
+      "subcategory": "C3a",
+      "themes": [
+        "mentorship",
+        "guidance"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 48,
+      "category": "C1",
+      "subcategory": "C1a",
+      "themes": [
+        "troubleshooting",
+        "timely"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 48,
+      "category": "C4",
+      "subcategory": "C4b",
+      "themes": [
+        "collaboration",
+        "support"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 49,
+      "category": "C4",
+      "subcategory": "C4a",
+      "themes": [
+        "proactive",
+        "support"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 49,
+      "category": "A",
+      "subcategory": "C1c",
+      "themes": [
+        "party",
+        "celebration"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 49,
+      "category": "A",
+      "subcategory": "C1b",
+      "themes": [
+        "team",
+        "event"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 49,
+      "category": "C2",
+      "subcategory": "C2a",
+      "themes": [
+        "partnership",
+        "renewal"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 49,
+      "category": "A",
+      "subcategory": "C5c",
+      "themes": [
+        "appreciation",
+        "support"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 50,
+      "category": "C4",
+      "subcategory": "C4a",
+      "themes": [
+        "teamwork",
+        "reliability"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 50,
+      "category": "C4",
+      "subcategory": "C4a",
+      "themes": [
+        "appreciation",
+        "collaboration"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 50,
+      "category": "C4",
+      "subcategory": "C4c",
+      "themes": [
+        "partnership",
+        "success"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 50,
+      "category": "C2",
+      "subcategory": "C2a",
+      "themes": [
+        "execution",
+        "quality"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 50,
+      "category": "A",
+      "subcategory": "null",
+      "themes": [
+        "appreciation",
+        "admiration"
+      ],
+      "new_category": "Personal Recognition"
+    },
+    {
+      "batch": 51,
+      "category": "C4",
+      "subcategory": "C4a",
+      "themes": [
+        "collaboration",
+        "teamwork"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 51,
+      "category": "C4",
+      "subcategory": "C4c",
+      "themes": [
+        "partnership",
+        "responsiveness"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 51,
+      "category": "C2",
+      "subcategory": "C2b",
+      "themes": [
+        "documentation",
+        "excellence"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 51,
+      "category": "C1",
+      "subcategory": "C1c",
+      "themes": [
+        "support",
+        "integrity"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 51,
+      "category": "C4",
+      "subcategory": "C4a",
+      "themes": [
+        "collaboration",
+        "professionalism"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 52,
+      "category": "C3",
+      "subcategory": "C3a",
+      "themes": [
+        "Knowledge Sharing",
+        "Collaboration"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 52,
+      "category": "C4",
+      "subcategory": "C4c",
+      "themes": [
+        "Partnership",
+        "Appreciation"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 52,
+      "category": "C4",
+      "subcategory": "C4a",
+      "themes": [
+        "Collaboration",
+        "Leadership Support"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 52,
+      "category": "C4",
+      "subcategory": "C4b",
+      "themes": [
+        "Teamwork",
+        "Appreciation"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 52,
+      "category": "C1",
+      "subcategory": "C1c",
+      "themes": [
+        "Operational Support",
+        "Efficiency"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 53,
+      "category": "C3",
+      "subcategory": "C3a",
+      "themes": [
+        "Mentorship",
+        "Coaching"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 53,
+      "category": "C4",
+      "subcategory": "C4b",
+      "themes": [
+        "Collaboration",
+        "Teamwork"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 53,
+      "category": "C1",
+      "subcategory": "C1c",
+      "themes": [
+        "Support",
+        "Integrity"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 53,
+      "category": "C2",
+      "subcategory": "C2b",
+      "themes": [
+        "Process",
+        "Improvement"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 53,
+      "category": "C1",
+      "subcategory": "C1c",
+      "themes": [
+        "Support",
+        "Integrity"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 54,
+      "category": "C1",
+      "subcategory": "C1a",
+      "themes": [
+        "Operational Support",
+        "Troubleshooting"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 54,
+      "category": "C4",
+      "subcategory": "C4a",
+      "themes": [
+        "Partnership",
+        "Collaboration"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 54,
+      "category": "C4",
+      "subcategory": "C1b",
+      "themes": [
+        "Operational Support",
+        "Teamwork"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 54,
+      "category": "C2",
+      "subcategory": "C2a",
+      "themes": [
+        "Project Excellence",
+        "Partnership"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 54,
+      "category": "C3",
+      "subcategory": "C3c",
+      "themes": [
+        "Expertise Transfer",
+        "Mentorship"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 55,
+      "category": "C6",
+      "subcategory": "C6a",
+      "themes": [
+        "Personal",
+        "Celebration"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 55,
+      "category": "C6",
+      "subcategory": "C6b",
+      "themes": [
+        "Life",
+        "Milestone"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 55,
+      "category": "C1",
+      "subcategory": "C1a",
+      "themes": [
+        "Work",
+        "Recognition"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 55,
+      "category": "C4",
+      "subcategory": "C4a",
+      "themes": [
+        "Partnership",
+        "Appreciation"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 55,
+      "category": "C2",
+      "subcategory": "C2a",
+      "themes": [
+        "Excellence",
+        "Recognition"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 56,
+      "category": "C4",
+      "subcategory": "C4a",
+      "themes": [
+        "teamwork",
+        "collaboration"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 56,
+      "category": "C6",
+      "subcategory": null,
+      "themes": [
+        "appreciation",
+        "thank you"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 56,
+      "category": "C1",
+      "subcategory": "C1a",
+      "themes": [
+        "impact",
+        "contribution"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 56,
+      "category": "C2",
+      "subcategory": "C2c",
+      "themes": [
+        "achievement",
+        "excellence"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 56,
+      "category": "C3",
+      "subcategory": "C3a",
+      "themes": [
+        "mentorship",
+        "expertise"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 57,
+      "category": "C4",
+      "subcategory": "C4a",
+      "themes": [
+        "collaboration",
+        "teamwork"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 57,
+      "category": "C2",
+      "subcategory": "C2b",
+      "themes": [
+        "process",
+        "excellence"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 57,
+      "category": "C4",
+      "subcategory": "C4a",
+      "themes": [
+        "partnership",
+        "collaboration"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 57,
+      "category": "A1",
+      "subcategory": null,
+      "themes": [
+        "appreciation",
+        "support"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 57,
+      "category": "C4",
+      "subcategory": "C4a",
+      "themes": [
+        "teamwork",
+        "trust"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 58,
+      "category": "C4",
+      "subcategory": "C4a",
+      "themes": [
+        "Collaboration",
+        "Teamwork"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 58,
+      "category": "C6",
+      "subcategory": "C6b",
+      "themes": [
+        "Personal Achievement",
+        "Appreciation"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 58,
+      "category": "C4",
+      "subcategory": "C4c",
+      "themes": [
+        "Collaboration",
+        "Teamwork",
+        "Support"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 58,
+      "category": "C1",
+      "subcategory": "C1a",
+      "themes": [
+        "Troubleshooting",
+        "Problem-Solving"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 58,
+      "category": "C2",
+      "subcategory": "C2c",
+      "themes": [
+        "Project Completion",
+        "Delivery"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 59,
+      "category": "C4",
+      "subcategory": "A",
+      "themes": [
+        "Partnership",
+        "Support"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 59,
+      "category": "C3",
+      "subcategory": "A",
+      "themes": [
+        "Knowledge",
+        "Responsiveness"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 59,
+      "category": "C4",
+      "subcategory": "B",
+      "themes": [
+        "Collaboration",
+        "Inclusivity"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 59,
+      "category": "A",
+      "subcategory": "A1",
+      "themes": [
+        "Support",
+        "Appreciation"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 59,
+      "category": "C3",
+      "subcategory": "A",
+      "themes": [
+        "Knowledge",
+        "Guidance"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 61,
+      "category": "C5",
+      "subcategory": "A",
+      "themes": [
+        "drive",
+        "culture"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 61,
+      "category": "C4",
+      "subcategory": "A",
+      "themes": [
+        "leadership",
+        "teamwork"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 61,
+      "category": "C1",
+      "subcategory": "B",
+      "themes": [
+        "effort",
+        "commitment"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 61,
+      "category": "C2",
+      "subcategory": "A",
+      "themes": [
+        "excellence",
+        "curation"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 61,
+      "category": "C2",
+      "subcategory": "A",
+      "themes": [
+        "impact",
+        "leadership"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 62,
+      "category": "C2",
+      "subcategory": "C2a",
+      "themes": [
+        "excellence",
+        "leadership"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 62,
+      "category": "C1",
+      "subcategory": "C1b",
+      "themes": [
+        "support",
+        "coordination"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 62,
+      "category": "C6",
+      "subcategory": "C6a",
+      "themes": [
+        "goodbye",
+        "appreciation"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 62,
+      "category": "C4",
+      "subcategory": "C4c",
+      "themes": [
+        "teamwork",
+        "fundraising"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 62,
+      "category": "C3",
+      "subcategory": "C3a",
+      "themes": [
+        "mentorship",
+        "expertise"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 63,
+      "category": "C2",
+      "subcategory": "C2a",
+      "themes": [
+        "Initiative",
+        "Excellence"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 63,
+      "category": "C4",
+      "subcategory": "N/A",
+      "themes": [
+        "Fun",
+        "Recognition"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 63,
+      "category": "C1",
+      "subcategory": "C1a",
+      "themes": [
+        "Problem-solving",
+        "Collaboration"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 63,
+      "category": "C4",
+      "subcategory": "N/A",
+      "themes": [
+        "Fun",
+        "Recognition"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 63,
+      "category": "C6",
+      "subcategory": "C6a",
+      "themes": [
+        "Celebration",
+        "Congratulations"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 64,
+      "category": "C1",
+      "subcategory": "C1a",
+      "themes": [
+        "Incident Response",
+        "Hotfixes"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 64,
+      "category": "C4",
+      "subcategory": "C4b",
+      "themes": [
+        "Teamwork",
+        "Flexibility"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 64,
+      "category": "C1",
+      "subcategory": "C1c",
+      "themes": [
+        "Data Integrity Support",
+        "Support"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 64,
+      "category": "C4",
+      "subcategory": "C4a",
+      "themes": [
+        "Reliability",
+        "Client Service"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 64,
+      "category": "C2",
+      "subcategory": "C2a",
+      "themes": [
+        "Project Completion",
+        "Deliverable Excellence"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 65,
+      "category": "C2",
+      "subcategory": "C2a",
+      "themes": [
+        "Project",
+        "Completion"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 65,
+      "category": "C3",
+      "subcategory": "null",
+      "themes": [
+        "Knowledge",
+        "Sharing"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 65,
+      "category": "C1",
+      "subcategory": "C1a",
+      "themes": [
+        "Support",
+        "Research"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 65,
+      "category": "C4",
+      "subcategory": "null",
+      "themes": [
+        "Partnership",
+        "Collaboration"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 65,
+      "category": "C2",
+      "subcategory": "C2c",
+      "themes": [
+        "Design",
+        "Excellence"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 66,
+      "category": "C4",
+      "subcategory": "C4a",
+      "themes": [
+        "collaboration",
+        "teamwork"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 66,
+      "category": "C4",
+      "subcategory": "C4b",
+      "themes": [
+        "teamwork",
+        "support"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 66,
+      "category": "C1",
+      "subcategory": "C1c",
+      "themes": [
+        "support",
+        "expertise"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 66,
+      "category": "C4",
+      "subcategory": "C4a",
+      "themes": [
+        "support",
+        "responsiveness"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 66,
+      "category": "C2",
+      "subcategory": "C2a",
+      "themes": [
+        "excellence",
+        "achievement"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 67,
+      "category": "C2",
+      "subcategory": "A",
+      "themes": [
+        "initiative",
+        "execution"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 67,
+      "category": "C3",
+      "subcategory": "B",
+      "themes": [
+        "knowledge",
+        "transfer"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 67,
+      "category": "C4",
+      "subcategory": "A",
+      "themes": [
+        "teamwork",
+        "customer",
+        "respect"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 67,
+      "category": "C1",
+      "subcategory": "A",
+      "themes": [
+        "troubleshooting",
+        "expertise"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 67,
+      "category": "C5",
+      "subcategory": "B",
+      "themes": [
+        "drive",
+        "responsiveness"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 68,
+      "category": "C2",
+      "subcategory": "C2a",
+      "themes": [
+        "Project",
+        "Teamwork"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 68,
+      "category": "A5",
+      "subcategory": null,
+      "themes": [
+        "Leadership",
+        "Impact",
+        "Culture"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 68,
+      "category": "C4",
+      "subcategory": "C4a",
+      "themes": [
+        "Collaboration",
+        "Expertise",
+        "Support"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 68,
+      "category": "A5",
+      "subcategory": null,
+      "themes": [
+        "Leadership",
+        "Impact",
+        "Innovation"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 68,
+      "category": "C3",
+      "subcategory": "C3a",
+      "themes": [
+        "Mentorship",
+        "Collaboration",
+        "Appreciation"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 69,
+      "category": "C4",
+      "subcategory": "C4a",
+      "themes": [
+        "collaboration",
+        "teamwork"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 69,
+      "category": "C2",
+      "subcategory": "C2c",
+      "themes": [
+        "expertise",
+        "help"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 69,
+      "category": "C2",
+      "subcategory": "C2b",
+      "themes": [
+        "excellence",
+        "dedication"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 69,
+      "category": "C2",
+      "subcategory": "C2b",
+      "themes": [
+        "excellence",
+        "dedication"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 69,
+      "category": "C3",
+      "subcategory": "C3a",
+      "themes": [
+        "collaboration",
+        "knowledge"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 70,
+      "category": "C4",
+      "subcategory": "C4a",
+      "themes": [
+        "collaboration",
+        "leadership"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 70,
+      "category": "C2",
+      "subcategory": "C2c",
+      "themes": [
+        "excellence",
+        "initiative"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 70,
+      "category": "C1",
+      "subcategory": "C1a",
+      "themes": [
+        "support",
+        "teamwork"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 70,
+      "category": "C3",
+      "subcategory": "C3c",
+      "themes": [
+        "leadership",
+        "culture"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 70,
+      "category": "C1",
+      "subcategory": "C1b",
+      "themes": [
+        "performance",
+        "achievement"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 71,
+      "category": "C4",
+      "subcategory": "A",
+      "themes": [
+        "Partnership",
+        "Collaboration"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 71,
+      "category": "C2",
+      "subcategory": "B",
+      "themes": [
+        "Leadership",
+        "Strategy"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 71,
+      "category": "C1",
+      "subcategory": "A",
+      "themes": [
+        "Effort",
+        "Productivity"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 71,
+      "category": "C4",
+      "subcategory": "B",
+      "themes": [
+        "Partnership",
+        "Collaboration"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 71,
+      "category": "C2",
+      "subcategory": "A",
+      "themes": [
+        "Teamwork",
+        "Achievement"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 72,
+      "category": "C2",
+      "subcategory": "C2a",
+      "themes": [
+        "Project Completion",
+        "Collaboration"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 72,
+      "category": "C3",
+      "subcategory": "null",
+      "themes": [
+        "Creativity",
+        "Problem Solving"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 72,
+      "category": "C4",
+      "subcategory": "C4c",
+      "themes": [
+        "Teamwork",
+        "Support"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 72,
+      "category": "C5",
+      "subcategory": "null",
+      "themes": [
+        "Gratitude",
+        "Appreciation"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 72,
+      "category": "C4",
+      "subcategory": "C4a",
+      "themes": [
+        "Partnership",
+        "Collaboration"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 73,
+      "category": "C4",
+      "subcategory": "C4a",
+      "themes": [
+        "collaboration"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 73,
+      "category": "C4",
+      "subcategory": "C4b",
+      "themes": [
+        "partnership",
+        "communication"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 73,
+      "category": "C1",
+      "subcategory": "C1c",
+      "themes": [
+        "troubleshooting",
+        "support"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 73,
+      "category": "C3",
+      "subcategory": "C3a",
+      "themes": [
+        "mentorship",
+        "knowledge"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 73,
+      "category": "C5",
+      "subcategory": "C5b",
+      "themes": [
+        "teamwork",
+        "culture"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 74,
+      "category": "C4",
+      "subcategory": "C4a",
+      "themes": [
+        "Partnership",
+        "Collaboration"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 74,
+      "category": "C5",
+      "subcategory": null,
+      "themes": [
+        "Leadership",
+        "Development"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 74,
+      "category": "C4",
+      "subcategory": "C4c",
+      "themes": [
+        "Kindness",
+        "Collaboration"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 74,
+      "category": "C1",
+      "subcategory": "C1a",
+      "themes": [
+        "Proactivity",
+        "ErrorHandling"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 74,
+      "category": "C2",
+      "subcategory": "C2c",
+      "themes": [
+        "Teamwork",
+        "Commitment"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 75,
+      "category": "C4",
+      "subcategory": "C4a",
+      "themes": [
+        "Collaboration",
+        "Support"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 75,
+      "category": "C2",
+      "subcategory": "C2b",
+      "themes": [
+        "Excellence",
+        "Initiative"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 75,
+      "category": "C1",
+      "subcategory": "C1c",
+      "themes": [
+        "Support",
+        "Help"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 75,
+      "category": "C4",
+      "subcategory": "C4a",
+      "themes": [
+        "Teamwork",
+        "Synergy"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 75,
+      "category": "C2",
+      "subcategory": "C2c",
+      "themes": [
+        "Innovation",
+        "Success"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 76,
+      "category": "C4",
+      "subcategory": "C4a",
+      "themes": [
+        "reliability",
+        "responsiveness"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 76,
+      "category": "C3",
+      "subcategory": "C3b",
+      "themes": [
+        "knowledge sharing",
+        "expertise transfer"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 76,
+      "category": "C4",
+      "subcategory": "C4c",
+      "themes": [
+        "collaboration",
+        "teamwork"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 76,
+      "category": "C2",
+      "subcategory": "C2a",
+      "themes": [
+        "project completion",
+        "deliverable excellence"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 76,
+      "category": "C4",
+      "subcategory": "C4b",
+      "themes": [
+        "collaboration",
+        "partnership"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 77,
+      "category": "C1",
+      "subcategory": "C1a",
+      "themes": [
+        "troubleshooting",
+        "support"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 77,
+      "category": "C3",
+      "subcategory": "C3a",
+      "themes": [
+        "mentorship",
+        "guidance"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 77,
+      "category": "C4",
+      "subcategory": "C4b",
+      "themes": [
+        "collaboration",
+        "teamwork"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 77,
+      "category": "C4",
+      "subcategory": "C4a",
+      "themes": [
+        "partnership",
+        "appreciation"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 77,
+      "category": "C6",
+      "subcategory": "C6c",
+      "themes": [
+        "team",
+        "achievement"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 78,
+      "category": "C2",
+      "subcategory": "C2a",
+      "themes": [
+        "Excellence",
+        "Momentum"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 78,
+      "category": "C4",
+      "subcategory": "C4a",
+      "themes": [
+        "Partnership",
+        "Collaboration"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 78,
+      "category": "C1",
+      "subcategory": "C1b",
+      "themes": [
+        "Troubleshooting",
+        "Effort"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 78,
+      "category": "C4",
+      "subcategory": "C4a",
+      "themes": [
+        "Partnership",
+        "Support"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 78,
+      "category": "C3",
+      "subcategory": "C3b",
+      "themes": [
+        "Expertise",
+        "Clarity"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 79,
+      "category": "C4",
+      "subcategory": "C4a",
+      "themes": [
+        "collaboration",
+        "teamwork"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 79,
+      "category": "C2",
+      "subcategory": "C2c",
+      "themes": [
+        "excellence",
+        "resilience"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 79,
+      "category": "C2",
+      "subcategory": "C2a",
+      "themes": [
+        "achievement",
+        "strategic"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 79,
+      "category": "C5",
+      "subcategory": "C5b",
+      "themes": [
+        "initiative",
+        "drive"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 79,
+      "category": "C4",
+      "subcategory": "C4a",
+      "themes": [
+        "teamwork",
+        "effort"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 81,
+      "category": "C4",
+      "subcategory": "C4a",
+      "themes": [
+        "Collaboration",
+        "Partnership"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 81,
+      "category": "C3",
+      "subcategory": "C3b",
+      "themes": [
+        "Knowledge Sharing",
+        "Expertise"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 81,
+      "category": "C3",
+      "subcategory": "C3a",
+      "themes": [
+        "Mentorship",
+        "Helpfulness"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 81,
+      "category": "C2",
+      "subcategory": "C2c",
+      "themes": [
+        "Achievement",
+        "Success"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 81,
+      "category": "C1",
+      "subcategory": "C1b",
+      "themes": [
+        "Support",
+        "Effort"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 82,
+      "category": "C6",
+      "subcategory": "C6a",
+      "themes": [
+        "wellness",
+        "support"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 82,
+      "category": "C4",
+      "subcategory": "C4b",
+      "themes": [
+        "teamwork",
+        "partnership"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 82,
+      "category": "C1",
+      "subcategory": "C1c",
+      "themes": [
+        "customer service",
+        "delight"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 82,
+      "category": "C2",
+      "subcategory": "C2b",
+      "themes": [
+        "process improvement",
+        "excellence"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 82,
+      "category": "A",
+      "subcategory": "A",
+      "themes": [
+        "team achievement",
+        "year in review"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 83,
+      "category": "C3",
+      "subcategory": "C3a",
+      "themes": [
+        "mentorship",
+        "expertise"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 83,
+      "category": "C4",
+      "subcategory": null,
+      "themes": [
+        "teamwork",
+        "appreciation"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 83,
+      "category": "C2",
+      "subcategory": "C2c",
+      "themes": [
+        "project",
+        "excellence"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 83,
+      "category": "C1",
+      "subcategory": "C1c",
+      "themes": [
+        "support",
+        "efficiency"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 83,
+      "category": "C6",
+      "subcategory": "C6a",
+      "themes": [
+        "milestone",
+        "celebration"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 84,
+      "category": "C5",
+      "subcategory": "A",
+      "themes": [
+        "drive",
+        "culture"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 84,
+      "category": "C4",
+      "subcategory": "B",
+      "themes": [
+        "collaboration",
+        "partnership"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 84,
+      "category": "C4",
+      "subcategory": "A",
+      "themes": [
+        "helpfulness",
+        "teamwork"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 84,
+      "category": "C6",
+      "subcategory": "B",
+      "themes": [
+        "legacy",
+        "personal"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 84,
+      "category": "C3",
+      "subcategory": "A",
+      "themes": [
+        "expertise",
+        "collaboration"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 85,
+      "category": "C4",
+      "subcategory": "C4a",
+      "themes": [
+        "collaboration",
+        "teamwork"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 85,
+      "category": "C4",
+      "subcategory": "C4b",
+      "themes": [
+        "responsiveness",
+        "support"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 85,
+      "category": "C1",
+      "subcategory": "C1a",
+      "themes": [
+        "troubleshooting",
+        "resolution"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 85,
+      "category": "C3",
+      "subcategory": "C3b",
+      "themes": [
+        "expertise",
+        "consultation"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 85,
+      "category": "C2",
+      "subcategory": "C2a",
+      "themes": [
+        "excellence",
+        "deadline"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 86,
+      "category": "C4",
+      "subcategory": "A1",
+      "themes": [
+        "teamwork",
+        "collaboration"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 86,
+      "category": "C1",
+      "subcategory": "B1",
+      "themes": [
+        "troubleshooting",
+        "helpfulness"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 86,
+      "category": "A5",
+      "subcategory": "None",
+      "themes": [
+        "celebration",
+        "fun"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 86,
+      "category": "C4",
+      "subcategory": "A1",
+      "themes": [
+        "teamwork",
+        "responsiveness"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 86,
+      "category": "A6",
+      "subcategory": "None",
+      "themes": [
+        "celebration",
+        "fun"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 87,
+      "category": "C1",
+      "subcategory": "C1a",
+      "themes": [
+        "support",
+        "troubleshooting"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 87,
+      "category": "C2",
+      "subcategory": "C2c",
+      "themes": [
+        "teamwork",
+        "dedication"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 87,
+      "category": "C1",
+      "subcategory": "C1b",
+      "themes": [
+        "onboarding",
+        "guidance"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 87,
+      "category": "C4",
+      "subcategory": "C4a",
+      "themes": [
+        "teamwork",
+        "support"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 87,
+      "category": "C3",
+      "subcategory": "C3b",
+      "themes": [
+        "help",
+        "organization"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 88,
+      "category": "C4",
+      "subcategory": "C4a",
+      "themes": [
+        "reliability",
+        "responsiveness"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 88,
+      "category": "C4",
+      "subcategory": "C4c",
+      "themes": [
+        "collaboration",
+        "achievement"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 88,
+      "category": "C1",
+      "subcategory": "C1a",
+      "themes": [
+        "response",
+        "urgency"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 88,
+      "category": "C2",
+      "subcategory": "C2b",
+      "themes": [
+        "partnership",
+        "success"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 88,
+      "category": "A",
+      "subcategory": null,
+      "themes": [
+        "contribution"
+      ],
+      "new_category": "Recognition (General)"
+    },
+    {
+      "batch": 89,
+      "category": "C4",
+      "subcategory": "C4a",
+      "themes": [
+        "collaboration",
+        "teamwork"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 89,
+      "category": "C3",
+      "subcategory": "C3b",
+      "themes": [
+        "expertise",
+        "consultation"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 89,
+      "category": "C4",
+      "subcategory": "C4a",
+      "themes": [
+        "partnership",
+        "appreciation"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 89,
+      "category": "C4",
+      "subcategory": "C4c",
+      "themes": [
+        "customer service",
+        "collaboration"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 89,
+      "category": "C4",
+      "subcategory": "C4a",
+      "themes": [
+        "teamwork",
+        "partnership"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 90,
+      "category": "C4",
+      "subcategory": "C4a",
+      "themes": [
+        "Collaboration",
+        "Partnership"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 90,
+      "category": "A5",
+      "subcategory": null,
+      "themes": [
+        "Drive",
+        "Positive Energy"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 90,
+      "category": "C4",
+      "subcategory": "C4b",
+      "themes": [
+        "Cross-Functional Teamwork",
+        "Client Satisfaction"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 90,
+      "category": "C3",
+      "subcategory": "C3c",
+      "themes": [
+        "Knowledge Sharing",
+        "Expertise"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 90,
+      "category": "A6",
+      "subcategory": null,
+      "themes": [
+        "Milestones",
+        "Personal Achievement"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 91,
+      "category": "C3",
+      "subcategory": "C3a",
+      "themes": [
+        "mentorship",
+        "coaching"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 91,
+      "category": "C4",
+      "subcategory": "C4b",
+      "themes": [
+        "collaboration",
+        "support"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 91,
+      "category": "C1",
+      "subcategory": "C1c",
+      "themes": [
+        "expertise",
+        "support"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 91,
+      "category": "A",
+      "subcategory": null,
+      "themes": [
+        "personal",
+        "life-event"
+      ],
+      "new_category": "Personal Milestones"
+    },
+    {
+      "batch": 91,
+      "category": "A",
+      "subcategory": null,
+      "themes": [
+        "leadership",
+        "management"
+      ],
+      "new_category": "Leadership Excellence"
+    },
+    {
+      "batch": 92,
+      "category": "C2",
+      "subcategory": "C2a",
+      "themes": [
+        "Project Completion",
+        "Team Success"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 92,
+      "category": "C3",
+      "subcategory": "C3b",
+      "themes": [
+        "Knowledge Sharing",
+        "Appreciation"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 92,
+      "category": "C1",
+      "subcategory": "C1c",
+      "themes": [
+        "Operational Support",
+        "Team Achievement"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 92,
+      "category": "C4",
+      "subcategory": "C4a",
+      "themes": [
+        "Collaboration",
+        "Quick Response"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 92,
+      "category": "C4",
+      "subcategory": "C4c",
+      "themes": [
+        "Partnership",
+        "Cross-Functional Success"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 93,
+      "category": "C3",
+      "subcategory": "C3a",
+      "themes": [
+        "Mentorship",
+        "Coaching"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 93,
+      "category": "C4",
+      "subcategory": "C4b",
+      "themes": [
+        "Collaboration",
+        "Support"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 93,
+      "category": "C1",
+      "subcategory": "C1a",
+      "themes": [
+        "Recognition",
+        "Leadership"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 93,
+      "category": "C4",
+      "subcategory": "C4b",
+      "themes": [
+        "Collaboration",
+        "Teamwork"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 93,
+      "category": "C2",
+      "subcategory": "C2a",
+      "themes": [
+        "Excellence",
+        "Achievement"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 94,
+      "category": "C4",
+      "subcategory": "C4a",
+      "themes": [
+        "teamwork",
+        "collaboration"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 94,
+      "category": "C4",
+      "subcategory": "C4c",
+      "themes": [
+        "appreciation",
+        "support"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 94,
+      "category": "C1",
+      "subcategory": "C1a",
+      "themes": [
+        "problem-solving",
+        "technical support"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 94,
+      "category": "C2",
+      "subcategory": "C2c",
+      "themes": [
+        "project management",
+        "deliverable excellence"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 94,
+      "category": "C3",
+      "subcategory": "C3a",
+      "themes": [
+        "mentorship",
+        "guidance"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 96,
+      "category": "C4",
+      "subcategory": "C4a",
+      "themes": [
+        "partnership",
+        "appreciation"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 96,
+      "category": null,
+      "subcategory": null,
+      "themes": [
+        "achievement",
+        "celebration"
+      ],
+      "new_category": "C6"
+    },
+    {
+      "batch": 96,
+      "category": null,
+      "subcategory": null,
+      "themes": [
+        "achievement",
+        "celebration"
+      ],
+      "new_category": "C6"
+    },
+    {
+      "batch": 96,
+      "category": "C1",
+      "subcategory": "C1a",
+      "themes": [
+        "support",
+        "troubleshooting"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 96,
+      "category": "C4",
+      "subcategory": "C4c",
+      "themes": [
+        "flexibility",
+        "appreciation"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 97,
+      "category": "C5",
+      "subcategory": "A",
+      "themes": [
+        "drive",
+        "hustle"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 97,
+      "category": "C4",
+      "subcategory": "C3",
+      "themes": [
+        "help",
+        "kindness"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 97,
+      "category": "C2",
+      "subcategory": "B",
+      "themes": [
+        "productivity",
+        "accuracy"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 97,
+      "category": "C4",
+      "subcategory": "A",
+      "themes": [
+        "collaboration",
+        "partnership"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 97,
+      "category": "C6",
+      "subcategory": "B",
+      "themes": [
+        "celebration",
+        "milestone"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 98,
+      "category": "C2",
+      "subcategory": "C2a",
+      "themes": [
+        "initiative",
+        "planning"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 98,
+      "category": "C1",
+      "subcategory": "C1b",
+      "themes": [
+        "support",
+        "cover"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 98,
+      "category": "C4",
+      "subcategory": "C4c",
+      "themes": [
+        "partnership",
+        "flexibility"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 98,
+      "category": "C3",
+      "subcategory": "C3a",
+      "themes": [
+        "mentorship",
+        "expertise"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 98,
+      "category": "A",
+      "subcategory": null,
+      "themes": [
+        "resilience",
+        "collaboration"
+      ],
+      "new_category": "C7: Team Spirit"
+    },
+    {
+      "batch": 99,
+      "category": "C4",
+      "subcategory": "A",
+      "themes": [
+        "Partnership",
+        "Collaboration"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 99,
+      "category": "C2",
+      "subcategory": "A",
+      "themes": [
+        "Project Management",
+        "Teamwork"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 99,
+      "category": "C4",
+      "subcategory": "A",
+      "themes": [
+        "Collaboration",
+        "Inclusion"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 99,
+      "category": "C1",
+      "subcategory": "A1",
+      "themes": [
+        "Troubleshooting",
+        "Urgent Response"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 99,
+      "category": "C2",
+      "subcategory": "B",
+      "themes": [
+        "Process Improvement",
+        "Collaboration"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 100,
+      "category": "C3",
+      "subcategory": "C3a",
+      "themes": [
+        "Mentorship",
+        "Expertise"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 100,
+      "category": "C4",
+      "subcategory": "C4c",
+      "themes": [
+        "Support",
+        "Teamwork"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 100,
+      "category": "C1",
+      "subcategory": "C1b",
+      "themes": [
+        "Resilience",
+        "Commitment"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 100,
+      "category": "C2",
+      "subcategory": "C2c",
+      "themes": [
+        "Flexibility",
+        "Accommodation"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 100,
+      "category": "C2",
+      "subcategory": "C2a",
+      "themes": [
+        "Presentation",
+        "Initiative"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 101,
+      "category": "C4",
+      "subcategory": "C4a",
+      "themes": [
+        "Collaboration",
+        "Welcoming"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 101,
+      "category": "C2",
+      "subcategory": "C2c",
+      "themes": [
+        "Project Completion",
+        "Team Achievement"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 101,
+      "category": "C5",
+      "subcategory": "C5a",
+      "themes": [
+        "Milestone",
+        "Achievement"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 101,
+      "category": "C1",
+      "subcategory": "C1b",
+      "themes": [
+        "Support",
+        "Troubleshooting"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 101,
+      "category": "C4",
+      "subcategory": "C4a",
+      "themes": [
+        "Collaboration",
+        "Emergency Response"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 102,
+      "category": "C4",
+      "subcategory": "C4a",
+      "themes": [
+        "Collaboration",
+        "Teamwork"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 102,
+      "category": "C2",
+      "subcategory": "C2c",
+      "themes": [
+        "Deliverable",
+        "Excellence"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 102,
+      "category": "A1",
+      "subcategory": null,
+      "themes": [
+        "Appreciation",
+        "Food"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 102,
+      "category": "C4",
+      "subcategory": "C4a",
+      "themes": [
+        "Collaboration",
+        "Support"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 102,
+      "category": "C1",
+      "subcategory": "C1c",
+      "themes": [
+        "Troubleshooting",
+        "Customer Service"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 104,
+      "category": "C4",
+      "subcategory": "C4c",
+      "themes": [
+        "collaboration",
+        "teamwork"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 104,
+      "category": "C1",
+      "subcategory": "C1a",
+      "themes": [
+        "incident_response",
+        "hotfixes"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 104,
+      "category": "C4",
+      "subcategory": "C4a",
+      "themes": [
+        "collaboration",
+        "support"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 104,
+      "category": "C5",
+      "subcategory": "C5b",
+      "themes": [
+        "team_building",
+        "fundraiser"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 104,
+      "category": "C2",
+      "subcategory": "C2a",
+      "themes": [
+        "project_completion",
+        "launch_success"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 105,
+      "category": "C3",
+      "subcategory": "C3a",
+      "themes": [
+        "knowledge sharing",
+        "mentorship"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 105,
+      "category": "C4",
+      "subcategory": "C4b",
+      "themes": [
+        "partnership",
+        "collaboration"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 105,
+      "category": "C4",
+      "subcategory": "C1c",
+      "themes": [
+        "professionalism",
+        "support"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 105,
+      "category": "C5",
+      "subcategory": "C5a",
+      "themes": [
+        "appreciation",
+        "teamwork"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 105,
+      "category": "C2",
+      "subcategory": "C3c",
+      "themes": [
+        "leadership",
+        "mentoring"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 106,
+      "category": "C4",
+      "subcategory": "C4a",
+      "themes": [
+        "teamwork",
+        "collaboration"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 106,
+      "category": "C1",
+      "subcategory": "C1c",
+      "themes": [
+        "support",
+        "troubleshooting"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 106,
+      "category": "C2",
+      "subcategory": "C2b",
+      "themes": [
+        "process",
+        "improvement"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 106,
+      "category": "C2",
+      "subcategory": "C2a",
+      "themes": [
+        "innovation",
+        "excellence"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 106,
+      "category": "C2",
+      "subcategory": "C2a",
+      "themes": [
+        "innovation",
+        "excellence"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 107,
+      "category": "C4",
+      "subcategory": "C4a",
+      "themes": [
+        "teamwork",
+        "reliability"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 107,
+      "category": "C3",
+      "subcategory": null,
+      "themes": [
+        "friendship",
+        "support"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 107,
+      "category": "C1",
+      "subcategory": "C1a",
+      "themes": [
+        "helpfulness",
+        "expertise"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 107,
+      "category": "C4",
+      "subcategory": "C4b",
+      "themes": [
+        "collaboration",
+        "teamwork"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 107,
+      "category": "C1",
+      "subcategory": "C1c",
+      "themes": [
+        "helpfulness",
+        "support"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 108,
+      "category": "C4",
+      "subcategory": "C4a",
+      "themes": [
+        "help",
+        "teamwork"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 108,
+      "category": "C3",
+      "subcategory": "C3b",
+      "themes": [
+        "expertise",
+        "knowledge"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 108,
+      "category": "C1",
+      "subcategory": "C1a",
+      "themes": [
+        "support",
+        "troubleshooting"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 108,
+      "category": "C2",
+      "subcategory": "C2c",
+      "themes": [
+        "achievement",
+        "teamwork"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 108,
+      "category": "C2",
+      "subcategory": "C2c",
+      "themes": [
+        "achievement",
+        "teamwork"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 109,
+      "category": "C4",
+      "subcategory": "C4a",
+      "themes": [
+        "Collaboration",
+        "Support"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 109,
+      "category": "C1",
+      "subcategory": "C1b",
+      "themes": [
+        "Troubleshotting",
+        "Quick Action"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 109,
+      "category": "A",
+      "subcategory": "A3",
+      "themes": [
+        "Teamwork",
+        "Engagement"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 109,
+      "category": "C5",
+      "subcategory": "C5b",
+      "themes": [
+        "Positive Culture",
+        "Team Player"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 109,
+      "category": "C2",
+      "subcategory": "C2a",
+      "themes": [
+        "Achievement",
+        "Collaboration"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 110,
+      "category": "C2",
+      "subcategory": "C2a",
+      "themes": [
+        "project",
+        "excellence"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 110,
+      "category": "C4",
+      "subcategory": "C4a",
+      "themes": [
+        "support",
+        "commitment"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 110,
+      "category": "C3",
+      "subcategory": "C3b",
+      "themes": [
+        "innovation",
+        "alignment"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 110,
+      "category": "C1",
+      "subcategory": "C1a",
+      "themes": [
+        "troubleshooting",
+        "urgency"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 110,
+      "category": "C4",
+      "subcategory": "C6b",
+      "themes": [
+        "collaboration",
+        "appreciation"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 111,
+      "category": "C4",
+      "subcategory": "C4a",
+      "themes": [
+        "collaboration",
+        "teamwork"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 111,
+      "category": "C3",
+      "subcategory": "C3a",
+      "themes": [
+        "mentorship",
+        "expertise"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 111,
+      "category": "C3",
+      "subcategory": "C3c",
+      "themes": [
+        "knowledge sharing",
+        "insight"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 111,
+      "category": "C2",
+      "subcategory": "C2a",
+      "themes": [
+        "project completion",
+        "excellence"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 111,
+      "category": "C3",
+      "subcategory": "C3b",
+      "themes": [
+        "consultation",
+        "guidance"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 112,
+      "category": "C1",
+      "subcategory": "C1a",
+      "themes": [
+        "incident response",
+        "troubleshooting"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 112,
+      "category": "C6",
+      "subcategory": "C6a",
+      "themes": [
+        "personal milestone",
+        "celebration"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 112,
+      "category": "C4",
+      "subcategory": "C4b",
+      "themes": [
+        "collaboration",
+        "teamwork"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 112,
+      "category": "A",
+      "subcategory": null,
+      "themes": [
+        "leadership",
+        "partnership"
+      ],
+      "new_category": "C7: Recognition & Appreciation"
+    },
+    {
+      "batch": 112,
+      "category": "C3",
+      "subcategory": "C3a",
+      "themes": [
+        "knowledge sharing",
+        "collaboration"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 113,
+      "category": "C4",
+      "subcategory": "C4a",
+      "themes": [
+        "proactive",
+        "collaboration"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 113,
+      "category": "C1",
+      "subcategory": "C1c",
+      "themes": [
+        "troubleshooting",
+        "hotfixes"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 113,
+      "category": "C3",
+      "subcategory": "C3a",
+      "themes": [
+        "mentoring",
+        "knowledge sharing"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 113,
+      "category": "C2",
+      "subcategory": "C2c",
+      "themes": [
+        "excellence",
+        "presentation"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 113,
+      "category": "A",
+      "subcategory": null,
+      "themes": [
+        "innovation",
+        "recognition",
+        "achievement"
+      ],
+      "new_category": "Personal Recognition"
+    },
+    {
+      "batch": 114,
+      "category": "C2",
+      "subcategory": "C2a",
+      "themes": [
+        "innovation",
+        "awards"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 114,
+      "category": "C2",
+      "subcategory": "C2a",
+      "themes": [
+        "innovation",
+        "teamwork"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 114,
+      "category": "C4",
+      "subcategory": "C4b",
+      "themes": [
+        "partnership",
+        "commitment"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 114,
+      "category": "C4",
+      "subcategory": "C4a",
+      "themes": [
+        "collaboration",
+        "support"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 114,
+      "category": "C1c",
+      "subcategory": "C1c",
+      "themes": [
+        "troubleshooting",
+        "helpfulness"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 115,
+      "category": "C4",
+      "subcategory": "C4a",
+      "themes": [
+        "reliability",
+        "responsiveness"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 115,
+      "category": "C4",
+      "subcategory": "C4b",
+      "themes": [
+        "teamwork",
+        "attitude"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 115,
+      "category": "C1",
+      "subcategory": "C1c",
+      "themes": [
+        "knowledge sharing",
+        "operational support"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 115,
+      "category": "C2",
+      "subcategory": "C2a",
+      "themes": [
+        "project completion",
+        "dedication"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 115,
+      "category": "C1",
+      "subcategory": "C1c",
+      "themes": [
+        "help",
+        "assistance"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 116,
+      "category": "C4",
+      "subcategory": "C4a",
+      "themes": [
+        "partnership",
+        "reliability"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 116,
+      "category": "C3",
+      "subcategory": "C3b",
+      "themes": [
+        "initiative",
+        "knowledge"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 116,
+      "category": "C4",
+      "subcategory": "C4a",
+      "themes": [
+        "collaboration",
+        "appreciation"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 116,
+      "category": "C1",
+      "subcategory": "C1b",
+      "themes": [
+        "support",
+        "effort"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 116,
+      "category": "C2",
+      "subcategory": "C2c",
+      "themes": [
+        "excellence",
+        "dedication"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 117,
+      "category": "C6",
+      "subcategory": null,
+      "themes": [
+        "Celebration",
+        "Life Milestone"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 117,
+      "category": "C2",
+      "subcategory": "C2b",
+      "themes": [
+        "Process Improvement",
+        "Teamwork"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 117,
+      "category": "C4",
+      "subcategory": null,
+      "themes": [
+        "Collaboration",
+        "Appreciation"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 117,
+      "category": "C1c",
+      "subcategory": null,
+      "themes": [
+        "Support",
+        "Expertise"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 117,
+      "category": "A",
+      "subcategory": null,
+      "themes": [
+        "Respect",
+        "Appreciation"
+      ],
+      "new_category": "Company Culture"
+    },
+    {
+      "batch": 119,
+      "category": "C4",
+      "subcategory": "C4a",
+      "themes": [
+        "Collaboration",
+        "Mentorship"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 119,
+      "category": "C2",
+      "subcategory": "C2c",
+      "themes": [
+        "Project Management",
+        "Communication"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 119,
+      "category": "C1",
+      "subcategory": "C1b",
+      "themes": [
+        "Support",
+        "Collaboration"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 119,
+      "category": "C2",
+      "subcategory": "C2c",
+      "themes": [
+        "Expertise",
+        "Leadership"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 119,
+      "category": "C1",
+      "subcategory": "C1c",
+      "themes": [
+        "Troubleshooting",
+        "Teamwork"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 120,
+      "category": "C3",
+      "subcategory": "C3a",
+      "themes": [
+        "mentorship",
+        "expertise"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 120,
+      "category": "C4",
+      "subcategory": "C4b",
+      "themes": [
+        "collaboration",
+        "partnership"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 120,
+      "category": "C4",
+      "subcategory": "C4a",
+      "themes": [
+        "teamwork",
+        "support"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 120,
+      "category": "C1",
+      "subcategory": "C1c",
+      "themes": [
+        "expertise",
+        "support"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 120,
+      "category": "A",
+      "subcategory": null,
+      "themes": [
+        "inspiration",
+        "dedication"
+      ],
+      "new_category": "Personal Achievement"
+    },
+    {
+      "batch": 121,
+      "category": "C4",
+      "subcategory": "C4a",
+      "themes": [
+        "teamwork",
+        "appreciation"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 121,
+      "category": "C4",
+      "subcategory": "C4a",
+      "themes": [
+        "leadership",
+        "consistency"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 121,
+      "category": "C4",
+      "subcategory": "C4c",
+      "themes": [
+        "resilience",
+        "teamwork"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 121,
+      "category": "C2",
+      "subcategory": "C2a",
+      "themes": [
+        "project",
+        "achievement"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 121,
+      "category": "C4",
+      "subcategory": "C4a",
+      "themes": [
+        "partnership",
+        "appreciation"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 122,
+      "category": "C2",
+      "subcategory": "C2a",
+      "themes": [
+        "excellence",
+        "teamwork"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 122,
+      "category": "C4",
+      "subcategory": "C4c",
+      "themes": [
+        "leadership",
+        "collaboration"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 122,
+      "category": "C1",
+      "subcategory": "C1b",
+      "themes": [
+        "support",
+        "teamwork"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 122,
+      "category": "C4",
+      "subcategory": "C4a",
+      "themes": [
+        "appreciation",
+        "collegiality"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 122,
+      "category": "C6",
+      "subcategory": "C6b",
+      "themes": [
+        "milestone",
+        "achievement"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 123,
+      "category": "C5",
+      "subcategory": "A",
+      "themes": [
+        "Drive",
+        "Innovation"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 123,
+      "category": "C1",
+      "subcategory": "A1",
+      "themes": [
+        "Process",
+        "Expertise"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 123,
+      "category": "C4",
+      "subcategory": "A",
+      "themes": [
+        "Teamwork",
+        "Appreciation"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 123,
+      "category": "C4",
+      "subcategory": "A",
+      "themes": [
+        "Collaboration",
+        "Support"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 123,
+      "category": "C2",
+      "subcategory": "B",
+      "themes": [
+        "Report",
+        "Patience"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 124,
+      "category": "C4",
+      "subcategory": "C4a",
+      "themes": [
+        "reliability",
+        "responsiveness"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 124,
+      "category": "C1",
+      "subcategory": "C1a",
+      "themes": [
+        "support",
+        "customers"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 124,
+      "category": "C4",
+      "subcategory": "C4c",
+      "themes": [
+        "collaboration",
+        "teamwork"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 124,
+      "category": "C2",
+      "subcategory": "C2a",
+      "themes": [
+        "initiative",
+        "completion"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 124,
+      "category": "C1",
+      "subcategory": "C1a",
+      "themes": [
+        "support",
+        "expertise"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 125,
+      "category": "C2",
+      "subcategory": "C2a",
+      "themes": [
+        "Project",
+        "Excellence"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 125,
+      "category": "C4",
+      "subcategory": "C4c",
+      "themes": [
+        "Partnership",
+        "Collaboration"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 125,
+      "category": "C1",
+      "subcategory": "C1a",
+      "themes": [
+        "Operational",
+        "Excellence"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 125,
+      "category": "C4",
+      "subcategory": "C4a",
+      "themes": [
+        "Partnership",
+        "Support"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 125,
+      "category": "C1",
+      "subcategory": "C1c",
+      "themes": [
+        "Troubleshooting",
+        "Help"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 126,
+      "category": "C4",
+      "subcategory": "C4a",
+      "themes": [
+        "reliability",
+        "responsiveness"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 126,
+      "category": "C1",
+      "subcategory": "C1b",
+      "themes": [
+        "support",
+        "resolution"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 126,
+      "category": "C3",
+      "subcategory": "C3a",
+      "themes": [
+        "mentorship",
+        "guidance"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 126,
+      "category": "C1",
+      "subcategory": "C1c",
+      "themes": [
+        "data",
+        "integrity"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 126,
+      "category": "C2",
+      "subcategory": "C2b",
+      "themes": [
+        "excellence",
+        "collaboration"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 127,
+      "category": "C2",
+      "subcategory": "C2a",
+      "themes": [
+        "Project",
+        "Delivery"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 127,
+      "category": "C4",
+      "subcategory": "C4b",
+      "themes": [
+        "Collaboration",
+        "Partnership"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 127,
+      "category": "C2",
+      "subcategory": "C2c",
+      "themes": [
+        "Planning",
+        "Coordination"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 127,
+      "category": "C4",
+      "subcategory": "C4a",
+      "themes": [
+        "Collaboration",
+        "Leadership"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 127,
+      "category": "C2",
+      "subcategory": "C2c",
+      "themes": [
+        "Collaboration",
+        "Partnership"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 128,
+      "category": "C4",
+      "subcategory": "C4a",
+      "themes": [
+        "reliability",
+        "responsiveness"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 128,
+      "category": "C3",
+      "subcategory": "C3b",
+      "themes": [
+        "mentorship",
+        "coaching"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 128,
+      "category": "C4",
+      "subcategory": "C4a",
+      "themes": [
+        "leadership",
+        "teamwork"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 128,
+      "category": "C1",
+      "subcategory": "C1b",
+      "themes": [
+        "support",
+        "leadership"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 128,
+      "category": "C4",
+      "subcategory": "C4a",
+      "themes": [
+        "leadership",
+        "support"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 129,
+      "category": "C4",
+      "subcategory": "C4a",
+      "themes": [
+        "teamwork",
+        "collaboration"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 129,
+      "category": "C6",
+      "subcategory": "C6a",
+      "themes": [
+        "celebration",
+        "birthday"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 129,
+      "category": "C1",
+      "subcategory": "C1c",
+      "themes": [
+        "support",
+        "helping others"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 129,
+      "category": "C2",
+      "subcategory": "C2a",
+      "themes": [
+        "project completion",
+        "timely delivery"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 129,
+      "category": "C4",
+      "subcategory": "C4a",
+      "themes": [
+        "teamwork",
+        "responsiveness"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 130,
+      "category": "C2",
+      "subcategory": "C2a",
+      "themes": [
+        "Project",
+        "Deliverable"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 130,
+      "category": "C4",
+      "subcategory": "null",
+      "themes": [
+        "Teamwork",
+        "Service"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 130,
+      "category": "C4",
+      "subcategory": "null",
+      "themes": [
+        "Partnership",
+        "Recognition"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 130,
+      "category": "C2",
+      "subcategory": "C2a",
+      "themes": [
+        "Project",
+        "Achievement"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 130,
+      "category": "C1b",
+      "subcategory": "null",
+      "themes": [
+        "Support",
+        "Responsiveness"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 131,
+      "category": "C4",
+      "subcategory": "A",
+      "themes": [
+        "partnership",
+        "collaboration"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 131,
+      "category": "C1",
+      "subcategory": "a",
+      "themes": [
+        "troubleshooting",
+        "support"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 131,
+      "category": "C2",
+      "subcategory": "c",
+      "themes": [
+        "initiative",
+        "execution"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 131,
+      "category": "C4",
+      "subcategory": "a",
+      "themes": [
+        "partnership",
+        "professionalism"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 131,
+      "category": "C3",
+      "subcategory": "b",
+      "themes": [
+        "expertise",
+        "consultation"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 132,
+      "category": "C2",
+      "subcategory": "C2a",
+      "themes": [
+        "project",
+        "excellence"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 132,
+      "category": "C1",
+      "subcategory": "C1c",
+      "themes": [
+        "support",
+        "help"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 132,
+      "category": "C4",
+      "subcategory": "C4a",
+      "themes": [
+        "teamwork",
+        "support"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 132,
+      "category": "C2",
+      "subcategory": "C2c",
+      "themes": [
+        "performance",
+        "excellence"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 132,
+      "category": "C6",
+      "subcategory": "C6a",
+      "themes": [
+        "celebration",
+        "birthday"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 133,
+      "category": "C4",
+      "subcategory": "C4a",
+      "themes": [
+        "teamwork",
+        "commitment"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 133,
+      "category": "C3",
+      "subcategory": "C3c",
+      "themes": [
+        "mentorship",
+        "leadership"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 133,
+      "category": "C1",
+      "subcategory": "C1a",
+      "themes": [
+        "support",
+        "helpful"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 133,
+      "category": "C4",
+      "subcategory": "C4c",
+      "themes": [
+        "teamwork",
+        "appreciation"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 133,
+      "category": "C6",
+      "subcategory": "C6a",
+      "themes": [
+        "celebration",
+        "congratulation"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 134,
+      "category": "C6",
+      "subcategory": null,
+      "themes": [
+        "celebration",
+        "personal"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 134,
+      "category": "C1",
+      "subcategory": "C1a",
+      "themes": [
+        "problem-solving",
+        "collaboration"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 134,
+      "category": "C4",
+      "subcategory": null,
+      "themes": [
+        "teamwork",
+        "customer service"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 134,
+      "category": "C1",
+      "subcategory": "C1c",
+      "themes": [
+        "reliability",
+        "expertise"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 134,
+      "category": "C2",
+      "subcategory": "C2a",
+      "themes": [
+        "project management",
+        "collaboration"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 135,
+      "category": "C2",
+      "subcategory": "C2a",
+      "themes": [
+        "project",
+        "excellence"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 135,
+      "category": "C4",
+      "subcategory": "C4b",
+      "themes": [
+        "teamwork",
+        "support"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 135,
+      "category": "C2",
+      "subcategory": "C2c",
+      "themes": [
+        "project",
+        "initiative"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 135,
+      "category": "A1",
+      "subcategory": "C5a",
+      "themes": [
+        "drive",
+        "hustle"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 135,
+      "category": "C2",
+      "subcategory": "C2c",
+      "themes": [
+        "project",
+        "initiative"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 136,
+      "category": "C5",
+      "subcategory": "A",
+      "themes": [
+        "drive",
+        "positivity"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 136,
+      "category": "C1",
+      "subcategory": "B",
+      "themes": [
+        "troubleshooting",
+        "teamwork"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 136,
+      "category": "C4",
+      "subcategory": "A",
+      "themes": [
+        "collaboration",
+        "helpfulness"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 136,
+      "category": "C2",
+      "subcategory": "B",
+      "themes": [
+        "excellence",
+        "professionalism"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 136,
+      "category": "C6",
+      "subcategory": "A",
+      "themes": [
+        "milestone",
+        "appreciation"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 137,
+      "category": "C1",
+      "subcategory": "C1a",
+      "themes": [
+        "Operational Support",
+        "Troubleshooting"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 137,
+      "category": "C4",
+      "subcategory": "C4c",
+      "themes": [
+        "Partnership",
+        "Collaboration"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 137,
+      "category": "A",
+      "subcategory": null,
+      "themes": [
+        "Teamwork",
+        "Celebration"
+      ],
+      "new_category": "C6"
+    },
+    {
+      "batch": 137,
+      "category": "C3",
+      "subcategory": "C3a",
+      "themes": [
+        "Knowledge Sharing",
+        "Mentorship"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 137,
+      "category": "C6",
+      "subcategory": "C6a",
+      "themes": [
+        "Personal Milestone",
+        "Congratulations"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 138,
+      "category": "C4",
+      "subcategory": "C4a",
+      "themes": [
+        "teamwork",
+        "reliability"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 138,
+      "category": "C4",
+      "subcategory": "C4c",
+      "themes": [
+        "partnership",
+        "appreciation"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 138,
+      "category": "C1b",
+      "subcategory": null,
+      "themes": [
+        "agility",
+        "proactivity"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 138,
+      "category": "C2a",
+      "subcategory": null,
+      "themes": [
+        "excellence",
+        "achievement"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 138,
+      "category": "C3b",
+      "subcategory": null,
+      "themes": [
+        "knowledge sharing",
+        "collaboration"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 139,
+      "category": "C4",
+      "subcategory": "C4a",
+      "themes": [
+        "collaboration",
+        "teamwork"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 139,
+      "category": "C3",
+      "subcategory": "null",
+      "themes": [
+        "family",
+        "appreciation"
+      ],
+      "new_category": "C3d: Heartfelt Appreciation"
+    },
+    {
+      "batch": 139,
+      "category": "C1",
+      "subcategory": "C1a",
+      "themes": [
+        "leadership",
+        "achievement"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 139,
+      "category": "C2",
+      "subcategory": "C2b",
+      "themes": [
+        "project management",
+        "efficiency"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 139,
+      "category": "C1",
+      "subcategory": "C1c",
+      "themes": [
+        "support",
+        "dedication"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 140,
+      "category": "C5",
+      "subcategory": "A5a",
+      "themes": [
+        "drive",
+        "culture"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 140,
+      "category": "C2",
+      "subcategory": "A2c",
+      "themes": [
+        "initiative",
+        "excellence"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 140,
+      "category": "C4",
+      "subcategory": "A4a",
+      "themes": [
+        "collaboration",
+        "responsiveness"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 140,
+      "category": "C1",
+      "subcategory": "A1b",
+      "themes": [
+        "support",
+        "timeliness"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 140,
+      "category": "C6",
+      "subcategory": "A6a",
+      "themes": [
+        "celebration",
+        "appreciation"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 141,
+      "category": "C3",
+      "subcategory": "C3a",
+      "themes": [
+        "mentorship",
+        "leadership"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 141,
+      "category": "C4",
+      "subcategory": "C4b",
+      "themes": [
+        "teamwork",
+        "cooperation"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 141,
+      "category": "C2",
+      "subcategory": "C2a",
+      "themes": [
+        "project management",
+        "leadership"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 141,
+      "category": "C1",
+      "subcategory": "C1c",
+      "themes": [
+        "help",
+        "troubleshooting"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 141,
+      "category": "C4",
+      "subcategory": "C4a",
+      "themes": [
+        "reliability",
+        "responsiveness"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 142,
+      "category": "C1",
+      "subcategory": "C1a",
+      "themes": [
+        "Troubleshooting",
+        "Support"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 142,
+      "category": "C4",
+      "subcategory": "C4b",
+      "themes": [
+        "Collaboration",
+        "Partnership"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 142,
+      "category": "C1",
+      "subcategory": "C1c",
+      "themes": [
+        "Support",
+        "Troubleshooting"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 142,
+      "category": "C4",
+      "subcategory": "C4a",
+      "themes": [
+        "Reliability",
+        "Responsiveness"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 142,
+      "category": "C1",
+      "subcategory": "C1c",
+      "themes": [
+        "Support",
+        "Urgent Response"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 143,
+      "category": "C6",
+      "subcategory": "C6a",
+      "themes": [
+        "celebration",
+        "personal"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 143,
+      "category": "C4",
+      "subcategory": "C4a",
+      "themes": [
+        "gratitude",
+        "teamwork"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 143,
+      "category": "C1",
+      "subcategory": "C1c",
+      "themes": [
+        "support",
+        "teamwork"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 143,
+      "category": "C1",
+      "subcategory": "C1a",
+      "themes": [
+        "troubleshooting",
+        "expertise"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 143,
+      "category": "C2",
+      "subcategory": "C2c",
+      "themes": [
+        "excellence",
+        "teamwork"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 144,
+      "category": "C4",
+      "subcategory": "C4a",
+      "themes": [
+        "collaboration",
+        "teamwork"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 144,
+      "category": "C1",
+      "subcategory": "C1c",
+      "themes": [
+        "support",
+        "troubleshooting"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 144,
+      "category": "C4",
+      "subcategory": "C4a",
+      "themes": [
+        "collaboration",
+        "partnership"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 144,
+      "category": "C2",
+      "subcategory": "C2c",
+      "themes": [
+        "project management",
+        "execution"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 144,
+      "category": "C4",
+      "subcategory": "C4a",
+      "themes": [
+        "welcome",
+        "onboarding"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 145,
+      "category": "C3",
+      "subcategory": "C3a",
+      "themes": [
+        "mentorship",
+        "guidance"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 145,
+      "category": "C3",
+      "subcategory": "C3b",
+      "themes": [
+        "knowledge sharing",
+        "support"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 145,
+      "category": "C1",
+      "subcategory": "C1a",
+      "themes": [
+        "help",
+        "support"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 145,
+      "category": "C4",
+      "subcategory": "C4c",
+      "themes": [
+        "teamwork",
+        "collaboration"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 145,
+      "category": "C4",
+      "subcategory": "C4a",
+      "themes": [
+        "appreciation",
+        "gratitude"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 146,
+      "category": "C4",
+      "subcategory": "C4a",
+      "themes": [
+        "teamwork",
+        "reliability"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 146,
+      "category": "C1",
+      "subcategory": "C1c",
+      "themes": [
+        "troubleshooting",
+        "problem-solving"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 146,
+      "category": "C4",
+      "subcategory": "C4a",
+      "themes": [
+        "teamwork",
+        "helpfulness"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 146,
+      "category": "C2",
+      "subcategory": "C2c",
+      "themes": [
+        "excellence",
+        "presenting"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 146,
+      "category": "C3",
+      "subcategory": "C3a",
+      "themes": [
+        "expertise",
+        "problem-solving"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 147,
+      "category": "C3",
+      "subcategory": "C3a",
+      "themes": [
+        "Mentorship",
+        "Knowledge Sharing"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 147,
+      "category": "C4",
+      "subcategory": "C4a",
+      "themes": [
+        "Collaboration",
+        "Support"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 147,
+      "category": "C2",
+      "subcategory": "C2c",
+      "themes": [
+        "Excellence",
+        "Achievement"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 147,
+      "category": "C1b",
+      "subcategory": "C1c",
+      "themes": [
+        "Support",
+        "Teamwork"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 147,
+      "category": "C2",
+      "subcategory": "C3a",
+      "themes": [
+        "Knowledge Sharing",
+        "Mentorship"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 148,
+      "category": "C3",
+      "subcategory": "C3a",
+      "themes": [
+        "Knowledge Sharing"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 148,
+      "category": "C2",
+      "subcategory": "C2b",
+      "themes": [
+        "Project Excellence",
+        "Collaboration"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 148,
+      "category": "C4",
+      "subcategory": "C4c",
+      "themes": [
+        "Partnership",
+        "Recognition"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 148,
+      "category": "C1",
+      "subcategory": "C1a",
+      "themes": [
+        "Operational Support",
+        "Time Management"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 148,
+      "category": "C2",
+      "subcategory": "C2c",
+      "themes": [
+        "Achievement",
+        "Recognition"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 149,
+      "category": "C6",
+      "subcategory": null,
+      "themes": [
+        "Personal",
+        "Life Event"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 149,
+      "category": "C4",
+      "subcategory": "C4a",
+      "themes": [
+        "Collaboration",
+        "Partnership",
+        "Excellence"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 149,
+      "category": "A5",
+      "subcategory": null,
+      "themes": [
+        "Attitude",
+        "Drive",
+        "Positive Culture"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 149,
+      "category": "C1",
+      "subcategory": "C1a",
+      "themes": [
+        "Support",
+        "Troubleshooting",
+        "Quick Response"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 149,
+      "category": "C2",
+      "subcategory": "C2c",
+      "themes": [
+        "Project Management",
+        "Expertise",
+        "Leadership"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 150,
+      "category": "C3",
+      "subcategory": "C3a",
+      "themes": [
+        "Knowledge Sharing",
+        "Feedback"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 150,
+      "category": "C1",
+      "subcategory": "C1b",
+      "themes": [
+        "Troubleshooting",
+        "Support"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 150,
+      "category": "C4",
+      "subcategory": "C4c",
+      "themes": [
+        "Collaboration",
+        "Teamwork"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 150,
+      "category": "C2",
+      "subcategory": "C2c",
+      "themes": [
+        "Excellence",
+        "Presentation"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 150,
+      "category": "C4",
+      "subcategory": "C4a",
+      "themes": [
+        "Support",
+        "Professionalism"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 151,
+      "category": "C4",
+      "subcategory": "C4a",
+      "themes": [
+        "partnership",
+        "collaboration"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 151,
+      "category": "C1",
+      "subcategory": "C1b",
+      "themes": [
+        "support",
+        "troubleshooting"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 151,
+      "category": "C4",
+      "subcategory": "C4a",
+      "themes": [
+        "partnership",
+        "proactive approach"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 151,
+      "category": "C4",
+      "subcategory": "C4c",
+      "themes": [
+        "teamwork",
+        "support"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 151,
+      "category": "C2",
+      "subcategory": "C2a",
+      "themes": [
+        "excellence",
+        "achievement"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 152,
+      "category": "C5",
+      "subcategory": "A",
+      "themes": [
+        "drive",
+        "initiative"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 152,
+      "category": "C4",
+      "subcategory": "B",
+      "themes": [
+        "collaboration",
+        "support"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 152,
+      "category": "C4",
+      "subcategory": "A",
+      "themes": [
+        "dedication",
+        "teamwork"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 152,
+      "category": "C2",
+      "subcategory": "B",
+      "themes": [
+        "process",
+        "collaboration"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 152,
+      "category": "C1",
+      "subcategory": "A",
+      "themes": [
+        "support",
+        "reliability"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 153,
+      "category": "C2",
+      "subcategory": "C2a",
+      "themes": [
+        "Major",
+        "Initiative"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 153,
+      "category": "C4",
+      "subcategory": "C4b",
+      "themes": [
+        "Support",
+        "Teamwork"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 153,
+      "category": "C1",
+      "subcategory": "C1c",
+      "themes": [
+        "Data",
+        "Integrity"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 153,
+      "category": "A",
+      "subcategory": null,
+      "themes": [
+        "Personal",
+        "Appreciation"
+      ],
+      "new_category": "Personal Recognition"
+    },
+    {
+      "batch": 153,
+      "category": "A",
+      "subcategory": null,
+      "themes": [
+        "Fun",
+        "Recognition"
+      ],
+      "new_category": "Gamification"
+    },
+    {
+      "batch": 154,
+      "category": "C4",
+      "subcategory": "C4a",
+      "themes": [
+        "reliability",
+        "responsiveness"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 154,
+      "category": "C2",
+      "subcategory": "C2c",
+      "themes": [
+        "teamwork",
+        "dedication"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 154,
+      "category": "C4",
+      "subcategory": "C4a",
+      "themes": [
+        "leadership",
+        "accountability"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 154,
+      "category": "C5",
+      "subcategory": "C5c",
+      "themes": [
+        "hard work",
+        "partnership"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 154,
+      "category": "C6",
+      "subcategory": "C6a",
+      "themes": [
+        "appreciation",
+        "support"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 155,
+      "category": "C2",
+      "subcategory": "C2a",
+      "themes": [
+        "initiative",
+        "execution"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 155,
+      "category": "C1b",
+      "subcategory": null,
+      "themes": [
+        "teamwork",
+        "support"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 155,
+      "category": "C4a",
+      "subcategory": null,
+      "themes": [
+        "partnership",
+        "appreciation"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 155,
+      "category": "C2b",
+      "subcategory": null,
+      "themes": [
+        "collaboration",
+        "planning"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 155,
+      "category": "C3a",
+      "subcategory": null,
+      "themes": [
+        "mentorship",
+        "initiative"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 156,
+      "category": "C4",
+      "subcategory": "A4a",
+      "themes": [
+        "Partnership",
+        "Recognition"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 156,
+      "category": "C5",
+      "subcategory": null,
+      "themes": [
+        "Collaboration",
+        "Teamwork"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 156,
+      "category": "C4",
+      "subcategory": "A4c",
+      "themes": [
+        "Partnership",
+        "Client Relationship"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 156,
+      "category": "C2",
+      "subcategory": "A2a",
+      "themes": [
+        "Project Completion",
+        "Expertise"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 156,
+      "category": "C4",
+      "subcategory": "A4c",
+      "themes": [
+        "Partnership",
+        "Client Relationship"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 157,
+      "category": "C4",
+      "subcategory": "C4a",
+      "themes": [
+        "Collaboration",
+        "Support"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 157,
+      "category": "C4",
+      "subcategory": "C4b",
+      "themes": [
+        "Teamwork",
+        "Support"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 157,
+      "category": "C1",
+      "subcategory": "C1a",
+      "themes": [
+        "Urgency",
+        "Responsiveness"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 157,
+      "category": "C4",
+      "subcategory": "C4c",
+      "themes": [
+        "Partnership",
+        "Collaboration"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 157,
+      "category": "C1a",
+      "subcategory": "C1a",
+      "themes": [
+        "Speed",
+        "Urgency"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 158,
+      "category": "C2",
+      "subcategory": "C2a",
+      "themes": [
+        "Project",
+        "Excellence"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 158,
+      "category": "C3",
+      "subcategory": "C3b",
+      "themes": [
+        "Knowledge",
+        "Sharing"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 158,
+      "category": "C1",
+      "subcategory": "C1a",
+      "themes": [
+        "Support",
+        "Coaching"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 158,
+      "category": "C4",
+      "subcategory": "C4a",
+      "themes": [
+        "Partnership",
+        "Collaboration"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 158,
+      "category": "C2",
+      "subcategory": "C2c",
+      "themes": [
+        "Project",
+        "Execution"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 159,
+      "category": "C2",
+      "subcategory": "C2a",
+      "themes": [
+        "Excellence",
+        "Initiative"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 159,
+      "category": "C2",
+      "subcategory": "C2c",
+      "themes": [
+        "Impact",
+        "Quality"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 159,
+      "category": "C4",
+      "subcategory": "C4a",
+      "themes": [
+        "Partnership",
+        "Collaboration"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 159,
+      "category": "C2",
+      "subcategory": "C2c",
+      "themes": [
+        "Quality",
+        "Partnership"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 159,
+      "category": "C4",
+      "subcategory": "C4a",
+      "themes": [
+        "Partnership",
+        "Collaboration"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 160,
+      "category": "C5",
+      "subcategory": "A1",
+      "themes": [
+        "Drive",
+        "Attitude"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 160,
+      "category": "C2",
+      "subcategory": "C2c",
+      "themes": [
+        "Collaboration",
+        "Delivery"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 160,
+      "category": "C1",
+      "subcategory": "C1a",
+      "themes": [
+        "Support",
+        "Troubleshooting"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 160,
+      "category": "C6",
+      "subcategory": "A2",
+      "themes": [
+        "Personal",
+        "Recognition"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 160,
+      "category": "C1",
+      "subcategory": "C1c",
+      "themes": [
+        "Data",
+        "Integrity"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 161,
+      "category": "C6",
+      "subcategory": null,
+      "themes": [
+        "maternity",
+        "return to work"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 161,
+      "category": "C4",
+      "subcategory": "C4b",
+      "themes": [
+        "teamwork",
+        "drive"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 161,
+      "category": "C6",
+      "subcategory": null,
+      "themes": [
+        "departure",
+        "impact"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 161,
+      "category": "C1",
+      "subcategory": "C1b",
+      "themes": [
+        "migration",
+        "help"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 161,
+      "category": "C1",
+      "subcategory": "C1c",
+      "themes": [
+        "infrastructure",
+        "support"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 162,
+      "category": "C1",
+      "subcategory": "C1a",
+      "themes": [
+        "Troubleshooting",
+        "Problem-solving"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 162,
+      "category": "C3",
+      "subcategory": "C3a",
+      "themes": [
+        "Mentorship",
+        "Coaching"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 162,
+      "category": "C1",
+      "subcategory": "C1a",
+      "themes": [
+        "Troubleshooting",
+        "Problem-solving"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 162,
+      "category": "C4",
+      "subcategory": "C4a",
+      "themes": [
+        "Partnership",
+        "Collaboration"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 162,
+      "category": "C2",
+      "subcategory": "C2c",
+      "themes": [
+        "Teamwork",
+        "Recruitment"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 163,
+      "category": "C4",
+      "subcategory": "C4a",
+      "themes": [
+        "teamwork",
+        "collaboration"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 163,
+      "category": "C4",
+      "subcategory": "C4c",
+      "themes": [
+        "partnership",
+        "responsiveness"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 163,
+      "category": "C1",
+      "subcategory": "C1b",
+      "themes": [
+        "support",
+        "teamwork"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 163,
+      "category": "C6",
+      "subcategory": "C6a",
+      "themes": [
+        "celebration",
+        "tradition"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 163,
+      "category": "C2",
+      "subcategory": "C2c",
+      "themes": [
+        "excellence",
+        "quality"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 164,
+      "category": "C3",
+      "subcategory": "C3a",
+      "themes": [
+        "mentorship",
+        "leadership"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 164,
+      "category": "C2",
+      "subcategory": "C2c",
+      "themes": [
+        "expertise",
+        "improvement"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 164,
+      "category": "C5",
+      "subcategory": "null",
+      "themes": [
+        "commitment",
+        "motivation"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 164,
+      "category": "C1",
+      "subcategory": "C1b",
+      "themes": [
+        "support",
+        "continuity"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 164,
+      "category": "C2",
+      "subcategory": "null",
+      "themes": [
+        "excellence",
+        "teamwork"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 165,
+      "category": "C1",
+      "subcategory": "C1a",
+      "themes": [
+        "incident response",
+        "troubleshooting"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 165,
+      "category": "A",
+      "subcategory": "null",
+      "themes": [
+        "teamwork",
+        "leadership"
+      ],
+      "new_category": "C7: Personal & Leadership"
+    },
+    {
+      "batch": 165,
+      "category": "C2",
+      "subcategory": "C2b",
+      "themes": [
+        "project management",
+        "team alignment"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 165,
+      "category": "C4",
+      "subcategory": "C4a",
+      "themes": [
+        "leadership",
+        "advocacy"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 165,
+      "category": "C2",
+      "subcategory": "null",
+      "themes": [
+        "project leadership",
+        "team support"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 166,
+      "category": "C4",
+      "subcategory": "C4a",
+      "themes": [
+        "Proactive",
+        "Partnership"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 166,
+      "category": "C3",
+      "subcategory": null,
+      "themes": [
+        "Knowledge",
+        "Sharing"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 166,
+      "category": "C1",
+      "subcategory": null,
+      "themes": [
+        "Support",
+        "Collaboration"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 166,
+      "category": "C2",
+      "subcategory": "C2c",
+      "themes": [
+        "Project",
+        "Excellence"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 166,
+      "category": "C4",
+      "subcategory": "C4a",
+      "themes": [
+        "Appreciation",
+        "Collaboration"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 167,
+      "category": "C2",
+      "subcategory": "C2a",
+      "themes": [
+        "excellence",
+        "initiative"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 167,
+      "category": "C3",
+      "subcategory": "C3b",
+      "themes": [
+        "expertise",
+        "consultation"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 167,
+      "category": "C4",
+      "subcategory": "C4c",
+      "themes": [
+        "teamwork",
+        "collaboration"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 167,
+      "category": "C1",
+      "subcategory": "C1a",
+      "themes": [
+        "initiative",
+        "improvement"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 167,
+      "category": "C4",
+      "subcategory": "C4b",
+      "themes": [
+        "teamwork",
+        "reliability"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 168,
+      "category": "C3",
+      "subcategory": "C3a",
+      "themes": [
+        "Mentorship",
+        "Knowledge Sharing"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 168,
+      "category": "C4",
+      "subcategory": "C4b",
+      "themes": [
+        "Collaboration",
+        "Partnership"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 168,
+      "category": "C4",
+      "subcategory": "C1a",
+      "themes": [
+        "Support",
+        "Communication"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 168,
+      "category": "C2",
+      "subcategory": "C2c",
+      "themes": [
+        "Timeliness",
+        "Partnership"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 168,
+      "category": "C4",
+      "subcategory": "C4a",
+      "themes": [
+        "Reliability",
+        "Leadership"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 169,
+      "category": "C4",
+      "subcategory": "C4a",
+      "themes": [
+        "partnership",
+        "support"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 169,
+      "category": "A",
+      "subcategory": "A3",
+      "themes": [
+        "mentorship",
+        "drive"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 169,
+      "category": "C2",
+      "subcategory": "C2c",
+      "themes": [
+        "excellence",
+        "expertise"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 169,
+      "category": "A",
+      "subcategory": "A1",
+      "themes": [
+        "effort",
+        "teamwork"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 169,
+      "category": "C3",
+      "subcategory": "C3b",
+      "themes": [
+        "learning",
+        "sharing"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 170,
+      "category": "C5",
+      "subcategory": "A1",
+      "themes": [
+        "drive",
+        "leadership"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 170,
+      "category": "C4",
+      "subcategory": "B1",
+      "themes": [
+        "teamwork",
+        "support"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 170,
+      "category": "C3",
+      "subcategory": "A1",
+      "themes": [
+        "mentorship",
+        "strategic thinking"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 170,
+      "category": "C2",
+      "subcategory": "B1",
+      "themes": [
+        "excellence",
+        "efficiency"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 170,
+      "category": "C1",
+      "subcategory": "A1",
+      "themes": [
+        "helpfulness",
+        "timeliness"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 171,
+      "category": "C4",
+      "subcategory": "C4a",
+      "themes": [
+        "Collaboration",
+        "Support"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 171,
+      "category": "C2",
+      "subcategory": "C2c",
+      "themes": [
+        "Excellence",
+        "Leadership"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 171,
+      "category": "C1",
+      "subcategory": "C1a",
+      "themes": [
+        "Support",
+        "Quick Response"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 171,
+      "category": "C4",
+      "subcategory": "C4c",
+      "themes": [
+        "Partnership",
+        "Collaboration"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 171,
+      "category": "C1",
+      "subcategory": "C1a",
+      "themes": [
+        "Problem Solving",
+        "Ownership"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 172,
+      "category": "C4",
+      "subcategory": "C4a",
+      "themes": [
+        "collaboration",
+        "support"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 172,
+      "category": "C2",
+      "subcategory": "C2c",
+      "themes": [
+        "excellence",
+        "presentation"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 172,
+      "category": "C3",
+      "subcategory": "C3a",
+      "themes": [
+        "expertise",
+        "training"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 172,
+      "category": "C4",
+      "subcategory": "C4c",
+      "themes": [
+        "collaboration",
+        "consultation"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 172,
+      "category": "A",
+      "subcategory": "A1",
+      "themes": [
+        "motivation",
+        "leadership"
+      ],
+      "new_category": "C5"
+    },
+    {
+      "batch": 174,
+      "category": "C4",
+      "subcategory": "C4a",
+      "themes": [
+        "Collaboration",
+        "Support"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 174,
+      "category": "C2",
+      "subcategory": "C2b",
+      "themes": [
+        "Process",
+        "Communication"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 174,
+      "category": "C4",
+      "subcategory": "C4c",
+      "themes": [
+        "Partnership",
+        "Engagement"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 174,
+      "category": "C2",
+      "subcategory": "C2a",
+      "themes": [
+        "Project",
+        "Leadership"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 174,
+      "category": "C4",
+      "subcategory": "C4b",
+      "themes": [
+        "Collaboration",
+        "Recruitment"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 175,
+      "category": "C2",
+      "subcategory": "C2a",
+      "themes": [
+        "project",
+        "initiative"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 175,
+      "category": "C4",
+      "subcategory": "C4b",
+      "themes": [
+        "teamwork",
+        "support"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 175,
+      "category": "C1",
+      "subcategory": "C1c",
+      "themes": [
+        "stability",
+        "dedication"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 175,
+      "category": "C2",
+      "subcategory": "C2a",
+      "themes": [
+        "excellence",
+        "visibility"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 175,
+      "category": "A6",
+      "subcategory": null,
+      "themes": [
+        "celebration",
+        "culture"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 176,
+      "category": "C5",
+      "subcategory": null,
+      "themes": [
+        "Drive",
+        "Culture"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 176,
+      "category": "C4",
+      "subcategory": "C4a",
+      "themes": [
+        "Collaboration",
+        "Reliability"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 176,
+      "category": "C2",
+      "subcategory": "C2b",
+      "themes": [
+        "Excellence",
+        "Delivery"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 176,
+      "category": "C4",
+      "subcategory": "C4c",
+      "themes": [
+        "Partnership",
+        "Value"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 176,
+      "category": "C2",
+      "subcategory": "C2c",
+      "themes": [
+        "Execution",
+        "Expertise"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 177,
+      "category": "C2",
+      "subcategory": "C2a",
+      "themes": [
+        "project",
+        "excellence"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 177,
+      "category": "C4",
+      "subcategory": "C4b",
+      "themes": [
+        "teamwork",
+        "support"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 177,
+      "category": "C1",
+      "subcategory": "C1a",
+      "themes": [
+        "guidance",
+        "training"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 177,
+      "category": "C2",
+      "subcategory": "C2c",
+      "themes": [
+        "perseverance",
+        "accuracy"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 177,
+      "category": "C1",
+      "subcategory": "C1b",
+      "themes": [
+        "teamwork",
+        "progress"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 178,
+      "category": "C4",
+      "subcategory": "C4a",
+      "themes": [
+        "Reliability",
+        "Responsiveness"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 178,
+      "category": "C3",
+      "subcategory": "C3b",
+      "themes": [
+        "Knowledge Sharing",
+        "Consultation"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 178,
+      "category": "C1",
+      "subcategory": "C1a",
+      "themes": [
+        "Troubleshooting",
+        "Hotfixes"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 178,
+      "category": "C5",
+      "subcategory": "C5c",
+      "themes": [
+        "Ownership",
+        "Accountability"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 178,
+      "category": "C1",
+      "subcategory": "C1a",
+      "themes": [
+        "Troubleshooting",
+        "API Setup"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 180,
+      "category": "C4",
+      "subcategory": "C4a",
+      "themes": [
+        "Collaboration",
+        "Communication"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 180,
+      "category": "C3",
+      "subcategory": "C3c",
+      "themes": [
+        "Expertise",
+        "Unblocking"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 180,
+      "category": "C2",
+      "subcategory": "C2b",
+      "themes": [
+        "Process Improvement",
+        "Teamwork"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 180,
+      "category": "C1",
+      "subcategory": "C1b",
+      "themes": [
+        "Task Coverage",
+        "Support"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 180,
+      "category": "C4",
+      "subcategory": "C4a",
+      "themes": [
+        "Reliability",
+        "Responsiveness"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 181,
+      "category": "C4",
+      "subcategory": "C4a",
+      "themes": [
+        "collaboration",
+        "teamwork"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 181,
+      "category": "A",
+      "subcategory": "C5a",
+      "themes": [
+        "drive",
+        "energy"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 181,
+      "category": "C1b",
+      "subcategory": null,
+      "themes": [
+        "support",
+        "explanation"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 181,
+      "category": "A",
+      "subcategory": "C2c",
+      "themes": [
+        "leadership",
+        "strategy"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 181,
+      "category": "C1a",
+      "subcategory": null,
+      "themes": [
+        "leadership",
+        "vision"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 182,
+      "category": "C4",
+      "subcategory": "C4a",
+      "themes": [
+        "collaboration",
+        "recognition"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 182,
+      "category": "C4",
+      "subcategory": "C4a",
+      "themes": [
+        "mentorship",
+        "appreciation"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 182,
+      "category": "C1",
+      "subcategory": "C1a",
+      "themes": [
+        "timeliness",
+        "effort"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 182,
+      "category": "C5",
+      "subcategory": "C5a",
+      "themes": [
+        "drive",
+        "potential"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 182,
+      "category": "C2",
+      "subcategory": "C2c",
+      "themes": [
+        "efficiency",
+        "innovation"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 183,
+      "category": "C2",
+      "subcategory": "C2a",
+      "themes": [
+        "success",
+        "milestone"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 183,
+      "category": "C2",
+      "subcategory": "C2c",
+      "themes": [
+        "excellence",
+        "impact"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 183,
+      "category": "A5",
+      "subcategory": null,
+      "themes": [
+        "commitment",
+        "dedication"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 183,
+      "category": "C4",
+      "subcategory": "C4a",
+      "themes": [
+        "teamwork",
+        "leadership"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 183,
+      "category": "C2",
+      "subcategory": "C2c",
+      "themes": [
+        "excellence",
+        "collaboration"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 184,
+      "category": "C4",
+      "subcategory": "A",
+      "themes": [
+        "teamwork",
+        "support"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 184,
+      "category": "C2",
+      "subcategory": "B",
+      "themes": [
+        "project",
+        "collaboration"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 184,
+      "category": "C3",
+      "subcategory": "B",
+      "themes": [
+        "knowledge",
+        "sharing"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 184,
+      "category": "C2",
+      "subcategory": "A",
+      "themes": [
+        "project",
+        "teamwork"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 184,
+      "category": "C4",
+      "subcategory": "B",
+      "themes": [
+        "collaboration",
+        "support"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 186,
+      "category": "C4",
+      "subcategory": "A2b",
+      "themes": [
+        "teamwork",
+        "collaboration"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 186,
+      "category": "C1",
+      "subcategory": "A1a",
+      "themes": [
+        "troubleshooting",
+        "support"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 186,
+      "category": "C3",
+      "subcategory": "B1",
+      "themes": [
+        "knowledge sharing",
+        "expertise transfer"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 186,
+      "category": "C4",
+      "subcategory": "A2a",
+      "themes": [
+        "team bonding",
+        "collaboration"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 186,
+      "category": "C5",
+      "subcategory": "B1",
+      "themes": [
+        "drive",
+        "responsibility"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 187,
+      "category": "C4",
+      "subcategory": "C4a",
+      "themes": [
+        "Collaboration",
+        "Teamwork"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 187,
+      "category": "C3",
+      "subcategory": "C3a",
+      "themes": [
+        "Mentorship",
+        "Leadership"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 187,
+      "category": "C2",
+      "subcategory": "C2c",
+      "themes": [
+        "Project Completion",
+        "Teamwork"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 187,
+      "category": "C1",
+      "subcategory": "C1b",
+      "themes": [
+        "Support",
+        "Onboarding"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 187,
+      "category": "A",
+      "subcategory": "A1",
+      "themes": [
+        "Automation",
+        "Helpfulness"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 188,
+      "category": "C4",
+      "subcategory": "C4a",
+      "themes": [
+        "collaboration",
+        "support"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 188,
+      "category": "C3",
+      "subcategory": "C3b",
+      "themes": [
+        "knowledge sharing",
+        "expertise"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 188,
+      "category": "A",
+      "subcategory": null,
+      "themes": [
+        "celebration",
+        "appreciation"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 188,
+      "category": "C6a",
+      "subcategory": null,
+      "themes": [
+        "life event",
+        "celebration"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 188,
+      "category": "C4",
+      "subcategory": "C4a",
+      "themes": [
+        "proactive support",
+        "collaboration"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 189,
+      "category": "C4",
+      "subcategory": "C4a",
+      "themes": [
+        "collaboration",
+        "support"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 189,
+      "category": "C1",
+      "subcategory": "C1b",
+      "themes": [
+        "teamwork",
+        "performance"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 189,
+      "category": "C2",
+      "subcategory": "C2c",
+      "themes": [
+        "excellence",
+        "achievement"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 189,
+      "category": "C3",
+      "subcategory": "C3a",
+      "themes": [
+        "mentorship",
+        "communication"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 189,
+      "category": "C1",
+      "subcategory": "C1c",
+      "themes": [
+        "problem-solving",
+        "expertise"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 190,
+      "category": "C4",
+      "subcategory": "A",
+      "themes": [
+        "Collaboration",
+        "Partnership"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 190,
+      "category": "C3",
+      "subcategory": "B",
+      "themes": [
+        "Mentorship",
+        "Transfer"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 190,
+      "category": "A",
+      "subcategory": "C1c",
+      "themes": [
+        "Teamwork",
+        "Appreciation"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 190,
+      "category": "A",
+      "subcategory": "C1c",
+      "themes": [
+        "Teamwork",
+        "Commitment"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 190,
+      "category": "C2",
+      "subcategory": "B",
+      "themes": [
+        "Delivery",
+        "Recognition"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 191,
+      "category": "C4",
+      "subcategory": "C4a",
+      "themes": [
+        "partnership",
+        "support"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 191,
+      "category": "C1",
+      "subcategory": "C1b",
+      "themes": [
+        "perseverance",
+        "energy"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 191,
+      "category": "C1",
+      "subcategory": "C1a",
+      "themes": [
+        "help",
+        "cover"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 191,
+      "category": "C2",
+      "subcategory": "C2b",
+      "themes": [
+        "comprehensive",
+        "design"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 191,
+      "category": "C1",
+      "subcategory": "C1a",
+      "themes": [
+        "help",
+        "branding"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 192,
+      "category": "C4",
+      "subcategory": "C4a",
+      "themes": [
+        "teamwork",
+        "responsiveness"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 192,
+      "category": "C4",
+      "subcategory": "C4c",
+      "themes": [
+        "trust",
+        "support"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 192,
+      "category": "C2",
+      "subcategory": "C2a",
+      "themes": [
+        "excellence",
+        "delivery"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 192,
+      "category": "C1",
+      "subcategory": "C1c",
+      "themes": [
+        "help",
+        "resolution"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 192,
+      "category": "C4",
+      "subcategory": "C4a",
+      "themes": [
+        "teamwork",
+        "appreciation"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 193,
+      "category": "C2",
+      "subcategory": "C2a",
+      "themes": [
+        "project",
+        "excellence"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 193,
+      "category": "C1",
+      "subcategory": "C1c",
+      "themes": [
+        "support",
+        "stability"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 193,
+      "category": "C4",
+      "subcategory": "C4a",
+      "themes": [
+        "partnership",
+        "recruitment"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 193,
+      "category": "C2",
+      "subcategory": "C2c",
+      "themes": [
+        "leadership",
+        "collaboration"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 193,
+      "category": "C4",
+      "subcategory": "C4a",
+      "themes": [
+        "teamwork",
+        "appreciation"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 194,
+      "category": "C2",
+      "subcategory": "C2a",
+      "themes": [
+        "Project",
+        "Excellence"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 194,
+      "category": "C4",
+      "subcategory": "C4c",
+      "themes": [
+        "Teamwork",
+        "Appreciation"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 194,
+      "category": "C4",
+      "subcategory": "C4c",
+      "themes": [
+        "Teamwork",
+        "Appreciation"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 194,
+      "category": "C4",
+      "subcategory": "C4c",
+      "themes": [
+        "Teamwork",
+        "Appreciation"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 194,
+      "category": "C1",
+      "subcategory": "C1a",
+      "themes": [
+        "Troubleshooting",
+        "Quality"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 195,
+      "category": "C4",
+      "subcategory": "C4a",
+      "themes": [
+        "Collaboration",
+        "Teamwork"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 195,
+      "category": "C3",
+      "subcategory": "C3a",
+      "themes": [
+        "Mentorship",
+        "Support"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 195,
+      "category": "C4",
+      "subcategory": "C4a",
+      "themes": [
+        "Collaboration",
+        "Partnership"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 195,
+      "category": "C6",
+      "subcategory": "C6b",
+      "themes": [
+        "Personal Achievement",
+        "Mentorship"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 195,
+      "category": "A",
+      "subcategory": "A1",
+      "themes": [
+        "Partnership",
+        "Collaboration"
+      ],
+      "new_category": "C5"
+    },
+    {
+      "batch": 196,
+      "category": "C3",
+      "subcategory": "C3a",
+      "themes": [
+        "mentorship",
+        "coaching"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 196,
+      "category": "C2",
+      "subcategory": "C2c",
+      "themes": [
+        "leadership",
+        "project management"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 196,
+      "category": "C1",
+      "subcategory": "C1a",
+      "themes": [
+        "support",
+        "process improvement"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 196,
+      "category": "C2",
+      "subcategory": "C2c",
+      "themes": [
+        "drive",
+        "ownership"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 196,
+      "category": "C4",
+      "subcategory": "C4a",
+      "themes": [
+        "reliability",
+        "quality control"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 197,
+      "category": "C5",
+      "subcategory": "A",
+      "themes": [
+        "Ownership",
+        "Accountability"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 197,
+      "category": "C4",
+      "subcategory": "B",
+      "themes": [
+        "Collaboration",
+        "Support"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 197,
+      "category": "C1",
+      "subcategory": "A",
+      "themes": [
+        "Troubleshooting",
+        "Support"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 197,
+      "category": "C4",
+      "subcategory": "C",
+      "themes": [
+        "Collaboration",
+        "Achievement"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 197,
+      "category": "C2",
+      "subcategory": "A",
+      "themes": [
+        "Project Management",
+        "Resilience"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 198,
+      "category": "C5",
+      "subcategory": "A1",
+      "themes": [
+        "Drive",
+        "Onboarding"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 198,
+      "category": "C2",
+      "subcategory": "A1",
+      "themes": [
+        "Excellence",
+        "Teamwork"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 198,
+      "category": "C4",
+      "subcategory": "B1",
+      "themes": [
+        "Collaboration",
+        "Support"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 198,
+      "category": "C4",
+      "subcategory": "A2",
+      "themes": [
+        "Partnership",
+        "Urgency"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 198,
+      "category": "C1",
+      "subcategory": "B1",
+      "themes": [
+        "Support",
+        "Reliability"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 199,
+      "category": "C2",
+      "subcategory": "C2a",
+      "themes": [
+        "project",
+        "excellence"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 199,
+      "category": "C3",
+      "subcategory": "C3b",
+      "themes": [
+        "mentorship",
+        "collaboration"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 199,
+      "category": "C4",
+      "subcategory": "C4a",
+      "themes": [
+        "reliability",
+        "responsiveness"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 199,
+      "category": "C4",
+      "subcategory": "C4c",
+      "themes": [
+        "collaboration",
+        "partnership"
+      ],
+      "new_category": null
+    },
+    {
+      "batch": 199,
+      "category": "C2",
+      "subcategory": "C2c",
+      "themes": [
+        "teamwork",
+        "excellence"
+      ],
+      "new_category": null
+    }
+  ],
+  "candidate_categories": {
+    "Employee Recognition": 1,
+    "Cultural": 1,
+    "Operational Support": 1,
+    "Personal Recognition": 4,
+    "C8: Customer Service Excellence": 1,
+    "C6": 4,
+    "Recognition (General)": 1,
+    "Personal Milestones": 1,
+    "Leadership Excellence": 1,
+    "C7: Team Spirit": 1,
+    "C7: Recognition & Appreciation": 1,
+    "Company Culture": 1,
+    "Personal Achievement": 1,
+    "C3d: Heartfelt Appreciation": 1,
+    "Gamification": 1,
+    "C7: Personal & Leadership": 1,
+    "C5": 2
+  }
+}
