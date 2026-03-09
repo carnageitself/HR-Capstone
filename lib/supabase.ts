@@ -1,15 +1,33 @@
-import { createClient } from "@supabase/supabase-js";
+import { createClient, SupabaseClient } from "@supabase/supabase-js";
+let _client: SupabaseClient | null = null;
 
-const url = process.env.SUPABASE_URL;
-const key = process.env.SUPABASE_SERVICE_ROLE_KEY;
+export function getSupabase(): SupabaseClient {
+  if (_client) return _client;
 
-if (!url || !key) {
-  throw new Error(
-    "Missing SUPABASE_URL or SUPABASE_SERVICE_ROLE_KEY in environment variables"
-  );
+  const url = process.env.SUPABASE_URL;
+  const key = process.env.SUPABASE_SERVICE_ROLE_KEY;
+
+  if (!url || !key) {
+    throw new Error(
+      [
+        "Supabase credentials missing.",
+        "Add these to your .env.local file:",
+        "  SUPABASE_URL=https://your-project.supabase.co",
+        "  SUPABASE_SERVICE_ROLE_KEY=your-service-role-key",
+      ].join("\n")
+    );
+  }
+
+  _client = createClient(url, key, {
+    auth: { persistSession: false },
+  });
+
+  return _client;
 }
 
-// Single server-side client instance (reused across requests)
-export const supabase = createClient(url, key, {
-  auth: { persistSession: false },
-});
+// Named export for convenience — same as before
+export const supabase = {
+  from: (table: string) => getSupabase().from(table),
+  storage: { from: (bucket: string) => getSupabase().storage.from(bucket) },
+  table: (table: string) => getSupabase().from(table),
+};

@@ -1,7 +1,6 @@
-import fs from "fs";
-import path from "path";
+import { supabase } from "@/lib/supabase";
 
-// ── Enriched award row (matches awards_enriched.csv columns) ────────────────
+// ── Enriched award row (matches awards_enriched table) ───────────────────────
 interface EnrichedAward {
   award_id: string;
   award_date: string;
@@ -24,68 +23,14 @@ interface EnrichedAward {
   subcategory_id: string;
   subcategory_name: string;
   reasoning: string;
-  vader_compound?: string | null;
-  vader_pos?: string | null;
-  vader_neg?: string | null;
-  vader_neu?: string | null;
-  vader_positive?: string | null;
-  vader_negative?: string | null;
-  vader_neutral?: string | null;
-  sentiment_label?: string | null;
-  word_count?: string | null;
 }
 
-// ── Employee / Department rows (for org hierarchy) ───────────────────────────
-interface EmpRow {
-  employee_id: string;
-  first_name: string;
-  last_name: string;
-  job_title: string;
-  seniority_level: string;
-  department_id: string;
-}
-
-interface DeptRow {
-  department_id: string;
-  department_name: string;
-}
-
-// ── Sentiment types ───────────────────────────────────────────────────────────
-export interface SentimentDistribution {
-  label: string;
-  count: number;
-  pct: number;
-  color: string;
-}
-
-export interface SentimentByDept {
-  dept: string;
-  avgCompound: number;
-  pctHighlyPositive: number;
-  pctNeutralOrBelow: number;
-  count: number;
-}
-
-export interface SentimentByCategory {
-  category: string;
-  avgCompound: number;
-  pctHighlyPositive: number;
-  count: number;
-}
-
-export interface SentimentBySeniority {
-  seniority: string;
-  avgCompound: number;
-  count: number;
-}
-
-// ── Org Hierarchy types ───────────────────────────────────────────────────────
+// ── Org chart types ──────────────────────────────────────────────────────────
 export interface OrgNode {
   id: string;
   name: string;
   title: string;
   dept: string;
-  deptId: string;
   seniority: string;
   managerId: string | null;
   depth: number;
@@ -98,6 +43,33 @@ export interface OrgNode {
 export interface OrgTreeNode {
   node: OrgNode;
   children: OrgTreeNode[];
+}
+
+
+// ── Sentiment row (matches awards_enriched_with_sentiment table) ─────────────
+interface SentimentRow {
+  award_id: string;
+  vader_compound: number;  // VADER compound score -1 to +1
+  sentiment_label: string; // "Highly Positive" | "Positive" | "Neutral" | "Negative" | "Highly Negative"
+  word_count: number | null;
+  recipient_department: string;
+  category_id: string;
+  category_name: string;
+}
+
+// ── ActionItem (for Action Priority Queue) ───────────────────────────────────
+export interface ActionItem {
+  id: string;
+  type: "invisible_contributor" | "long_tenured_unrecognized" | "inactive_manager" | "low_coverage_dept" | "stale_high_performer";
+  urgency: "critical" | "warning" | "info";
+  category: string;
+  title: string;
+  detail: string;
+  owner: string;
+  dept: string;
+  metric: string;
+  action: string;
+  name: string | null;
 }
 
 // ── DashboardData contract ───────────────────────────────────────────────────
@@ -235,29 +207,22 @@ export interface DashboardData {
     available: boolean;
     avgCompound: number;
     avgWordCount: number;
-    distribution: SentimentDistribution[];
-    byDepartment: SentimentByDept[];
-    byCategory: SentimentByCategory[];
-    bySeniority: SentimentBySeniority[];
+    distribution: { label: string; count: number; color: string; bg: string; border: string; icon: string }[];
+    byDepartment: { dept: string; avgCompound: number; count: number }[];
+    byCategory: { categoryId: string; category: string; avgCompound: number; count: number }[];
   };
-  // ── Org Hierarchy ──────────────────────────────────────────────────────────
   orgHierarchy: {
-    /** Flat list of all nodes (including virtual "__root__") */
-    nodes: OrgNode[];
-    /** Full recursive tree rooted at the virtual company node */
     tree: OrgTreeNode;
-    /** Per-department sub-trees: dept name → direct children of dept head */
-    deptTrees: Record<string, OrgTreeNode[]>;
-    /** Quick lookup: managerId → list of direct report ids */
-    reportMap: Record<string, string[]>;
+    nodes: OrgNode[];
     stats: {
       totalNodes: number;
-      maxDepth: number;
-      avgSpan: number;
       managerCount: number;
       icCount: number;
+      avgSpan: number;
+      maxDepth: number;
     };
   };
+  actionQueue: ActionItem[];
 }
 
 // ── helpers ───────────────────────────────────────────────────────────────────
@@ -280,14 +245,8 @@ const STOP = new Set([
   "month","quick","people","across","these","those","many","another",
 ]);
 
-const EMPTY_ORG_HIERARCHY: DashboardData["orgHierarchy"] = {
-  nodes: [], tree: { node: { id:"__root__",name:"",title:"",dept:"",deptId:"",seniority:"",managerId:null,depth:-1,directReportCount:0,totalReportCount:0,received:0,given:0 }, children: [] },
-  deptTrees: {}, reportMap: {},
-  stats: { totalNodes:0, maxDepth:0, avgSpan:0, managerCount:0, icCount:0 },
-};
-
 const EMPTY_DATA: DashboardData = {
-  kpi: { totalAwards:0,totalMonetary:0,avgAwardValue:0,uniqueRecipients:0,uniqueNominators:0,uniqueDepartments:0,recognitionRate:0,highPerformers:0,cultureCarriers:0,atRiskCount:0,neverRecognizedCount:0,crossDeptPct:0,peerRecognitionPct:0,icRatio:0,execRatio:0,momTrend:0,avgMonthlyAwards:0 },
+  kpi:{ totalAwards:0,totalMonetary:0,avgAwardValue:0,uniqueRecipients:0,uniqueNominators:0,uniqueDepartments:0,recognitionRate:0,highPerformers:0,cultureCarriers:0,atRiskCount:0,neverRecognizedCount:0,crossDeptPct:0,peerRecognitionPct:0,icRatio:0,execRatio:0,momTrend:0,avgMonthlyAwards:0 },
   categories:[],subcategories:[],monthly:[],departments:[],seniority:[],
   topRecipients:[],topNominators:[],skills:[],valueDistribution:[],
   network:{nodes:[],edges:[]},cultureHealth:[],wordCloud:[],messageThemes:[],
@@ -295,373 +254,93 @@ const EMPTY_DATA: DashboardData = {
   workforce:{totalPeople:0,neverRecognized:0,neverGiven:0,coveragePct:0,participationPct:0,byDept:[],bySeniority:[],people:[]},
   intelligence:{invisibleContributors:[],risingStars:[],decliningRecognition:[],crossDeptFlow:[],depts:[],equityData:[],managerReach:[],skillGaps:[],seasonality:[],orgConnectors:[],valueEquity:{byDept:[],bySeniority:[],concentration:{top10Pct:0,top10Value:0,giniCoeff:0}}},
   employeeDirectory:[],
-  sentiment:{available:false,avgCompound:0,avgWordCount:0,distribution:[],byDepartment:[],byCategory:[],bySeniority:[]},
-  orgHierarchy: EMPTY_ORG_HIERARCHY,
+  sentiment:{ available:false, avgCompound:0, avgWordCount:0, distribution:[], byDepartment:[], byCategory:[] },
+  orgHierarchy:{ tree:{ node:{ id:"__root__", name:"CEO", title:"CEO", dept:"", seniority:"VP", managerId:null, depth:0, directReportCount:0, totalReportCount:0, received:0, given:0 }, children:[] }, nodes:[], stats:{ totalNodes:0, managerCount:0, icCount:0, avgSpan:0, maxDepth:0 } },
+  actionQueue:[],
 };
 
-// ── Minimal CSV parser ────────────────────────────────────────────────────────
-function parseCSV<T extends Record<string, string>>(raw: string): T[] {
-  const text = raw.replace(/\r\n/g, "\n").replace(/\r/g, "\n");
-  const records: T[] = [];
-  let i = 0;
-  let headers: string[] = [];
+// ── Fetch all rows from awards_enriched (handles Supabase 1000-row limit) ────
+async function fetchAllEnriched(): Promise<EnrichedAward[]> {
+  const PAGE = 1000;
+  const all: EnrichedAward[] = [];
+  let from = 0;
+  let done = false;
 
-  const parseField = (): string => {
-    if (text[i] === '"') {
-      i++;
-      let val = "";
-      while (i < text.length) {
-        if (text[i] === '"' && text[i + 1] === '"') { val += '"'; i += 2; }
-        else if (text[i] === '"') { i++; break; }
-        else { val += text[i++]; }
-      }
-      return val;
-    } else {
-      let val = "";
-      while (i < text.length && text[i] !== "," && text[i] !== "\n") val += text[i++];
-      return val;
+  while (!done) {
+    const { data, error } = await supabase
+      .from("awards_enriched")
+      .select("*")
+      .range(from, from + PAGE - 1)
+      .order("award_id", { ascending: true });
+
+    if (error) {
+      console.error("Supabase fetch error:", error.message);
+      return [];
     }
-  };
-
-  const parseLine = (): string[] => {
-    const fields: string[] = [];
-    while (i < text.length && text[i] !== "\n") {
-      fields.push(parseField());
-      if (text[i] === ",") i++;
-    }
-    if (text[i] === "\n") i++;
-    return fields;
-  };
-
-  headers = parseLine();
-  while (i < text.length) {
-    if (text[i] === "\n") { i++; continue; }
-    const values = parseLine();
-    if (values.length === 0 || (values.length === 1 && values[0] === "")) continue;
-    const record: Record<string, string> = {};
-    headers.forEach((h, idx) => { record[h.trim()] = (values[idx] ?? "").trim(); });
-    records.push(record as T);
+    if (!data || data.length === 0) { done = true; break; }
+    all.push(...(data as EnrichedAward[]));
+    if (data.length < PAGE) done = true;
+    else from += PAGE;
   }
-  return records;
+
+  return all;
 }
 
-// ── Load enriched CSV ─────────────────────────────────────────────────────────
-function loadEnrichedRows(): EnrichedAward[] {
-  const dataDir = path.join(process.cwd(), "data");
-  const sentimentPath = path.join(dataDir, "awards_enriched_with_sentiment.csv");
-  const basePath      = path.join(dataDir, "awards_enriched.csv");
-  const filePath = fs.existsSync(sentimentPath) ? sentimentPath : basePath;
+
+// ── Fetch sentiment data (separate table, may not exist yet) ─────────────────
+async function fetchSentimentData(): Promise<SentimentRow[]> {
   try {
-    console.log(`[loadDashboardData] Reading ${path.basename(filePath)}`);
-    const raw = fs.readFileSync(filePath, "utf-8");
-    return parseCSV<EnrichedAward>(raw);
-  } catch (err) {
-    console.error("[loadDashboardData] Failed to read CSV:", err);
+    const { data, error } = await supabase
+      .from("awards_enriched_with_sentiment")
+      .select("award_id, vader_compound, sentiment_label, word_count, recipient_department, category_id, category_name");
+
+    if (error) {
+      // Table may not exist yet — gracefully return empty
+      console.warn("Sentiment table not available:", error.message);
+      return [];
+    }
+    return (data || []) as SentimentRow[];
+  } catch {
     return [];
   }
 }
 
-// ── Sentiment helpers ─────────────────────────────────────────────────────────
-const SENTIMENT_LABEL_CONFIG = [
-  { label: "Highly Positive", lo:  0.6, hi:  2.0, color: "#22C55E" },
-  { label: "Positive",        lo:  0.2, hi:  0.6, color: "#14B8A6" },
-  { label: "Neutral",         lo: -0.1, hi:  0.2, color: "#ADB5BD" },
-  { label: "Negative",        lo: -0.4, hi: -0.1, color: "#F59E0B" },
-  { label: "Highly Negative", lo: -2.0, hi: -0.4, color: "#EF4444" },
-];
+// ── main loader (async) ──────────────────────────────────────────────────────
+export async function loadDashboardData(): Promise<DashboardData> {
+  const [rows, sentimentRows] = await Promise.all([
+    fetchAllEnriched(),
+    fetchSentimentData(),
+  ]);
 
-function safeFloat(v: string | null | undefined): number {
-  if (!v || v === "") return 0;
-  const n = parseFloat(v);
-  return isNaN(n) ? 0 : n;
-}
-function avgArr(arr: number[]): number {
-  return arr.length ? parseFloat((arr.reduce((a, b) => a + b, 0) / arr.length).toFixed(4)) : 0;
-}
-function pctInRange(arr: number[], lo: number, hi: number): number {
-  if (!arr.length) return 0;
-  return parseFloat(((arr.filter(x => x >= lo && x < hi).length / arr.length) * 100).toFixed(1));
-}
-function getCompound(r: EnrichedAward): string | null | undefined { return r.vader_compound; }
-function deriveLabel(compound: number): string {
-  if (compound >= 0.6)  return "Highly Positive";
-  if (compound >= 0.2)  return "Positive";
-  if (compound >= -0.1) return "Neutral";
-  if (compound >= -0.4) return "Negative";
-  return "Highly Negative";
-}
-
-function buildSentimentBlock(rows: EnrichedAward[]): DashboardData["sentiment"] {
-  const hasSentiment = rows.some(r => { const v = getCompound(r); return v !== null && v !== undefined && v !== ""; });
-  if (!hasSentiment) return { available: false, avgCompound: 0, avgWordCount: 0, distribution: [], byDepartment: [], byCategory: [], bySeniority: [] };
-
-  const compounds  = rows.map(r => safeFloat(getCompound(r)));
-  const wordCounts = rows.map(r => safeFloat(r.word_count));
-
-  const labelCounts: Record<string, number> = {};
-  for (const r of rows) {
-    const lbl = r.sentiment_label && r.sentiment_label !== "" ? r.sentiment_label : deriveLabel(safeFloat(getCompound(r)));
-    labelCounts[lbl] = (labelCounts[lbl] || 0) + 1;
-  }
-  const distribution: SentimentDistribution[] = SENTIMENT_LABEL_CONFIG.map(cfg => {
-    const count = labelCounts[cfg.label] || 0;
-    return { label: cfg.label, count, pct: parseFloat(((count / rows.length) * 100).toFixed(1)), color: cfg.color };
-  });
-
-  const deptGroups: Record<string, number[]> = {};
-  for (let i = 0; i < rows.length; i++) {
-    const dept = rows[i].recipient_department || "Unknown";
-    if (!deptGroups[dept]) deptGroups[dept] = [];
-    deptGroups[dept].push(compounds[i]);
-  }
-  const byDepartment: SentimentByDept[] = Object.entries(deptGroups)
-    .map(([dept, vals]) => ({ dept, avgCompound: avgArr(vals), pctHighlyPositive: pctInRange(vals, 0.6, 2.0), pctNeutralOrBelow: pctInRange(vals, -2.0, 0.2), count: vals.length }))
-    .sort((a, b) => b.avgCompound - a.avgCompound);
-
-  const catGroups: Record<string, number[]> = {};
-  for (let i = 0; i < rows.length; i++) {
-    const cat = rows[i].category_name || "Unknown";
-    if (!catGroups[cat]) catGroups[cat] = [];
-    catGroups[cat].push(compounds[i]);
-  }
-  const byCategory: SentimentByCategory[] = Object.entries(catGroups)
-    .map(([category, vals]) => ({ category, avgCompound: avgArr(vals), pctHighlyPositive: pctInRange(vals, 0.6, 2.0), count: vals.length }))
-    .sort((a, b) => b.avgCompound - a.avgCompound);
-
-  const senGroups: Record<string, number[]> = {};
-  for (let i = 0; i < rows.length; i++) {
-    const sen = rows[i].recipient_seniority || "Unknown";
-    if (!senGroups[sen]) senGroups[sen] = [];
-    senGroups[sen].push(compounds[i]);
-  }
-  const SEN_ORDER = ["IC", "Senior IC", "Manager", "Senior Manager", "Director", "VP"];
-  const bySeniority: SentimentBySeniority[] = Object.entries(senGroups)
-    .map(([seniority, vals]) => ({ seniority, avgCompound: avgArr(vals), count: vals.length }))
-    .sort((a, b) => (SEN_ORDER.indexOf(a.seniority) + 1 || 99) - (SEN_ORDER.indexOf(b.seniority) + 1 || 99));
-
-  return {
-    available: true, avgCompound: avgArr(compounds),
-    avgWordCount: parseFloat((wordCounts.reduce((a, b) => a + b, 0) / wordCounts.length).toFixed(1)),
-    distribution, byDepartment, byCategory, bySeniority,
-  };
-}
-
-// ── Org Hierarchy builder ─────────────────────────────────────────────────────
-/**
- * Derives a manager/report tree from employees.csv + departments.csv.
- *
- * Seniority tiers used for hierarchy:  Lead > Senior > Mid-Level > Entry
- *
- * Rules per department:
- *  • The single highest-ranked employee (Lead, or top Senior if no Lead)
- *    becomes the dept head and reports to the virtual "__root__" company node.
- *  • All other Seniors report directly to the dept head.
- *  • Mid-Level / Entry employees are distributed round-robin among the
- *    Seniors in their dept (or to the dept head if no Seniors exist).
- *
- * Award counts (received / given) are joined from the enriched awards data
- * so each node carries recognition context.
- */
-function buildOrgHierarchy(
-  empRows: EmpRow[],
-  deptRows: DeptRow[],
-  recipCount: Record<string, number>,
-  nomCount: Record<string, number>,
-): DashboardData["orgHierarchy"] {
-  if (!empRows.length) return EMPTY_ORG_HIERARCHY;
-
-  // Dept name lookup
-  const deptNameMap: Record<string, string> = {};
-  for (const d of deptRows) deptNameMap[d.department_id] = d.department_name;
-
-  // Seniority rank — covers awards_enriched.csv values and employees.csv fallback
-  const RANK: Record<string, number> = {
-    VP: 6, Director: 5, "Senior Manager": 4, Manager: 3, "Senior IC": 2, IC: 1,
-    Lead: 6, Senior: 4, "Mid-Level": 2, Entry: 1,
-  };
-  const rankOf = (s: string) => RANK[s] ?? 0;
-
-  // ── Group employees by department ─────────────────────────────────────────
-  const byDept: Record<string, EmpRow[]> = {};
-  for (const e of empRows) {
-    if (!byDept[e.department_id]) byDept[e.department_id] = [];
-    byDept[e.department_id].push(e);
-  }
-
-  // ── Pick one VP per department (most awards-active; fallback to highest rank) ──
-  const deptVpId: Record<string, string> = {};
-  for (const [deptId, emps] of Object.entries(byDept)) {
-    const vpCandidates = emps.filter(e => rankOf(e.seniority_level) >= RANK["VP"]);
-    const pool = vpCandidates.length > 0 ? vpCandidates : emps;
-    const best = pool.reduce((best, e) => {
-      const score = (recipCount[e.employee_id] ?? 0) + (nomCount[e.employee_id] ?? 0);
-      const bestScore = (recipCount[best.employee_id] ?? 0) + (nomCount[best.employee_id] ?? 0);
-      return score > bestScore ? e : best;
-    }, pool[0]);
-    deptVpId[deptId] = best.employee_id;
-  }
-
-  // ── Assign manager relationships ──────────────────────────────────────────
-  // Structure per dept:  VP → Directors/Senior Managers → Managers → ICs
-  // VPs have no manager (null) — they are dept roots shown side-by-side.
-  const managerIdOf: Record<string, string | null> = {};
-
-  for (const [deptId, emps] of Object.entries(byDept)) {
-    const vpId = deptVpId[deptId];
-    managerIdOf[vpId] = null; // VP is a root node
-
-    const rest = emps.filter(e => e.employee_id !== vpId)
-      .sort((a, b) => rankOf(b.seniority_level) - rankOf(a.seniority_level) || a.last_name.localeCompare(b.last_name));
-
-    const dirSenMgr = rest.filter(e => rankOf(e.seniority_level) >= RANK["Senior Manager"]);
-    for (const e of dirSenMgr) managerIdOf[e.employee_id] = vpId;
-
-    const mgrs = rest.filter(e => rankOf(e.seniority_level) === RANK["Manager"]);
-    const mgrTargets = dirSenMgr.length > 0 ? dirSenMgr : [emps.find(e => e.employee_id === vpId)!];
-    mgrs.forEach((e, i) => { managerIdOf[e.employee_id] = mgrTargets[i % mgrTargets.length].employee_id; });
-
-    const ics = rest.filter(e => rankOf(e.seniority_level) <= RANK["Senior IC"]);
-    const icTargets = mgrs.length > 0 ? mgrs : dirSenMgr.length > 0 ? dirSenMgr : [emps.find(e => e.employee_id === vpId)!];
-    ics.forEach((e, i) => { managerIdOf[e.employee_id] = icTargets[i % icTargets.length].employee_id; });
-  }
-
-  // ── Build node map (no virtual root) ─────────────────────────────────────
-  const nodeMap: Record<string, OrgNode> = {};
-
-  for (const e of empRows) {
-    nodeMap[e.employee_id] = {
-      id: e.employee_id,
-      name: `${e.first_name} ${e.last_name}`,
-      title: e.job_title,
-      dept: deptNameMap[e.department_id] || e.department_id,
-      deptId: e.department_id,
-      seniority: e.seniority_level,
-      managerId: managerIdOf[e.employee_id] ?? null,
-      depth: 0, directReportCount: 0, totalReportCount: 0,
-      received: recipCount[e.employee_id] ?? 0,
-      given: nomCount[e.employee_id] ?? 0,
-    };
-  }
-
-  // ── Build report map ──────────────────────────────────────────────────────
-  const reportMap: Record<string, string[]> = {};
-  for (const node of Object.values(nodeMap)) {
-    if (node.managerId) {
-      if (!reportMap[node.managerId]) reportMap[node.managerId] = [];
-      reportMap[node.managerId].push(node.id);
-    }
-  }
-
-  // ── Compute depths (BFS from each VP root) ────────────────────────────────
-  for (const vpId of Object.values(deptVpId)) {
-    if (!nodeMap[vpId]) continue;
-    nodeMap[vpId].depth = 0;
-    const q: string[] = [vpId];
-    while (q.length > 0) {
-      const pid = q.shift()!;
-      const pd = nodeMap[pid]?.depth ?? 0;
-      for (const cid of reportMap[pid] ?? []) {
-        if (nodeMap[cid]) { nodeMap[cid].depth = pd + 1; q.push(cid); }
-      }
-    }
-  }
-
-  // ── Compute directReportCount ─────────────────────────────────────────────
-  for (const [mid, reports] of Object.entries(reportMap)) {
-    if (nodeMap[mid]) nodeMap[mid].directReportCount = reports.length;
-  }
-
-  // ── Compute totalReportCount (post-order DFS) ─────────────────────────────
-  const calcTotal = (id: string): number => {
-    const children = reportMap[id] ?? [];
-    let total = children.length;
-    for (const child of children) total += calcTotal(child);
-    nodeMap[id].totalReportCount = total;
-    return total;
-  };
-  for (const vpId of Object.values(deptVpId)) calcTotal(vpId);
-
-  // ── Build recursive tree helpers ──────────────────────────────────────────
-  const buildTree = (id: string): OrgTreeNode => ({
-    node: nodeMap[id],
-    children: (reportMap[id] ?? [])
-      .sort((a, b) => rankOf(nodeMap[b]?.seniority) - rankOf(nodeMap[a]?.seniority))
-      .map(buildTree),
-  });
-
-  // ── Virtual root holds all dept VPs as children (for tree prop shape) ─────
-  const vpNodes = Object.entries(deptVpId)
-    .sort(([, a], [, b]) => (nodeMap[a]?.dept ?? "").localeCompare(nodeMap[b]?.dept ?? ""))
-    .map(([, vpId]) => buildTree(vpId));
-
-  const tree: OrgTreeNode = {
-    node: {
-      id: "__root__", name: "", title: "", dept: "", deptId: "",
-      seniority: "", managerId: null, depth: -1,
-      directReportCount: vpNodes.length, totalReportCount: empRows.length,
-      received: 0, given: 0,
-    },
-    children: vpNodes,
-  };
-
-  // ── Per-department sub-trees ───────────────────────────────────────────────
-  const deptTrees: Record<string, OrgTreeNode[]> = {};
-  for (const vpEmpId of Object.values(deptVpId)) {
-    const vpNode = nodeMap[vpEmpId];
-    if (vpNode) deptTrees[vpNode.dept] = buildTree(vpEmpId).children;
-  }
-
-  // ── Stats ─────────────────────────────────────────────────────────────────
-  const allNodes = Object.values(nodeMap);
-  const managers = allNodes.filter(n => (reportMap[n.id]?.length ?? 0) > 0);
-  const maxDepth = Math.max(...allNodes.map(n => n.depth), 0);
-  const avgSpan  = managers.length > 0
-    ? parseFloat((managers.reduce((s, m) => s + m.directReportCount, 0) / managers.length).toFixed(1))
-    : 0;
-
-  return {
-    nodes: Object.values(nodeMap),
-    tree,
-    deptTrees,
-    reportMap,
-    stats: {
-      totalNodes: allNodes.length,
-      maxDepth,
-      avgSpan,
-      managerCount: managers.length,
-      icCount: allNodes.filter(n => n.seniority === "IC" || n.seniority === "Senior IC" || n.seniority === "Entry" || n.seniority === "Mid-Level").length,
-    },
-  };
-}
-
-// ── Main loader ───────────────────────────────────────────────────────────────
-export function loadDashboardData(): DashboardData {
-  const rows = loadEnrichedRows();
   if (!rows || rows.length === 0) return EMPTY_DATA;
 
   const MO = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
   const REF_DATE = new Date().getTime();
 
-  // ── KPIs ──────────────────────────────────────────────────────────────────
+  // ── KPIs ─────────────────────────────────────────────────────────────────
   const totalMonetary = rows.reduce((s, r) => s + (parseInt(r.value) || 0), 0);
   const uniqueRecips  = new Set(rows.map(r => r.recipient_id));
   const uniqueNoms    = new Set(rows.map(r => r.nominator_id));
   const uniqueDepts   = new Set(rows.map(r => r.recipient_department));
 
-  // ── Categories ────────────────────────────────────────────────────────────
-  const catCount: Record<string, number> = {};
-  const catValue: Record<string, number> = {};
-  const catName:  Record<string, string> = {};
+  // ── Categories ───────────────────────────────────────────────────────────
+  const catCount:  Record<string, number> = {};
+  const catValue:  Record<string, number> = {};
+  const catName:   Record<string, string> = {};
   for (const r of rows) {
-    catCount[r.category_id] = (catCount[r.category_id] || 0) + 1;
-    catValue[r.category_id] = (catValue[r.category_id] || 0) + (parseInt(r.value) || 0);
-    catName[r.category_id]  = r.category_name;
+    catCount[r.category_id]  = (catCount[r.category_id]  || 0) + 1;
+    catValue[r.category_id]  = (catValue[r.category_id]  || 0) + (parseInt(r.value) || 0);
+    catName[r.category_id]   = r.category_name;
   }
   const categories = Object.entries(catCount)
-    .sort((a, b) => b[1] - a[1])
-    .map(([id, count]) => ({ id, name: catName[id] || id, count, pct: parseFloat(((count / rows.length) * 100).toFixed(1)), totalValue: catValue[id] || 0 }));
+    .sort((a,b) => b[1] - a[1])
+    .map(([id, count]) => ({
+      id, name: catName[id] || id, count,
+      pct: parseFloat(((count / rows.length) * 100).toFixed(1)),
+      totalValue: catValue[id] || 0,
+    }));
 
-  // ── Subcategories ─────────────────────────────────────────────────────────
+  // ── Subcategories ────────────────────────────────────────────────────────
   const subCount: Record<string, number> = {};
   const subMeta:  Record<string, { name: string; catId: string; catName: string }> = {};
   for (const r of rows) {
@@ -669,17 +348,23 @@ export function loadDashboardData(): DashboardData {
     subMeta[r.subcategory_id]  = { name: r.subcategory_name, catId: r.category_id, catName: r.category_name };
   }
   const subcategories = Object.entries(subCount)
-    .sort((a, b) => b[1] - a[1])
-    .map(([id, count]) => ({ id, name: subMeta[id]?.name || id, categoryId: subMeta[id]?.catId || "", categoryName: subMeta[id]?.catName || "", count, pct: parseFloat(((count / rows.length) * 100).toFixed(1)) }));
+    .sort((a,b) => b[1] - a[1])
+    .map(([id, count]) => ({
+      id, name: subMeta[id]?.name || id,
+      categoryId: subMeta[id]?.catId || "",
+      categoryName: subMeta[id]?.catName || "",
+      count,
+      pct: parseFloat(((count / rows.length) * 100).toFixed(1)),
+    }));
 
-  // ── Monthly ───────────────────────────────────────────────────────────────
+  // ── Monthly ──────────────────────────────────────────────────────────────
   const moCount: Record<string, number> = {};
   const moValue: Record<string, number> = {};
   for (const r of rows) {
     if (!r.award_date) continue;
     const d = new Date(r.award_date);
     if (isNaN(d.getTime())) continue;
-    const k = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}`;
+    const k = `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}`;
     moCount[k] = (moCount[k] || 0) + 1;
     moValue[k] = (moValue[k] || 0) + (parseInt(r.value) || 0);
   }
@@ -689,55 +374,64 @@ export function loadDashboardData(): DashboardData {
     return { month: MO[idx], label: `${MO[idx]} '${yr.slice(2)}`, yearMonth: k, awards: moCount[k], value: moValue[k] || 0 };
   });
 
-  // ── Departments ───────────────────────────────────────────────────────────
-  const deptAwards: Record<string, number>      = {};
-  const deptValue2: Record<string, number>      = {};
-  const deptRecips: Record<string, Set<string>> = {};
-  const deptNoms:   Record<string, Set<string>> = {};
+  // ── Departments ──────────────────────────────────────────────────────────
+  const deptAwards:  Record<string, number> = {};
+  const deptValue:   Record<string, number> = {};
+  const deptRecips:  Record<string, Set<string>> = {};
+  const deptNoms:    Record<string, Set<string>> = {};
   for (const r of rows) {
     const d = r.recipient_department;
     deptAwards[d] = (deptAwards[d] || 0) + 1;
-    deptValue2[d] = (deptValue2[d]  || 0) + (parseInt(r.value) || 0);
+    deptValue[d]  = (deptValue[d]  || 0) + (parseInt(r.value) || 0);
     if (!deptRecips[d]) deptRecips[d] = new Set();
     if (!deptNoms[d])   deptNoms[d]   = new Set();
     deptRecips[d].add(r.recipient_id);
     deptNoms[d].add(r.nominator_id);
   }
   const departments = Object.entries(deptAwards)
-    .sort((a, b) => b[1] - a[1])
-    .map(([name, awards]) => ({ name, awards, totalValue: deptValue2[name] || 0, avgValue: Math.round((deptValue2[name] || 0) / awards), uniqueRecipients: deptRecips[name]?.size || 0, uniqueNominators: deptNoms[name]?.size || 0 }));
+    .sort((a,b) => b[1] - a[1])
+    .map(([name, awards]) => ({
+      name, awards, totalValue: deptValue[name] || 0,
+      avgValue: Math.round((deptValue[name] || 0) / awards),
+      uniqueRecipients: deptRecips[name]?.size || 0,
+      uniqueNominators: deptNoms[name]?.size  || 0,
+    }));
 
-  // ── Seniority ─────────────────────────────────────────────────────────────
+  // ── Seniority ────────────────────────────────────────────────────────────
   const senCount: Record<string, number> = {};
   for (const r of rows) senCount[r.recipient_seniority] = (senCount[r.recipient_seniority] || 0) + 1;
   const ORDER = ["IC","Senior IC","Manager","Senior Manager","Director","VP"];
   const seniority = Object.entries(senCount)
-    .sort((a, b) => (ORDER.indexOf(a[0]) + 1 || 99) - (ORDER.indexOf(b[0]) + 1 || 99))
-    .map(([level, count]) => ({ level, count, pct: parseFloat(((count / rows.length) * 100).toFixed(1)) }));
+    .sort((a,b) => (ORDER.indexOf(a[0]) + 1 || 99) - (ORDER.indexOf(b[0]) + 1 || 99))
+    .map(([level, count]) => ({
+      level, count,
+      pct: parseFloat(((count / rows.length) * 100).toFixed(1)),
+    }));
 
-  // ── Top Recipients / Nominators ────────────────────────────────────────────
+  // ── Top Recipients ────────────────────────────────────────────────────────
   const recipCount: Record<string, number> = {};
   const recipMeta:  Record<string, { name:string; dept:string; title:string; seniority:string }> = {};
   for (const r of rows) {
     recipCount[r.recipient_id] = (recipCount[r.recipient_id] || 0) + 1;
-    recipMeta[r.recipient_id]  = { name:r.recipient_name, dept:r.recipient_department, title:r.recipient_title, seniority:r.recipient_seniority };
+    recipMeta[r.recipient_id]  = { name: r.recipient_name, dept: r.recipient_department, title: r.recipient_title, seniority: r.recipient_seniority };
   }
   const topRecipients = Object.entries(recipCount)
-    .sort((a, b) => b[1] - a[1]).slice(0, 10)
+    .sort((a,b) => b[1]-a[1]).slice(0,10)
     .map(([id, awards]) => ({ id, awards, ...recipMeta[id] }));
 
+  // ── Top Nominators ────────────────────────────────────────────────────────
   const nomCount: Record<string, number> = {};
   const nomMeta:  Record<string, { name:string; dept:string; title:string }> = {};
   for (const r of rows) {
     nomCount[r.nominator_id] = (nomCount[r.nominator_id] || 0) + 1;
-    nomMeta[r.nominator_id]  = { name:r.nominator_name, dept:r.nominator_department, title:r.nominator_title };
+    nomMeta[r.nominator_id]  = { name: r.nominator_name, dept: r.nominator_department, title: r.nominator_title };
   }
   const topNominators = Object.entries(nomCount)
-    .sort((a, b) => b[1] - a[1]).slice(0, 10)
+    .sort((a,b) => b[1]-a[1]).slice(0,10)
     .map(([id, nominations]) => ({ id, nominations, ...nomMeta[id] }));
 
-  // ── Skills ─────────────────────────────────────────────────────────────────
-  const skillCount: Record<string, number>                = {};
+  // ── Skills ───────────────────────────────────────────────────────────────
+  const skillCount: Record<string, number> = {};
   const skillCat:   Record<string, Record<string, number>> = {};
   for (const r of rows) {
     const skills = (r.recipient_skills || "").split(",").map(s => s.trim()).filter(Boolean);
@@ -748,31 +442,44 @@ export function loadDashboardData(): DashboardData {
     }
   }
   const skills = Object.entries(skillCount)
-    .sort((a, b) => b[1] - a[1]).slice(0, 20)
+    .sort((a,b) => b[1]-a[1]).slice(0,20)
     .map(([name, count]) => {
       const cats = skillCat[name] || {};
-      const dominantCategory = Object.entries(cats).sort((a, b) => b[1] - a[1])[0]?.[0] || "";
+      const dominantCategory = Object.entries(cats).sort((a,b) => b[1]-a[1])[0]?.[0] || "";
       return { name, count, dominantCategory };
     });
 
-  // ── Value Distribution ─────────────────────────────────────────────────────
+  // ── Value Distribution ────────────────────────────────────────────────────
   const valCount: Record<string, number> = {};
   for (const r of rows) valCount[r.value] = (valCount[r.value] || 0) + 1;
   const valueDistribution = Object.entries(valCount)
-    .sort((a, b) => parseInt(a[0]) - parseInt(b[0]))
+    .sort((a,b) => parseInt(a[0]) - parseInt(b[0]))
     .map(([value, count]) => ({ value: parseInt(value), count }));
 
-  // ── Network Graph ──────────────────────────────────────────────────────────
-  const nodeMap: Record<string, { id:string; name:string; dept:string; title:string; seniority:string; received:number; given:number; totalValue:number; color:string }> = {};
+  // ── Network Graph ─────────────────────────────────────────────────────────
+  const nodeMap: Record<string, {
+    id:string; name:string; dept:string; title:string; seniority:string;
+    received:number; given:number; totalValue:number; color:string;
+  }> = {};
+
   for (const r of rows) {
-    if (!nodeMap[r.recipient_id]) nodeMap[r.recipient_id] = { id:r.recipient_id, name:r.recipient_name, dept:r.recipient_department, title:r.recipient_title, seniority:r.recipient_seniority, received:0, given:0, totalValue:0, color: DEPT_COLORS[r.recipient_department] || "#888" };
+    if (!nodeMap[r.recipient_id]) {
+      nodeMap[r.recipient_id] = { id:r.recipient_id, name:r.recipient_name, dept:r.recipient_department, title:r.recipient_title, seniority:r.recipient_seniority, received:0, given:0, totalValue:0, color: DEPT_COLORS[r.recipient_department] || "#888" };
+    }
     nodeMap[r.recipient_id].received++;
     nodeMap[r.recipient_id].totalValue += parseInt(r.value) || 0;
-    if (!nodeMap[r.nominator_id]) nodeMap[r.nominator_id] = { id:r.nominator_id, name:r.nominator_name, dept:r.nominator_department, title:r.nominator_title, seniority:r.nominator_seniority, received:0, given:0, totalValue:0, color: DEPT_COLORS[r.nominator_department] || "#888" };
+
+    if (!nodeMap[r.nominator_id]) {
+      nodeMap[r.nominator_id] = { id:r.nominator_id, name:r.nominator_name, dept:r.nominator_department, title:r.nominator_title, seniority:r.nominator_seniority, received:0, given:0, totalValue:0, color: DEPT_COLORS[r.nominator_department] || "#888" };
+    }
     nodeMap[r.nominator_id].given++;
   }
-  const netNodes = Object.values(nodeMap).sort((a, b) => (b.received + b.given) - (a.received + a.given)).slice(0, 80);
+
+  const netNodes = Object.values(nodeMap)
+    .sort((a,b) => (b.received + b.given) - (a.received + a.given))
+    .slice(0, 80);
   const nodeIdSet = new Set(netNodes.map(n => n.id));
+
   const edgeCount: Record<string, number> = {};
   for (const r of rows) {
     if (r.nominator_id === r.recipient_id) continue;
@@ -781,74 +488,94 @@ export function loadDashboardData(): DashboardData {
     edgeCount[k] = (edgeCount[k] || 0) + 1;
   }
   const netEdges = Object.entries(edgeCount)
-    .sort((a, b) => b[1] - a[1]).slice(0, 200)
-    .map(([k, weight]) => { const [source, target] = k.split("__"); return { source, target, weight }; });
+    .sort((a,b) => b[1]-a[1]).slice(0, 200)
+    .map(([k,weight]) => { const [source,target] = k.split("__"); return {source,target,weight}; });
 
-  // ── Culture Health ─────────────────────────────────────────────────────────
-  const CAT_NAMES: Record<string, string> = {};
+  // ── Culture Health ────────────────────────────────────────────────────────
+  const CAT_NAMES: Record<string,string> = {};
   for (const r of rows) CAT_NAMES[r.category_id] = r.category_name;
 
   const cultureHealth = Array.from(uniqueDepts).map(deptName => {
-    const deptRows2 = rows.filter(r => r.recipient_department === deptName);
-    if (!deptRows2.length) return null;
-    const n = deptRows2.length;
-    const totalValue  = deptRows2.reduce((s, r) => s + (parseInt(r.value) || 0), 0);
-    const uRecips     = new Set(deptRows2.map(r => r.recipient_id));
-    const uNoms       = new Set(deptRows2.map(r => r.nominator_id));
-    const crossIn     = deptRows2.filter(r => r.nominator_department !== deptName).length;
-    const usedCats    = new Set(deptRows2.map(r => r.category_id));
-    const catDiversity    = Math.round(usedCats.size / 6 * 100);
-    const participation   = Math.min(100, Math.round(uNoms.size / Math.max(uRecips.size, 1) * 100));
-    const maxDeptAwards   = Math.max(...Array.from(uniqueDepts).map(d => rows.filter(r => r.recipient_department === d).length), 1);
-    const volume      = Math.round(n / maxDeptAwards * 100);
-    const generosity  = Math.round((totalValue / n) / 1000 * 100);
-    const health      = Math.round(0.30 * catDiversity + 0.25 * participation + 0.25 * volume + 0.20 * generosity);
+    const deptRows = rows.filter(r => r.recipient_department === deptName);
+    if (!deptRows.length) return null;
+    const n = deptRows.length;
+    const totalValue = deptRows.reduce((s,r) => s + (parseInt(r.value)||0), 0);
+    const uRecips  = new Set(deptRows.map(r => r.recipient_id));
+    const uNoms    = new Set(deptRows.map(r => r.nominator_id));
+    const crossIn  = deptRows.filter(r => r.nominator_department !== deptName).length;
+    const crossInPct = Math.round(crossIn / n * 100);
+    const usedCats = new Set(deptRows.map(r => r.category_id));
+    const catDiversity = Math.round(usedCats.size / 6 * 100);
+    const participation = Math.min(100, Math.round(uNoms.size / Math.max(uRecips.size,1) * 100));
+    const maxDeptAwards = Math.max(...Array.from(uniqueDepts).map(d => rows.filter(r => r.recipient_department===d).length), 1);
+    const volume = Math.round(n / maxDeptAwards * 100);
+    const generosity = Math.round((totalValue / n) / 1000 * 100);
+    const health = Math.round(0.30*catDiversity + 0.25*participation + 0.25*volume + 0.20*generosity);
     const catSpreadMap: Record<string, number> = {};
-    for (const r of deptRows2) catSpreadMap[r.category_id] = (catSpreadMap[r.category_id] || 0) + 1;
-    const categorySpread = Object.entries(catSpreadMap).sort((a, b) => b[1] - a[1]).map(([id, count]) => ({ id, name: CAT_NAMES[id] || id, count }));
-    return { name: deptName, health, totalAwards: n, totalValue, avgValue: Math.round(totalValue / n), uniqueRecipients: uRecips.size, uniqueNominators: uNoms.size, categoryDiversity: catDiversity, crossDeptPct: Math.round(crossIn / n * 100), participation, scores: { diversity: catDiversity, participation, volume, generosity }, categorySpread };
-  }).filter(Boolean).sort((a, b) => b!.health - a!.health) as DashboardData["cultureHealth"];
+    for (const r of deptRows) catSpreadMap[r.category_id] = (catSpreadMap[r.category_id]||0) + 1;
+    const categorySpread = Object.entries(catSpreadMap)
+      .sort((a,b) => b[1]-a[1])
+      .map(([id, count]) => ({ id, name: CAT_NAMES[id] || id, count }));
+    return {
+      name: deptName, health, totalAwards: n, totalValue,
+      avgValue: Math.round(totalValue / n),
+      uniqueRecipients: uRecips.size, uniqueNominators: uNoms.size,
+      categoryDiversity: catDiversity, crossDeptPct: crossInPct, participation,
+      scores: { diversity: catDiversity, participation, volume, generosity },
+      categorySpread,
+    };
+  }).filter(Boolean).sort((a,b) => b!.health - a!.health) as DashboardData["cultureHealth"];
 
-  // ── Word Cloud ─────────────────────────────────────────────────────────────
+  // ── Word Cloud ────────────────────────────────────────────────────────────
   const wc: Record<string, number> = {};
   for (const r of rows) {
     const ws = (r.message || "").toLowerCase().match(/\b[a-z]{4,}\b/g) || [];
-    for (const w of ws) if (!STOP.has(w)) wc[w] = (wc[w] || 0) + 1;
+    for (const w of ws) if (!STOP.has(w)) wc[w] = (wc[w]||0)+1;
   }
-  const wordCloud = Object.entries(wc).sort((a, b) => b[1] - a[1]).slice(0, 40).map(([word, count]) => ({ word, count }));
+  const wordCloud = Object.entries(wc).sort((a,b) => b[1]-a[1]).slice(0,40).map(([word,count]) => ({word,count}));
 
-  // ── Message Themes ─────────────────────────────────────────────────────────
-  const catWords: Record<string, Record<string, number>> = {};
+  // ── Message Themes ────────────────────────────────────────────────────────
+  const catWords: Record<string, Record<string,number>> = {};
   const catIdForName: Record<string, string> = {};
   for (const r of rows) {
     const cat = r.category_name || r.category_id;
     catIdForName[cat] = r.category_id;
     if (!catWords[cat]) catWords[cat] = {};
     const ws = (r.message || "").toLowerCase().match(/\b[a-z]{5,}\b/g) || [];
-    for (const w of ws) if (!STOP.has(w)) catWords[cat][w] = (catWords[cat][w] || 0) + 1;
+    for (const w of ws) if (!STOP.has(w)) catWords[cat][w] = (catWords[cat][w]||0)+1;
   }
   const messageThemes = Object.entries(catWords)
-    .map(([category, wmap]) => ({ categoryId: catIdForName[category] || "", category, words: Object.entries(wmap).sort((a, b) => b[1] - a[1]).slice(0, 10).map(([word, count]) => ({ word, count })) }))
-    .sort((a, b) => (b.words[0]?.count || 0) - (a.words[0]?.count || 0));
+    .map(([category, wmap]) => ({
+      categoryId: catIdForName[category] || "",
+      category,
+      words: Object.entries(wmap).sort((a,b) => b[1]-a[1]).slice(0,10).map(([word,count]) => ({word,count})),
+    }))
+    .sort((a,b) => (b.words[0]?.count||0) - (a.words[0]?.count||0));
 
-  // ── Skill Insights ─────────────────────────────────────────────────────────
-  const topSkills = Object.entries(skillCount).sort((a, b) => b[1] - a[1]).slice(0, 20)
-    .map(([skill, count]) => { const cats = skillCat[skill] || {}; const dominantCategory = Object.entries(cats).sort((a, b) => b[1] - a[1])[0]?.[0] || ""; return { skill, count, dominantCategory }; });
-
+  // ── Skill Insights ────────────────────────────────────────────────────────
+  const topSkills = Object.entries(skillCount)
+    .sort((a,b) => b[1]-a[1]).slice(0,20)
+    .map(([skill, count]) => {
+      const cats = skillCat[skill] || {};
+      const dominantCategory = Object.entries(cats).sort((a,b) => b[1]-a[1])[0]?.[0] || "";
+      return { skill, count, dominantCategory };
+    });
   const deptSkillMap: Record<string, Record<string, number>> = {};
   for (const r of rows) {
     const d = r.recipient_department;
     if (!deptSkillMap[d]) deptSkillMap[d] = {};
-    const sks = (r.recipient_skills || "").split(",").map(s => s.trim()).filter(Boolean);
-    for (const sk of sks) deptSkillMap[d][sk] = (deptSkillMap[d][sk] || 0) + 1;
+    const sks = (r.recipient_skills||"").split(",").map(s=>s.trim()).filter(Boolean);
+    for (const sk of sks) deptSkillMap[d][sk] = (deptSkillMap[d][sk]||0)+1;
   }
-  const byDepartmentSkills: Record<string, { skill:string; count:number }[]> = {};
+  const byDepartment: Record<string, {skill:string;count:number}[]> = {};
   for (const [dept, skillMap] of Object.entries(deptSkillMap)) {
-    byDepartmentSkills[dept] = Object.entries(skillMap).sort((a, b) => b[1] - a[1]).slice(0, 6).map(([skill, count]) => ({ skill, count }));
+    byDepartment[dept] = Object.entries(skillMap).sort((a,b)=>b[1]-a[1]).slice(0,6).map(([skill,count])=>({skill,count}));
   }
-  const skillCategoryMatrix = topSkills.slice(0, 12).map(({ skill }) => ({ skill, categories: skillCat[skill] || {} }));
+  const skillCategoryMatrix = topSkills.slice(0,12).map(({ skill }) => ({
+    skill, categories: skillCat[skill] || {},
+  }));
 
-  // ── HR Intelligence ────────────────────────────────────────────────────────
+  // ── Intelligence: Invisible Contributors ──────────────────────────────────
   const nomCount2: Record<string, number> = {};
   const recCount2: Record<string, number> = {};
   for (const r of rows) {
@@ -860,15 +587,21 @@ export function loadDashboardData(): DashboardData {
 
   const invisibleContributors = Object.entries(nomCount2)
     .filter(([id, given]) => given >= 2 && !recCount2[id])
-    .map(([id, given]) => ({ id, given, received: 0, ...nomMetaMap[id], riskScore: Math.min(100, given * 15) }))
-    .sort((a, b) => b.riskScore - a.riskScore).slice(0, 20);
+    .map(([id, given]) => ({
+      id, given, received: 0,
+      ...nomMetaMap[id],
+      riskScore: Math.min(100, given * 15),
+    }))
+    .sort((a,b) => b.riskScore - a.riskScore)
+    .slice(0, 20);
 
+  // ── Intelligence: Momentum ────────────────────────────────────────────────
   const recMonthly: Record<string, { period:string; awards:number }[]> = {};
   for (const r of rows) {
     if (!r.award_date) continue;
     const d = new Date(r.award_date);
     if (isNaN(d.getTime())) continue;
-    const period = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}`;
+    const period = `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}`;
     if (!recMonthly[r.recipient_id]) recMonthly[r.recipient_id] = [];
     const existing = recMonthly[r.recipient_id].find(x => x.period === period);
     if (existing) existing.awards++;
@@ -880,22 +613,22 @@ export function loadDashboardData(): DashboardData {
   const momentumPeople = Object.entries(recMonthly)
     .filter(([, series]) => series.length >= 3)
     .map(([id, series]) => {
-      const sorted = [...series].sort((a, b) => a.period.localeCompare(b.period));
+      const sorted = [...series].sort((a,b) => a.period.localeCompare(b.period));
       const vals = sorted.map(s => s.awards);
       const n = vals.length;
-      const sumX = n * (n - 1) / 2;
-      const sumY = vals.reduce((a, b) => a + b, 0);
-      const sumXY = vals.reduce((s, v, i) => s + i * v, 0);
-      const sumX2 = vals.reduce((s, _, i) => s + i * i, 0);
-      const slope = (n * sumXY - sumX * sumY) / (n * sumX2 - sumX * sumX || 1);
-      const total  = vals.reduce((a, b) => a + b, 0);
-      const recent = vals.slice(-3).reduce((a, b) => a + b, 0);
+      const sumX = n*(n-1)/2, sumY = vals.reduce((a,b)=>a+b,0);
+      const sumXY = vals.reduce((s,v,i)=>s+i*v,0), sumX2 = vals.reduce((s,_,i)=>s+i*i,0);
+      const slope = (n*sumXY - sumX*sumY) / (n*sumX2 - sumX*sumX || 1);
+      const total = vals.reduce((a,b)=>a+b,0);
+      const recent = vals.slice(-3).reduce((a,b)=>a+b,0);
       return { id, slope: parseFloat(slope.toFixed(3)), total, recent, months: n, monthlyData: sorted, ...recMeta2[id] };
     });
-  const risingStars          = momentumPeople.filter(p => p.slope > 0).sort((a, b) => b.slope - a.slope).slice(0, 15);
-  const decliningRecognition = momentumPeople.filter(p => p.slope < -0.05).sort((a, b) => a.slope - b.slope).slice(0, 15);
 
-  const flowMap: Record<string, Record<string, number>> = {};
+  const risingStars = momentumPeople.filter(p => p.slope > 0).sort((a,b)=>b.slope-a.slope).slice(0,15);
+  const decliningRecognition = momentumPeople.filter(p => p.slope < -0.05).sort((a,b)=>a.slope-b.slope).slice(0,15);
+
+  // ── Intelligence: Cross-dept flow ─────────────────────────────────────────
+  const flowMap: Record<string, Record<string,number>> = {};
   for (const r of rows) {
     if (r.nominator_department === r.recipient_department) continue;
     if (!flowMap[r.nominator_department]) flowMap[r.nominator_department] = {};
@@ -903,18 +636,28 @@ export function loadDashboardData(): DashboardData {
   }
   const crossDeptFlow = Object.entries(flowMap)
     .flatMap(([from, targets]) => Object.entries(targets).map(([to, value]) => ({ from, to, value })))
-    .sort((a, b) => b.value - a.value);
+    .sort((a,b) => b.value - a.value);
   const intelligenceDepts = [...uniqueDepts].sort();
 
+  // ── Intelligence: Equity by seniority ─────────────────────────────────────
   const senMap: Record<string, { count:number; totalVal:number; highVal:number }> = {};
   for (const r of rows) {
-    const s = r.recipient_seniority, v = parseInt(r.value) || 0;
+    const s = r.recipient_seniority;
+    const v = parseInt(r.value) || 0;
     if (!senMap[s]) senMap[s] = { count:0, totalVal:0, highVal:0 };
-    senMap[s].count++; senMap[s].totalVal += v;
+    senMap[s].count++;
+    senMap[s].totalVal += v;
     if (v >= 500) senMap[s].highVal++;
   }
-  const equityData = Object.entries(senMap).map(([recipient_seniority, d]) => ({ recipient_seniority, count: d.count, avg_value: Math.round(d.totalVal / d.count), total_value: d.totalVal, high_value: d.highVal, high_value_pct: parseFloat((d.highVal / d.count * 100).toFixed(1)) }));
+  const equityData = Object.entries(senMap).map(([recipient_seniority, d]) => ({
+    recipient_seniority, count: d.count,
+    avg_value: Math.round(d.totalVal / d.count),
+    total_value: d.totalVal,
+    high_value: d.highVal,
+    high_value_pct: parseFloat((d.highVal / d.count * 100).toFixed(1)),
+  }));
 
+  // ── Intelligence: Manager reach ───────────────────────────────────────────
   const SENIOR = new Set(["Manager","Senior Manager","Director","VP"]);
   const mgrMap: Record<string, { name:string; dept:string; seniority:string; total:number; depts:Set<string>; totalVal:number }> = {};
   for (const r of rows) {
@@ -926,21 +669,31 @@ export function loadDashboardData(): DashboardData {
   }
   const managerReach = Object.entries(mgrMap)
     .filter(([, m]) => m.total >= 3)
-    .map(([id, m]) => ({ id, name:m.name, dept:m.dept, seniority:m.seniority, total:m.total, unique_depts:m.depts.size, avg_value:Math.round(m.totalVal / m.total) }))
-    .sort((a, b) => b.unique_depts - a.unique_depts).slice(0, 20);
+    .map(([id, m]) => ({ id, name:m.name, dept:m.dept, seniority:m.seniority, total:m.total, unique_depts:m.depts.size, avg_value:Math.round(m.totalVal/m.total) }))
+    .sort((a,b) => b.unique_depts - a.unique_depts)
+    .slice(0, 20);
 
-  // ── Workforce ──────────────────────────────────────────────────────────────
-  const peopleMap: Record<string, { id:string; name:string; dept:string; title:string; seniority:string; received:number; given:number; valueReceived:number }> = {};
+  // ── Workforce ─────────────────────────────────────────────────────────────
+  const peopleMap: Record<string, {
+    id:string; name:string; dept:string; title:string; seniority:string;
+    received:number; given:number; valueReceived:number;
+  }> = {};
+
   for (const r of rows) {
-    if (!peopleMap[r.recipient_id]) peopleMap[r.recipient_id] = { id:r.recipient_id, name:r.recipient_name, dept:r.recipient_department, title:r.recipient_title, seniority:r.recipient_seniority, received:0, given:0, valueReceived:0 };
-    if (!peopleMap[r.nominator_id]) peopleMap[r.nominator_id] = { id:r.nominator_id, name:r.nominator_name, dept:r.nominator_department, title:r.nominator_title, seniority:r.nominator_seniority, received:0, given:0, valueReceived:0 };
+    if (!peopleMap[r.recipient_id]) {
+      peopleMap[r.recipient_id] = { id:r.recipient_id, name:r.recipient_name, dept:r.recipient_department, title:r.recipient_title, seniority:r.recipient_seniority, received:0, given:0, valueReceived:0 };
+    }
+    if (!peopleMap[r.nominator_id]) {
+      peopleMap[r.nominator_id] = { id:r.nominator_id, name:r.nominator_name, dept:r.nominator_department, title:r.nominator_title, seniority:r.nominator_seniority, received:0, given:0, valueReceived:0 };
+    }
     peopleMap[r.recipient_id].received++;
     peopleMap[r.recipient_id].valueReceived += parseInt(r.value) || 0;
     peopleMap[r.nominator_id].given++;
   }
-  const allPeople    = Object.values(peopleMap);
-  const wfTotal      = allPeople.length;
-  const wfNeverRec   = allPeople.filter(p => p.received === 0).length;
+
+  const allPeople = Object.values(peopleMap);
+  const wfTotal = allPeople.length;
+  const wfNeverRec = allPeople.filter(p => p.received === 0).length;
   const wfNeverGiven = allPeople.filter(p => p.given === 0).length;
 
   const wfDeptMap: Record<string, { headcount:number; recognized:number; givers:number; totalReceived:number; totalValue:number }> = {};
@@ -948,11 +701,16 @@ export function loadDashboardData(): DashboardData {
     if (!wfDeptMap[p.dept]) wfDeptMap[p.dept] = { headcount:0, recognized:0, givers:0, totalReceived:0, totalValue:0 };
     wfDeptMap[p.dept].headcount++;
     if (p.received > 0) wfDeptMap[p.dept].recognized++;
-    if (p.given > 0)    wfDeptMap[p.dept].givers++;
+    if (p.given > 0) wfDeptMap[p.dept].givers++;
     wfDeptMap[p.dept].totalReceived += p.received;
-    wfDeptMap[p.dept].totalValue    += p.valueReceived;
+    wfDeptMap[p.dept].totalValue += p.valueReceived;
   }
-  const wfByDept = Object.entries(wfDeptMap).map(([dept, d]) => ({ dept, ...d, coveragePct: Math.round(d.recognized / d.headcount * 100), participationPct: Math.round(d.givers / d.headcount * 100), avgAwards: parseFloat((d.totalReceived / d.headcount).toFixed(1)) })).sort((a, b) => b.coveragePct - a.coveragePct);
+  const wfByDept = Object.entries(wfDeptMap).map(([dept, d]) => ({
+    dept, ...d,
+    coveragePct: Math.round(d.recognized / d.headcount * 100),
+    participationPct: Math.round(d.givers / d.headcount * 100),
+    avgAwards: parseFloat((d.totalReceived / d.headcount).toFixed(1)),
+  })).sort((a,b) => b.coveragePct - a.coveragePct);
 
   const SEN_ORDER2 = ["IC","Senior IC","Manager","Senior Manager","Director","VP"];
   const wfSenMap: Record<string, { headcount:number; recognized:number; totalReceived:number; totalGiven:number }> = {};
@@ -961,16 +719,34 @@ export function loadDashboardData(): DashboardData {
     wfSenMap[p.seniority].headcount++;
     if (p.received > 0) wfSenMap[p.seniority].recognized++;
     wfSenMap[p.seniority].totalReceived += p.received;
-    wfSenMap[p.seniority].totalGiven    += p.given;
+    wfSenMap[p.seniority].totalGiven += p.given;
   }
   const wfBySeniority = Object.entries(wfSenMap)
-    .sort((a, b) => (SEN_ORDER2.indexOf(a[0]) + 1 || 99) - (SEN_ORDER2.indexOf(b[0]) + 1 || 99))
-    .map(([level, d]) => ({ level, ...d, avgReceived: parseFloat((d.totalReceived / d.headcount).toFixed(1)), avgGiven: parseFloat((d.totalGiven / d.headcount).toFixed(1)), coveragePct: Math.round(d.recognized / d.headcount * 100) }));
+    .sort((a,b) => (SEN_ORDER2.indexOf(a[0])+1||99) - (SEN_ORDER2.indexOf(b[0])+1||99))
+    .map(([level, d]) => ({
+      level, ...d,
+      avgReceived: parseFloat((d.totalReceived / d.headcount).toFixed(1)),
+      avgGiven: parseFloat((d.totalGiven / d.headcount).toFixed(1)),
+      coveragePct: Math.round(d.recognized / d.headcount * 100),
+    }));
 
-  const workforce = { totalPeople: wfTotal, neverRecognized: wfNeverRec, neverGiven: wfNeverGiven, coveragePct: Math.round((wfTotal - wfNeverRec) / wfTotal * 100), participationPct: Math.round((wfTotal - wfNeverGiven) / wfTotal * 100), byDept: wfByDept, bySeniority: wfBySeniority, people: allPeople.sort((a, b) => b.received - a.received) };
+  const workforce = {
+    totalPeople: wfTotal,
+    neverRecognized: wfNeverRec,
+    neverGiven: wfNeverGiven,
+    coveragePct: Math.round((wfTotal - wfNeverRec) / wfTotal * 100),
+    participationPct: Math.round((wfTotal - wfNeverGiven) / wfTotal * 100),
+    byDept: wfByDept,
+    bySeniority: wfBySeniority,
+    people: allPeople.sort((a,b) => b.received - a.received),
+  };
 
-  // ── Employee Directory ─────────────────────────────────────────────────────
-  const dirMap: Record<string, { id:string; name:string; dept:string; title:string; seniority:string; skills:string[]; received:number; given:number; valueReceived:number; catIds:string[]; recentAwards: DashboardData["employeeDirectory"][0]["recentAwards"] }> = {};
+  // ── Employee Directory ────────────────────────────────────────────────────
+  const dirMap: Record<string, {
+    id:string; name:string; dept:string; title:string; seniority:string; skills:string[];
+    received:number; given:number; valueReceived:number;
+    catIds:string[]; recentAwards: DashboardData["employeeDirectory"][0]["recentAwards"];
+  }> = {};
 
   for (const r of rows) {
     const pairs: [string, string, string, string, string, string][] = [
@@ -987,7 +763,17 @@ export function loadDashboardData(): DashboardData {
     dirMap[r.recipient_id].valueReceived += parseInt(r.value) || 0;
     dirMap[r.recipient_id].catIds.push(r.category_id);
     if (dirMap[r.recipient_id].recentAwards.length < 5) {
-      dirMap[r.recipient_id].recentAwards.push({ date: r.award_date, title: (r.award_title || "").slice(0, 60), value: parseInt(r.value) || 0, category: r.category_name, categoryId: r.category_id, subcategory: r.subcategory_name, fromName: r.nominator_name, fromDept: r.nominator_department, message: (r.message || "").slice(0, 250) });
+      dirMap[r.recipient_id].recentAwards.push({
+        date: r.award_date,
+        title: (r.award_title || "").slice(0, 60),
+        value: parseInt(r.value) || 0,
+        category: r.category_name,
+        categoryId: r.category_id,
+        subcategory: r.subcategory_name,
+        fromName: r.nominator_name,
+        fromDept: r.nominator_department,
+        message: (r.message || "").slice(0, 250),
+      });
     }
     dirMap[r.nominator_id].given++;
   }
@@ -996,13 +782,13 @@ export function loadDashboardData(): DashboardData {
     p.recentAwards.sort((a, b) => b.date.localeCompare(a.date));
     const catCountMap: Record<string, number> = {};
     for (const cid of p.catIds) catCountMap[cid] = (catCountMap[cid] || 0) + 1;
-    const categoryBreakdown = Object.entries(catCountMap).sort((a, b) => b[1] - a[1]).map(([id, count]) => ({ id, count }));
+    const categoryBreakdown = Object.entries(catCountMap).sort((a,b) => b[1]-a[1]).map(([id, count]) => ({ id, count }));
 
     let daysSinceLast = 999;
     let lastAwardDate: string | null = null;
     if (p.recentAwards.length > 0) {
       lastAwardDate = p.recentAwards[0].date;
-      try { daysSinceLast = Math.round((REF_DATE - new Date(lastAwardDate).getTime()) / 86400000); } catch { /* */ }
+      try { daysSinceLast = Math.round((REF_DATE - new Date(lastAwardDate).getTime()) / 86400000); } catch { /**/ }
     }
 
     const recScore  = Math.min(40, p.received / 7 * 40);
@@ -1017,171 +803,550 @@ export function loadDashboardData(): DashboardData {
     else if (p.given === 0)                           status = "passive";
     else                                              status = "active";
 
-    return { id:p.id, name:p.name, dept:p.dept, title:p.title, seniority:p.seniority, skills:p.skills, received:p.received, given:p.given, valueReceived:p.valueReceived, engagementScore, status, daysSinceLast, lastAwardDate, categoryBreakdown, recentAwards:p.recentAwards };
+    return {
+      id: p.id, name: p.name, dept: p.dept, title: p.title, seniority: p.seniority,
+      skills: p.skills, received: p.received, given: p.given, valueReceived: p.valueReceived,
+      engagementScore, status, daysSinceLast, lastAwardDate, categoryBreakdown, recentAwards: p.recentAwards,
+    };
   }).sort((a, b) => b.received - a.received);
 
-  // ── Extended KPIs ──────────────────────────────────────────────────────────
+  // ── Extended KPIs ─────────────────────────────────────────────────────────
   const allPeopleForKpi: Record<string, string> = {};
-  for (const r of rows) { allPeopleForKpi[r.recipient_id] = r.recipient_seniority; allPeopleForKpi[r.nominator_id] = r.nominator_seniority; }
+  for (const r of rows) {
+    allPeopleForKpi[r.recipient_id] = r.recipient_seniority;
+    allPeopleForKpi[r.nominator_id] = r.nominator_seniority;
+  }
   const seniorityCountMap: Record<string, number> = {};
   for (const sen of Object.values(allPeopleForKpi)) seniorityCountMap[sen] = (seniorityCountMap[sen] || 0) + 1;
   const totalPeopleKpi = Object.keys(allPeopleForKpi).length;
 
-  const highPerformers       = employeeDirectory.filter(p => p.received >= 5).length;
-  const cultureCarriers      = employeeDirectory.filter(p => p.given >= 5).length;
+  const highPerformers      = employeeDirectory.filter(p => p.received >= 5).length;
+  const cultureCarriers     = employeeDirectory.filter(p => p.given >= 5).length;
   const neverRecognizedCount = employeeDirectory.filter(p => p.status === "never_recognized").length;
   const atRiskCount          = employeeDirectory.filter(p => p.status === "at_risk").length;
-  const crossDeptRows        = rows.filter(r => r.recipient_department !== r.nominator_department);
-  const crossDeptPct         = Math.round(crossDeptRows.length / rows.length * 100);
+
+  const crossDeptRowsCount = rows.filter(r => r.recipient_department !== r.nominator_department).length;
+  const crossDeptPct  = Math.round(crossDeptRowsCount / rows.length * 100);
+
   const SEN_ORDER_MAP: Record<string, number> = { IC:1, "Senior IC":2, Manager:3, "Senior Manager":4, Director:5, VP:6 };
   const peerRows = rows.filter(r => Math.abs((SEN_ORDER_MAP[r.recipient_seniority] || 0) - (SEN_ORDER_MAP[r.nominator_seniority] || 0)) <= 1);
   const peerRecognitionPct = Math.round(peerRows.length / rows.length * 100);
+
   const icCount   = (seniorityCountMap["IC"] || 0) + (seniorityCountMap["Senior IC"] || 0);
   const execCount = (seniorityCountMap["Director"] || 0) + (seniorityCountMap["VP"] || 0);
   const icRatio   = Math.round(icCount / totalPeopleKpi * 100);
   const execRatio = Math.round(execCount / totalPeopleKpi * 100);
-  const moAwards  = monthly.filter(m => m.awards > 1);
-  const last3Avg  = moAwards.length >= 3 ? moAwards.slice(-3).reduce((s, m) => s + m.awards, 0) / 3 : 0;
-  const prev3Avg  = moAwards.length >= 6 ? moAwards.slice(-6, -3).reduce((s, m) => s + m.awards, 0) / 3 : last3Avg;
-  const momTrend  = prev3Avg > 0 ? Math.round((last3Avg - prev3Avg) / prev3Avg * 100) : 0;
+
+  const moAwards = monthly.filter(m => m.awards > 1);
+  const last3Avg = moAwards.length >= 3 ? moAwards.slice(-3).reduce((s, m) => s + m.awards, 0) / 3 : 0;
+  const prev3Avg = moAwards.length >= 6 ? moAwards.slice(-6, -3).reduce((s, m) => s + m.awards, 0) / 3 : last3Avg;
+  const momTrend = prev3Avg > 0 ? Math.round((last3Avg - prev3Avg) / prev3Avg * 100) : 0;
   const avgMonthlyAwards = Math.round(moAwards.reduce((s, m) => s + m.awards, 0) / Math.max(moAwards.length, 1));
 
-  // ── Skill Gap Radar ────────────────────────────────────────────────────────
-  const skillFreq: Record<string, number>               = {};
-  const skillDepts: Record<string, Set<string>>         = {};
-  const skillByDept: Record<string, Record<string, number>> = {};
+  // ── Skill Gap Radar ───────────────────────────────────────────────────────
+  const skillFreq: Record<string,number> = {};
+  const skillDepts: Record<string,Set<string>> = {};
+  const skillByDept: Record<string,Record<string,number>> = {};
   for (const r of rows) {
-    const sk2 = (r.recipient_skills || "").split(",").map(s => s.trim()).filter(s => s && s.toLowerCase() !== "nan");
+    const sk2 = (r.recipient_skills||"").split(",").map(s=>s.trim()).filter(s=>s&&s.toLowerCase()!=="nan");
     for (const sk of sk2) {
-      skillFreq[sk] = (skillFreq[sk] || 0) + 1;
-      if (!skillDepts[sk]) skillDepts[sk] = new Set();
+      skillFreq[sk] = (skillFreq[sk]||0)+1;
+      if (!skillDepts[sk]) skillDepts[sk]=new Set();
       skillDepts[sk].add(r.recipient_department);
-      if (!skillByDept[sk]) skillByDept[sk] = {};
-      skillByDept[sk][r.recipient_department] = (skillByDept[sk][r.recipient_department] || 0) + 1;
+      if (!skillByDept[sk]) skillByDept[sk]={};
+      skillByDept[sk][r.recipient_department]=(skillByDept[sk][r.recipient_department]||0)+1;
     }
   }
-  const allSkillCounts = Object.values(skillFreq).sort((a, b) => a - b);
-  const p33 = allSkillCounts[Math.floor(allSkillCounts.length * 0.33)];
-  const p66 = allSkillCounts[Math.floor(allSkillCounts.length * 0.66)];
-  const skillGaps = Object.entries(skillFreq).map(([skill, count]) => ({ skill, count, deptCount: skillDepts[skill]?.size || 0, depts: Array.from(skillDepts[skill] || []).sort(), rarity: count <= p33 ? "rare" as const : count <= p66 ? "moderate" as const : "common" as const, byDept: skillByDept[skill] || {} })).sort((a, b) => a.count - b.count);
+  const allSkillCounts = Object.values(skillFreq).sort((a,b)=>a-b);
+  const p33 = allSkillCounts[Math.floor(allSkillCounts.length*0.33)];
+  const p66 = allSkillCounts[Math.floor(allSkillCounts.length*0.66)];
+  const skillGaps = Object.entries(skillFreq).map(([skill,count])=>({
+    skill, count,
+    deptCount: skillDepts[skill]?.size||0,
+    depts: Array.from(skillDepts[skill]||[]).sort(),
+    rarity: count<=p33 ? "rare" as const : count<=p66 ? "moderate" as const : "common" as const,
+    byDept: skillByDept[skill]||{},
+  })).sort((a,b)=>a.count-b.count);
 
-  // ── Seasonality Heatmap ────────────────────────────────────────────────────
-  const MO_NAMES_S = ["","Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
-  const monthMap2: Record<number, { total:number; cats:Record<string, number> }> = {};
+  // ── Seasonality ───────────────────────────────────────────────────────────
+  const MO_NAMES_S=["","Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+  const monthMap: Record<number,{total:number;cats:Record<string,number>}>={};
   for (const r of rows) {
     if (!r.award_date) continue;
-    const d = new Date(r.award_date);
-    if (isNaN(d.getTime())) continue;
-    const m = d.getMonth() + 1;
-    if (!monthMap2[m]) monthMap2[m] = { total:0, cats:{} };
-    monthMap2[m].total++;
-    monthMap2[m].cats[r.category_id] = (monthMap2[m].cats[r.category_id] || 0) + 1;
+    const d=new Date(r.award_date); if(isNaN(d.getTime())) continue;
+    const m=d.getMonth()+1;
+    if (!monthMap[m]) monthMap[m]={total:0,cats:{}};
+    monthMap[m].total++;
+    monthMap[m].cats[r.category_id]=(monthMap[m].cats[r.category_id]||0)+1;
   }
-  const seasonality = Object.entries(monthMap2).map(([m, d]) => { const dom = Object.entries(d.cats).sort((a, b) => b[1] - a[1])[0]?.[0] || ""; return { month: parseInt(m), monthName: MO_NAMES_S[parseInt(m)], total: d.total, byCategory: d.cats, dominantCategory: dom }; }).sort((a, b) => a.month - b.month);
+  const seasonality = Object.entries(monthMap).map(([m,d])=>{
+    const dom=Object.entries(d.cats).sort((a,b)=>b[1]-a[1])[0]?.[0]||"";
+    return { month:parseInt(m), monthName:MO_NAMES_S[parseInt(m)], total:d.total, byCategory:d.cats, dominantCategory:dom };
+  }).sort((a,b)=>a.month-b.month);
 
-  // ── Org Connectors ─────────────────────────────────────────────────────────
-  const connectorMap: Record<string, { name:string; dept:string; seniority:string; title:string; uniquePeople:Set<string>; uniqueDepts:Set<string>; total:number }> = {};
+  // ── Org Connectors ────────────────────────────────────────────────────────
+  const connectorMap: Record<string,{name:string;dept:string;seniority:string;title:string;uniquePeople:Set<string>;uniqueDepts:Set<string>;total:number}> = {};
   for (const r of rows) {
-    const nid = r.nominator_id;
-    if (!connectorMap[nid]) connectorMap[nid] = { name:r.nominator_name, dept:r.nominator_department, seniority:r.nominator_seniority, title:r.nominator_title, uniquePeople:new Set(), uniqueDepts:new Set(), total:0 };
+    const nid=r.nominator_id;
+    if (!connectorMap[nid]) connectorMap[nid]={name:r.nominator_name,dept:r.nominator_department,seniority:r.nominator_seniority,title:r.nominator_title,uniquePeople:new Set(),uniqueDepts:new Set(),total:0};
     connectorMap[nid].uniquePeople.add(r.recipient_id);
     connectorMap[nid].uniqueDepts.add(r.recipient_department);
     connectorMap[nid].total++;
   }
   const orgConnectors = Object.entries(connectorMap)
-    .filter(([, c]) => c.uniquePeople.size >= 3)
-    .map(([id, c]) => { const breadth = c.uniquePeople.size; const deptReach = c.uniqueDepts.size; const collab = Math.round(Math.min(breadth / 7 * 50, 50) + Math.min(deptReach / 12 * 30, 30) + Math.min(c.total / 10 * 20, 20)); return { id, name:c.name, dept:c.dept, seniority:c.seniority, title:c.title, uniquePeopleRecognized:breadth, uniqueDeptsReached:deptReach, totalGiven:c.total, collaborationScore:collab }; })
-    .sort((a, b) => b.collaborationScore - a.collaborationScore).slice(0, 25);
+    .filter(([,c])=>c.uniquePeople.size>=3)
+    .map(([id,c])=>{
+      const breadth=c.uniquePeople.size, deptReach=c.uniqueDepts.size;
+      const collab=Math.round(Math.min(breadth/7*50,50)+Math.min(deptReach/12*30,30)+Math.min(c.total/10*20,20));
+      return {id,name:c.name,dept:c.dept,seniority:c.seniority,title:c.title,uniquePeopleRecognized:breadth,uniqueDeptsReached:deptReach,totalGiven:c.total,collaborationScore:collab};
+    })
+    .sort((a,b)=>b.collaborationScore-a.collaborationScore)
+    .slice(0,25);
 
-  // ── Value Equity Audit ─────────────────────────────────────────────────────
-  const deptValMap: Record<string, { total:number; count:number; people:Set<string> }> = {};
+  // ── Value Equity Audit ────────────────────────────────────────────────────
+  const deptValMap: Record<string,{total:number;count:number;people:Set<string>}> = {};
   for (const r of rows) {
-    const dept = r.recipient_department, val = parseInt(r.value) || 0;
-    if (!deptValMap[dept]) deptValMap[dept] = { total:0, count:0, people:new Set() };
-    deptValMap[dept].total += val; deptValMap[dept].count++;
+    const dept=r.recipient_department, val=parseInt(r.value)||0;
+    if (!deptValMap[dept]) deptValMap[dept]={total:0,count:0,people:new Set()};
+    deptValMap[dept].total+=val; deptValMap[dept].count++;
     deptValMap[dept].people.add(r.recipient_id);
   }
-  const totalValEq = rows.reduce((s, r) => s + (parseInt(r.value) || 0), 0);
-  const veByDept = Object.entries(deptValMap).map(([dept, d]) => ({ dept, total:d.total, avg:Math.round(d.total / d.count), perPerson: Math.round(d.total / d.people.size), pct: parseFloat((d.total / totalValEq * 100).toFixed(1)) })).sort((a, b) => b.total - a.total);
+  const totalValEq=rows.reduce((s,r)=>s+(parseInt(r.value)||0),0);
+  const veByDept=Object.entries(deptValMap).map(([dept,d])=>({
+    dept,total:d.total,avg:Math.round(d.total/d.count),
+    perPerson:Math.round(d.total/d.people.size),
+    pct:parseFloat((d.total/totalValEq*100).toFixed(1)),
+  })).sort((a,b)=>b.total-a.total);
 
-  const senValMap: Record<string, { total:number; count:number; highVal:number }> = {};
+  const senValMap:Record<string,{total:number;count:number;highVal:number}>={};
   for (const r of rows) {
-    const sen = r.recipient_seniority, val = parseInt(r.value) || 0;
-    if (!senValMap[sen]) senValMap[sen] = { total:0, count:0, highVal:0 };
-    senValMap[sen].total += val; senValMap[sen].count++;
-    if (val >= 500) senValMap[sen].highVal++;
+    const sen=r.recipient_seniority,val=parseInt(r.value)||0;
+    if (!senValMap[sen]) senValMap[sen]={total:0,count:0,highVal:0};
+    senValMap[sen].total+=val; senValMap[sen].count++;
+    if(val>=500) senValMap[sen].highVal++;
   }
-  const SEN_O_EQ = ["IC","Senior IC","Manager","Senior Manager","Director","VP"];
-  const veBySeniority = Object.entries(senValMap).sort((a, b) => (SEN_O_EQ.indexOf(a[0]) + 1 || 99) - (SEN_O_EQ.indexOf(b[0]) + 1 || 99)).map(([level, d]) => ({ level, total:d.total, avg:Math.round(d.total / d.count), highValuePct:parseFloat((d.highVal / d.count * 100).toFixed(1)) }));
+  const SEN_O_EQ=["IC","Senior IC","Manager","Senior Manager","Director","VP"];
+  const veBySeniority=Object.entries(senValMap)
+    .sort((a,b)=>(SEN_O_EQ.indexOf(a[0])+1||99)-(SEN_O_EQ.indexOf(b[0])+1||99))
+    .map(([level,d])=>({level,total:d.total,avg:Math.round(d.total/d.count),highValuePct:parseFloat((d.highVal/d.count*100).toFixed(1))}));
 
-  const personValsEq = Object.values(rows.reduce((acc: Record<string, number>, r) => { acc[r.recipient_id] = (acc[r.recipient_id] || 0) + (parseInt(r.value) || 0); return acc; }, {})).sort((a, b) => a - b);
-  const nEq       = personValsEq.length;
-  const sumValsEq = personValsEq.reduce((a, b) => a + b, 0);
-  const giniCoeff = parseFloat((2 * personValsEq.reduce((s, v, i) => s + (i + 1) * v, 0) / (nEq * sumValsEq) - (nEq + 1) / nEq).toFixed(3));
-  const top10Vals  = personValsEq.slice(-10);
-  const top10Value = top10Vals.reduce((a, b) => a + b, 0);
-  const top10Pct   = parseFloat((top10Value / sumValsEq * 100).toFixed(1));
-  const valueEquity = { byDept: veByDept, bySeniority: veBySeniority, concentration: { top10Pct, top10Value, giniCoeff } };
+  const personValsEq=Object.values(rows.reduce((acc:Record<string,number>,r)=>{
+    acc[r.recipient_id]=(acc[r.recipient_id]||0)+(parseInt(r.value)||0); return acc;
+  },{})).sort((a,b)=>a-b);
+  const nEq=personValsEq.length, sumValsEq=personValsEq.reduce((a,b)=>a+b,0);
+  const giniCoeff=parseFloat((2*personValsEq.reduce((s,v,i)=>s+(i+1)*v,0)/(nEq*sumValsEq)-(nEq+1)/nEq).toFixed(3));
+  const top10Vals=personValsEq.slice(-10);
+  const top10Value=top10Vals.reduce((a,b)=>a+b,0);
+  const top10Pct=parseFloat((top10Value/sumValsEq*100).toFixed(1));
+  const valueEquity={byDept:veByDept,bySeniority:veBySeniority,concentration:{top10Pct,top10Value,giniCoeff}};
 
-  // ── Sentiment ──────────────────────────────────────────────────────────────
-  const sentiment = buildSentimentBlock(rows);
 
-  // ── Org Hierarchy ──────────────────────────────────────────────────────────
-  // Build award-count maps
-  const orgRecipCount: Record<string, number> = {};
-  const orgNomCount:   Record<string, number> = {};
-  for (const r of rows) {
-    orgRecipCount[r.recipient_id] = (orgRecipCount[r.recipient_id] || 0) + 1;
-    orgNomCount[r.nominator_id]   = (orgNomCount[r.nominator_id]   || 0) + 1;
+  // ── SENTIMENT ─────────────────────────────────────────────────────────────
+  const SENT_CFG: Record<string, { color: string; bg: string; border: string; icon: string }> = {
+    "Highly Positive": { color:"#16A34A", bg:"#F0FDF4", border:"#BBF7D0", icon:"💚" },
+    "Positive":        { color:"#0F766E", bg:"#F0FDFA", border:"#99F6E4", icon:"💙" },
+    "Neutral":         { color:"#6C757D", bg:"#F8F9FA", border:"#E9ECEF", icon:"🩶" },
+    "Negative":        { color:"#D97706", bg:"#FFFBEB", border:"#FDE68A", icon:"🟡" },
+    "Highly Negative": { color:"#DC2626", bg:"#FEF2F2", border:"#FECACA", icon:"🔴" },
+  };
+  const LABEL_ORDER = ["Highly Positive","Positive","Neutral","Negative","Highly Negative"];
+
+  let sentiment: DashboardData["sentiment"];
+
+  if (sentimentRows.length === 0) {
+    // Fallback: heuristic compound from message text
+    const POSITIVE_WORDS = new Set(["thank","thanks","appreciate","excellent","outstanding","amazing","great","brilliant","fantastic","wonderful","superb","exceptional","impressive","incredible","dedicated","passionate","valuable","trusted","committed","champion"]);
+    const NEGATIVE_WORDS = new Set(["disappointing","poor","failed","missed","struggle","difficult","absent","lacking","weak"]);
+
+    const deptSentMap: Record<string, { total: number; count: number }> = {};
+    const catSentMap:  Record<string, { total: number; count: number; name: string }> = {};
+    const distCount:   Record<string, number> = {};
+    let totalCompound = 0;
+    let totalWords = 0;
+
+    for (const r of rows) {
+      const words = (r.message || "").toLowerCase().split(/\s+/).filter(Boolean);
+      totalWords += words.length;
+      const posW = words.filter(w => POSITIVE_WORDS.has(w)).length;
+      const negW = words.filter(w => NEGATIVE_WORDS.has(w)).length;
+      const compound = Math.max(-1, Math.min(1, (posW - negW) / Math.max(words.length, 1) * 10));
+      totalCompound += compound;
+      const label = compound >= 0.6 ? "Highly Positive" : compound >= 0.2 ? "Positive" : compound >= -0.1 ? "Neutral" : compound >= -0.4 ? "Negative" : "Highly Negative";
+      distCount[label] = (distCount[label] || 0) + 1;
+
+      if (!deptSentMap[r.recipient_department]) deptSentMap[r.recipient_department] = { total: 0, count: 0 };
+      deptSentMap[r.recipient_department].total += compound;
+      deptSentMap[r.recipient_department].count++;
+
+      if (!catSentMap[r.category_id]) catSentMap[r.category_id] = { total: 0, count: 0, name: r.category_name };
+      catSentMap[r.category_id].total += compound;
+      catSentMap[r.category_id].count++;
+    }
+
+    sentiment = {
+      available: true,
+      avgCompound: parseFloat((totalCompound / Math.max(rows.length, 1)).toFixed(3)),
+      avgWordCount: parseFloat((totalWords / Math.max(rows.length, 1)).toFixed(1)),
+      distribution: LABEL_ORDER.map(label => ({ label, count: distCount[label] || 0, ...SENT_CFG[label] })),
+      byDepartment: Object.entries(deptSentMap)
+        .map(([dept, d]) => ({ dept, avgCompound: parseFloat((d.total / d.count).toFixed(3)), count: d.count }))
+        .sort((a, b) => b.avgCompound - a.avgCompound),
+      byCategory: Object.entries(catSentMap)
+        .map(([categoryId, d]) => ({ categoryId, category: d.name, avgCompound: parseFloat((d.total / d.count).toFixed(3)), count: d.count }))
+        .sort((a, b) => b.avgCompound - a.avgCompound),
+    };
+  } else {
+    // Use real VADER scores from awards_enriched_with_sentiment
+    const totalCompound = sentimentRows.reduce((s, r) => s + (r.vader_compound || 0), 0);
+    const avgCompound   = totalCompound / sentimentRows.length;
+
+    const wcRows = sentimentRows.filter(r => (r.word_count ?? 0) > 0);
+    const avgWordCount = wcRows.length > 0
+      ? wcRows.reduce((s, r) => s + (r.word_count ?? 0), 0) / wcRows.length
+      : rows.reduce((s, r) => s + (r.message || "").split(/\s+/).filter(Boolean).length, 0) / Math.max(rows.length, 1);
+
+    const distCount: Record<string, number> = {};
+    for (const r of sentimentRows) {
+      const lbl = r.sentiment_label || "Neutral";
+      distCount[lbl] = (distCount[lbl] || 0) + 1;
+    }
+
+    const deptSentMap: Record<string, { total: number; count: number }> = {};
+    for (const r of sentimentRows) {
+      if (!deptSentMap[r.recipient_department]) deptSentMap[r.recipient_department] = { total: 0, count: 0 };
+      deptSentMap[r.recipient_department].total += r.vader_compound || 0;
+      deptSentMap[r.recipient_department].count++;
+    }
+
+    const catSentMap: Record<string, { total: number; count: number; name: string }> = {};
+    for (const r of sentimentRows) {
+      if (!catSentMap[r.category_id]) catSentMap[r.category_id] = { total: 0, count: 0, name: r.category_name };
+      catSentMap[r.category_id].total += r.vader_compound || 0;
+      catSentMap[r.category_id].count++;
+    }
+
+    sentiment = {
+      available: true,
+      avgCompound: parseFloat(avgCompound.toFixed(3)),
+      avgWordCount: parseFloat(avgWordCount.toFixed(1)),
+      distribution: LABEL_ORDER.map(label => ({ label, count: distCount[label] || 0, ...SENT_CFG[label] })),
+      byDepartment: Object.entries(deptSentMap)
+        .map(([dept, d]) => ({ dept, avgCompound: parseFloat((d.total / d.count).toFixed(3)), count: d.count }))
+        .sort((a, b) => b.avgCompound - a.avgCompound),
+      byCategory: Object.entries(catSentMap)
+        .map(([catId, d]) => ({ categoryId: catId, category: d.name, avgCompound: parseFloat((d.total / d.count).toFixed(3)), count: d.count }))
+        .sort((a, b) => b.avgCompound - a.avgCompound),
+    };
   }
 
-  // Derive the canonical employee list directly from the awards data.
-  // Both recipients and nominators are registered; the first occurrence of each
-  // ID wins so we capture the most-complete name/title/seniority available.
-  const orgPeopleMap: Record<string, EmpRow> = {};
+  // ── ACTION QUEUE ─────────────────────────────────────────────────────────
+  const TODAY = new Date();
+  const URGENCY_ORDER = { critical: 0, warning: 1, info: 2 };
+  const actionQueue: ActionItem[] = [];
+
+  // 1. Invisible contributors — gave ≥3, received 0
+  for (const p of employeeDirectory) {
+    if (p.given >= 3 && p.received === 0) {
+      actionQueue.push({
+        id: `inv_${p.id}`,
+        type: "invisible_contributor",
+        urgency: "critical",
+        category: "Retention Risk",
+        title: `Recognize ${p.name} — has given ${p.given} award${p.given > 1 ? "s" : ""}, received none`,
+        detail: `${p.seniority} in ${p.dept} · ${p.given} nominations given`,
+        owner: "Department Manager",
+        dept: p.dept,
+        metric: `${p.given} given, 0 received`,
+        action: `Nominate ${p.name} this week. Alert their manager immediately.`,
+        name: p.name,
+      });
+    }
+  }
+
+  // 2. Long-tenured unrecognized — active nominator for ≥0.5yr, never received
+  const firstSeenAsNom: Record<string, string> = {};
   for (const r of rows) {
-    const pairs: Array<[string, string, string, string, string]> = [
-      [r.recipient_id, r.recipient_name, r.recipient_title, r.recipient_department, r.recipient_seniority],
-      [r.nominator_id, r.nominator_name, r.nominator_title, r.nominator_department, r.nominator_seniority],
-    ];
-    for (const [id, fullName, title, dept, seniority] of pairs) {
-      if (!orgPeopleMap[id]) {
-        // Split "First Last" → first_name / last_name for the EmpRow shape
-        const parts = fullName.trim().split(" ");
-        const firstName = parts[0] ?? fullName;
-        const lastName  = parts.slice(1).join(" ") || "";
-        orgPeopleMap[id] = {
-          employee_id:    id,
-          first_name:     firstName,
-          last_name:      lastName,
-          job_title:      title,
-          seniority_level: seniority,
-          department_id:  dept, // use dept name as ID — buildOrgHierarchy handles it
-        };
+    if (!r.award_date) continue;
+    if (!firstSeenAsNom[r.nominator_id] || r.award_date < firstSeenAsNom[r.nominator_id]) {
+      firstSeenAsNom[r.nominator_id] = r.award_date;
+    }
+  }
+  for (const p of employeeDirectory) {
+    if (p.received > 0 || p.given < 2) continue;
+    const firstDate = firstSeenAsNom[p.id];
+    if (!firstDate) continue;
+    const yearsActive = parseFloat(
+      ((TODAY.getTime() - new Date(firstDate).getTime()) / (365.25 * 86400000)).toFixed(1)
+    );
+    if (yearsActive < 0.5) continue;
+    actionQueue.push({
+      id: `ltr_${p.id}`,
+      type: "long_tenured_unrecognized",
+      urgency: "critical",
+      category: "Retention Risk",
+      title: `Recognize ${p.name} — active for ${yearsActive}yr, never received recognition`,
+      detail: `${p.seniority} in ${p.dept} · first activity: ${firstDate.slice(0, 7)}`,
+      owner: "HR Business Partner",
+      dept: p.dept,
+      metric: `${yearsActive}yr active · 0 awards`,
+      action: `HRBP to contact ${p.name}'s manager within 5 days. Schedule recognition.`,
+      name: p.name,
+    });
+  }
+
+  // 3. Inactive managers — seniority ≥ Manager, never nominated
+  const managerSeniorities = new Set(["Manager","Senior Manager","Director","VP"]);
+  for (const p of employeeDirectory) {
+    if (!managerSeniorities.has(p.seniority) || p.given > 0) continue;
+    actionQueue.push({
+      id: `mgr_${p.id}`,
+      type: "inactive_manager",
+      urgency: "warning",
+      category: "Manager Effectiveness",
+      title: `${p.name} has never nominated a peer or team member`,
+      detail: `${p.seniority} in ${p.dept}`,
+      owner: "HR Business Partner",
+      dept: p.dept,
+      metric: "0 nominations given",
+      action: `Schedule recognition coaching session with ${p.name}. Target: 2 nominations in 30 days.`,
+      name: p.name,
+    });
+  }
+
+  // 4. Low coverage departments — <88%
+  for (const d of wfByDept) {
+    if (d.headcount === 0 || d.coveragePct >= 88) continue;
+    const unreached = d.headcount - d.recognized;
+    actionQueue.push({
+      id: `cov_${d.dept.replace(/\s+/g, "_")}`,
+      type: "low_coverage_dept",
+      urgency: "warning",
+      category: "Coverage Gap",
+      title: `${d.dept} has only ${d.coveragePct}% recognition coverage — below threshold`,
+      detail: `${d.recognized} of ${d.headcount} employees recognized · ${unreached} unreached`,
+      owner: "Department Head",
+      dept: d.dept,
+      metric: `${d.coveragePct}% coverage`,
+      action: `Department head to identify and recognize ${unreached} unreached employees within 30 days.`,
+      name: null,
+    });
+  }
+
+  // 5. Stale high performers — ≥3 awards but >180 days since last
+  for (const p of employeeDirectory) {
+    if (p.received < 3 || p.daysSinceLast < 180 || p.daysSinceLast === 999) continue;
+    const monthsGap = Math.round(p.daysSinceLast / 30);
+    actionQueue.push({
+      id: `stale_${p.id}`,
+      type: "stale_high_performer",
+      urgency: "info",
+      category: "Engagement",
+      title: `${p.name} was a top recipient but has had no recognition for ${monthsGap} months`,
+      detail: `${p.seniority} in ${p.dept} · ${p.received} lifetime awards · last: ${p.lastAwardDate || "unknown"}`,
+      owner: "Line Manager",
+      dept: p.dept,
+      metric: `${monthsGap}mo gap`,
+      action: `Line manager to check in with ${p.name} and look for a recognition opportunity.`,
+      name: p.name,
+    });
+  }
+
+  // Sort: critical → warning → info, then by dept
+  actionQueue.sort((a, b) =>
+    URGENCY_ORDER[a.urgency] - URGENCY_ORDER[b.urgency] ||
+    a.dept.localeCompare(b.dept)
+  );
+
+
+  // ── ORG HIERARCHY ────────────────────────────────────────────────────────
+  // Build a flat list of OrgNodes from employeeDirectory, then wire up the tree.
+  // Since we only have award data (no explicit manager table), we use seniority
+  // to infer a plausible hierarchy: VP → Director → Senior Manager → Manager → Senior IC → IC.
+  const SEN_DEPTH: Record<string, number> = {
+    VP: 1, Director: 2, "Senior Manager": 3, Manager: 4, "Senior IC": 5, IC: 6,
+    Lead: 3, Senior: 5, "Mid-Level": 6, Entry: 6,
+  };
+
+  // Build OrgNode for every unique person in employeeDirectory
+  const recipCounts: Record<string, number> = {};
+  const nomCounts:   Record<string, number> = {};
+  for (const r of rows) {
+    recipCounts[r.recipient_id] = (recipCounts[r.recipient_id] || 0) + 1;
+    nomCounts[r.nominator_id]   = (nomCounts[r.nominator_id]   || 0) + 1;
+  }
+
+  // Collect unique people and their seniority
+  const orgPeopleMap: Record<string, { name:string; title:string; dept:string; seniority:string }> = {};
+  for (const r of rows) {
+    orgPeopleMap[r.recipient_id] = { name:r.recipient_name, title:r.recipient_title, dept:r.recipient_department, seniority:r.recipient_seniority };
+    orgPeopleMap[r.nominator_id] = { name:r.nominator_name, title:r.nominator_title, dept:r.nominator_department, seniority:r.nominator_seniority };
+  }
+
+  // Group people by seniority depth, then by department
+  // For each dept, the most senior people are "managers" of the next level
+  const deptBySeniority: Record<string, Record<number, string[]>> = {};
+  for (const [id, p] of Object.entries(orgPeopleMap)) {
+    const depth = SEN_DEPTH[p.seniority] ?? 6;
+    if (!deptBySeniority[p.dept]) deptBySeniority[p.dept] = {};
+    if (!deptBySeniority[p.dept][depth]) deptBySeniority[p.dept][depth] = [];
+    deptBySeniority[p.dept][depth].push(id);
+  }
+
+  // Assign managerId: within each dept, next shallower depth level is the manager
+  const orgManagerId: Record<string, string> = {};
+  for (const [dept, depthMap] of Object.entries(deptBySeniority)) {
+    const levels = Object.keys(depthMap).map(Number).sort((a,b) => a - b);
+    for (let i = 0; i < levels.length; i++) {
+      const currentLevel = levels[i];
+      const parentLevel  = levels[i - 1];
+      for (const id of depthMap[currentLevel]) {
+        if (i === 0) {
+          // Most senior in dept → reports to virtual root
+          orgManagerId[id] = "__root__";
+        } else {
+          // Assign to first person of the parent level in same dept (simplified)
+          const parentIds = depthMap[parentLevel];
+          orgManagerId[id] = parentIds[0] || "__root__";
+        }
       }
     }
   }
-  const empRows = Object.values(orgPeopleMap);
 
-  // Build a synthetic dept list so deptNameMap resolves correctly
-  // (department_id === department_name since we stored dept names directly)
-  const deptRows: DeptRow[] = Array.from(new Set(empRows.map(e => e.department_id)))
-    .map(d => ({ department_id: d, department_name: d }));
+  // Build flat OrgNode array
+  // directReportCount and totalReportCount computed after
+  const orgNodesFlat: OrgNode[] = Object.entries(orgPeopleMap).map(([id, p]) => ({
+    id, ...p,
+    managerId: orgManagerId[id] ?? "__root__",
+    depth: SEN_DEPTH[p.seniority] ?? 6,
+    directReportCount: 0,
+    totalReportCount: 0,
+    received: recipCounts[id] || 0,
+    given:    nomCounts[id]   || 0,
+  }));
 
-  const orgHierarchy = buildOrgHierarchy(empRows, deptRows, orgRecipCount, orgNomCount);
+  // Index nodes
+  const orgNodeById: Record<string, OrgNode> = {};
+  for (const n of orgNodesFlat) orgNodeById[n.id] = n;
 
-  // ── Assemble & return ──────────────────────────────────────────────────────
+  // Count direct reports
+  for (const n of orgNodesFlat) {
+    if (n.managerId && n.managerId !== "__root__" && orgNodeById[n.managerId]) {
+      orgNodeById[n.managerId].directReportCount++;
+    }
+  }
+
+  // Count total reports (recursive) — BFS approach
+  function countTotalReports(nodeId: string, childrenMap: Record<string, string[]>): number {
+    const directChildren = childrenMap[nodeId] || [];
+    return directChildren.reduce((sum, cid) => sum + 1 + countTotalReports(cid, childrenMap), 0);
+  }
+  const orgChildrenMap: Record<string, string[]> = {};
+  for (const n of orgNodesFlat) {
+    if (n.managerId && n.managerId !== "__root__") {
+      if (!orgChildrenMap[n.managerId]) orgChildrenMap[n.managerId] = [];
+      orgChildrenMap[n.managerId].push(n.id);
+    }
+  }
+  for (const n of orgNodesFlat) {
+    n.totalReportCount = countTotalReports(n.id, orgChildrenMap);
+  }
+
+  // Build the tree recursively
+  function buildTree(id: string): OrgTreeNode {
+    const node = orgNodeById[id];
+    const children = (orgChildrenMap[id] || [])
+      .sort((a, b) => (orgNodeById[a]?.dept || "").localeCompare(orgNodeById[b]?.dept || ""))
+      .map(buildTree);
+    return { node, children };
+  }
+
+  // Virtual root node
+  const virtualRoot: OrgNode = {
+    id: "__root__", name: "Organisation", title: "Root",
+    dept: "", seniority: "VP", managerId: null, depth: 0,
+    directReportCount: 0, totalReportCount: orgNodesFlat.length,
+    received: 0, given: 0,
+  };
+  const rootChildren = orgNodesFlat
+    .filter(n => n.managerId === "__root__")
+    .sort((a,b) => a.dept.localeCompare(b.dept))
+    .map(n => buildTree(n.id));
+  virtualRoot.directReportCount = rootChildren.length;
+  const orgTree: OrgTreeNode = { node: virtualRoot, children: rootChildren };
+
+  // Stats
+  const managerSen = new Set(["VP","Director","Senior Manager","Manager","Lead"]);
+  const orgManagerCount = orgNodesFlat.filter(n => managerSen.has(n.seniority)).length;
+  const orgIcCount      = orgNodesFlat.filter(n => !managerSen.has(n.seniority)).length;
+  const managersWithReports = orgNodesFlat.filter(n => n.directReportCount > 0);
+  const avgSpan = managersWithReports.length > 0
+    ? Math.round(managersWithReports.reduce((s,n) => s + n.directReportCount, 0) / managersWithReports.length)
+    : 0;
+  const maxDepth = orgNodesFlat.reduce((m,n) => Math.max(m, n.depth), 0);
+
+  const orgHierarchy = {
+    tree: orgTree,
+    nodes: [virtualRoot, ...orgNodesFlat],
+    stats: {
+      totalNodes: orgNodesFlat.length,
+      managerCount: orgManagerCount,
+      icCount: orgIcCount,
+      avgSpan,
+      maxDepth,
+    },
+  };
+
   return {
-    kpi: { totalAwards: rows.length, totalMonetary, avgAwardValue: Math.round(totalMonetary / rows.length), uniqueRecipients: uniqueRecips.size, uniqueNominators: uniqueNoms.size, uniqueDepartments: uniqueDepts.size, recognitionRate: Math.round(uniqueNoms.size / uniqueRecips.size * 100), highPerformers, cultureCarriers, atRiskCount, neverRecognizedCount, crossDeptPct, peerRecognitionPct, icRatio, execRatio, momTrend, avgMonthlyAwards },
-    categories, subcategories, monthly, departments, seniority,
-    topRecipients, topNominators, skills, valueDistribution,
+    kpi: {
+      totalAwards: rows.length,
+      totalMonetary,
+      avgAwardValue: Math.round(totalMonetary / rows.length),
+      uniqueRecipients: uniqueRecips.size,
+      uniqueNominators: uniqueNoms.size,
+      uniqueDepartments: uniqueDepts.size,
+      recognitionRate: Math.round(uniqueNoms.size / uniqueRecips.size * 100),
+      highPerformers,
+      cultureCarriers,
+      atRiskCount,
+      neverRecognizedCount,
+      crossDeptPct,
+      peerRecognitionPct,
+      icRatio,
+      execRatio,
+      momTrend,
+      avgMonthlyAwards,
+    },
+    categories,
+    subcategories,
+    monthly,
+    departments,
+    seniority,
+    topRecipients,
+    topNominators,
+    skills,
+    valueDistribution,
     network: { nodes: netNodes, edges: netEdges },
-    cultureHealth, wordCloud, messageThemes,
-    skillInsights: { topSkills, byDepartment: byDepartmentSkills, skillCategoryMatrix },
+    cultureHealth,
+    wordCloud,
+    messageThemes,
+    skillInsights: { topSkills, byDepartment, skillCategoryMatrix },
     workforce,
-    intelligence: { invisibleContributors, risingStars, decliningRecognition, crossDeptFlow, depts: intelligenceDepts, equityData, managerReach, skillGaps, seasonality, orgConnectors, valueEquity },
+    intelligence: {
+      invisibleContributors,
+      risingStars,
+      decliningRecognition,
+      crossDeptFlow,
+      depts: intelligenceDepts,
+      equityData,
+      managerReach,
+      skillGaps,
+      seasonality,
+      orgConnectors,
+      valueEquity,
+    },
     employeeDirectory,
     sentiment,
     orgHierarchy,
+    actionQueue,
   };
 }

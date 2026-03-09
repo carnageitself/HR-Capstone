@@ -3,7 +3,7 @@
 import { useState, useMemo } from "react";
 import type { DashboardData } from "@/lib/loadDashboardData";
 import { Num } from "@/constants/primitives";
-import { Overview }           from "./Overview";
+
 import { Departments }        from "./Departments";
 import { RecognitionActivity } from "./RecognitionActivity";
 import { EmployeeDirectory }  from "./EmployeeDirectory";
@@ -13,6 +13,7 @@ import { Evaluations }        from "./Evaluations";
 import { ActionQueue }        from "./ActionQueue";
 
 import { DateRangeProvider, DateRangeFilter, useDateRange } from "@/utils/DateRangeFilter";
+import { Overview } from "./Overview";
 
 // ── Sidebar icons ─────────────────────────────────────────────────────────────
 const Icons = {
