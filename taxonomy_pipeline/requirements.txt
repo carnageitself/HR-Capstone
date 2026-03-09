@@ -6,6 +6,7 @@ python-dotenv
 requests
 google-generativeai
 fastapi
-uvicorn
+uvicorn[standard]
 supabase
 python-multipart
+pydantic
