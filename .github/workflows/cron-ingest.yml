@@ -48,12 +48,7 @@ jobs:
         run: |
           echo "Checking nomination stats..."
           curl -s "${{ secrets.RENDER_API_URL }}/api/nominations/stats" | jq .
-
-
-# ============================================================
-# FILE: .github/workflows/cron-pipeline.yml
-# Weekly pipeline trigger on unprocessed nominations
-# ============================================================
+          
 ---
 name: "CRON: Weekly Pipeline Run"
 
