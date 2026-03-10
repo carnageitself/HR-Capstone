@@ -3,17 +3,16 @@
 import { useState, useMemo } from "react";
 import type { DashboardData } from "@/lib/loadDashboardData";
 import { Num } from "@/constants/primitives";
-
-import { Departments }        from "./Departments";
+import { Overview }            from "./Overview";
+import { Departments }         from "./Departments";
 import { RecognitionActivity } from "./RecognitionActivity";
-import { EmployeeDirectory }  from "./EmployeeDirectory";
-import { HRIntelligence }     from "./HRIntelligence";
-import { TeamLens }           from "./TeamLens";
-import { Evaluations }        from "./Evaluations";
-import { ActionQueue }        from "./ActionQueue";
+import { EmployeeDirectory }   from "./EmployeeDirectory";
+import { HRIntelligence }      from "./HRIntelligence";
+import { TeamLens }            from "./TeamLens";
+import { Evaluations }         from "./Evaluations";
+import { ActionQueue }         from "./ActionQueue";
 
 import { DateRangeProvider, DateRangeFilter, useDateRange } from "@/utils/DateRangeFilter";
-import { Overview } from "./Overview";
 
 // ── Sidebar icons ─────────────────────────────────────────────────────────────
 const Icons = {
@@ -116,15 +115,15 @@ function DashboardShell({ data }: { data: DashboardData }) {
 
   type NavItem = { id: Tab; label: string; icon: React.ReactNode; badge?: string | null };
 
-  const [dismissed, setDismissed] = useState<Set<string>>(new Set());
-  const openCount = 108 - dismissed.size;
+  // ── Live action queue badge count (critical items from Supabase data) ────────
+  const openCount = data.actionQueue?.filter(a => a.urgency === "critical").length ?? 0;
 
   // ── Navigation ──────────────────────────────────────────────────────────────
   const NAV_WORKFORCE: NavItem[] = [
     { id:"overview"     as Tab, label:"Overview",             icon:Icons.overview     },
     { id:"employees"    as Tab, label:"Employees",            icon:Icons.employees    },
     { id:"departments"  as Tab, label:"Departments",          icon:Icons.departments  },
-    { id:"actions"      as Tab, label:"Action Queue",         icon:Icons.actions,  badge: openCount > 0 ? String(openCount) : null },
+    { id:"actions"      as Tab, label:"Action Queue",         icon:Icons.actions, badge: openCount > 0 ? String(openCount) : null },
     { id:"recognition"  as Tab, label:"Recognition Activity", icon:Icons.recognition  },
   ];
 
@@ -243,7 +242,7 @@ function DashboardShell({ data }: { data: DashboardData }) {
 
           {tab === "employees"    && <EmployeeDirectory   data={data} />}
           {tab === "departments"  && <Departments         data={data} />}
-          {tab === "actions"      && <ActionQueue dismissed={dismissed} setDismissed={setDismissed} />}
+          {tab === "actions"      && <ActionQueue         data={data} />}
           {tab === "recognition"  && (hasData || !isActive ? <RecognitionActivity data={filteredData} /> : <NoData />)}
           {tab === "intelligence" && <HRIntelligence      data={data} />}
           {tab === "manager"      && <TeamLens            data={data} />}

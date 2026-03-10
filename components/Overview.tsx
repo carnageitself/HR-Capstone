@@ -413,19 +413,269 @@ function SeverityGroup({ severity, items, onNavigate }: {
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
+// AI INSIGHTS PANEL — Claude-powered deep analysis
+// ─────────────────────────────────────────────────────────────────────────────
+interface AiInsight {
+  severity: Severity;
+  category: string;
+  title: string;
+  metric: string;
+  metricSub: string;
+  finding: string;
+  action: string;
+  tab?: string;
+}
+
+type AiState = "loading" | "fresh" | "stale";
+
+function AiInsightsPanel({ data: _data, onNavigate }: { data: DashboardData; onNavigate?: (tab: string) => void }) {
+  const [state, setState]             = useState<AiState>("loading");
+  const [insights, setInsights]       = useState<AiInsight[]>([]);
+  const [generatedAt, setGeneratedAt] = useState<string | null>(null);
+  const [bgRefreshing, setBgRefreshing] = useState(false);
+
+  useEffect(() => { loadCache(); }, []);
+
+  // Poll every 6s whenever a background refresh is in flight (no cache yet, or stale)
+  useEffect(() => {
+    if (!bgRefreshing) return;
+    const interval = setInterval(async () => {
+      const res = await fetch("/api/ai-insights").catch(() => null);
+      if (!res?.ok) return;
+      const json = await res.json();
+      if (json.insights?.length > 0 && !json.refreshing) {
+        setInsights(json.insights);
+        setGeneratedAt(json.generatedAt ?? null);
+        setState("fresh");
+        setBgRefreshing(false);
+      }
+    }, 6000);
+    return () => clearInterval(interval);
+  }, [bgRefreshing]);
+
+  async function loadCache() {
+    try {
+      const res = await fetch("/api/ai-insights");
+      if (!res.ok) throw new Error(`${res.status}`);
+      const json = await res.json();
+
+      if (json.insights?.length > 0) {
+        // Detect bad cache from a previous broken run:
+        // metrics like "Unknown", "0%", "?%" mean Claude received empty data
+        const hasBadData = json.insights.some((ins: AiInsight) =>
+          !ins.metric ||
+          ins.metric === "Unknown" ||
+          ins.metric === "0%" ||
+          ins.metric === "?%" ||
+          ins.metric === "?" ||
+          ins.metric.includes("undefined")
+        );
+
+        if (hasBadData) {
+          // Wipe the bad cache and regenerate from fresh data
+          await fetch("/api/ai-insights", { method: "DELETE" });
+          await runOnce();
+          return;
+        }
+
+        setInsights(json.insights);
+        setGeneratedAt(json.generatedAt ?? null);
+        setState(json.stale ? "stale" : "fresh");
+        if (json.refreshing) setBgRefreshing(true);
+      } else {
+        await runOnce();
+      }
+    } catch {
+      await runOnce();
+    }
+  }
+
+  async function runOnce() {
+    // state stays "loading" — skeleton remains visible while this runs
+    try {
+      const res = await fetch("/api/ai-insights", { method: "POST" });
+      if (!res.ok) return;
+      const json = await res.json();
+      if (json.insights?.length > 0) {
+        setInsights(json.insights);
+        setGeneratedAt(json.generatedAt ?? null);
+        setState("fresh");
+      }
+    } catch {
+      // silently fail — skeleton will stay, no confusing error shown to HR
+    }
+  }
+
+  const ORDER: Record<Severity, number> = { critical: 0, warning: 1, positive: 2, insight: 3 };
+  const sorted = [...insights].sort((a, b) => ORDER[a.severity] - ORDER[b.severity]);
+
+  const formatAge = (iso: string) => {
+    const diff = (Date.now() - new Date(iso).getTime()) / 1000 / 60;
+    if (diff < 60) return `${Math.round(diff)}m ago`;
+    if (diff < 1440) return `${Math.round(diff / 60)}h ago`;
+    return `${Math.round(diff / 1440)}d ago`;
+  };
+
+  return (
+    <div className="rounded-xl overflow-hidden shadow-sm"
+      style={{ border: `1px solid #C7D2FE`, background: T.white }}>
+
+      {/* Header */}
+      <div className="flex items-center justify-between px-6 py-4"
+        style={{ background: "linear-gradient(135deg, #EEF2FF 0%, #F5F3FF 100%)", borderBottom: "1px solid #C7D2FE" }}>
+        <div className="flex items-center gap-3">
+          <div className="w-9 h-9 rounded-xl flex items-center justify-center text-lg shrink-0"
+            style={{ background: "linear-gradient(135deg, #6366F1, #8B5CF6)", boxShadow: "0 2px 8px rgba(99,102,241,.35)" }}>
+            ✦
+          </div>
+          <div>
+            <div className="font-mono text-[9px] font-bold tracking-[.16em] uppercase mb-0.5"
+              style={{ color: "#6366F1" }}>AI-Powered Analysis</div>
+            <div className="text-[16px] font-extrabold tracking-tight" style={{ color: T.navy }}>
+              Daily Intelligence Briefing
+            </div>
+          </div>
+        </div>
+        <div className="flex items-center gap-3">
+          {/* Status indicators — read only, no user actions */}
+          {state === "fresh" && generatedAt && !bgRefreshing && (
+            <div className="flex items-center gap-1.5 font-mono text-[10px] px-3 py-1 rounded-full"
+              style={{ background:"#F0FDF4", color:"#059669", border:"1px solid #A7F3D0" }}>
+              <span className="w-1.5 h-1.5 rounded-full inline-block" style={{ background:"#10B981" }} />
+              Updated {formatAge(generatedAt)}
+            </div>
+          )}
+          {bgRefreshing && (
+            <div className="flex items-center gap-1.5 font-mono text-[10px] px-3 py-1 rounded-full"
+              style={{ background:"#EEF2FF", color:"#6366F1", border:"1px solid #C7D2FE" }}>
+              <span style={{ animation:"spin 1s linear infinite", display:"inline-block" }}>◌</span>
+              Updating…
+            </div>
+          )}
+          {state === "stale" && generatedAt && !bgRefreshing && (
+            <div className="flex items-center gap-1.5 font-mono text-[10px] px-3 py-1 rounded-full"
+              style={{ background:"#FFFBEB", color:"#D97706", border:"1px solid #FDE68A" }}>
+              <span>🕓</span> {formatAge(generatedAt)}
+            </div>
+          )}
+        </div>
+      </div>
+
+      {/* Body */}
+      <div className="px-6 py-5">
+
+        {/* Skeleton — shown on initial load AND while waiting for first-ever generation */}
+        {state === "loading" && (
+          <div className="flex flex-col gap-3">
+            {[0,1,2,3].map(i => (
+              <div key={i} className="flex overflow-hidden rounded-[10px]"
+                style={{ border:`1px solid #E9ECEF`, animationDelay:`${i*0.08}s` }}>
+                <div className="shrink-0 w-[110px] h-[88px] animate-pulse rounded-l-[10px]"
+                  style={{ background:"#EEF2FF" }} />
+                <div className="flex flex-col flex-1 gap-2.5 px-5 py-4">
+                  <div className="h-2.5 w-24 rounded animate-pulse" style={{ background:"#E9ECEF" }} />
+                  <div className="h-4 w-3/4 rounded animate-pulse" style={{ background:"#EEF2FF" }} />
+                  <div className="h-3 w-full rounded animate-pulse" style={{ background:"#F3F4F6" }} />
+                  <div className="h-3 w-5/6 rounded animate-pulse" style={{ background:"#F3F4F6" }} />
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
+
+        {/* Insights */}
+        {(state === "fresh" || state === "stale") && sorted.length > 0 && (
+          <div className="flex flex-col gap-3">
+            {state === "stale" && bgRefreshing && (
+              <div className="flex items-center gap-2.5 px-4 py-2.5 rounded-lg"
+                style={{ background:"#EEF2FF", border:"1px solid #C7D2FE" }}>
+                <span style={{ animation:"spin 1s linear infinite", display:"inline-block", color:"#6366F1" }}>◌</span>
+                <p className="text-[12px] m-0" style={{ color:"#4338CA" }}>
+                  <strong>Updating in the background</strong> — new insights will replace these automatically.
+                </p>
+              </div>
+            )}
+            {sorted.map((ins, i) => {
+              const s = SEV[ins.severity];
+              return (
+                <div key={i} className="flex overflow-hidden rounded-[10px] shadow-sm"
+                  style={{
+                    border: `1px solid ${s.border}`, borderLeft: `4px solid ${s.bar}`, background: T.white,
+                    animation: `fadeUp .4s cubic-bezier(.22,.68,0,1.2) ${i * 0.07}s both`,
+                  }}>
+                  <div className="flex flex-col items-center justify-center shrink-0 w-[110px] gap-1.5 px-3 py-5"
+                    style={{ background: s.chip, borderRight: `1px solid ${s.border}` }}>
+                    <div className="font-mono text-[26px] font-extrabold leading-none tracking-tight"
+                      style={{ color: s.chipText }}>{ins.metric}</div>
+                    <div className="font-mono text-[10px] font-semibold text-center leading-snug max-w-[88px] opacity-75"
+                      style={{ color: s.chipText }}>{ins.metricSub}</div>
+                  </div>
+                  <div className="flex flex-col flex-1 gap-2 px-5 py-4 min-w-0">
+                    <div className="flex items-center justify-between gap-2">
+                      <span className="font-mono text-[9px] font-bold tracking-[.12em] uppercase"
+                        style={{ color: T.muted2 }}>{ins.category}</span>
+                      <span className="font-mono text-[9px] font-extrabold px-2.5 py-0.5 rounded-full shrink-0"
+                        style={{ background: s.chip, color: s.chipText, border: `1px solid ${s.border}` }}>
+                        {s.label}
+                      </span>
+                    </div>
+                    <p className="text-[15px] font-extrabold leading-snug tracking-tight m-0"
+                      style={{ color: T.navy }}>{ins.title}</p>
+                    <p className="text-[13px] font-medium leading-relaxed m-0"
+                      style={{ color: T.muted }}>{ins.finding}</p>
+                    <div className="flex items-start gap-2.5 px-3.5 py-2.5 rounded-lg"
+                      style={{ background: s.bg, border: `1px solid ${s.border}` }}>
+                      <span className="font-mono text-[9px] font-extrabold tracking-[.1em] uppercase shrink-0 pt-0.5"
+                        style={{ color: s.chipText }}>Action:</span>
+                      <p className="text-[13px] font-medium leading-relaxed m-0 flex-1"
+                        style={{ color: T.navy }}>{ins.action}</p>
+                      {onNavigate && (
+                        <button
+                          onClick={() => {
+                            // Use AI-assigned tab if present, otherwise infer from category/severity
+                            const target = ins.tab ?? (() => {
+                              const cat = (ins.category ?? "").toLowerCase();
+                              if (cat.includes("retention") || cat.includes("invisible") || cat.includes("at-risk") || cat.includes("unrecognized")) return "actions";
+                              if (cat.includes("dept") || cat.includes("department") || cat.includes("coverage")) return "departments";
+                              if (cat.includes("manager") || cat.includes("effectiveness")) return "manager";
+                              if (cat.includes("equity") || cat.includes("rising") || cat.includes("momentum") || cat.includes("cross")) return "intelligence";
+                              if (cat.includes("trend") || cat.includes("category") || cat.includes("sentiment") || cat.includes("peer") || cat.includes("culture signal")) return "recognition";
+                              if (cat.includes("talent") || cat.includes("engagement") || cat.includes("employee")) return "employees";
+                              // Severity-based last resort
+                              if (ins.severity === "critical") return "actions";
+                              if (ins.severity === "warning") return "departments";
+                              return "recognition";
+                            })();
+                            onNavigate(target);
+                          }}
+                          className="shrink-0 font-mono text-[10px] font-bold px-2.5 py-0.5 rounded-md cursor-pointer bg-transparent self-end whitespace-nowrap"
+                          style={{ color: s.chipText, border: `1px solid ${s.border}` }}>
+                          View →
+                        </button>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
+            <p className="text-[10px] text-center mt-1 font-mono" style={{ color: T.muted2 }}>
+              Last updated {generatedAt ? new Date(generatedAt).toLocaleString("en-US", { dateStyle:"medium", timeStyle:"short" }) : ""}
+            </p>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
 // MAIN EXPORT
 // ─────────────────────────────────────────────────────────────────────────────
 export function Overview({ data, kpiRow1, kpiRow2, isActive, hasData, onNavigate }: {
   data:DashboardData; kpiRow1:KpiCard[]; kpiRow2:KpiCard[];
   isActive:boolean; hasData:boolean; onNavigate?:(tab:string)=>void;
 }) {
-  const wf       = data.workforce;
-  const insights  = useMemo(() => deriveInsights(data), [data]);
-  const critical  = insights.filter(i => i.severity === "critical");
-  const warnings  = insights.filter(i => i.severity === "warning");
-  const positives = insights.filter(i => i.severity === "positive");
-  const infos     = insights.filter(i => i.severity === "insight");
-  const today = new Date().toLocaleDateString("en-US", { month:"long", day:"numeric", year:"numeric" });
+  const wf = data.workforce;
 
   return (
     <div className="flex flex-col gap-5" style={{ fontFamily:T.sans }}>
@@ -499,80 +749,8 @@ export function Overview({ data, kpiRow1, kpiRow2, isActive, hasData, onNavigate
         </div>
       </div>
 
-      {/* Divider */}
-      <div className="h-px my-1" style={{ background:T.border }} />
-
-      {/* Executive Briefing header card */}
-      <div className="rounded-xl px-6 py-5 shadow-sm" style={{ background:T.white, border:`1px solid ${T.border}` }}>
-        <div className="flex items-start justify-between gap-4 mb-5">
-          <div>
-            <div className="font-mono text-[9px] font-bold tracking-[.16em] uppercase mb-1.5"
-              style={{ color:T.orange }}>Recognition Intelligence · FY 2025</div>
-            <h2 className="text-[22px] font-extrabold tracking-tight leading-tight m-0"
-              style={{ color:T.navy }}>Executive Briefing</h2>
-            <p className="text-[13px] font-medium leading-relaxed mt-1.5 mb-0"
-              style={{ color:T.muted }}>Key findings from your recognition data — written for leaders, not data analysts.</p>
-          </div>
-          <div className="flex flex-col items-end gap-2 shrink-0">
-            <span className="font-mono text-[10px]" style={{ color:T.muted2 }}>{today}</span>
-            <div className="flex gap-1.5">
-              {critical.length > 0 && (
-                <div className="flex items-center gap-1.5 font-mono text-[10px] font-extrabold px-3.5 py-1 rounded-full"
-                  style={{ background:"#FEF2F2", color:"#DC2626", border:"1px solid #FCA5A5" }}>
-                  <span className="w-1.5 h-1.5 rounded-full inline-block" style={{ background:"#EF4444" }} />
-                  {critical.length} action{critical.length > 1 ? "s" : ""} required
-                </div>
-              )}
-              {warnings.length > 0 && (
-                <div className="flex items-center gap-1.5 font-mono text-[10px] font-extrabold px-3.5 py-1 rounded-full"
-                  style={{ background:"#FFFBEB", color:"#D97706", border:"1px solid #FDE68A" }}>
-                  <span className="w-1.5 h-1.5 rounded-full inline-block" style={{ background:"#F59E0B" }} />
-                  {warnings.length} to monitor
-                </div>
-              )}
-              {positives.length > 0 && (
-                <div className="flex items-center gap-1.5 font-mono text-[10px] font-extrabold px-3.5 py-1 rounded-full"
-                  style={{ background:"#F0FDF4", color:"#059669", border:"1px solid #A7F3D0" }}>
-                  <span className="w-1.5 h-1.5 rounded-full inline-block" style={{ background:"#10B981" }} />
-                  {positives.length} positives
-                </div>
-              )}
-            </div>
-          </div>
-        </div>
-
-        {/* Summary cells */}
-        <div className="grid grid-cols-4 gap-2.5">
-          {([
-            { sev:"critical" as Severity, count:critical.length,  label:"Actions Required"   },
-            { sev:"warning"  as Severity, count:warnings.length,  label:"Monitor Closely"    },
-            { sev:"positive" as Severity, count:positives.length, label:"Performing Well"    },
-            { sev:"insight"  as Severity, count:infos.length,     label:"Strategic Insights" },
-          ]).map(({ sev, count, label }) => {
-            const s = SEV[sev];
-            return (
-              <div key={sev} className="flex items-center gap-3 px-4 py-3 rounded-xl"
-                style={{ background:s.bg, border:`1px solid ${s.border}` }}>
-                <span className="font-mono text-[26px] font-extrabold leading-none"
-                  style={{ color:s.chipText }}>
-                  <Num to={count} />
-                </span>
-                <div>
-                  <div className="font-mono text-[10px] font-extrabold tracking-[.08em] uppercase"
-                    style={{ color:s.chipText }}>{label}</div>
-                  <div className="font-mono text-[9px] mt-0.5" style={{ color:T.muted }}>{s.label}</div>
-                </div>
-              </div>
-            );
-          })}
-        </div>
-      </div>
-
-      {/* Insight groups */}
-      <SeverityGroup severity="critical" items={critical}  onNavigate={onNavigate} />
-      <SeverityGroup severity="warning"  items={warnings}  onNavigate={onNavigate} />
-      <SeverityGroup severity="positive" items={positives} onNavigate={onNavigate} />
-      <SeverityGroup severity="insight"  items={infos}     onNavigate={onNavigate} />
+      {/* AI Insights Panel */}
+      <AiInsightsPanel data={data} onNavigate={onNavigate} />
 
     </div>
   );
