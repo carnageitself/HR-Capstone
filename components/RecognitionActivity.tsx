@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import type { DashboardData } from "@/lib/loadDashboardData";
 import { CAT_COLORS, DEPT_COLORS } from "@/constants/colors";
 import { SH } from "@/constants/primitives";
@@ -130,168 +130,303 @@ function StatCard({ label, a, b, color }: { label: string; a: number; b: number;
 }
 
 // ── Period Comparison ────────────────────────────────────────────────────────
-function PeriodComparison({ data }: { data: DashboardData }) {
-  const monthly = data.monthly;
-  const availableMonths = monthly.map(m => m.yearMonth).filter(Boolean);
-  const year = availableMonths[0]?.slice(0, 4) || "2025";
+const COLOR_A = "#F96400";
+const COLOR_B = "#3B5BDB";
 
-  const PERIODS = [
-    { id: "q1", label: `Q1 ${year}`, months: [`${year}-01`, `${year}-02`, `${year}-03`] },
-    { id: "q2", label: `Q2 ${year}`, months: [`${year}-04`, `${year}-05`, `${year}-06`] },
-    { id: "q3", label: `Q3 ${year}`, months: [`${year}-07`, `${year}-08`, `${year}-09`] },
-    { id: "q4", label: `Q4 ${year}`, months: [`${year}-10`, `${year}-11`, `${year}-12`] },
-    { id: "h1", label: `H1 ${year}`, months: [`${year}-01`,`${year}-02`,`${year}-03`,`${year}-04`,`${year}-05`,`${year}-06`] },
-    { id: "h2", label: `H2 ${year}`, months: [`${year}-07`,`${year}-08`,`${year}-09`,`${year}-10`,`${year}-11`,`${year}-12`] },
-  ].filter(p => p.months.some(m => availableMonths.includes(m)));
-
-  const [periodA, setPeriodA] = useState(PERIODS[0]?.id || "q1");
-  const [periodB, setPeriodB] = useState(PERIODS[1]?.id || "q2");
-
-  const pA = PERIODS.find(p => p.id === periodA) || PERIODS[0];
-  const pB = PERIODS.find(p => p.id === periodB) || PERIODS[1];
-
-  function getStats(months: string[]) {
-    const matched = months
-      .map(mo => monthly.find(m => m.yearMonth === mo))
-      .filter((m): m is DashboardData["monthly"][0] => !!m);
-    const totalAwards = matched.reduce((s, m) => s + m.awards, 0);
-    const avgPerMonth = matched.length > 0 ? Math.round(totalAwards / matched.length) : 0;
-    const peak = matched.reduce(
-      (best, m) => m.awards > best.awards ? m : best,
-      matched[0] || { awards: 0, label: "—", month: "—", yearMonth: "", value: 0 }
-    );
-    return { totalAwards, avgPerMonth, peak, months: matched };
+function buildPeriods(monthly: DashboardData["monthly"]) {
+  const available = new Set(monthly.map(m => m.yearMonth).filter(Boolean));
+  if (!available.size) return [];
+  const years = [...new Set([...available].map(m => m.slice(0, 4)))].sort();
+  const all: { id: string; label: string; months: string[] }[] = [];
+  for (const y of years) {
+    [
+      { id: `q1_${y}`, label: `Q1 ${y}`, months: [`${y}-01`,`${y}-02`,`${y}-03`] },
+      { id: `q2_${y}`, label: `Q2 ${y}`, months: [`${y}-04`,`${y}-05`,`${y}-06`] },
+      { id: `q3_${y}`, label: `Q3 ${y}`, months: [`${y}-07`,`${y}-08`,`${y}-09`] },
+      { id: `q4_${y}`, label: `Q4 ${y}`, months: [`${y}-10`,`${y}-11`,`${y}-12`] },
+      { id: `h1_${y}`, label: `H1 ${y}`, months: [`${y}-01`,`${y}-02`,`${y}-03`,`${y}-04`,`${y}-05`,`${y}-06`] },
+      { id: `h2_${y}`, label: `H2 ${y}`, months: [`${y}-07`,`${y}-08`,`${y}-09`,`${y}-10`,`${y}-11`,`${y}-12`] },
+    ]
+      .filter(p => p.months.some(m => available.has(m)))
+      .forEach(p => all.push(p));
   }
+  return all;
+}
 
-  const statsA = getStats(pA?.months || []);
-  const statsB = getStats(pB?.months || []);
-  const maxAwards = Math.max(...statsA.months.map(m => m.awards), ...statsB.months.map(m => m.awards), 1);
-  const maxLen = Math.max(statsA.months.length, statsB.months.length);
+function getPeriodStats(months: string[], data: DashboardData) {
+  const set = new Set(months);
+  const matched = (data.monthly ?? []).filter(m => m.yearMonth && set.has(m.yearMonth));
+  const totalAwards = matched.reduce((s, m) => s + m.awards, 0);
+  const totalValue  = matched.reduce((s, m) => s + (m.value ?? 0), 0);
+  const avgPerMonth = matched.length > 0 ? Math.round(totalAwards / matched.length) : 0;
+  const peak        = matched.reduce(
+    (b, m) => m.awards > b.awards ? m : b,
+    matched[0] ?? { awards: 0, label: "—", month: "—", yearMonth: "", value: 0 }
+  );
+  // Real dept counts from employeeDirectory
+  const depts: Record<string, number> = {};
+  for (const emp of (data.employeeDirectory ?? [])) {
+    for (const a of (emp.recentAwards ?? [])) {
+      const ym = a.date?.slice(0, 7);
+      if (ym && set.has(ym)) depts[emp.dept] = (depts[emp.dept] ?? 0) + 1;
+    }
+  }
+  // Real category counts
+  const cats: Record<string, number> = {};
+  for (const emp of (data.employeeDirectory ?? [])) {
+    for (const a of (emp.recentAwards ?? [])) {
+      const ym = a.date?.slice(0, 7);
+      if (ym && set.has(ym)) {
+        const cat = a.category ?? "Unknown";
+        cats[cat] = (cats[cat] ?? 0) + 1;
+      }
+    }
+  }
+  return { totalAwards, totalValue, avgPerMonth, peak, months: matched, depts, cats };
+}
 
-  if (!pA || !pB) return null;
+function DeltaBadge({ a, b }: { a: number; b: number }) {
+  if (b === 0) return <span className="font-mono text-[10px] text-gray-400">—</span>;
+  const pct = Math.round(((a - b) / b) * 100);
+  if (pct === 0) return <span className="font-mono text-[10px] text-gray-400">—</span>;
+  const up = pct > 0;
+  return (
+    <span className={`font-mono text-[10px] font-bold ${up ? "text-green-600" : "text-red-500"}`}>
+      {up ? "▲" : "▼"} {Math.abs(pct)}%
+    </span>
+  );
+}
+
+function PeriodComparison({ data }: { data: DashboardData }) {
+  const periods = useMemo(() => buildPeriods(data.monthly ?? []), [data.monthly]);
+
+  // Auto-suggest H1 vs H2, fall back to Q1 vs Q2
+  const [defA, defB] = useMemo(() => {
+    const h1 = periods.find(p => p.id.startsWith("h1_"));
+    const h2 = periods.find(p => p.id.startsWith("h2_"));
+    if (h1 && h2) return [h1.id, h2.id];
+    return [periods[0]?.id ?? "", periods[1]?.id ?? ""];
+  }, [periods]);
+
+  const [pAId, setPAId] = useState(defA);
+  const [pBId, setPBId] = useState(defB);
+
+  const pA = periods.find(p => p.id === pAId) ?? periods[0];
+  const pB = periods.find(p => p.id === pBId) ?? periods[1];
+
+  const sA = useMemo(() => pA ? getPeriodStats(pA.months, data) : null, [pA, data]);
+  const sB = useMemo(() => pB ? getPeriodStats(pB.months, data) : null, [pB, data]);
+
+  if (!pA || !pB || !sA || !sB || periods.length < 2) return null;
+
+  const maxAwards = Math.max(...sA.months.map(m => m.awards), ...sB.months.map(m => m.awards), 1);
+  const maxLen    = Math.max(sA.months.length, sB.months.length);
+  const allDepts  = [...new Set([...Object.keys(sA.depts), ...Object.keys(sB.depts)])].sort();
+  const allCats   = [...new Set([...Object.keys(sA.cats), ...Object.keys(sB.cats)])]
+    .sort((x, y) => (sB.cats[y] ?? 0) + (sA.cats[y] ?? 0) - ((sB.cats[x] ?? 0) + (sA.cats[x] ?? 0)));
 
   return (
-    <div className="flex flex-col gap-4">
-      <div className="flex items-center gap-4 flex-wrap">
-        {[{ id: periodA, set: setPeriodA, block: periodB, color: "#F96400", label: "Period A" },
-          { id: periodB, set: setPeriodB, block: periodA, color: "#3B5BDB", label: "Period B" }].map(({ id, set, block, color, label }) => (
-          <div key={label} className="flex items-center gap-2 flex-wrap">
-            <div className="flex items-center gap-1.5">
-              <div className="w-3 h-3 rounded" style={{ background: color }} />
-              <span className="text-[11px] font-semibold text-gray-700">{label}:</span>
+    <div className="bg-white border border-gray-200 rounded-xl overflow-hidden shadow-sm">
+      {/* Header + pickers */}
+      <div className="px-5 py-4 border-b border-gray-200 flex items-center justify-between gap-4 flex-wrap">
+        <div>
+          <div className="font-mono text-[9px] text-[#8E44AD] uppercase tracking-widest mb-0.5">Period Comparison</div>
+          <div className="font-bold text-[15px] text-[#0B3954]">
+            {pA.label} vs {pB.label}
+            {pAId === defA && pBId === defB && (
+              <span className="ml-2 text-[10px] font-mono font-normal px-2 py-0.5 rounded-full bg-purple-50 text-purple-600 border border-purple-200 align-middle">
+                recommended
+              </span>
+            )}
+          </div>
+        </div>
+        <div className="flex items-center gap-3 flex-wrap">
+          {[
+            { id: pAId, set: setPAId, block: pBId, color: COLOR_A, label: "A" },
+            { id: pBId, set: setPBId, block: pAId, color: COLOR_B, label: "B" },
+          ].map(({ id, set, block, color, label }) => (
+            <div key={label} className="flex items-center gap-1.5">
+              <div className="w-2 h-2 rounded-sm shrink-0" style={{ background: color }} />
+              <div className="flex gap-1">
+                {periods.map(p => (
+                  <button key={p.id}
+                    onClick={() => { if (p.id !== block) set(p.id); }}
+                    disabled={p.id === block}
+                    className="px-2 py-0.5 rounded text-[10px] font-semibold border transition-all cursor-pointer disabled:opacity-30 disabled:cursor-not-allowed"
+                    style={{
+                      background:  id === p.id ? color : "transparent",
+                      color:       id === p.id ? "#fff" : "#6C757D",
+                      borderColor: id === p.id ? color : "#E9ECEF",
+                    }}>
+                    {p.label}
+                  </button>
+                ))}
+              </div>
             </div>
-            <div className="flex gap-1.5 flex-wrap">
-              {PERIODS.map(p => (
-                <button key={p.id} onClick={() => { if (p.id !== block) set(p.id); }} disabled={p.id === block}
-                  className={`px-2.5 py-1 rounded-md text-[11px] font-semibold border transition-all cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed`}
-                  style={{
-                    background: id === p.id ? color : "white",
-                    color: id === p.id ? "white" : "#6C757D",
-                    borderColor: id === p.id ? color : "#E9ECEF",
-                  }}>
-                  {p.label}
-                </button>
+          ))}
+        </div>
+      </div>
+
+      <div className="px-5 py-5 flex flex-col gap-5">
+
+        {/* KPI cards */}
+        <div className="grid grid-cols-3 gap-4">
+          {[
+            { label: "Total Awards",    a: sA.totalAwards, b: sB.totalAwards, pre: ""  },
+            { label: "Monthly Average", a: sA.avgPerMonth, b: sB.avgPerMonth, pre: ""  },
+            { label: "Total Value",     a: sA.totalValue,  b: sB.totalValue,  pre: "$" },
+          ].map(({ label, a, b, pre }) => (
+            <div key={label} className="rounded-xl p-4 relative overflow-hidden bg-gray-50 border border-gray-200">
+              <div className="font-mono text-[8px] uppercase tracking-widest text-gray-500 mb-2">{label}</div>
+              <div className="flex items-end gap-3">
+                <div>
+                  <div className="font-mono text-[8px] mb-0.5" style={{ color: COLOR_A }}>{pA.label}</div>
+                  <div className="font-mono text-[20px] font-extrabold leading-none" style={{ color: COLOR_A }}>{pre}{a.toLocaleString()}</div>
+                </div>
+                <div>
+                  <div className="font-mono text-[8px] mb-0.5" style={{ color: COLOR_B }}>{pB.label}</div>
+                  <div className="font-mono text-[20px] font-extrabold leading-none" style={{ color: COLOR_B }}>{pre}{b.toLocaleString()}</div>
+                </div>
+                <div className="ml-auto self-center"><DeltaBadge a={b} b={a} /></div>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* Bar chart */}
+        <div>
+          <div className="flex items-center justify-between mb-3">
+            <div className="font-mono text-[9px] uppercase tracking-widest text-gray-500">Monthly Volume</div>
+            <div className="flex gap-3">
+              {[{ c: COLOR_A, l: pA.label }, { c: COLOR_B, l: pB.label }].map(({ c, l }) => (
+                <div key={l} className="flex items-center gap-1.5">
+                  <div className="w-2.5 h-2.5 rounded-sm" style={{ background: c }} />
+                  <span className="font-mono text-[9px] font-semibold" style={{ color: c }}>{l}</span>
+                </div>
               ))}
             </div>
           </div>
-        ))}
-      </div>
-
-      <div className="grid grid-cols-3 gap-4">
-        <StatCard label="Total Recognitions" a={statsA.totalAwards} b={statsB.totalAwards} color="#F96400" />
-        <StatCard label="Monthly Average"    a={statsA.avgPerMonth} b={statsB.avgPerMonth} color="#00A98F" />
-        <StatCard label="Peak Month Awards"  a={statsA.peak.awards} b={statsB.peak.awards} color="#3B5BDB" />
-      </div>
-
-      <div className="bg-white border border-gray-200 rounded-xl p-5">
-        <div className="flex items-center justify-between mb-4">
-          <div>
-            <div className="font-mono text-[9px] text-[#8E44AD] uppercase tracking-widest mb-0.5">Monthly Volume</div>
-            <div className="font-bold text-[15px] text-[#0B3954]">Side-by-Side Comparison</div>
-          </div>
-          <div className="flex items-center gap-3 text-[11px]">
-            <div className="flex items-center gap-1.5"><div className="w-3 h-3 rounded bg-[#F96400]" />{pA.label}</div>
-            <div className="flex items-center gap-1.5"><div className="w-3 h-3 rounded bg-[#3B5BDB]" />{pB.label}</div>
-          </div>
-        </div>
-        <div className="flex items-end gap-1" style={{ height: 160 }}>
-          {Array.from({ length: maxLen }).map((_, i) => {
-            const mA = statsA.months[i];
-            const mB = statsB.months[i];
-            const vA = mA?.awards || 0;
-            const vB = mB?.awards || 0;
-            const hA = Math.round((vA / maxAwards) * 120);
-            const hB = Math.round((vB / maxAwards) * 120);
-            const moLabel = MONTH_NUM[pA.months[i]?.split("-")[1] || "01"];
-            return (
-              <div key={i} className="flex-1 flex flex-col items-center gap-0.5">
-                <div className="w-full flex items-end gap-0.5" style={{ height: 130 }}>
-                  <div className="flex-1 rounded-t relative group" style={{ height: hA, background: "#F96400", minHeight: vA > 0 ? 2 : 0 }}>
-                    {vA > 0 && <div className="absolute -top-5 left-1/2 -translate-x-1/2 font-mono text-[8px] text-[#F96400] font-bold opacity-0 group-hover:opacity-100 whitespace-nowrap">{vA}</div>}
-                  </div>
-                  <div className="flex-1 rounded-t relative group" style={{ height: hB, background: "#3B5BDB", minHeight: vB > 0 ? 2 : 0 }}>
-                    {vB > 0 && <div className="absolute -top-5 left-1/2 -translate-x-1/2 font-mono text-[8px] text-[#3B5BDB] font-bold opacity-0 group-hover:opacity-100 whitespace-nowrap">{vB}</div>}
-                  </div>
-                </div>
-                <div className="font-mono text-[8px] text-gray-400">{moLabel}</div>
-              </div>
-            );
-          })}
-        </div>
-      </div>
-
-      <div className="bg-white border border-gray-200 rounded-xl overflow-hidden">
-        <div className="px-4 py-3 border-b border-gray-200">
-          <div className="font-mono text-[9px] text-[#8E44AD] uppercase tracking-widest mb-0.5">Department Breakdown</div>
-          <div className="font-bold text-[15px] text-[#0B3954]">Coverage Change by Department</div>
-        </div>
-        <table className="w-full border-collapse text-xs">
-          <thead>
-            <tr className="bg-gray-50 border-b-2 border-gray-200">
-              <th className="px-3.5 py-2.5 text-left font-mono text-[9px] tracking-widest uppercase text-gray-500 font-normal">Department</th>
-              <th className="px-3.5 py-2.5 text-left font-mono text-[9px] tracking-widest uppercase text-[#F96400] font-normal">{pA.label}</th>
-              <th className="px-3.5 py-2.5 text-left font-mono text-[9px] tracking-widest uppercase text-[#3B5BDB] font-normal">{pB.label}</th>
-              <th className="px-3.5 py-2.5 text-left font-mono text-[9px] tracking-widest uppercase text-gray-500 font-normal">Change</th>
-              <th className="px-3.5 py-2.5 text-left font-mono text-[9px] tracking-widest uppercase text-gray-500 font-normal">Trend</th>
-            </tr>
-          </thead>
-          <tbody>
-            {data.workforce.byDept.map(d => {
-              const base = d.coveragePct;
-              const hash = (d.dept + periodA).split("").reduce((acc, c) => acc + c.charCodeAt(0), 0);
-              const offset = (hash % 11) - 5;
-              const vA = Math.max(0, Math.min(100, base + offset));
-              const vB = base;
-              const { pct, up } = getDelta(vB, vA);
-              const color = DEPT_COLORS[d.dept] || "#888";
+          <div className="flex items-end gap-1" style={{ height: 120 }}>
+            {Array.from({ length: maxLen }).map((_, i) => {
+              const mA = sA.months[i];
+              const mB = sB.months[i];
+              const vA = mA?.awards ?? 0;
+              const vB = mB?.awards ?? 0;
+              const hA = Math.round((vA / maxAwards) * 96);
+              const hB = Math.round((vB / maxAwards) * 96);
+              const moLabel = MONTH_NUM[(pA.months[i] ?? pB.months[i] ?? "").split("-")[1] ?? "01"];
               return (
-                <tr key={d.dept} className="border-b border-gray-100 hover:bg-gray-50 transition-colors">
-                  <td className="px-3.5 py-2.5">
-                    <div className="flex items-center gap-2">
-                      <div className="w-2 h-2 rounded-full" style={{ background: color }} />
-                      <span className="font-semibold text-[#0B3954]">{d.dept}</span>
+                <div key={i} className="flex-1 flex flex-col items-center gap-1">
+                  <div className="w-full flex items-end gap-0.5" style={{ height: 104 }}>
+                    <div className="flex-1 rounded-t relative group transition-all duration-500"
+                      style={{ height: Math.max(hA, vA > 0 ? 2 : 0), background: COLOR_A, opacity: vA > 0 ? 1 : 0.12 }}>
+                      {vA > 0 && (
+                        <div className="absolute -top-5 left-1/2 -translate-x-1/2 font-mono text-[8px] font-bold opacity-0 group-hover:opacity-100 whitespace-nowrap transition-opacity"
+                          style={{ color: COLOR_A }}>{vA}</div>
+                      )}
                     </div>
-                  </td>
-                  <td className="px-3.5 py-2.5 font-mono font-bold text-[#F96400]">{Math.round(vA)}%</td>
-                  <td className="px-3.5 py-2.5 font-mono font-bold text-[#3B5BDB]">{Math.round(vB)}%</td>
-                  <td className="px-3.5 py-2.5">
-                    {pct === 0
-                      ? <span className="font-mono text-[10px] text-gray-400">—</span>
-                      : <span className={`font-mono text-[10px] font-bold ${up ? "text-green-600" : "text-red-500"}`}>{up ? "▲" : "▼"} {pct}%</span>
-                    }
-                  </td>
-                  <td className="px-3.5 py-2.5">
-                    <div className="flex items-end gap-px" style={{ height: 20 }}>
-                      {[vA, (vA + vB) / 2, vB].map((v, i) => (
-                        <div key={i} className="w-3 rounded-sm" style={{ height: `${(v / 100) * 20}px`, background: i === 2 ? (up ? "#27AE60" : "#E74C3C") : "#E9ECEF" }} />
-                      ))}
+                    <div className="flex-1 rounded-t relative group transition-all duration-500"
+                      style={{ height: Math.max(hB, vB > 0 ? 2 : 0), background: COLOR_B, opacity: vB > 0 ? 1 : 0.12 }}>
+                      {vB > 0 && (
+                        <div className="absolute -top-5 left-1/2 -translate-x-1/2 font-mono text-[8px] font-bold opacity-0 group-hover:opacity-100 whitespace-nowrap transition-opacity"
+                          style={{ color: COLOR_B }}>{vB}</div>
+                      )}
                     </div>
-                  </td>
-                </tr>
+                  </div>
+                  <span className="font-mono text-[8px] text-gray-400">{moLabel}</span>
+                </div>
               );
             })}
-          </tbody>
-        </table>
+          </div>
+        </div>
+
+        {/* Dept + Category tables side by side */}
+        <div className="grid grid-cols-2 gap-4">
+          {/* Department */}
+          <div className="rounded-xl overflow-hidden border border-gray-200">
+            <div className="px-4 py-2.5 bg-gray-50 border-b border-gray-200">
+              <div className="font-mono text-[9px] text-[#8E44AD] uppercase tracking-widest mb-0.5">By Department</div>
+            </div>
+            <table className="w-full border-collapse text-xs">
+              <thead>
+                <tr className="border-b border-gray-200 bg-gray-50">
+                  <th className="px-3.5 py-2 text-left font-mono text-[9px] tracking-widest uppercase text-gray-500 font-normal">Dept</th>
+                  <th className="px-3 py-2 text-center font-mono text-[9px] tracking-widest uppercase font-semibold" style={{ color: COLOR_A }}>{pA.label}</th>
+                  <th className="px-3 py-2 text-center font-mono text-[9px] tracking-widest uppercase font-semibold" style={{ color: COLOR_B }}>{pB.label}</th>
+                  <th className="px-3 py-2 text-center font-mono text-[9px] tracking-widest uppercase text-gray-500 font-normal">Δ</th>
+                </tr>
+              </thead>
+              <tbody>
+                {allDepts.map((dept, i) => {
+                  const dA = sA.depts[dept] ?? 0;
+                  const dB = sB.depts[dept] ?? 0;
+                  const color = DEPT_COLORS[dept] || "#888";
+                  return (
+                    <tr key={dept} className="hover:bg-gray-50 transition-colors"
+                      style={{ borderBottom: i < allDepts.length - 1 ? "1px solid #F3F4F6" : "none" }}>
+                      <td className="px-3.5 py-2.5">
+                        <div className="flex items-center gap-1.5">
+                          <div className="w-2 h-2 rounded-full shrink-0" style={{ background: color }} />
+                          <span className="font-semibold text-[#0B3954] text-[11px]">{dept}</span>
+                        </div>
+                      </td>
+                      <td className="px-3 py-2.5 text-center font-mono font-bold text-[12px]" style={{ color: COLOR_A }}>{dA}</td>
+                      <td className="px-3 py-2.5 text-center font-mono font-bold text-[12px]" style={{ color: COLOR_B }}>{dB}</td>
+                      <td className="px-3 py-2.5 text-center"><DeltaBadge a={dB} b={dA} /></td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          </div>
+
+          {/* Category */}
+          <div className="rounded-xl overflow-hidden border border-gray-200">
+            <div className="px-4 py-2.5 bg-gray-50 border-b border-gray-200">
+              <div className="font-mono text-[9px] text-[#8E44AD] uppercase tracking-widest mb-0.5">By Award Category</div>
+            </div>
+            <table className="w-full border-collapse text-xs">
+              <thead>
+                <tr className="border-b border-gray-200 bg-gray-50">
+                  <th className="px-3.5 py-2 text-left font-mono text-[9px] tracking-widest uppercase text-gray-500 font-normal">Category</th>
+                  <th className="px-3 py-2 text-center font-mono text-[9px] tracking-widest uppercase font-semibold" style={{ color: COLOR_A }}>{pA.label}</th>
+                  <th className="px-3 py-2 text-center font-mono text-[9px] tracking-widest uppercase font-semibold" style={{ color: COLOR_B }}>{pB.label}</th>
+                  <th className="px-3 py-2 text-center font-mono text-[9px] tracking-widest uppercase text-gray-500 font-normal">Δ</th>
+                </tr>
+              </thead>
+              <tbody>
+                {allCats.map((cat, i) => {
+                  const cA = sA.cats[cat] ?? 0;
+                  const cB = sB.cats[cat] ?? 0;
+                  return (
+                    <tr key={cat} className="hover:bg-gray-50 transition-colors"
+                      style={{ borderBottom: i < allCats.length - 1 ? "1px solid #F3F4F6" : "none" }}>
+                      <td className="px-3.5 py-2.5 font-semibold text-[#0B3954] text-[11px]">{cat}</td>
+                      <td className="px-3 py-2.5 text-center font-mono font-bold text-[12px]" style={{ color: COLOR_A }}>{cA}</td>
+                      <td className="px-3 py-2.5 text-center font-mono font-bold text-[12px]" style={{ color: COLOR_B }}>{cB}</td>
+                      <td className="px-3 py-2.5 text-center"><DeltaBadge a={cB} b={cA} /></td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        {/* Auto-generated insight */}
+        <div className="rounded-xl px-4 py-3.5 bg-purple-50 border border-purple-200">
+          <div className="font-mono text-[9px] text-purple-600 uppercase tracking-widest mb-1">Period Insight</div>
+          <p className="text-[12px] text-[#0B3954] leading-relaxed">
+            {(() => {
+              if (sA.totalAwards === 0 && sB.totalAwards === 0) return "No award data available for the selected periods.";
+              if (sB.totalAwards === sA.totalAwards) return `Recognition volume was consistent between ${pA.label} and ${pB.label} at ${sA.totalAwards} awards.`;
+              const pct = Math.round(Math.abs(sB.totalAwards - sA.totalAwards) / Math.max(sA.totalAwards, 1) * 100);
+              const dir = sB.totalAwards > sA.totalAwards ? "increased" : "decreased";
+              const topDeptB = Object.entries(sB.depts).sort((x, y) => y[1] - x[1])[0]?.[0] ?? "";
+              return `Recognition volume ${dir} by ${pct}% from ${pA.label} (${sA.totalAwards} awards) to ${pB.label} (${sB.totalAwards} awards).${topDeptB ? ` ${topDeptB} led recognition in ${pB.label} with ${sB.depts[topDeptB]} awards.` : ""}`;
+            })()}
+          </p>
+        </div>
       </div>
     </div>
   );
@@ -412,22 +547,26 @@ function SentimentSection({ sentiment }: { sentiment: DashboardData["sentiment"]
               Message sentiment distribution
             </div>
             <div className="flex h-8 rounded-lg overflow-hidden gap-px">
-              {sentiment.distribution.map(d => {
-                if (d.count === 0) return null;
-                const cfg = SENT_CFG[d.label] || { color: "#888", bg: "#F8F9FA", border: "#E9ECEF" };
-                return (
-                  <div key={d.label} title={`${d.label}: ${d.count} (${d.pct}%)`}
-                    className="relative group flex items-center justify-center transition-opacity hover:opacity-90"
-                    style={{ flex: d.count, background: cfg.color }}>
-                    {d.pct >= 8 && (
-                      <span className="font-mono text-[9px] font-bold text-white">{d.pct}%</span>
-                    )}
-                    <div className="absolute bottom-full mb-1 left-1/2 -translate-x-1/2 px-2 py-1 rounded bg-[#0B3954] text-white text-[9px] whitespace-nowrap opacity-0 group-hover:opacity-100 pointer-events-none z-10">
-                      {d.label}: {d.count} ({d.pct}%)
+              {(() => {
+                const totalDist = sentiment.distribution.reduce((s, d) => s + d.count, 0) || 1;
+                return sentiment.distribution.map(d => {
+                  if (d.count === 0) return null;
+                  const pct = Math.round((d.count / totalDist) * 100);
+                  const cfg = SENT_CFG[d.label] || { color: "#888", bg: "#F8F9FA", border: "#E9ECEF" };
+                  return (
+                    <div key={d.label} title={`${d.label}: ${d.count} (${pct}%)`}
+                      className="relative group flex items-center justify-center transition-opacity hover:opacity-90"
+                      style={{ flex: d.count, background: cfg.color }}>
+                      {pct >= 8 && (
+                        <span className="font-mono text-[9px] font-bold text-white">{pct}%</span>
+                      )}
+                      <div className="absolute bottom-full mb-1 left-1/2 -translate-x-1/2 px-2 py-1 rounded bg-[#0B3954] text-white text-[9px] whitespace-nowrap opacity-0 group-hover:opacity-100 pointer-events-none z-10">
+                        {d.label}: {d.count} ({pct}%)
+                      </div>
                     </div>
-                  </div>
-                );
-              })}
+                  );
+                });
+              })()}
             </div>
             <div className="flex gap-4 mt-2 flex-wrap">
               {sentiment.distribution.map(d => {
@@ -444,22 +583,26 @@ function SentimentSection({ sentiment }: { sentiment: DashboardData["sentiment"]
 
           {/* Per-label detail cards */}
           <div className="grid grid-cols-5 gap-3">
-            {sentiment.distribution.map(d => {
-              const cfg = SENT_CFG[d.label] || { color: "#888", bg: "#F8F9FA", border: "#E9ECEF", icon: "•" };
-              return (
-                <div key={d.label} className="rounded-xl p-3 text-center"
-                  style={{ background: cfg.bg, border: `1px solid ${cfg.border}` }}>
-                  <div className="text-lg mb-1">{cfg.icon}</div>
-                  <div className="font-extrabold text-xl font-mono mb-0.5" style={{ color: cfg.color }}>
-                    {d.pct}%
+            {(() => {
+              const totalDist = sentiment.distribution.reduce((s, d) => s + d.count, 0) || 1;
+              return sentiment.distribution.map(d => {
+                const pct = Math.round((d.count / totalDist) * 100);
+                const cfg = SENT_CFG[d.label] || { color: "#888", bg: "#F8F9FA", border: "#E9ECEF", icon: "•" };
+                return (
+                  <div key={d.label} className="rounded-xl p-3 text-center"
+                    style={{ background: cfg.bg, border: `1px solid ${cfg.border}` }}>
+                    <div className="text-lg mb-1">{cfg.icon}</div>
+                    <div className="font-extrabold text-xl font-mono mb-0.5" style={{ color: cfg.color }}>
+                      {pct}%
+                    </div>
+                    <div className="font-mono text-[9px] font-semibold mb-0.5" style={{ color: cfg.color }}>
+                      {d.label}
+                    </div>
+                    <div className="font-mono text-[9px] text-gray-400">{d.count} awards</div>
                   </div>
-                  <div className="font-mono text-[9px] font-semibold mb-0.5" style={{ color: cfg.color }}>
-                    {d.label}
-                  </div>
-                  <div className="font-mono text-[9px] text-gray-400">{d.count} awards</div>
-                </div>
-              );
-            })}
+                );
+              });
+            })()}
           </div>
 
           {/* Insight callout */}
@@ -516,7 +659,7 @@ function SentimentSection({ sentiment }: { sentiment: DashboardData["sentiment"]
                     </span>
                   </div>
                   <div className="w-12 font-mono text-[9px] text-gray-400 text-right shrink-0">
-                    {d.pctHighlyPositive}% 💚
+                    {d.count} awards
                   </div>
                 </div>
               );
@@ -564,7 +707,7 @@ function SentimentSection({ sentiment }: { sentiment: DashboardData["sentiment"]
                   <div className="flex justify-between">
                     <span className="font-mono text-[9px] text-gray-400">{c.count} awards</span>
                     <span className="font-mono text-[9px] font-semibold" style={{ color: cfg.color }}>
-                      {c.pctHighlyPositive}% highly positive
+                      {c.avgCompound >= 0 ? "+" : ""}{c.avgCompound.toFixed(2)} avg
                     </span>
                   </div>
                 </div>
@@ -579,7 +722,6 @@ function SentimentSection({ sentiment }: { sentiment: DashboardData["sentiment"]
 
 // ── Main component ────────────────────────────────────────────────────────────
 export function RecognitionActivity({ data }: { data: DashboardData }) {
-  const [showComparison, setShowComparison] = useState(false);
   const [search, setSearch] = useState("");
   const [catFilter, setCatFilter] = useState("All");
 
@@ -702,25 +844,7 @@ export function RecognitionActivity({ data }: { data: DashboardData }) {
       <SentimentSection sentiment={data.sentiment} />
 
       {/* Period Comparison */}
-      <div className="bg-white border border-gray-200 rounded-xl overflow-hidden">
-        <button onClick={() => setShowComparison(v => !v)}
-          className="w-full px-5 py-4 flex items-center justify-between cursor-pointer hover:bg-gray-50 transition-colors">
-          <div className="flex items-center gap-3">
-            <span className="text-base">📊</span>
-            <div className="text-left">
-              <div className="font-bold text-[14px] text-[#0B3954]">Period Comparison</div>
-              <div className="font-mono text-[10px] text-gray-400">Compare any two quarters or halves side by side</div>
-            </div>
-          </div>
-          <span className="text-gray-400 text-sm transition-transform duration-200"
-            style={{ transform: showComparison ? "rotate(180deg)" : "none" }}>▼</span>
-        </button>
-        {showComparison && (
-          <div className="px-5 pb-5 border-t border-gray-100">
-            <PeriodComparison data={data} />
-          </div>
-        )}
-      </div>
+      <PeriodComparison data={data} />
 
     </div>
   );
