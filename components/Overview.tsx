@@ -336,36 +336,42 @@ function deriveInsights(data: DashboardData): Insight[] {
 // ─────────────────────────────────────────────────────────────────────────────
 function InsightCard({ insight, onNavigate }: { insight:Insight; onNavigate?:(tab:string)=>void }) {
   const s = SEV[insight.severity];
+  const metricLen = (insight.metric ?? "").length;
+  const metricSize = metricLen <= 5 ? 26 : metricLen <= 10 ? 20 : metricLen <= 15 ? 16 : 13;
   return (
     <div className="flex overflow-hidden rounded-[10px] shadow-sm"
       style={{ border:`1px solid ${s.border}`, borderLeft:`4px solid ${s.bar}`, background:T.white }}>
 
       {/* Metric block */}
-      <div className="flex flex-col items-center justify-center shrink-0 w-[110px] gap-1.5 px-3 py-5"
-        style={{ background:s.chip, borderRight:`1px solid ${s.border}` }}>
-        <div className="font-mono text-[28px] font-extrabold leading-none tracking-tight"
-          style={{ color:s.chipText }}>{insight.metric}</div>
-        <div className="font-mono text-[10px] font-semibold text-center leading-snug max-w-[88px] opacity-75"
-          style={{ color:s.chipText }}>{insight.metricSub}</div>
+      <div className="flex flex-col items-center justify-center shrink-0 gap-1.5 px-3 py-5"
+        style={{ background:s.chip, borderRight:`1px solid ${s.border}`, width:112, minWidth:112 }}>
+        <div className="font-mono font-extrabold leading-tight tracking-tight text-center w-full"
+          style={{ color:s.chipText, fontSize:metricSize, wordBreak:"break-word", overflowWrap:"break-word" }}>
+          {insight.metric}
+        </div>
+        <div className="font-mono font-semibold text-center leading-snug w-full"
+          style={{ color:s.chipText, fontSize:9, opacity:0.75, wordBreak:"break-word", overflowWrap:"break-word" }}>
+          {insight.metricSub}
+        </div>
       </div>
 
       {/* Content */}
       <div className="flex flex-col flex-1 gap-2.5 px-5 py-4 min-w-0">
         <div className="flex items-center justify-between gap-2">
-          <span className="font-mono text-[9px] font-bold tracking-[.12em] uppercase"
+          <span className="font-mono text-[9px] font-bold tracking-[.12em] uppercase truncate"
             style={{ color:T.muted2 }}>{insight.category}</span>
           <span className="font-mono text-[9px] font-extrabold px-2.5 py-0.5 rounded-full shrink-0 whitespace-nowrap"
             style={{ background:s.chip, color:s.chipText }}>{s.label}</span>
         </div>
-        <p className="text-[15px] font-extrabold leading-snug tracking-tight m-0"
+        <p className="text-[14px] font-extrabold leading-snug tracking-tight m-0"
           style={{ color:T.navy }}>{insight.title}</p>
-        <p className="text-[13px] font-medium leading-relaxed m-0"
+        <p className="text-[12px] font-medium leading-relaxed m-0"
           style={{ color:T.muted }}>{insight.finding}</p>
         <div className="flex items-start gap-2.5 px-3.5 py-2.5 rounded-lg"
           style={{ background:s.bg, border:`1px solid ${s.border}` }}>
           <span className="font-mono text-[9px] font-extrabold tracking-[.1em] uppercase shrink-0 pt-0.5"
             style={{ color:s.chipText }}>Action:</span>
-          <p className="text-[13px] font-medium leading-relaxed m-0"
+          <p className="text-[12px] font-medium leading-relaxed m-0 flex-1"
             style={{ color:T.navy }}>{insight.action}</p>
           {insight.tab && onNavigate && (
             <button onClick={() => onNavigate(insight.tab!)}
@@ -597,51 +603,60 @@ function AiInsightsPanel({ data: _data, onNavigate }: { data: DashboardData; onN
             )}
             {sorted.map((ins, i) => {
               const s = SEV[ins.severity];
+              // Dynamically shrink metric font for long values
+              const metricLen = (ins.metric ?? "").length;
+              const metricSize = metricLen <= 5 ? 26 : metricLen <= 10 ? 20 : metricLen <= 15 ? 16 : 13;
               return (
                 <div key={i} className="flex overflow-hidden rounded-[10px] shadow-sm"
                   style={{
                     border: `1px solid ${s.border}`, borderLeft: `4px solid ${s.bar}`, background: T.white,
                     animation: `fadeUp .4s cubic-bezier(.22,.68,0,1.2) ${i * 0.07}s both`,
                   }}>
-                  <div className="flex flex-col items-center justify-center shrink-0 w-[110px] gap-1.5 px-3 py-5"
-                    style={{ background: s.chip, borderRight: `1px solid ${s.border}` }}>
-                    <div className="font-mono text-[26px] font-extrabold leading-none tracking-tight"
-                      style={{ color: s.chipText }}>{ins.metric}</div>
-                    <div className="font-mono text-[10px] font-semibold text-center leading-snug max-w-[88px] opacity-75"
-                      style={{ color: s.chipText }}>{ins.metricSub}</div>
+
+                  {/* Metric block — fixed width, overflow-safe */}
+                  <div className="flex flex-col items-center justify-center shrink-0 gap-1.5 px-3 py-5"
+                    style={{ background: s.chip, borderRight: `1px solid ${s.border}`, width: 112, minWidth: 112 }}>
+                    <div className="font-mono font-extrabold leading-tight tracking-tight text-center break-words w-full"
+                      style={{ color: s.chipText, fontSize: metricSize, wordBreak: "break-word", overflowWrap: "break-word" }}>
+                      {ins.metric}
+                    </div>
+                    <div className="font-mono font-semibold text-center leading-snug w-full"
+                      style={{ color: s.chipText, fontSize: 9, opacity: 0.75, wordBreak: "break-word", overflowWrap: "break-word" }}>
+                      {ins.metricSub}
+                    </div>
                   </div>
+
+                  {/* Content block */}
                   <div className="flex flex-col flex-1 gap-2 px-5 py-4 min-w-0">
                     <div className="flex items-center justify-between gap-2">
-                      <span className="font-mono text-[9px] font-bold tracking-[.12em] uppercase"
+                      <span className="font-mono text-[9px] font-bold tracking-[.12em] uppercase truncate"
                         style={{ color: T.muted2 }}>{ins.category}</span>
-                      <span className="font-mono text-[9px] font-extrabold px-2.5 py-0.5 rounded-full shrink-0"
+                      <span className="font-mono text-[9px] font-extrabold px-2.5 py-0.5 rounded-full shrink-0 whitespace-nowrap"
                         style={{ background: s.chip, color: s.chipText, border: `1px solid ${s.border}` }}>
                         {s.label}
                       </span>
                     </div>
-                    <p className="text-[15px] font-extrabold leading-snug tracking-tight m-0"
+                    <p className="text-[14px] font-extrabold leading-snug tracking-tight m-0"
                       style={{ color: T.navy }}>{ins.title}</p>
-                    <p className="text-[13px] font-medium leading-relaxed m-0"
+                    <p className="text-[12px] font-medium leading-relaxed m-0"
                       style={{ color: T.muted }}>{ins.finding}</p>
                     <div className="flex items-start gap-2.5 px-3.5 py-2.5 rounded-lg"
                       style={{ background: s.bg, border: `1px solid ${s.border}` }}>
                       <span className="font-mono text-[9px] font-extrabold tracking-[.1em] uppercase shrink-0 pt-0.5"
                         style={{ color: s.chipText }}>Action:</span>
-                      <p className="text-[13px] font-medium leading-relaxed m-0 flex-1"
+                      <p className="text-[12px] font-medium leading-relaxed m-0 flex-1"
                         style={{ color: T.navy }}>{ins.action}</p>
                       {onNavigate && (
                         <button
                           onClick={() => {
-                            // Use AI-assigned tab if present, otherwise infer from category/severity
                             const target = ins.tab ?? (() => {
                               const cat = (ins.category ?? "").toLowerCase();
                               if (cat.includes("retention") || cat.includes("invisible") || cat.includes("at-risk") || cat.includes("unrecognized")) return "actions";
                               if (cat.includes("dept") || cat.includes("department") || cat.includes("coverage")) return "departments";
                               if (cat.includes("manager") || cat.includes("effectiveness")) return "manager";
                               if (cat.includes("equity") || cat.includes("rising") || cat.includes("momentum") || cat.includes("cross")) return "intelligence";
-                              if (cat.includes("trend") || cat.includes("category") || cat.includes("sentiment") || cat.includes("peer") || cat.includes("culture signal")) return "recognition";
+                              if (cat.includes("trend") || cat.includes("category") || cat.includes("sentiment") || cat.includes("peer") || cat.includes("culture")) return "recognition";
                               if (cat.includes("talent") || cat.includes("engagement") || cat.includes("employee")) return "employees";
-                              // Severity-based last resort
                               if (ins.severity === "critical") return "actions";
                               if (ins.severity === "warning") return "departments";
                               return "recognition";

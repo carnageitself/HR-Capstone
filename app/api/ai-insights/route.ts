@@ -18,7 +18,7 @@ const CACHE_PATH = path.join(process.cwd(), "data", "ai-insights-cache.json");
 
 // Bump this whenever buildDataSummary or the data shape changes.
 // Any cache written with a different version is automatically discarded.
-const CACHE_VERSION = 4;
+const CACHE_VERSION = 5;
 
 let refreshInFlight = false;
 
@@ -257,7 +257,7 @@ severity "critical"  = urgent retention or culture risk requiring immediate acti
 severity "warning"   = monitor closely, issue forming that needs attention within 30 days
 severity "positive"  = celebrate and share with leadership
 severity "insight"   = strategic opportunity or observation worth acting on
-metric: a short concrete stat directly from the data (e.g. "23%", "$450", "12 people") — never "?" or "Unknown"
+metric: a short concrete stat directly from the data — keep it under 12 characters (e.g. "23%", "$450", "12 people", "88% & 92%") — never use long sentences or "?" or "Unknown"
 metricSub: 2–4 words labeling the metric (e.g. "recognition gap", "avg award value")
 title: 1 plain-language executive sentence — specific, not generic
 finding: 2–3 sentences using actual numbers from the data, explain the business impact
