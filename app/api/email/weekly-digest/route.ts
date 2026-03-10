@@ -64,203 +64,258 @@ function alreadySentThisWeek(): boolean {
 
 // ── Build HTML email ──────────────────────────────────────────────────────────
 function buildEmailHTML(data: Awaited<ReturnType<typeof loadDashboardData>>): string {
-  const { kpi, workforce, intelligence, departments, cultureHealth } = data;
+  const { kpi, workforce, intelligence, cultureHealth } = data;
 
-  const weekOf = getThisMonday().toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" });
+  const weekOf    = getThisMonday().toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" });
+  const sentDate  = new Date().toLocaleDateString("en-US", { weekday: "long", month: "long", day: "numeric", year: "numeric" });
 
-  // Top 3 urgent actions
-  const urgentActions = (data.actionQueue ?? [])
-    .filter(a => a.urgency === "critical")
-    .slice(0, 3);
+  const urgentActions   = (data.actionQueue ?? []).filter(a => a.urgency === "critical").slice(0, 5);
+  const invisible       = intelligence.invisibleContributors.slice(0, 5);
+  const lowDepts        = [...(cultureHealth ?? [])].sort((a, b) => a.health - b.health).slice(0, 3);
+  const rising          = intelligence.risingStars.slice(0, 3);
 
-  // New invisible contributors this week (all of them for now)
-  const invisible = intelligence.invisibleContributors.slice(0, 5);
+  const trendSign  = kpi.momTrend > 0 ? "+" : "";
+  const trendLabel = kpi.momTrend > 0 ? "up" : kpi.momTrend < 0 ? "down" : "flat";
 
-  // Bottom 3 departments by coverage
-  const lowCoverageDepts = [...(cultureHealth ?? [])]
-    .sort((a, b) => a.health - b.health)
-    .slice(0, 3);
-
-  // Rising stars
-  const rising = intelligence.risingStars.slice(0, 3);
-
-  const coverageColor = workforce.coveragePct >= 88 ? "#27AE60" : workforce.coveragePct >= 75 ? "#F39C12" : "#E74C3C";
-  const participationColor = workforce.participationPct >= 80 ? "#27AE60" : "#F39C12";
+  // Inline helper: status label without color
+  const coverageStatus = workforce.coveragePct >= 88 ? "On target" : workforce.coveragePct >= 75 ? "Below target" : "Critical";
 
   return `<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Weekly Recognition Digest</title>
+  <title>Recognition Analytics — Weekly Digest</title>
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
-    body { font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; background: #F8F9FA; color: #0B3954; }
-    .wrapper { max-width: 620px; margin: 0 auto; padding: 24px 16px; }
-    .card { background: #fff; border-radius: 12px; border: 1px solid #E9ECEF; margin-bottom: 16px; overflow: hidden; }
-    .card-header { padding: 16px 20px; border-bottom: 1px solid #F3F4F6; }
-    .card-body { padding: 16px 20px; }
-    .eyebrow { font-family: monospace; font-size: 9px; letter-spacing: .16em; text-transform: uppercase; color: #9CA3AF; margin-bottom: 4px; }
-    .title { font-size: 14px; font-weight: 700; color: #0B3954; }
-    .kpi-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; padding: 16px 20px; }
-    .kpi { text-align: center; }
-    .kpi-value { font-size: 24px; font-weight: 800; line-height: 1; margin-bottom: 4px; }
-    .kpi-label { font-family: monospace; font-size: 8px; text-transform: uppercase; letter-spacing: .1em; color: #9CA3AF; }
-    .action-row { display: flex; align-items: flex-start; gap: 12px; padding: 10px 0; border-bottom: 1px solid #F3F4F6; }
-    .action-row:last-child { border-bottom: none; }
-    .action-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; margin-top: 5px; }
-    .action-title { font-size: 12px; font-weight: 600; color: #0B3954; margin-bottom: 2px; }
-    .action-meta { font-size: 11px; color: #6C757D; }
-    .pill { display: inline-block; font-family: monospace; font-size: 9px; font-weight: 700; padding: 2px 8px; border-radius: 20px; }
-    .dept-row { display: flex; align-items: center; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid #F3F4F6; }
-    .dept-row:last-child { border-bottom: none; }
-    .footer { text-align: center; font-family: monospace; font-size: 10px; color: #ADB5BD; padding: 16px 0; }
-    h1 { font-size: 22px; font-weight: 800; color: #0B3954; }
-    .header-bar { background: linear-gradient(135deg, #0B3954, #1A5276); padding: 28px 28px 24px; border-radius: 12px; margin-bottom: 20px; }
-    .header-bar h1 { color: #fff; margin-bottom: 4px; }
-    .header-bar .sub { font-family: monospace; font-size: 10px; color: rgba(255,255,255,.55); letter-spacing: .1em; text-transform: uppercase; }
-    .badge-critical { background: #FEF2F2; color: #DC2626; }
-    .badge-warning  { background: #FFFBEB; color: #D97706; }
-    .badge-positive { background: #F0FDF4; color: #059669; }
-    .trend-up   { color: #27AE60; }
-    .trend-down { color: #E74C3C; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+      background: #F5F5F5;
+      color: #111;
+      -webkit-font-smoothing: antialiased;
+    }
+    .outer { max-width: 640px; margin: 32px auto; padding: 0 16px 48px; }
+
+    /* Header */
+    .header { padding: 36px 0 28px; border-bottom: 2px solid #111; margin-bottom: 32px; }
+    .header-label { font-size: 10px; letter-spacing: .18em; text-transform: uppercase; color: #888; margin-bottom: 10px; }
+    .header-title { font-size: 26px; font-weight: 700; letter-spacing: -.5px; color: #111; margin-bottom: 6px; }
+    .header-sub { font-size: 13px; color: #555; }
+
+    /* Section */
+    .section { margin-bottom: 36px; }
+    .section-label {
+      font-size: 9px; letter-spacing: .2em; text-transform: uppercase;
+      color: #888; margin-bottom: 14px; padding-bottom: 8px;
+      border-bottom: 1px solid #E0E0E0;
+    }
+
+    /* KPI row */
+    .kpi-row { display: table; width: 100%; border-collapse: collapse; }
+    .kpi-cell {
+      display: table-cell; width: 33.33%;
+      padding: 16px 0; vertical-align: top;
+      border-right: 1px solid #E0E0E0;
+    }
+    .kpi-cell:last-child { border-right: none; padding-left: 20px; }
+    .kpi-cell:first-child { padding-right: 20px; }
+    .kpi-cell:nth-child(2) { padding: 16px 20px; }
+    .kpi-value { font-size: 28px; font-weight: 700; letter-spacing: -1px; color: #111; line-height: 1; margin-bottom: 5px; }
+    .kpi-name  { font-size: 11px; color: #777; }
+    .kpi-note  { font-size: 10px; color: #999; margin-top: 2px; }
+
+    /* Table */
+    table { width: 100%; border-collapse: collapse; font-size: 12px; }
+    th {
+      text-align: left; padding: 8px 0; font-size: 9px;
+      letter-spacing: .12em; text-transform: uppercase;
+      color: #888; border-bottom: 1px solid #E0E0E0;
+      font-weight: 500;
+    }
+    td { padding: 11px 0; border-bottom: 1px solid #F0F0F0; color: #333; vertical-align: top; }
+    tr:last-child td { border-bottom: none; }
+    .td-name  { font-weight: 600; color: #111; }
+    .td-meta  { color: #888; font-size: 11px; margin-top: 2px; }
+    .td-right { text-align: right; color: #555; }
+    .td-action { font-size: 11px; color: #555; padding-top: 3px; }
+
+    /* Status indicator — text only, no color */
+    .status { font-size: 10px; letter-spacing: .08em; text-transform: uppercase; color: #555; }
+
+    /* Divider */
+    .divider { border: none; border-top: 1px solid #E0E0E0; margin: 28px 0; }
+
+    /* Footer */
+    .footer { padding-top: 24px; border-top: 1px solid #E0E0E0; }
+    .footer p { font-size: 11px; color: #AAA; line-height: 1.6; }
+
+    /* Note box */
+    .note { background: #FAFAFA; border-left: 3px solid #DDD; padding: 12px 16px; margin-bottom: 20px; }
+    .note p { font-size: 12px; color: #555; line-height: 1.6; }
   </style>
 </head>
 <body>
-<div class="wrapper">
+<div class="outer">
 
   <!-- Header -->
-  <div class="header-bar">
-    <div class="sub">Weekly Digest · Week of ${weekOf}</div>
-    <h1>Recognition Intelligence</h1>
-    <div style="margin-top:12px;display:flex;gap:8px;flex-wrap:wrap;">
-      <span class="pill" style="background:rgba(255,255,255,.15);color:#fff;">${kpi.totalAwards} total awards</span>
-      <span class="pill" style="background:rgba(255,255,255,.15);color:#fff;">$${kpi.totalMonetary.toLocaleString()} distributed</span>
-      <span class="pill" style="background:rgba(255,255,255,.15);color:#fff;">${workforce.totalPeople} employees</span>
+  <div class="header">
+    <div class="header-label">Recognition Analytics &nbsp;·&nbsp; Weekly Digest</div>
+    <div class="header-title">Workforce Recognition Report</div>
+    <div class="header-sub">Week of ${weekOf} &nbsp;·&nbsp; Prepared ${sentDate}</div>
+  </div>
+
+  <!-- 1. Headline KPIs -->
+  <div class="section">
+    <div class="section-label">Program Overview</div>
+    <div class="kpi-row">
+      <div class="kpi-cell">
+        <div class="kpi-value">${workforce.coveragePct}%</div>
+        <div class="kpi-name">Recognition Coverage</div>
+        <div class="kpi-note">${coverageStatus} &nbsp;·&nbsp; target 88%</div>
+      </div>
+      <div class="kpi-cell">
+        <div class="kpi-value">${workforce.participationPct}%</div>
+        <div class="kpi-name">Participation Rate</div>
+        <div class="kpi-note">Employees giving awards</div>
+      </div>
+      <div class="kpi-cell">
+        <div class="kpi-value">${trendSign}${kpi.momTrend}%</div>
+        <div class="kpi-name">Month-over-Month</div>
+        <div class="kpi-note">Award volume ${trendLabel}</div>
+      </div>
+    </div>
+
+    <hr class="divider" />
+
+    <div class="kpi-row">
+      <div class="kpi-cell">
+        <div class="kpi-value">${kpi.totalAwards.toLocaleString()}</div>
+        <div class="kpi-name">Total Awards YTD</div>
+      </div>
+      <div class="kpi-cell">
+        <div class="kpi-value">$${kpi.avgAwardValue}</div>
+        <div class="kpi-name">Average Award Value</div>
+      </div>
+      <div class="kpi-cell">
+        <div class="kpi-value">${workforce.neverRecognized}</div>
+        <div class="kpi-name">Never Recognized</div>
+        <div class="kpi-note">${Math.round(workforce.neverRecognized / workforce.totalPeople * 100)}% of workforce</div>
+      </div>
     </div>
   </div>
 
-  <!-- KPI Snapshot -->
-  <div class="card">
-    <div class="card-header">
-      <div class="eyebrow">Workforce Health</div>
-      <div class="title">Recognition Coverage Snapshot</div>
-    </div>
-    <div class="kpi-grid">
-      <div class="kpi">
-        <div class="kpi-value" style="color:${coverageColor}">${workforce.coveragePct}%</div>
-        <div class="kpi-label">Coverage</div>
-      </div>
-      <div class="kpi">
-        <div class="kpi-value" style="color:${participationColor}">${workforce.participationPct}%</div>
-        <div class="kpi-label">Participation</div>
-      </div>
-      <div class="kpi">
-        <div class="kpi-value" style="color:${kpi.momTrend >= 0 ? "#27AE60" : "#E74C3C"}">${kpi.momTrend > 0 ? "+" : ""}${kpi.momTrend}%</div>
-        <div class="kpi-label">MoM Trend</div>
-      </div>
-      <div class="kpi">
-        <div class="kpi-value" style="color:#E74C3C">${workforce.neverRecognized}</div>
-        <div class="kpi-label">Never Recognized</div>
-      </div>
-      <div class="kpi">
-        <div class="kpi-value" style="color:#F39C12">${kpi.atRiskCount}</div>
-        <div class="kpi-label">At Risk (&gt;120d)</div>
-      </div>
-      <div class="kpi">
-        <div class="kpi-value" style="color:#00A98F">${kpi.cultureCarriers}</div>
-        <div class="kpi-label">Culture Carriers</div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Urgent Actions -->
+  <!-- 2. Priority Actions -->
   ${urgentActions.length > 0 ? `
-  <div class="card">
-    <div class="card-header" style="background:#FFF8F8;">
-      <div class="eyebrow" style="color:#DC2626;">🔴 Requires Immediate Action</div>
-      <div class="title">${urgentActions.length} urgent item${urgentActions.length > 1 ? "s" : ""} need your attention this week</div>
-    </div>
-    <div class="card-body">
-      ${urgentActions.map(a => `
-      <div class="action-row">
-        <div class="action-dot" style="background:#DC2626;"></div>
-        <div>
-          <div class="action-title">${a.title}</div>
-          <div class="action-meta">${a.detail} · <em>${a.action}</em></div>
-        </div>
-      </div>`).join("")}
-    </div>
+  <div class="section">
+    <div class="section-label">Priority Actions &nbsp;·&nbsp; ${urgentActions.length} item${urgentActions.length > 1 ? "s" : ""} require immediate attention</div>
+    <table>
+      <thead>
+        <tr>
+          <th style="width:55%">Item</th>
+          <th style="width:20%">Department</th>
+          <th style="width:25%">Owner</th>
+        </tr>
+      </thead>
+      <tbody>
+        ${urgentActions.map(a => `
+        <tr>
+          <td>
+            <div class="td-name">${a.title.replace(/^Recognize\s/, "Recognize ")}</div>
+            <div class="td-action">${a.action}</div>
+          </td>
+          <td class="td-right">${a.dept}</td>
+          <td class="td-right">${a.owner}</td>
+        </tr>`).join("")}
+      </tbody>
+    </table>
   </div>` : ""}
 
-  <!-- Invisible Contributors -->
+  <!-- 3. Invisible Contributors -->
   ${invisible.length > 0 ? `
-  <div class="card">
-    <div class="card-header">
-      <div class="eyebrow">Retention Risk</div>
-      <div class="title">👁️ ${invisible.length} Invisible Contributors Identified</div>
+  <div class="section">
+    <div class="section-label">Retention Risk &nbsp;·&nbsp; Employees giving recognition but never receiving it</div>
+    <div class="note">
+      <p>The ${invisible.length} employee${invisible.length > 1 ? "s" : ""} below have each nominated colleagues for recognition but have never been recognized themselves. Research consistently shows unreciprocated contribution is a leading predictor of voluntary attrition. Recommend manager outreach within 5 business days.</p>
     </div>
-    <div class="card-body">
-      <p style="font-size:12px;color:#6C757D;margin-bottom:12px;">These employees are actively nominating others but have never been recognized themselves — high flight risk.</p>
-      ${invisible.map(p => `
-      <div class="action-row">
-        <div class="action-dot" style="background:#F96400;"></div>
-        <div>
-          <div class="action-title">${p.name}</div>
-          <div class="action-meta">${p.seniority} · ${p.dept} · gave ${p.given} awards, received 0</div>
-        </div>
-      </div>`).join("")}
-    </div>
+    <table>
+      <thead>
+        <tr>
+          <th style="width:40%">Employee</th>
+          <th>Level</th>
+          <th>Department</th>
+          <th class="td-right">Awards Given</th>
+        </tr>
+      </thead>
+      <tbody>
+        ${invisible.map(p => `
+        <tr>
+          <td class="td-name">${p.name}</td>
+          <td>${p.seniority}</td>
+          <td>${p.dept}</td>
+          <td class="td-right">${p.given}</td>
+        </tr>`).join("")}
+      </tbody>
+    </table>
   </div>` : ""}
 
-  <!-- Department Health -->
-  ${lowCoverageDepts.length > 0 ? `
-  <div class="card">
-    <div class="card-header">
-      <div class="eyebrow">Department Health</div>
-      <div class="title">📊 Departments Needing Attention</div>
-    </div>
-    <div class="card-body">
-      ${lowCoverageDepts.map(d => {
-        const color = d.health >= 80 ? "#27AE60" : d.health >= 60 ? "#F39C12" : "#E74C3C";
-        return `
-      <div class="dept-row">
-        <div>
-          <div style="font-size:13px;font-weight:600;color:#0B3954;">${d.name}</div>
-          <div style="font-size:11px;color:#6C757D;">${d.uniqueNominators} active nominators · ${d.crossDeptPct}% cross-dept</div>
-        </div>
-        <div style="text-align:right;">
-          <div style="font-size:18px;font-weight:800;color:${color};">${d.health}</div>
-          <div style="font-family:monospace;font-size:9px;color:#9CA3AF;">health score</div>
-        </div>
-      </div>`;
-      }).join("")}
-    </div>
+  <!-- 4. Department Health -->
+  ${lowDepts.length > 0 ? `
+  <div class="section">
+    <div class="section-label">Department Health &nbsp;·&nbsp; Lowest performing departments this week</div>
+    <table>
+      <thead>
+        <tr>
+          <th style="width:35%">Department</th>
+          <th>Health Score</th>
+          <th>Participation</th>
+          <th>Cross-Dept</th>
+        </tr>
+      </thead>
+      <tbody>
+        ${lowDepts.map(d => `
+        <tr>
+          <td class="td-name">${d.name}</td>
+          <td>${d.health} / 100</td>
+          <td>${d.participation}%</td>
+          <td>${d.crossDeptPct}%</td>
+        </tr>`).join("")}
+      </tbody>
+    </table>
   </div>` : ""}
 
-  <!-- Rising Stars -->
+  <!-- 5. Rising Stars -->
   ${rising.length > 0 ? `
-  <div class="card">
-    <div class="card-header">
-      <div class="eyebrow">Talent Pipeline</div>
-      <div class="title">📈 Rising Stars — Recognition Accelerating</div>
-    </div>
-    <div class="card-body">
-      ${rising.map(p => `
-      <div class="action-row">
-        <div class="action-dot" style="background:#27AE60;"></div>
-        <div>
-          <div class="action-title">${p.name}</div>
-          <div class="action-meta">${p.seniority} · ${p.dept} · ${p.recent} awards in last 3 months · slope +${p.slope}</div>
-        </div>
-      </div>`).join("")}
-    </div>
+  <div class="section">
+    <div class="section-label">Talent Pipeline &nbsp;·&nbsp; Employees with accelerating recognition trends</div>
+    <table>
+      <thead>
+        <tr>
+          <th style="width:40%">Employee</th>
+          <th>Department</th>
+          <th>Level</th>
+          <th>Last 3 Months</th>
+          <th class="td-right">Trend</th>
+        </tr>
+      </thead>
+      <tbody>
+        ${rising.map(p => `
+        <tr>
+          <td class="td-name">${p.name}</td>
+          <td>${p.dept}</td>
+          <td>${p.seniority}</td>
+          <td>${p.recent} awards</td>
+          <td class="td-right">+${p.slope.toFixed(2)}</td>
+        </tr>`).join("")}
+      </tbody>
+    </table>
   </div>` : ""}
 
   <!-- Footer -->
   <div class="footer">
-    <p>HR Recognition Analytics · Auto-generated weekly digest</p>
-    <p style="margin-top:4px;">View full dashboard for complete data and actions</p>
+    <p>
+      This report is auto-generated by your HR Recognition Analytics platform and delivered every Monday morning.<br />
+      Data reflects all recognition activity recorded in the system as of this morning.
+    </p>
   </div>
 
 </div>
@@ -269,7 +324,7 @@ function buildEmailHTML(data: Awaited<ReturnType<typeof loadDashboardData>>): st
 }
 
 // ── Send via Resend ───────────────────────────────────────────────────────────
-async function sendEmail(html: string, subject: string): Promise<void> {
+async function sendEmail(html: string, subject: string): Promise<{ id: string; to: string[] }> {
   const apiKey = process.env.RESEND_API_KEY;
   if (!apiKey) throw new Error("RESEND_API_KEY not set in environment variables");
 
@@ -282,7 +337,13 @@ async function sendEmail(html: string, subject: string): Promise<void> {
     throw new Error("HR_EMAIL_RECIPIENTS not set — add comma-separated emails to .env");
   }
 
-  const from = process.env.HR_EMAIL_FROM ?? "HR Analytics <analytics@updates.yourapp.com>";
+  const testMode = process.env.HR_EMAIL_TEST_MODE === "true";
+  const owner    = process.env.HR_EMAIL_OWNER ?? recipients[0];
+  const to       = testMode ? [owner] : recipients;
+
+  const from = process.env.HR_EMAIL_FROM ?? "onboarding@resend.dev";
+
+  console.log("[email] Sending to:", to, "from:", from, "subject:", subject);
 
   const response = await fetch("https://api.resend.com/emails", {
     method: "POST",
@@ -290,18 +351,18 @@ async function sendEmail(html: string, subject: string): Promise<void> {
       "Content-Type": "application/json",
       "Authorization": `Bearer ${apiKey}`,
     },
-    body: JSON.stringify({
-      from,
-      to: recipients,
-      subject,
-      html,
-    }),
+    body: JSON.stringify({ from, to, subject, html }),
   });
 
+  const result = await response.json() as { id?: string; message?: string; name?: string };
+
   if (!response.ok) {
-    const err = await response.json().catch(() => ({})) as { message?: string };
-    throw new Error(err.message ?? `Resend API error ${response.status}`);
+    console.error("[email] Resend error:", result);
+    throw new Error(result.message ?? `Resend API error ${response.status}`);
   }
+
+  console.log("[email] Sent successfully. Resend ID:", result.id);
+  return { id: result.id ?? "", to };
 }
 
 // ── GET — check if email is due, send if so (self-healing Monday trigger) ─────
