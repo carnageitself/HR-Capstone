@@ -25,6 +25,53 @@ interface EnrichedAward {
   reasoning: string;
 }
 
+// ── Org chart types ──────────────────────────────────────────────────────────
+export interface OrgNode {
+  id: string;
+  name: string;
+  title: string;
+  dept: string;
+  seniority: string;
+  managerId: string | null;
+  depth: number;
+  directReportCount: number;
+  totalReportCount: number;
+  received: number;
+  given: number;
+}
+
+export interface OrgTreeNode {
+  node: OrgNode;
+  children: OrgTreeNode[];
+}
+
+
+// ── Sentiment row (matches awards_enriched_with_sentiment table) ─────────────
+interface SentimentRow {
+  award_id: string;
+  vader_compound: number;  // VADER compound score -1 to +1
+  sentiment_label: string; // "Highly Positive" | "Positive" | "Neutral" | "Negative" | "Highly Negative"
+  word_count: number | null;
+  recipient_department: string;
+  category_id: string;
+  category_name: string;
+}
+
+// ── ActionItem (for Action Priority Queue) ───────────────────────────────────
+export interface ActionItem {
+  id: string;
+  type: "invisible_contributor" | "long_tenured_unrecognized" | "inactive_manager" | "low_coverage_dept" | "stale_high_performer";
+  urgency: "critical" | "warning" | "info";
+  category: string;
+  title: string;
+  detail: string;
+  owner: string;
+  dept: string;
+  metric: string;
+  action: string;
+  name: string | null;
+}
+
 // ── DashboardData contract ───────────────────────────────────────────────────
 export interface DashboardData {
   kpi: {
@@ -156,6 +203,26 @@ export interface DashboardData {
       fromName: string; fromDept: string; message: string;
     }[];
   }[];
+  sentiment: {
+    available: boolean;
+    avgCompound: number;
+    avgWordCount: number;
+    distribution: { label: string; count: number; color: string; bg: string; border: string; icon: string }[];
+    byDepartment: { dept: string; avgCompound: number; count: number }[];
+    byCategory: { categoryId: string; category: string; avgCompound: number; count: number }[];
+  };
+  orgHierarchy: {
+    tree: OrgTreeNode;
+    nodes: OrgNode[];
+    stats: {
+      totalNodes: number;
+      managerCount: number;
+      icCount: number;
+      avgSpan: number;
+      maxDepth: number;
+    };
+  };
+  actionQueue: ActionItem[];
 }
 
 // ── helpers ───────────────────────────────────────────────────────────────────
@@ -187,6 +254,9 @@ const EMPTY_DATA: DashboardData = {
   workforce:{totalPeople:0,neverRecognized:0,neverGiven:0,coveragePct:0,participationPct:0,byDept:[],bySeniority:[],people:[]},
   intelligence:{invisibleContributors:[],risingStars:[],decliningRecognition:[],crossDeptFlow:[],depts:[],equityData:[],managerReach:[],skillGaps:[],seasonality:[],orgConnectors:[],valueEquity:{byDept:[],bySeniority:[],concentration:{top10Pct:0,top10Value:0,giniCoeff:0}}},
   employeeDirectory:[],
+  sentiment:{ available:false, avgCompound:0, avgWordCount:0, distribution:[], byDepartment:[], byCategory:[] },
+  orgHierarchy:{ tree:{ node:{ id:"__root__", name:"CEO", title:"CEO", dept:"", seniority:"VP", managerId:null, depth:0, directReportCount:0, totalReportCount:0, received:0, given:0 }, children:[] }, nodes:[], stats:{ totalNodes:0, managerCount:0, icCount:0, avgSpan:0, maxDepth:0 } },
+  actionQueue:[],
 };
 
 // ── Fetch all rows from awards_enriched (handles Supabase 1000-row limit) ────
@@ -216,14 +286,36 @@ async function fetchAllEnriched(): Promise<EnrichedAward[]> {
   return all;
 }
 
-// ── main loader (now async) ──────────────────────────────────────────────────
+
+// ── Fetch sentiment data (separate table, may not exist yet) ─────────────────
+async function fetchSentimentData(): Promise<SentimentRow[]> {
+  try {
+    const { data, error } = await supabase
+      .from("awards_enriched_with_sentiment")
+      .select("award_id, vader_compound, sentiment_label, word_count, recipient_department, category_id, category_name");
+
+    if (error) {
+      // Table may not exist yet — gracefully return empty
+      console.warn("Sentiment table not available:", error.message);
+      return [];
+    }
+    return (data || []) as SentimentRow[];
+  } catch {
+    return [];
+  }
+}
+
+// ── main loader (async) ──────────────────────────────────────────────────────
 export async function loadDashboardData(): Promise<DashboardData> {
-  const rows = await fetchAllEnriched();
+  const [rows, sentimentRows] = await Promise.all([
+    fetchAllEnriched(),
+    fetchSentimentData(),
+  ]);
 
   if (!rows || rows.length === 0) return EMPTY_DATA;
 
   const MO = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
-  const REF_DATE = new Date().getTime();  // dynamic — always "now"
+  const REF_DATE = new Date().getTime();
 
   // ── KPIs ─────────────────────────────────────────────────────────────────
   const totalMonetary = rows.reduce((s, r) => s + (parseInt(r.value) || 0), 0);
@@ -412,7 +504,6 @@ export async function loadDashboardData(): Promise<DashboardData> {
     const uNoms    = new Set(deptRows.map(r => r.nominator_id));
     const crossIn  = deptRows.filter(r => r.nominator_department !== deptName).length;
     const crossInPct = Math.round(crossIn / n * 100);
-
     const usedCats = new Set(deptRows.map(r => r.category_id));
     const catDiversity = Math.round(usedCats.size / 6 * 100);
     const participation = Math.min(100, Math.round(uNoms.size / Math.max(uRecips.size,1) * 100));
@@ -420,13 +511,11 @@ export async function loadDashboardData(): Promise<DashboardData> {
     const volume = Math.round(n / maxDeptAwards * 100);
     const generosity = Math.round((totalValue / n) / 1000 * 100);
     const health = Math.round(0.30*catDiversity + 0.25*participation + 0.25*volume + 0.20*generosity);
-
     const catSpreadMap: Record<string, number> = {};
     for (const r of deptRows) catSpreadMap[r.category_id] = (catSpreadMap[r.category_id]||0) + 1;
     const categorySpread = Object.entries(catSpreadMap)
       .sort((a,b) => b[1]-a[1])
       .map(([id, count]) => ({ id, name: CAT_NAMES[id] || id, count }));
-
     return {
       name: deptName, health, totalAwards: n, totalValue,
       avgValue: Math.round(totalValue / n),
@@ -445,7 +534,7 @@ export async function loadDashboardData(): Promise<DashboardData> {
   }
   const wordCloud = Object.entries(wc).sort((a,b) => b[1]-a[1]).slice(0,40).map(([word,count]) => ({word,count}));
 
-  // ── Message Themes per category ───────────────────────────────────────────
+  // ── Message Themes ────────────────────────────────────────────────────────
   const catWords: Record<string, Record<string,number>> = {};
   const catIdForName: Record<string, string> = {};
   for (const r of rows) {
@@ -471,7 +560,6 @@ export async function loadDashboardData(): Promise<DashboardData> {
       const dominantCategory = Object.entries(cats).sort((a,b) => b[1]-a[1])[0]?.[0] || "";
       return { skill, count, dominantCategory };
     });
-
   const deptSkillMap: Record<string, Record<string, number>> = {};
   for (const r of rows) {
     const d = r.recipient_department;
@@ -483,15 +571,11 @@ export async function loadDashboardData(): Promise<DashboardData> {
   for (const [dept, skillMap] of Object.entries(deptSkillMap)) {
     byDepartment[dept] = Object.entries(skillMap).sort((a,b)=>b[1]-a[1]).slice(0,6).map(([skill,count])=>({skill,count}));
   }
-
   const skillCategoryMatrix = topSkills.slice(0,12).map(({ skill }) => ({
-    skill,
-    categories: skillCat[skill] || {},
+    skill, categories: skillCat[skill] || {},
   }));
 
-  // ── HR INTELLIGENCE SUITE ─────────────────────────────────────────────────
-
-  // 1. Invisible Contributors
+  // ── Intelligence: Invisible Contributors ──────────────────────────────────
   const nomCount2: Record<string, number> = {};
   const recCount2: Record<string, number> = {};
   for (const r of rows) {
@@ -511,7 +595,7 @@ export async function loadDashboardData(): Promise<DashboardData> {
     .sort((a,b) => b.riskScore - a.riskScore)
     .slice(0, 20);
 
-  // 2. Momentum
+  // ── Intelligence: Momentum ────────────────────────────────────────────────
   const recMonthly: Record<string, { period:string; awards:number }[]> = {};
   for (const r of rows) {
     if (!r.award_date) continue;
@@ -523,7 +607,6 @@ export async function loadDashboardData(): Promise<DashboardData> {
     if (existing) existing.awards++;
     else recMonthly[r.recipient_id].push({ period, awards: 1 });
   }
-
   const recMeta2: Record<string, { name:string; dept:string; seniority:string }> = {};
   for (const r of rows) recMeta2[r.recipient_id] = { name:r.recipient_name, dept:r.recipient_department, seniority:r.recipient_seniority };
 
@@ -544,7 +627,7 @@ export async function loadDashboardData(): Promise<DashboardData> {
   const risingStars = momentumPeople.filter(p => p.slope > 0).sort((a,b)=>b.slope-a.slope).slice(0,15);
   const decliningRecognition = momentumPeople.filter(p => p.slope < -0.05).sort((a,b)=>a.slope-b.slope).slice(0,15);
 
-  // 3. Cross-dept flow
+  // ── Intelligence: Cross-dept flow ─────────────────────────────────────────
   const flowMap: Record<string, Record<string,number>> = {};
   for (const r of rows) {
     if (r.nominator_department === r.recipient_department) continue;
@@ -556,7 +639,7 @@ export async function loadDashboardData(): Promise<DashboardData> {
     .sort((a,b) => b.value - a.value);
   const intelligenceDepts = [...uniqueDepts].sort();
 
-  // 4. Equity by seniority
+  // ── Intelligence: Equity by seniority ─────────────────────────────────────
   const senMap: Record<string, { count:number; totalVal:number; highVal:number }> = {};
   for (const r of rows) {
     const s = r.recipient_seniority;
@@ -567,15 +650,14 @@ export async function loadDashboardData(): Promise<DashboardData> {
     if (v >= 500) senMap[s].highVal++;
   }
   const equityData = Object.entries(senMap).map(([recipient_seniority, d]) => ({
-    recipient_seniority,
-    count: d.count,
+    recipient_seniority, count: d.count,
     avg_value: Math.round(d.totalVal / d.count),
     total_value: d.totalVal,
     high_value: d.highVal,
     high_value_pct: parseFloat((d.highVal / d.count * 100).toFixed(1)),
   }));
 
-  // 5. Manager reach
+  // ── Intelligence: Manager reach ───────────────────────────────────────────
   const SENIOR = new Set(["Manager","Senior Manager","Director","VP"]);
   const mgrMap: Record<string, { name:string; dept:string; seniority:string; total:number; depts:Set<string>; totalVal:number }> = {};
   for (const r of rows) {
@@ -591,7 +673,7 @@ export async function loadDashboardData(): Promise<DashboardData> {
     .sort((a,b) => b.unique_depts - a.unique_depts)
     .slice(0, 20);
 
-  // ── WORKFORCE ────────────────────────────────────────────────────────────
+  // ── Workforce ─────────────────────────────────────────────────────────────
   const peopleMap: Record<string, {
     id:string; name:string; dept:string; title:string; seniority:string;
     received:number; given:number; valueReceived:number;
@@ -659,7 +741,7 @@ export async function loadDashboardData(): Promise<DashboardData> {
     people: allPeople.sort((a,b) => b.received - a.received),
   };
 
-  // ── EMPLOYEE DIRECTORY ────────────────────────────────────────────────────
+  // ── Employee Directory ────────────────────────────────────────────────────
   const dirMap: Record<string, {
     id:string; name:string; dept:string; title:string; seniority:string; skills:string[];
     received:number; given:number; valueReceived:number;
@@ -698,20 +780,15 @@ export async function loadDashboardData(): Promise<DashboardData> {
 
   const employeeDirectory = Object.values(dirMap).map(p => {
     p.recentAwards.sort((a, b) => b.date.localeCompare(a.date));
-
     const catCountMap: Record<string, number> = {};
     for (const cid of p.catIds) catCountMap[cid] = (catCountMap[cid] || 0) + 1;
-    const categoryBreakdown = Object.entries(catCountMap)
-      .sort((a,b) => b[1]-a[1])
-      .map(([id, count]) => ({ id, count }));
+    const categoryBreakdown = Object.entries(catCountMap).sort((a,b) => b[1]-a[1]).map(([id, count]) => ({ id, count }));
 
     let daysSinceLast = 999;
     let lastAwardDate: string | null = null;
     if (p.recentAwards.length > 0) {
       lastAwardDate = p.recentAwards[0].date;
-      try {
-        daysSinceLast = Math.round((REF_DATE - new Date(lastAwardDate).getTime()) / 86400000);
-      } catch { /* */ }
+      try { daysSinceLast = Math.round((REF_DATE - new Date(lastAwardDate).getTime()) / 86400000); } catch { /**/ }
     }
 
     const recScore  = Math.min(40, p.received / 7 * 40);
@@ -720,11 +797,11 @@ export async function loadDashboardData(): Promise<DashboardData> {
     const engagementScore = Math.round(recScore + giveScore + breadth);
 
     let status: DashboardData["employeeDirectory"][0]["status"];
-    if (p.received === 0)                                  status = "never_recognized";
-    else if (daysSinceLast > 120)                          status = "at_risk";
-    else if (daysSinceLast <= 120 && p.received >= 3)      status = "thriving";
-    else if (p.given === 0)                                status = "passive";
-    else                                                   status = "active";
+    if (p.received === 0)                             status = "never_recognized";
+    else if (daysSinceLast > 120)                     status = "at_risk";
+    else if (daysSinceLast <= 120 && p.received >= 3) status = "thriving";
+    else if (p.given === 0)                           status = "passive";
+    else                                              status = "active";
 
     return {
       id: p.id, name: p.name, dept: p.dept, title: p.title, seniority: p.seniority,
@@ -733,27 +810,23 @@ export async function loadDashboardData(): Promise<DashboardData> {
     };
   }).sort((a, b) => b.received - a.received);
 
-  // ── EXTENDED HR KPIs (derived from employeeDirectory for consistency) ─────
-  const seniorityCountMap: Record<string, number> = {};
+  // ── Extended KPIs ─────────────────────────────────────────────────────────
   const allPeopleForKpi: Record<string, string> = {};
   for (const r of rows) {
     allPeopleForKpi[r.recipient_id] = r.recipient_seniority;
     allPeopleForKpi[r.nominator_id] = r.nominator_seniority;
   }
-  for (const sen of Object.values(allPeopleForKpi)) {
-    seniorityCountMap[sen] = (seniorityCountMap[sen] || 0) + 1;
-  }
-
+  const seniorityCountMap: Record<string, number> = {};
+  for (const sen of Object.values(allPeopleForKpi)) seniorityCountMap[sen] = (seniorityCountMap[sen] || 0) + 1;
   const totalPeopleKpi = Object.keys(allPeopleForKpi).length;
 
-  // Derive these from the directory statuses so KPI strip and directory always match
   const highPerformers      = employeeDirectory.filter(p => p.received >= 5).length;
   const cultureCarriers     = employeeDirectory.filter(p => p.given >= 5).length;
   const neverRecognizedCount = employeeDirectory.filter(p => p.status === "never_recognized").length;
   const atRiskCount          = employeeDirectory.filter(p => p.status === "at_risk").length;
 
-  const crossDeptRows = rows.filter(r => r.recipient_department !== r.nominator_department);
-  const crossDeptPct  = Math.round(crossDeptRows.length / rows.length * 100);
+  const crossDeptRowsCount = rows.filter(r => r.recipient_department !== r.nominator_department).length;
+  const crossDeptPct  = Math.round(crossDeptRowsCount / rows.length * 100);
 
   const SEN_ORDER_MAP: Record<string, number> = { IC:1, "Senior IC":2, Manager:3, "Senior Manager":4, Director:5, VP:6 };
   const peerRows = rows.filter(r => Math.abs((SEN_ORDER_MAP[r.recipient_seniority] || 0) - (SEN_ORDER_MAP[r.nominator_seniority] || 0)) <= 1);
@@ -765,14 +838,12 @@ export async function loadDashboardData(): Promise<DashboardData> {
   const execRatio = Math.round(execCount / totalPeopleKpi * 100);
 
   const moAwards = monthly.filter(m => m.awards > 1);
-  const last3Avg = moAwards.length >= 3
-    ? moAwards.slice(-3).reduce((s, m) => s + m.awards, 0) / 3 : 0;
-  const prev3Avg = moAwards.length >= 6
-    ? moAwards.slice(-6, -3).reduce((s, m) => s + m.awards, 0) / 3 : last3Avg;
+  const last3Avg = moAwards.length >= 3 ? moAwards.slice(-3).reduce((s, m) => s + m.awards, 0) / 3 : 0;
+  const prev3Avg = moAwards.length >= 6 ? moAwards.slice(-6, -3).reduce((s, m) => s + m.awards, 0) / 3 : last3Avg;
   const momTrend = prev3Avg > 0 ? Math.round((last3Avg - prev3Avg) / prev3Avg * 100) : 0;
   const avgMonthlyAwards = Math.round(moAwards.reduce((s, m) => s + m.awards, 0) / Math.max(moAwards.length, 1));
 
-  // ── SKILL GAP RADAR ──────────────────────────────────────────────────────
+  // ── Skill Gap Radar ───────────────────────────────────────────────────────
   const skillFreq: Record<string,number> = {};
   const skillDepts: Record<string,Set<string>> = {};
   const skillByDept: Record<string,Record<string,number>> = {};
@@ -797,7 +868,7 @@ export async function loadDashboardData(): Promise<DashboardData> {
     byDept: skillByDept[skill]||{},
   })).sort((a,b)=>a.count-b.count);
 
-  // ── SEASONALITY HEATMAP ────────────────────────────────────────────────────
+  // ── Seasonality ───────────────────────────────────────────────────────────
   const MO_NAMES_S=["","Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
   const monthMap: Record<number,{total:number;cats:Record<string,number>}>={};
   for (const r of rows) {
@@ -813,7 +884,7 @@ export async function loadDashboardData(): Promise<DashboardData> {
     return { month:parseInt(m), monthName:MO_NAMES_S[parseInt(m)], total:d.total, byCategory:d.cats, dominantCategory:dom };
   }).sort((a,b)=>a.month-b.month);
 
-  // ── ORG CONNECTORS ─────────────────────────────────────────────────────────
+  // ── Org Connectors ────────────────────────────────────────────────────────
   const connectorMap: Record<string,{name:string;dept:string;seniority:string;title:string;uniquePeople:Set<string>;uniqueDepts:Set<string>;total:number}> = {};
   for (const r of rows) {
     const nid=r.nominator_id;
@@ -832,7 +903,7 @@ export async function loadDashboardData(): Promise<DashboardData> {
     .sort((a,b)=>b.collaborationScore-a.collaborationScore)
     .slice(0,25);
 
-  // ── VALUE EQUITY AUDIT ─────────────────────────────────────────────────────
+  // ── Value Equity Audit ────────────────────────────────────────────────────
   const deptValMap: Record<string,{total:number;count:number;people:Set<string>}> = {};
   for (const r of rows) {
     const dept=r.recipient_department, val=parseInt(r.value)||0;
@@ -868,6 +939,362 @@ export async function loadDashboardData(): Promise<DashboardData> {
   const top10Value=top10Vals.reduce((a,b)=>a+b,0);
   const top10Pct=parseFloat((top10Value/sumValsEq*100).toFixed(1));
   const valueEquity={byDept:veByDept,bySeniority:veBySeniority,concentration:{top10Pct,top10Value,giniCoeff}};
+
+
+  // ── SENTIMENT ─────────────────────────────────────────────────────────────
+  const SENT_CFG: Record<string, { color: string; bg: string; border: string; icon: string }> = {
+    "Highly Positive": { color:"#16A34A", bg:"#F0FDF4", border:"#BBF7D0", icon:"💚" },
+    "Positive":        { color:"#0F766E", bg:"#F0FDFA", border:"#99F6E4", icon:"💙" },
+    "Neutral":         { color:"#6C757D", bg:"#F8F9FA", border:"#E9ECEF", icon:"🩶" },
+    "Negative":        { color:"#D97706", bg:"#FFFBEB", border:"#FDE68A", icon:"🟡" },
+    "Highly Negative": { color:"#DC2626", bg:"#FEF2F2", border:"#FECACA", icon:"🔴" },
+  };
+  const LABEL_ORDER = ["Highly Positive","Positive","Neutral","Negative","Highly Negative"];
+
+  let sentiment: DashboardData["sentiment"];
+
+  if (sentimentRows.length === 0) {
+    // Fallback: heuristic compound from message text
+    const POSITIVE_WORDS = new Set(["thank","thanks","appreciate","excellent","outstanding","amazing","great","brilliant","fantastic","wonderful","superb","exceptional","impressive","incredible","dedicated","passionate","valuable","trusted","committed","champion"]);
+    const NEGATIVE_WORDS = new Set(["disappointing","poor","failed","missed","struggle","difficult","absent","lacking","weak"]);
+
+    const deptSentMap: Record<string, { total: number; count: number }> = {};
+    const catSentMap:  Record<string, { total: number; count: number; name: string }> = {};
+    const distCount:   Record<string, number> = {};
+    let totalCompound = 0;
+    let totalWords = 0;
+
+    for (const r of rows) {
+      const words = (r.message || "").toLowerCase().split(/\s+/).filter(Boolean);
+      totalWords += words.length;
+      const posW = words.filter(w => POSITIVE_WORDS.has(w)).length;
+      const negW = words.filter(w => NEGATIVE_WORDS.has(w)).length;
+      const compound = Math.max(-1, Math.min(1, (posW - negW) / Math.max(words.length, 1) * 10));
+      totalCompound += compound;
+      const label = compound >= 0.6 ? "Highly Positive" : compound >= 0.2 ? "Positive" : compound >= -0.1 ? "Neutral" : compound >= -0.4 ? "Negative" : "Highly Negative";
+      distCount[label] = (distCount[label] || 0) + 1;
+
+      if (!deptSentMap[r.recipient_department]) deptSentMap[r.recipient_department] = { total: 0, count: 0 };
+      deptSentMap[r.recipient_department].total += compound;
+      deptSentMap[r.recipient_department].count++;
+
+      if (!catSentMap[r.category_id]) catSentMap[r.category_id] = { total: 0, count: 0, name: r.category_name };
+      catSentMap[r.category_id].total += compound;
+      catSentMap[r.category_id].count++;
+    }
+
+    sentiment = {
+      available: true,
+      avgCompound: parseFloat((totalCompound / Math.max(rows.length, 1)).toFixed(3)),
+      avgWordCount: parseFloat((totalWords / Math.max(rows.length, 1)).toFixed(1)),
+      distribution: LABEL_ORDER.map(label => ({ label, count: distCount[label] || 0, ...SENT_CFG[label] })),
+      byDepartment: Object.entries(deptSentMap)
+        .map(([dept, d]) => ({ dept, avgCompound: parseFloat((d.total / d.count).toFixed(3)), count: d.count }))
+        .sort((a, b) => b.avgCompound - a.avgCompound),
+      byCategory: Object.entries(catSentMap)
+        .map(([categoryId, d]) => ({ categoryId, category: d.name, avgCompound: parseFloat((d.total / d.count).toFixed(3)), count: d.count }))
+        .sort((a, b) => b.avgCompound - a.avgCompound),
+    };
+  } else {
+    // Use real VADER scores from awards_enriched_with_sentiment
+    const totalCompound = sentimentRows.reduce((s, r) => s + (r.vader_compound || 0), 0);
+    const avgCompound   = totalCompound / sentimentRows.length;
+
+    const wcRows = sentimentRows.filter(r => (r.word_count ?? 0) > 0);
+    const avgWordCount = wcRows.length > 0
+      ? wcRows.reduce((s, r) => s + (r.word_count ?? 0), 0) / wcRows.length
+      : rows.reduce((s, r) => s + (r.message || "").split(/\s+/).filter(Boolean).length, 0) / Math.max(rows.length, 1);
+
+    const distCount: Record<string, number> = {};
+    for (const r of sentimentRows) {
+      const lbl = r.sentiment_label || "Neutral";
+      distCount[lbl] = (distCount[lbl] || 0) + 1;
+    }
+
+    const deptSentMap: Record<string, { total: number; count: number }> = {};
+    for (const r of sentimentRows) {
+      if (!deptSentMap[r.recipient_department]) deptSentMap[r.recipient_department] = { total: 0, count: 0 };
+      deptSentMap[r.recipient_department].total += r.vader_compound || 0;
+      deptSentMap[r.recipient_department].count++;
+    }
+
+    const catSentMap: Record<string, { total: number; count: number; name: string }> = {};
+    for (const r of sentimentRows) {
+      if (!catSentMap[r.category_id]) catSentMap[r.category_id] = { total: 0, count: 0, name: r.category_name };
+      catSentMap[r.category_id].total += r.vader_compound || 0;
+      catSentMap[r.category_id].count++;
+    }
+
+    sentiment = {
+      available: true,
+      avgCompound: parseFloat(avgCompound.toFixed(3)),
+      avgWordCount: parseFloat(avgWordCount.toFixed(1)),
+      distribution: LABEL_ORDER.map(label => ({ label, count: distCount[label] || 0, ...SENT_CFG[label] })),
+      byDepartment: Object.entries(deptSentMap)
+        .map(([dept, d]) => ({ dept, avgCompound: parseFloat((d.total / d.count).toFixed(3)), count: d.count }))
+        .sort((a, b) => b.avgCompound - a.avgCompound),
+      byCategory: Object.entries(catSentMap)
+        .map(([catId, d]) => ({ categoryId: catId, category: d.name, avgCompound: parseFloat((d.total / d.count).toFixed(3)), count: d.count }))
+        .sort((a, b) => b.avgCompound - a.avgCompound),
+    };
+  }
+
+  // ── ACTION QUEUE ─────────────────────────────────────────────────────────
+  const TODAY = new Date();
+  const URGENCY_ORDER = { critical: 0, warning: 1, info: 2 };
+  const actionQueue: ActionItem[] = [];
+
+  // 1. Invisible contributors — gave ≥3, received 0
+  for (const p of employeeDirectory) {
+    if (p.given >= 3 && p.received === 0) {
+      actionQueue.push({
+        id: `inv_${p.id}`,
+        type: "invisible_contributor",
+        urgency: "critical",
+        category: "Retention Risk",
+        title: `Recognize ${p.name} — has given ${p.given} award${p.given > 1 ? "s" : ""}, received none`,
+        detail: `${p.seniority} in ${p.dept} · ${p.given} nominations given`,
+        owner: "Department Manager",
+        dept: p.dept,
+        metric: `${p.given} given, 0 received`,
+        action: `Nominate ${p.name} this week. Alert their manager immediately.`,
+        name: p.name,
+      });
+    }
+  }
+
+  // 2. Long-tenured unrecognized — active nominator for ≥0.5yr, never received
+  const firstSeenAsNom: Record<string, string> = {};
+  for (const r of rows) {
+    if (!r.award_date) continue;
+    if (!firstSeenAsNom[r.nominator_id] || r.award_date < firstSeenAsNom[r.nominator_id]) {
+      firstSeenAsNom[r.nominator_id] = r.award_date;
+    }
+  }
+  for (const p of employeeDirectory) {
+    if (p.received > 0 || p.given < 2) continue;
+    const firstDate = firstSeenAsNom[p.id];
+    if (!firstDate) continue;
+    const yearsActive = parseFloat(
+      ((TODAY.getTime() - new Date(firstDate).getTime()) / (365.25 * 86400000)).toFixed(1)
+    );
+    if (yearsActive < 0.5) continue;
+    actionQueue.push({
+      id: `ltr_${p.id}`,
+      type: "long_tenured_unrecognized",
+      urgency: "critical",
+      category: "Retention Risk",
+      title: `Recognize ${p.name} — active for ${yearsActive}yr, never received recognition`,
+      detail: `${p.seniority} in ${p.dept} · first activity: ${firstDate.slice(0, 7)}`,
+      owner: "HR Business Partner",
+      dept: p.dept,
+      metric: `${yearsActive}yr active · 0 awards`,
+      action: `HRBP to contact ${p.name}'s manager within 5 days. Schedule recognition.`,
+      name: p.name,
+    });
+  }
+
+  // 3. Inactive managers — seniority ≥ Manager, never nominated
+  const managerSeniorities = new Set(["Manager","Senior Manager","Director","VP"]);
+  for (const p of employeeDirectory) {
+    if (!managerSeniorities.has(p.seniority) || p.given > 0) continue;
+    actionQueue.push({
+      id: `mgr_${p.id}`,
+      type: "inactive_manager",
+      urgency: "warning",
+      category: "Manager Effectiveness",
+      title: `${p.name} has never nominated a peer or team member`,
+      detail: `${p.seniority} in ${p.dept}`,
+      owner: "HR Business Partner",
+      dept: p.dept,
+      metric: "0 nominations given",
+      action: `Schedule recognition coaching session with ${p.name}. Target: 2 nominations in 30 days.`,
+      name: p.name,
+    });
+  }
+
+  // 4. Low coverage departments — <88%
+  for (const d of wfByDept) {
+    if (d.headcount === 0 || d.coveragePct >= 88) continue;
+    const unreached = d.headcount - d.recognized;
+    actionQueue.push({
+      id: `cov_${d.dept.replace(/\s+/g, "_")}`,
+      type: "low_coverage_dept",
+      urgency: "warning",
+      category: "Coverage Gap",
+      title: `${d.dept} has only ${d.coveragePct}% recognition coverage — below threshold`,
+      detail: `${d.recognized} of ${d.headcount} employees recognized · ${unreached} unreached`,
+      owner: "Department Head",
+      dept: d.dept,
+      metric: `${d.coveragePct}% coverage`,
+      action: `Department head to identify and recognize ${unreached} unreached employees within 30 days.`,
+      name: null,
+    });
+  }
+
+  // 5. Stale high performers — ≥3 awards but >180 days since last
+  for (const p of employeeDirectory) {
+    if (p.received < 3 || p.daysSinceLast < 180 || p.daysSinceLast === 999) continue;
+    const monthsGap = Math.round(p.daysSinceLast / 30);
+    actionQueue.push({
+      id: `stale_${p.id}`,
+      type: "stale_high_performer",
+      urgency: "info",
+      category: "Engagement",
+      title: `${p.name} was a top recipient but has had no recognition for ${monthsGap} months`,
+      detail: `${p.seniority} in ${p.dept} · ${p.received} lifetime awards · last: ${p.lastAwardDate || "unknown"}`,
+      owner: "Line Manager",
+      dept: p.dept,
+      metric: `${monthsGap}mo gap`,
+      action: `Line manager to check in with ${p.name} and look for a recognition opportunity.`,
+      name: p.name,
+    });
+  }
+
+  // Sort: critical → warning → info, then by dept
+  actionQueue.sort((a, b) =>
+    URGENCY_ORDER[a.urgency] - URGENCY_ORDER[b.urgency] ||
+    a.dept.localeCompare(b.dept)
+  );
+
+
+  // ── ORG HIERARCHY ────────────────────────────────────────────────────────
+  // Build a flat list of OrgNodes from employeeDirectory, then wire up the tree.
+  // Since we only have award data (no explicit manager table), we use seniority
+  // to infer a plausible hierarchy: VP → Director → Senior Manager → Manager → Senior IC → IC.
+  const SEN_DEPTH: Record<string, number> = {
+    VP: 1, Director: 2, "Senior Manager": 3, Manager: 4, "Senior IC": 5, IC: 6,
+    Lead: 3, Senior: 5, "Mid-Level": 6, Entry: 6,
+  };
+
+  // Build OrgNode for every unique person in employeeDirectory
+  const recipCounts: Record<string, number> = {};
+  const nomCounts:   Record<string, number> = {};
+  for (const r of rows) {
+    recipCounts[r.recipient_id] = (recipCounts[r.recipient_id] || 0) + 1;
+    nomCounts[r.nominator_id]   = (nomCounts[r.nominator_id]   || 0) + 1;
+  }
+
+  // Collect unique people and their seniority
+  const orgPeopleMap: Record<string, { name:string; title:string; dept:string; seniority:string }> = {};
+  for (const r of rows) {
+    orgPeopleMap[r.recipient_id] = { name:r.recipient_name, title:r.recipient_title, dept:r.recipient_department, seniority:r.recipient_seniority };
+    orgPeopleMap[r.nominator_id] = { name:r.nominator_name, title:r.nominator_title, dept:r.nominator_department, seniority:r.nominator_seniority };
+  }
+
+  // Group people by seniority depth, then by department
+  // For each dept, the most senior people are "managers" of the next level
+  const deptBySeniority: Record<string, Record<number, string[]>> = {};
+  for (const [id, p] of Object.entries(orgPeopleMap)) {
+    const depth = SEN_DEPTH[p.seniority] ?? 6;
+    if (!deptBySeniority[p.dept]) deptBySeniority[p.dept] = {};
+    if (!deptBySeniority[p.dept][depth]) deptBySeniority[p.dept][depth] = [];
+    deptBySeniority[p.dept][depth].push(id);
+  }
+
+  // Assign managerId: within each dept, next shallower depth level is the manager
+  const orgManagerId: Record<string, string> = {};
+  for (const [dept, depthMap] of Object.entries(deptBySeniority)) {
+    const levels = Object.keys(depthMap).map(Number).sort((a,b) => a - b);
+    for (let i = 0; i < levels.length; i++) {
+      const currentLevel = levels[i];
+      const parentLevel  = levels[i - 1];
+      for (const id of depthMap[currentLevel]) {
+        if (i === 0) {
+          // Most senior in dept → reports to virtual root
+          orgManagerId[id] = "__root__";
+        } else {
+          // Assign to first person of the parent level in same dept (simplified)
+          const parentIds = depthMap[parentLevel];
+          orgManagerId[id] = parentIds[0] || "__root__";
+        }
+      }
+    }
+  }
+
+  // Build flat OrgNode array
+  // directReportCount and totalReportCount computed after
+  const orgNodesFlat: OrgNode[] = Object.entries(orgPeopleMap).map(([id, p]) => ({
+    id, ...p,
+    managerId: orgManagerId[id] ?? "__root__",
+    depth: SEN_DEPTH[p.seniority] ?? 6,
+    directReportCount: 0,
+    totalReportCount: 0,
+    received: recipCounts[id] || 0,
+    given:    nomCounts[id]   || 0,
+  }));
+
+  // Index nodes
+  const orgNodeById: Record<string, OrgNode> = {};
+  for (const n of orgNodesFlat) orgNodeById[n.id] = n;
+
+  // Count direct reports
+  for (const n of orgNodesFlat) {
+    if (n.managerId && n.managerId !== "__root__" && orgNodeById[n.managerId]) {
+      orgNodeById[n.managerId].directReportCount++;
+    }
+  }
+
+  // Count total reports (recursive) — BFS approach
+  function countTotalReports(nodeId: string, childrenMap: Record<string, string[]>): number {
+    const directChildren = childrenMap[nodeId] || [];
+    return directChildren.reduce((sum, cid) => sum + 1 + countTotalReports(cid, childrenMap), 0);
+  }
+  const orgChildrenMap: Record<string, string[]> = {};
+  for (const n of orgNodesFlat) {
+    if (n.managerId && n.managerId !== "__root__") {
+      if (!orgChildrenMap[n.managerId]) orgChildrenMap[n.managerId] = [];
+      orgChildrenMap[n.managerId].push(n.id);
+    }
+  }
+  for (const n of orgNodesFlat) {
+    n.totalReportCount = countTotalReports(n.id, orgChildrenMap);
+  }
+
+  // Build the tree recursively
+  function buildTree(id: string): OrgTreeNode {
+    const node = orgNodeById[id];
+    const children = (orgChildrenMap[id] || [])
+      .sort((a, b) => (orgNodeById[a]?.dept || "").localeCompare(orgNodeById[b]?.dept || ""))
+      .map(buildTree);
+    return { node, children };
+  }
+
+  // Virtual root node
+  const virtualRoot: OrgNode = {
+    id: "__root__", name: "Organisation", title: "Root",
+    dept: "", seniority: "VP", managerId: null, depth: 0,
+    directReportCount: 0, totalReportCount: orgNodesFlat.length,
+    received: 0, given: 0,
+  };
+  const rootChildren = orgNodesFlat
+    .filter(n => n.managerId === "__root__")
+    .sort((a,b) => a.dept.localeCompare(b.dept))
+    .map(n => buildTree(n.id));
+  virtualRoot.directReportCount = rootChildren.length;
+  const orgTree: OrgTreeNode = { node: virtualRoot, children: rootChildren };
+
+  // Stats
+  const managerSen = new Set(["VP","Director","Senior Manager","Manager","Lead"]);
+  const orgManagerCount = orgNodesFlat.filter(n => managerSen.has(n.seniority)).length;
+  const orgIcCount      = orgNodesFlat.filter(n => !managerSen.has(n.seniority)).length;
+  const managersWithReports = orgNodesFlat.filter(n => n.directReportCount > 0);
+  const avgSpan = managersWithReports.length > 0
+    ? Math.round(managersWithReports.reduce((s,n) => s + n.directReportCount, 0) / managersWithReports.length)
+    : 0;
+  const maxDepth = orgNodesFlat.reduce((m,n) => Math.max(m, n.depth), 0);
+
+  const orgHierarchy = {
+    tree: orgTree,
+    nodes: [virtualRoot, ...orgNodesFlat],
+    stats: {
+      totalNodes: orgNodesFlat.length,
+      managerCount: orgManagerCount,
+      icCount: orgIcCount,
+      avgSpan,
+      maxDepth,
+    },
+  };
 
   return {
     kpi: {
@@ -918,5 +1345,8 @@ export async function loadDashboardData(): Promise<DashboardData> {
       valueEquity,
     },
     employeeDirectory,
+    sentiment,
+    orgHierarchy,
+    actionQueue,
   };
 }

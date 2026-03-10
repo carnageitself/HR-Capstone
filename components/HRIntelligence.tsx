@@ -2,53 +2,116 @@
 
 import { useState } from "react";
 import type { DashboardData } from "@/lib/loadDashboardData";
-import { InvisibleRadar }     from "./intelligence/InvisibleRadar";
-import { MomentumTracker }    from "./intelligence/MomentumTracker";
-
-import { EquityLens }         from "./intelligence/EquityLens";
-import { SkillGapRadar }      from "./intelligence/SkillGapRadar";
-import { SeasonalityHeatmap } from "./intelligence/SeasonalityHeatmap";
-import { OrgConnectors }      from "./intelligence/OrgConnectors";
-import { ValueEquityAudit }   from "./intelligence/ValueEquityAudit";
-import { CrossDeptMap } from "./intelligence/CrossDeptmap";
+import { InvisibleRadar }   from "./intelligence/InvisibleRadar";
+import { MomentumTracker }  from "./intelligence/MomentumTracker";
+import { CrossDeptMap }     from "./intelligence/CrossDeptmap";
+import { EquityLens }       from "./intelligence/EquityLens";
+import { ValueEquityAudit } from "./intelligence/ValueEquityAudit";
 
 export function HRIntelligence({ data }: { data: DashboardData }) {
-  const [active, setActive] = useState<"invisible" | "momentum" | "crossdept" | "equity" | "skillgap" | "seasonality" | "connectors" | "valueaudit">("invisible");
+  const [active, setActive] = useState<
+    "invisible" | "momentum" | "crossdept" | "equity" | "valueaudit"
+  >("invisible");
+
   const intel = data.intelligence;
 
   const TABS = [
-    { id: "invisible"   as const, icon: "👁️",  label: "Invisible Contributors", sub: `${intel.invisibleContributors.length} at risk`,                          activeCls: "border-red-500 bg-red-50",      labelCls: "text-red-600",    subCls: "text-red-400"    },
-    { id: "momentum"    as const, icon: "📈",  label: "Momentum Tracker",        sub: `${intel.risingStars.length} rising`,                                     activeCls: "border-green-500 bg-green-50",  labelCls: "text-green-700",  subCls: "text-green-400"  },
-    { id: "crossdept"   as const, icon: "🗺️", label: "Influence Map",           sub: `${intel.crossDeptFlow.length} flows`,                                    activeCls: "border-teal-500 bg-teal-50",    labelCls: "text-teal-700",   subCls: "text-teal-400"   },
-    { id: "equity"      as const, icon: "⚖️",  label: "Equity Lens",             sub: "6 seniority levels",                                                     activeCls: "border-indigo-500 bg-indigo-50", labelCls: "text-indigo-700", subCls: "text-indigo-400" },
-    { id: "skillgap"    as const, icon: "🎯",  label: "Skill Gap Radar",         sub: `${intel.skillGaps.filter(s => s.rarity === "rare").length} rare skills`, activeCls: "border-red-400 bg-red-50",      labelCls: "text-red-600",    subCls: "text-red-300"    },
-    { id: "seasonality" as const, icon: "📅",  label: "Seasonality Heatmap",     sub: "12 months · 6 categories",                                               activeCls: "border-purple-500 bg-purple-50", labelCls: "text-purple-700", subCls: "text-purple-400" },
-    { id: "connectors"  as const, icon: "🕸️", label: "Org Connectors",          sub: `${intel.orgConnectors.length} connectors`,                               activeCls: "border-orange-500 bg-orange-50", labelCls: "text-orange-700", subCls: "text-orange-400" },
-    { id: "valueaudit"  as const, icon: "💰",  label: "Value Equity Audit",      sub: `Gini ${intel.valueEquity.concentration.giniCoeff}`,                      activeCls: "border-green-500 bg-green-50",  labelCls: "text-green-700",  subCls: "text-green-400"  },
+    {
+      id:        "invisible" as const,
+      label:     "Invisible Contributors",
+      sub:       `${intel.invisibleContributors.length} employees at risk`,
+      activeBar: "#EF4444",
+      activeBg:  "#FEF2F2",
+      activeText:"#DC2626",
+    },
+    {
+      id:        "momentum" as const,
+      label:     "Momentum Tracker",
+      sub:       `${intel.risingStars.length} rising · ${intel.decliningRecognition?.length ?? 0} declining`,
+      activeBar: "#10B981",
+      activeBg:  "#F0FDF4",
+      activeText:"#059669",
+    },
+    {
+      id:        "crossdept" as const,
+      label:     "Influence Map",
+      sub:       `${intel.crossDeptFlow.length} cross-dept flows`,
+      activeBar: "#00A98F",
+      activeBg:  "#F0FDFA",
+      activeText:"#0F766E",
+    },
+    {
+      id:        "equity" as const,
+      label:     "Equity Lens",
+      sub:       `${intel.equityData.length} seniority levels`,
+      activeBar: "#3B5BDB",
+      activeBg:  "#EFF6FF",
+      activeText:"#1D4ED8",
+    },
+    {
+      id:        "valueaudit" as const,
+      label:     "Value Equity Audit",
+      sub:       `Gini coefficient ${intel.valueEquity.concentration.giniCoeff}`,
+      activeBar: "#8B5CF6",
+      activeBg:  "#F5F3FF",
+      activeText:"#7C3AED",
+    },
   ];
 
+  const current = TABS.find(t => t.id === active)!;
+
   return (
-    <div>
-      <div className="flex gap-2 flex-wrap mb-5">
-        {TABS.map(t => (
-          <button key={t.id} onClick={() => setActive(t.id)}
-            className={`flex items-center gap-1.5 px-3.5 py-2 rounded-xl border-2 cursor-pointer transition-all duration-200 ${active === t.id ? t.activeCls : "border-gray-200 bg-white"}`}>
-            <span className="text-sm">{t.icon}</span>
-            <div className="text-left">
-              <div className={`text-[11px] font-bold leading-tight ${active === t.id ? t.labelCls : "text-[#0B3954]"}`}>{t.label}</div>
-              <div className={`font-mono text-[8px] ${active === t.id ? t.subCls : "text-gray-400"}`}>{t.sub}</div>
-            </div>
-          </button>
-        ))}
+    <div className="flex flex-col gap-5">
+
+      {/* Full-width tab grid — 5 equal columns */}
+      <div className="grid gap-3" style={{ gridTemplateColumns: `repeat(${TABS.length}, 1fr)` }}>
+        {TABS.map(t => {
+          const isActive = active === t.id;
+          return (
+            <button
+              key={t.id}
+              onClick={() => setActive(t.id)}
+              className="flex flex-col items-start gap-1 px-4 py-3.5 rounded-xl border-2 cursor-pointer transition-all duration-200 text-left w-full"
+              style={{
+                borderColor:     isActive ? t.activeBar : "#E9ECEF",
+                background:      isActive ? t.activeBg  : "#fff",
+                borderTopWidth:  isActive ? 3 : 2,
+              }}>
+              <div
+                className="text-[12px] font-bold leading-tight"
+                style={{ color: isActive ? t.activeText : "#0B3954" }}>
+                {t.label}
+              </div>
+              <div
+                className="font-mono text-[9px] leading-snug"
+                style={{ color: isActive ? t.activeText : "#9CA3AF", opacity: isActive ? 0.85 : 1 }}>
+                {t.sub}
+              </div>
+            </button>
+          );
+        })}
       </div>
-      {active === "invisible"   && <InvisibleRadar     intel={intel} />}
-      {active === "momentum"    && <MomentumTracker    intel={intel} />}
-      {active === "crossdept"   && <CrossDeptMap       intel={intel} />}
-      {active === "equity"      && <EquityLens         intel={intel} />}
-      {active === "skillgap"    && <SkillGapRadar      intel={intel} />}
-      {active === "seasonality" && <SeasonalityHeatmap intel={intel} />}
-      {active === "connectors"  && <OrgConnectors      intel={intel} />}
-      {active === "valueaudit"  && <ValueEquityAudit   intel={intel} />}
+
+      {/* Active panel — white card */}
+      <div className="bg-white border border-gray-200 rounded-xl overflow-hidden">
+        {/* Panel header strip */}
+        <div className="px-6 py-4 border-b border-gray-100 flex items-center gap-3"
+          style={{ borderLeft: `4px solid ${current.activeBar}` }}>
+          <div>
+            <div className="font-mono text-[9px] uppercase tracking-widest mb-0.5"
+              style={{ color: current.activeText }}>{current.label}</div>
+            <div className="font-mono text-[10px] text-gray-400">{current.sub}</div>
+          </div>
+        </div>
+
+        <div className="p-6">
+          {active === "invisible"  && <InvisibleRadar   intel={intel} />}
+          {active === "momentum"   && <MomentumTracker  intel={intel} />}
+          {active === "crossdept"  && <CrossDeptMap     intel={intel} />}
+          {active === "equity"     && <EquityLens       intel={intel} />}
+          {active === "valueaudit" && <ValueEquityAudit intel={intel} />}
+        </div>
+      </div>
     </div>
   );
 }
