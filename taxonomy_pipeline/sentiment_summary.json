@@ -1,0 +1,335 @@
+{
+  "meta": {
+    "method": "VADER (vaderSentiment)",
+    "lexicon_size": "7,500+ words",
+    "total_scored": 1000,
+    "output_file": "..\\data\\awards_enriched_with_sentiment.csv"
+  },
+  "overview": {
+    "avg_compound": 0.9278,
+    "avg_word_count": 88.6
+  },
+  "distribution": {
+    "highly_positive_pct": 97.5,
+    "positive_pct": 1.9,
+    "neutral_pct": 0.4,
+    "negative_pct": 0.2,
+    "highly_negative_pct": 0.0,
+    "label_counts": {
+      "Highly Positive": 975,
+      "Positive": 19,
+      "Neutral": 4,
+      "Negative": 2
+    }
+  },
+  "by_category": {
+    "Leadership & Strategic Vision": {
+      "avg_compound": 0.9491,
+      "count": 167,
+      "pct_highly_positive": 98.8,
+      "pct_positive": 1.2,
+      "pct_neutral": 0.0,
+      "pct_negative_or_below": 0.0
+    },
+    "Customer Focus & Business Impact": {
+      "avg_compound": 0.9344,
+      "count": 239,
+      "pct_highly_positive": 98.7,
+      "pct_positive": 0.8,
+      "pct_neutral": 0.0,
+      "pct_negative_or_below": 0.4
+    },
+    "Collaboration & Teamwork": {
+      "avg_compound": 0.9301,
+      "count": 362,
+      "pct_highly_positive": 97.5,
+      "pct_positive": 2.2,
+      "pct_neutral": 0.3,
+      "pct_negative_or_below": 0.0
+    },
+    "Operational Excellence": {
+      "avg_compound": 0.9208,
+      "count": 37,
+      "pct_highly_positive": 97.3,
+      "pct_positive": 0.0,
+      "pct_neutral": 2.7,
+      "pct_negative_or_below": 0.0
+    },
+    "Professional Development & Growth": {
+      "avg_compound": 0.9182,
+      "count": 60,
+      "pct_highly_positive": 96.7,
+      "pct_positive": 1.7,
+      "pct_neutral": 1.7,
+      "pct_negative_or_below": 0.0
+    },
+    "Innovation & Problem Solving": {
+      "avg_compound": 0.8899,
+      "count": 135,
+      "pct_highly_positive": 94.1,
+      "pct_positive": 4.4,
+      "pct_neutral": 0.7,
+      "pct_negative_or_below": 0.7
+    }
+  },
+  "by_department": {
+    "Customer Service": {
+      "avg_compound": 0.9416,
+      "count": 91
+    },
+    "Design": {
+      "avg_compound": 0.94,
+      "count": 84
+    },
+    "HR": {
+      "avg_compound": 0.9336,
+      "count": 77
+    },
+    "Engineering": {
+      "avg_compound": 0.9328,
+      "count": 74
+    },
+    "Operations": {
+      "avg_compound": 0.9317,
+      "count": 64
+    },
+    "Data Science": {
+      "avg_compound": 0.9295,
+      "count": 94
+    },
+    "IT": {
+      "avg_compound": 0.9282,
+      "count": 75
+    },
+    "Product": {
+      "avg_compound": 0.9253,
+      "count": 86
+    },
+    "Legal": {
+      "avg_compound": 0.923,
+      "count": 81
+    },
+    "Sales": {
+      "avg_compound": 0.9204,
+      "count": 82
+    },
+    "Finance": {
+      "avg_compound": 0.916,
+      "count": 92
+    },
+    "Marketing": {
+      "avg_compound": 0.9156,
+      "count": 100
+    }
+  },
+  "by_seniority": {
+    "VP": {
+      "avg_compound": 0.9451,
+      "count": 195
+    },
+    "Senior Manager": {
+      "avg_compound": 0.9384,
+      "count": 149
+    },
+    "IC": {
+      "avg_compound": 0.923,
+      "count": 165
+    },
+    "Director": {
+      "avg_compound": 0.9227,
+      "count": 185
+    },
+    "Senior IC": {
+      "avg_compound": 0.9189,
+      "count": 175
+    },
+    "Manager": {
+      "avg_compound": 0.9153,
+      "count": 131
+    }
+  },
+  "top_10_most_positive": [
+    {
+      "award_id": "611",
+      "recipient": "Linda Moore",
+      "department": "Data Science",
+      "category": "Customer Focus & Business Impact",
+      "vader_compound": 0.9991,
+      "sentiment_label": "Highly Positive",
+      "preview": "Team, I want to take a moment to sincerely thank each of you for the highly insightful and immensely valuable meetings w..."
+    },
+    {
+      "award_id": "43",
+      "recipient": "Karen Moore",
+      "department": "Finance",
+      "category": "Collaboration & Teamwork",
+      "vader_compound": 0.9985,
+      "sentiment_label": "Highly Positive",
+      "preview": "Phoenix & Titans, This award is a small attempt to recognize something that has been anything but small this year. We sh..."
+    },
+    {
+      "award_id": "124",
+      "recipient": "Elizabeth Thompson",
+      "department": "Customer Service",
+      "category": "Customer Focus & Business Impact",
+      "vader_compound": 0.9978,
+      "sentiment_label": "Highly Positive",
+      "preview": "I would like to take this opportunity to thank you all for your collaboration, unwavering support, and commitment\u2014not on..."
+    },
+    {
+      "award_id": "756",
+      "recipient": "Charles Johnson",
+      "department": "Sales",
+      "category": "Customer Focus & Business Impact",
+      "vader_compound": 0.9978,
+      "sentiment_label": "Highly Positive",
+      "preview": "Congrats to our Moments that Matter winners this week! Congratulations to Rachel!  You received the most votes for this ..."
+    },
+    {
+      "award_id": "204",
+      "recipient": "Thomas Brown",
+      "department": "Customer Service",
+      "category": "Collaboration & Teamwork",
+      "vader_compound": 0.9977,
+      "sentiment_label": "Highly Positive",
+      "preview": "Innovation Steering Committee, Setting up the Innovation Group for the very first time was no less than a challenge\u2014but ..."
+    },
+    {
+      "award_id": "357",
+      "recipient": "Barbara Davis",
+      "department": "Engineering",
+      "category": "Leadership & Strategic Vision",
+      "vader_compound": 0.9977,
+      "sentiment_label": "Highly Positive",
+      "preview": "The TechCorp RFP has been no small feat, and Victoria, you led the strategy with a calm confidence, a truly thoughtful a..."
+    },
+    {
+      "award_id": "169",
+      "recipient": "Patricia Martinez",
+      "department": "IT",
+      "category": "Professional Development & Growth",
+      "vader_compound": 0.9976,
+      "sentiment_label": "Highly Positive",
+      "preview": "Adrian, I just wanted to say how grateful I am to work with you. You've been with us for over three years, but honestly,..."
+    },
+    {
+      "award_id": "398",
+      "recipient": "Jennifer Lopez",
+      "department": "Operations",
+      "category": "Leadership & Strategic Vision",
+      "vader_compound": 0.9976,
+      "sentiment_label": "Highly Positive",
+      "preview": "As we wrap the year, I want to recognize what we achieved together. We navigated change, aligned as one function, and fo..."
+    },
+    {
+      "award_id": "939",
+      "recipient": "Charles Taylor",
+      "department": "Legal",
+      "category": "Collaboration & Teamwork",
+      "vader_compound": 0.9976,
+      "sentiment_label": "Highly Positive",
+      "preview": "Anton this award is somewhat overdue. I wanted to take a minute to thank you for all of the support you have been showin..."
+    },
+    {
+      "award_id": "979",
+      "recipient": "William Gonzalez",
+      "department": "Sales",
+      "category": "Leadership & Strategic Vision",
+      "vader_compound": 0.9974,
+      "sentiment_label": "Highly Positive",
+      "preview": "I'd love to recognise Jessica for being an exceptional onboarding buddy over the past month (and ongoing). From day one,..."
+    }
+  ],
+  "top_10_most_negative": [
+    {
+      "award_id": "757",
+      "recipient": "Robert Martin",
+      "department": "Data Science",
+      "category": "Innovation & Problem Solving",
+      "vader_compound": 0.3716,
+      "sentiment_label": "Positive",
+      "preview": "Thanks for helping me find out how to open the correct ticket, none of us knew how, but together we found the correct pr..."
+    },
+    {
+      "award_id": "445",
+      "recipient": "David Thompson",
+      "department": "Marketing",
+      "category": "Collaboration & Teamwork",
+      "vader_compound": 0.3612,
+      "sentiment_label": "Positive",
+      "preview": "Thank you for your contribution to our teams Extended Cover - week of Dec 1st - 5th..."
+    },
+    {
+      "award_id": "446",
+      "recipient": "Richard Perez",
+      "department": "Legal",
+      "category": "Collaboration & Teamwork",
+      "vader_compound": 0.3612,
+      "sentiment_label": "Positive",
+      "preview": "Thank you for contributing to our teams Extended Cover - week of Dec 8th - 12th..."
+    },
+    {
+      "award_id": "517",
+      "recipient": "Matthew Anderson",
+      "department": "Product",
+      "category": "Innovation & Problem Solving",
+      "vader_compound": 0.2566,
+      "sentiment_label": "Positive",
+      "preview": "Carlos, I was at a major point of frustration and you quickly analyzed my problem, explained what wasn't working and hel..."
+    },
+    {
+      "award_id": "487",
+      "recipient": "Matthew Anderson",
+      "department": "Product",
+      "category": "Operational Excellence",
+      "vader_compound": 0.1531,
+      "sentiment_label": "Neutral",
+      "preview": "Want to thank Ryan for going out of his way to come and give me a ride into work when i had no car. He went out of his w..."
+    },
+    {
+      "award_id": "201",
+      "recipient": "Sarah Davis",
+      "department": "Data Science",
+      "category": "Collaboration & Teamwork",
+      "vader_compound": 0.1192,
+      "sentiment_label": "Neutral",
+      "preview": "Thank you for managing the call on one of the times this customer called while she was really angry for something that w..."
+    },
+    {
+      "award_id": "459",
+      "recipient": "James Jones",
+      "department": "Operations",
+      "category": "Professional Development & Growth",
+      "vader_compound": -0.0489,
+      "sentiment_label": "Neutral",
+      "preview": "Nathan, belated note to call out a few items of note over the last few weeks, firstly commiserations on not being able t..."
+    },
+    {
+      "award_id": "594",
+      "recipient": "Sarah Thomas",
+      "department": "Customer Service",
+      "category": "Innovation & Problem Solving",
+      "vader_compound": -0.0635,
+      "sentiment_label": "Neutral",
+      "preview": "Taylor, our Recognition Research launch couldn't have happened the way it did without you. You handled the Herculean, be..."
+    },
+    {
+      "award_id": "522",
+      "recipient": "Daniel Moore",
+      "department": "Finance",
+      "category": "Customer Focus & Business Impact",
+      "vader_compound": -0.1513,
+      "sentiment_label": "Negative",
+      "preview": "Geoff, you absolutely crushed the ABM page while I was away. From building brand-new components to setting up the full e..."
+    },
+    {
+      "award_id": "702",
+      "recipient": "Barbara Perez",
+      "department": "Sales",
+      "category": "Innovation & Problem Solving",
+      "vader_compound": -0.2613,
+      "sentiment_label": "Negative",
+      "preview": "Shoutout to the team for the great work on our new streaming capabilities so far. What really stands out is how you tack..."
+    }
+  ]
+}
