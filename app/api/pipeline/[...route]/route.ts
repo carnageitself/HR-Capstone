@@ -69,3 +69,21 @@ export const POST = proxy;
 
 // Ensure enough time for pipeline polling and file uploads
 export const maxDuration = 60;
+
+export const PUT = async () => {
+  const url = process.env.PIPELINE_API_URL || "NOT_SET";
+  let renderReachable = "unknown";
+
+  try {
+    const res = await fetch(`${url}/api/health`, { method: "GET" });
+    renderReachable = `status=${res.status}, body=${await res.text()}`;
+  } catch (err) {
+    renderReachable = `error: ${String(err)}`;
+  }
+
+  return Response.json({
+    PIPELINE_API_URL: url,
+    renderReachable,
+    nodeVersion: process.version,
+  });
+};
