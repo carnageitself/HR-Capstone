@@ -110,19 +110,8 @@ function buildEmailHTML(data: Awaited<ReturnType<typeof loadDashboardData>>): st
       border-bottom: 1px solid #E0E0E0;
     }
 
-    /* KPI row */
-    .kpi-row { display: table; width: 100%; border-collapse: collapse; }
-    .kpi-cell {
-      display: table-cell; width: 33.33%;
-      padding: 16px 0; vertical-align: top;
-      border-right: 1px solid #E0E0E0;
-    }
-    .kpi-cell:last-child { border-right: none; padding-left: 20px; }
-    .kpi-cell:first-child { padding-right: 20px; }
-    .kpi-cell:nth-child(2) { padding: 16px 20px; }
-    .kpi-value { font-size: 28px; font-weight: 700; letter-spacing: -1px; color: #111; line-height: 1; margin-bottom: 5px; }
-    .kpi-name  { font-size: 11px; color: #777; }
-    .kpi-note  { font-size: 10px; color: #999; margin-top: 2px; }
+    /* KPI values — used inline now */
+    .kpi-value { font-size: 30px; font-weight: 700; letter-spacing: -1px; color: #111; line-height: 1; margin-bottom: 6px; }
 
     /* Table */
     table { width: 100%; border-collapse: collapse; font-size: 12px; }
@@ -167,41 +156,62 @@ function buildEmailHTML(data: Awaited<ReturnType<typeof loadDashboardData>>): st
   <!-- 1. Headline KPIs -->
   <div class="section">
     <div class="section-label">Program Overview</div>
-    <div class="kpi-row">
-      <div class="kpi-cell">
-        <div class="kpi-value">${workforce.coveragePct}%</div>
-        <div class="kpi-name">Recognition Coverage</div>
-        <div class="kpi-note">${coverageStatus} &nbsp;·&nbsp; target 88%</div>
-      </div>
-      <div class="kpi-cell">
-        <div class="kpi-value">${workforce.participationPct}%</div>
-        <div class="kpi-name">Participation Rate</div>
-        <div class="kpi-note">Employees giving awards</div>
-      </div>
-      <div class="kpi-cell">
-        <div class="kpi-value">${trendSign}${kpi.momTrend}%</div>
-        <div class="kpi-name">Month-over-Month</div>
-        <div class="kpi-note">Award volume ${trendLabel}</div>
-      </div>
-    </div>
+
+    <!-- KPI Row 1 -->
+    <table style="width:100%;border-collapse:collapse;table-layout:fixed;margin-bottom:0;">
+      <colgroup>
+        <col style="width:33.33%" />
+        <col style="width:33.33%" />
+        <col style="width:33.33%" />
+      </colgroup>
+      <tbody>
+        <tr>
+          <td style="padding:18px 20px 18px 0;vertical-align:top;border-right:1px solid #E0E0E0;">
+            <div style="font-size:30px;font-weight:700;letter-spacing:-1px;color:#111;line-height:1;margin-bottom:6px;">${workforce.coveragePct}%</div>
+            <div style="font-size:11px;color:#555;margin-bottom:3px;">Recognition Coverage</div>
+            <div style="font-size:10px;color:#999;">${coverageStatus} &nbsp;·&nbsp; target 88%</div>
+          </td>
+          <td style="padding:18px 20px;vertical-align:top;border-right:1px solid #E0E0E0;">
+            <div style="font-size:30px;font-weight:700;letter-spacing:-1px;color:#111;line-height:1;margin-bottom:6px;">${workforce.participationPct}%</div>
+            <div style="font-size:11px;color:#555;margin-bottom:3px;">Participation Rate</div>
+            <div style="font-size:10px;color:#999;">Employees giving awards</div>
+          </td>
+          <td style="padding:18px 0 18px 20px;vertical-align:top;">
+            <div style="font-size:30px;font-weight:700;letter-spacing:-1px;color:#111;line-height:1;margin-bottom:6px;">${trendSign}${kpi.momTrend}%</div>
+            <div style="font-size:11px;color:#555;margin-bottom:3px;">Month-over-Month</div>
+            <div style="font-size:10px;color:#999;">Award volume ${trendLabel}</div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
 
     <hr class="divider" />
 
-    <div class="kpi-row">
-      <div class="kpi-cell">
-        <div class="kpi-value">${kpi.totalAwards.toLocaleString()}</div>
-        <div class="kpi-name">Total Awards YTD</div>
-      </div>
-      <div class="kpi-cell">
-        <div class="kpi-value">$${kpi.avgAwardValue}</div>
-        <div class="kpi-name">Average Award Value</div>
-      </div>
-      <div class="kpi-cell">
-        <div class="kpi-value">${workforce.neverRecognized}</div>
-        <div class="kpi-name">Never Recognized</div>
-        <div class="kpi-note">${Math.round(workforce.neverRecognized / workforce.totalPeople * 100)}% of workforce</div>
-      </div>
-    </div>
+    <!-- KPI Row 2 -->
+    <table style="width:100%;border-collapse:collapse;table-layout:fixed;">
+      <colgroup>
+        <col style="width:33.33%" />
+        <col style="width:33.33%" />
+        <col style="width:33.33%" />
+      </colgroup>
+      <tbody>
+        <tr>
+          <td style="padding:18px 20px 18px 0;vertical-align:top;border-right:1px solid #E0E0E0;">
+            <div style="font-size:30px;font-weight:700;letter-spacing:-1px;color:#111;line-height:1;margin-bottom:6px;">${kpi.totalAwards.toLocaleString()}</div>
+            <div style="font-size:11px;color:#555;">Total Awards YTD</div>
+          </td>
+          <td style="padding:18px 20px;vertical-align:top;border-right:1px solid #E0E0E0;">
+            <div style="font-size:30px;font-weight:700;letter-spacing:-1px;color:#111;line-height:1;margin-bottom:6px;">$${kpi.avgAwardValue}</div>
+            <div style="font-size:11px;color:#555;">Average Award Value</div>
+          </td>
+          <td style="padding:18px 0 18px 20px;vertical-align:top;">
+            <div style="font-size:30px;font-weight:700;letter-spacing:-1px;color:#111;line-height:1;margin-bottom:6px;">${workforce.neverRecognized}</div>
+            <div style="font-size:11px;color:#555;margin-bottom:3px;">Never Recognized</div>
+            <div style="font-size:10px;color:#999;">${Math.round(workforce.neverRecognized / workforce.totalPeople * 100)}% of workforce</div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 
   <!-- 2. Priority Actions -->
