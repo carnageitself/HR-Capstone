@@ -1,10 +1,3 @@
-"""
-FastAPI server wrapping the taxonomy pipeline.
-
-Run:  uvicorn taxonomy_pipeline.api:app --reload --port 8000
-Deps: pip install fastapi uvicorn python-multipart supabase
-"""
-
 import json, uuid, os, csv, time, io, threading
 from pathlib import Path
 from datetime import datetime, timezone
@@ -16,9 +9,10 @@ from pydantic import BaseModel
 from supabase import create_client, Client
 
 from dotenv import load_dotenv
-from prompt_composer import load_presets, get_preset_by_id, build_prompt_metadata
 
 load_dotenv()
+
+from prompt_composer import load_presets, get_preset_by_id, build_prompt_metadata
 
 
 UPLOAD_DIR = Path("data/uploads")
@@ -84,6 +78,12 @@ class ApplyTaxonomyRequest(BaseModel):
     category_actions: dict       # {"C1":"keep","C2":"bin","C3":{"merge":"C1"}}
     subcategory_actions: dict    # {"C1.1":"keep","C1.2":"bin"}
     final_taxonomy: dict         # curated taxonomy JSON
+
+
+@app.get("/api/presets")
+def get_presets_endpoint():
+    """Return available prompt presets for the dashboard editor."""
+    return {"presets": load_presets()}
 
 
 @app.get("/api/configs")
@@ -159,6 +159,7 @@ async def upload_csv(file: UploadFile = File(...)):
 
 @app.post("/api/run")
 def start_runs(req: RunRequest):
+    # Validate file exists
     res = db.table("pipeline_uploads").select("*").eq("file_id", req.file_id).execute()
     if not res.data:
         raise HTTPException(404, f"Upload {req.file_id} not found")
@@ -211,6 +212,7 @@ def start_runs(req: RunRequest):
             "prompt_config": prompt_dict,
         }).execute()
 
+        # Spawn background thread — passes prompt_config and config
         t = threading.Thread(
             target=_run_pipeline_job,
             args=(job_id, upload["file_path"], config, prompt_dict),
@@ -263,7 +265,11 @@ def get_results(job_id: str):
 def get_history(limit: int = 20):
     jobs_res = (
         db.table("pipeline_jobs")
-        .select("job_id, file_id, config_id, config_snapshot, status, current_phase, progress_pct, error_message, started_at, completed_at, created_at, eda_report, token_usage, prompt_config")
+        .select(
+            "job_id, file_id, config_id, config_snapshot, status, "
+            "current_phase, progress_pct, error_message, started_at, "
+            "completed_at, created_at, eda_report, token_usage, prompt_config"
+        )
         .order("created_at", desc=True)
         .limit(limit)
         .execute()
@@ -373,10 +379,11 @@ def _run_pipeline_job(job_id: str, file_path: str, config: dict, prompt_config: 
     Runs the 3-phase taxonomy pipeline in a background thread.
     Updates Supabase job record with progress at each phase.
 
-    NOTE: The pipeline currently reads models/paths from its own config.py.
-    The `config` dict from the model registry is stored for metadata/display
-    but doesn't yet override the pipeline's internal config. That's a future
-    refactor — making phase scripts accept provider/model as arguments.
+    Args:
+        job_id:        Unique job identifier
+        file_path:     Path to CSV in Supabase Storage
+        config:        Model config snapshot from registry
+        prompt_config:  Custom prompt config from dashboard (or None for defaults)
     """
     import sys
     pipeline_dir = str(Path(__file__).parent)
@@ -384,6 +391,8 @@ def _run_pipeline_job(job_id: str, file_path: str, config: dict, prompt_config: 
         sys.path.insert(0, pipeline_dir)
 
     try:
+        import config as cfg
+
         now = datetime.now(timezone.utc).isoformat()
         _update_job(job_id, status="running", started_at=now, current_phase=1, progress_pct=5)
 
@@ -397,28 +406,40 @@ def _run_pipeline_job(job_id: str, file_path: str, config: dict, prompt_config: 
 
         token_usage = {}
 
+        # ── Phase 1: Taxonomy Discovery (with custom prompt) ──────────
         _update_job(job_id, current_phase=1, progress_pct=10)
 
         token_tracker.reset()
         from phase_1_seed import run as run_phase_1
+
         taxonomy, composed_prompt = run_phase_1(prompt_config=prompt_config)
         token_usage["phase_1"] = token_tracker.get()
 
         # Save the full composed prompt in metadata for reproducibility
         prompt_metadata = build_prompt_metadata(prompt_config, composed_prompt)
-        _update_job(job_id, prompt_config=prompt_metadata)
+        _update_job(job_id, prompt_config=prompt_metadata, progress_pct=35)
 
-        _update_job(job_id, progress_pct=35)
-
+        # ── Phase 2: Bulk Classification ──────────────────────────────
         _update_job(job_id, current_phase=2, progress_pct=40)
 
         token_tracker.reset()
         from phase_2_bulk import run as run_phase_2
-        classifications, candidates = run_phase_2(taxonomy=taxonomy)
+
+        # Extract Phase 2 provider/model from config
+        p2_config = config.get("phases", {}).get("phase_2", {})
+        p2_provider = p2_config.get("provider", "ollama")
+        p2_model = p2_config.get("model", cfg.P2_MODEL if p2_provider == "ollama" else None)
+
+        classifications, candidates = run_phase_2(
+            taxonomy=taxonomy,
+            provider=p2_provider,
+            model=p2_model,
+        )
         token_usage["phase_2"] = token_tracker.get()
 
         _update_job(job_id, progress_pct=75)
 
+        # ── Phase 3: Taxonomy Finalization ────────────────────────────
         _update_job(job_id, current_phase=3, progress_pct=80)
 
         token_tracker.reset()
@@ -428,11 +449,11 @@ def _run_pipeline_job(job_id: str, file_path: str, config: dict, prompt_config: 
 
         _update_job(job_id, progress_pct=95)
 
+        # ── Build summary ─────────────────────────────────────────────
         elapsed = time.time() - start
         final_tax = phase_3_result.get("final_taxonomy", taxonomy)
         changes = phase_3_result.get("changes", [])
 
-        
         total_in = sum(token_usage[p]["input_tokens"] for p in ["phase_1", "phase_2", "phase_3"])
         total_out = sum(token_usage[p]["output_tokens"] for p in ["phase_1", "phase_2", "phase_3"])
 
@@ -549,11 +570,6 @@ def _build_eda_report(csv_path: str) -> dict:
             "unique_nominators": len(noms),
         },
     }
-
-@app.get("/api/presets")
-def get_presets_endpoint():
-    """Return available prompt presets for the dashboard editor."""
-    return {"presets": load_presets()}
 
 @app.get("/api/health")
 def health():

@@ -16,120 +16,138 @@
       "categories": [
         {
           "id": "A",
-          "name": "Leadership & People Development",
-          "description": "Guiding teams and developing others' growth",
+          "name": "Teamwork & Collaboration",
+          "description": "Recognition for working together, supporting each other, and achieving common goals",
           "subcategories": [
             {
               "id": "A1",
-              "name": "Team Leadership",
-              "description": "Leading and motivating teams toward goals",
-              "examples": []
+              "name": "Support and Assistance",
+              "description": "Helping colleagues with tasks, projects, or difficulties",
+              "examples": [
+                "thanks for your help",
+                "appreciate your support"
+              ]
             },
             {
               "id": "A2",
-              "name": "Mentoring",
-              "description": "Investing in others' professional growth",
-              "examples": []
+              "name": "Partnership and Cooperation",
+              "description": "Collaborating with others to achieve shared objectives",
+              "examples": [
+                "great partnership",
+                "thanks for your collaboration"
+              ]
             }
           ]
         },
         {
           "id": "B",
-          "name": "Innovation & Problem Solving",
-          "description": "Finding new approaches and driving improvements",
+          "name": "Professional Excellence",
+          "description": "Recognition for outstanding performance, skills, and dedication",
           "subcategories": [
             {
               "id": "B1",
-              "name": "Process Improvement",
-              "description": "Streamlining or automating workflows",
-              "examples": []
+              "name": "Exceptional Performance",
+              "description": "Achieving exceptional results, meeting challenges, and exceeding expectations",
+              "examples": [
+                "outstanding job",
+                "excellent work"
+              ]
             },
             {
               "id": "B2",
-              "name": "Creative Solutions",
-              "description": "Novel approaches to challenges",
-              "examples": []
+              "name": "Expertise and Knowledge",
+              "description": "Demonstrating specialized skills, expertise, and knowledge",
+              "examples": [
+                "thanks for your expertise",
+                "appreciate your knowledge"
+              ]
             }
           ]
         },
         {
           "id": "C",
-          "name": "Client & Customer Impact",
-          "description": "Delivering value to customers and clients",
+          "name": "Customer & Client Focus",
+          "description": "Recognition for delivering exceptional customer service and support",
           "subcategories": [
             {
               "id": "C1",
-              "name": "Client Satisfaction",
-              "description": "Going above and beyond for clients",
-              "examples": []
-            },
-            {
-              "id": "C2",
-              "name": "Customer Advocacy",
-              "description": "Championing the customer perspective",
-              "examples": []
+              "name": "Customer Satisfaction",
+              "description": "Providing excellent service, resolving issues, and meeting customer needs",
+              "examples": [
+                "great customer service",
+                "thanks for resolving the issue"
+              ]
             }
           ]
         },
         {
           "id": "D",
-          "name": "Collaboration & Partnership",
-          "description": "Working effectively across teams and functions",
+          "name": "Innovation & Business Impact",
+          "description": "Recognition for innovative ideas, initiatives, and contributions to business success",
           "subcategories": [
             {
               "id": "D1",
-              "name": "Cross-functional Work",
-              "description": "Bridging departments and disciplines",
-              "examples": []
+              "name": "Innovative Solutions",
+              "description": "Developing and implementing new ideas, products, or processes",
+              "examples": [
+                "innovative solution",
+                "thanks for your creative idea"
+              ]
             },
             {
               "id": "D2",
-              "name": "Team Support",
-              "description": "Helping colleagues succeed",
-              "examples": []
+              "name": "Business Results",
+              "description": "Achieving significant business outcomes, such as revenue growth or cost savings",
+              "examples": [
+                "significant business impact",
+                "thanks for your contribution to our success"
+              ]
             }
           ]
         },
         {
           "id": "E",
-          "name": "Execution & Delivery",
-          "description": "Consistently delivering high-quality results",
+          "name": "Leadership & Management",
+          "description": "Recognition for effective leadership, guidance, and mentorship",
           "subcategories": [
             {
               "id": "E1",
-              "name": "Quality & Reliability",
-              "description": "Dependable, thorough work output",
-              "examples": []
-            },
-            {
-              "id": "E2",
-              "name": "Deadline Performance",
-              "description": "Delivering under time pressure",
-              "examples": []
+              "name": "Leadership and Guidance",
+              "description": "Providing direction, support, and mentorship to teams or individuals",
+              "examples": [
+                "thanks for your leadership",
+                "appreciate your guidance"
+              ]
             }
           ]
         },
         {
           "id": "F",
-          "name": "Culture & Community",
-          "description": "Building positive workplace culture",
+          "name": "Social Responsibility & Culture",
+          "description": "Recognition for promoting a positive work culture, social responsibility, and community involvement",
           "subcategories": [
             {
               "id": "F1",
-              "name": "Culture Building",
-              "description": "Contributing to a positive environment",
-              "examples": []
+              "name": "Community Involvement",
+              "description": "Participating in or organizing community events, charity work, or volunteer activities",
+              "examples": [
+                "thanks for your community service",
+                "appreciate your volunteer work"
+              ]
             },
             {
               "id": "F2",
-              "name": "Recognition & Celebration",
-              "description": "Celebrating milestones and achievements",
-              "examples": []
+              "name": "Positive Work Culture",
+              "description": "Fostering a positive, inclusive, and supportive work environment",
+              "examples": [
+                "thanks for creating a positive work culture",
+                "appreciate your contribution to our team's morale"
+              ]
             }
           ]
         }
       ],
-      "reasoning": "Default fallback taxonomy. Replace with Phase 1 discovery output."
+      "reasoning": "This structure fits the data because it groups similar recognition themes together, such as teamwork, professional excellence, and customer focus. The subcategories provide more specific examples of each theme, allowing for a more nuanced understanding of the recognition messages. The six top-level categories provide a clear and concise framework for organizing the data, making it easier to analyze and understand the types of recognition being given."
     },
     "changes": [],
     "summary": "No new categories met the frequency threshold. Phase 1 taxonomy used as-is."

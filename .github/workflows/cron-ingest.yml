@@ -1,0 +1,156 @@
+name: "CRON: Weekly Data Ingestion"
+
+on:
+  schedule:
+    - cron: '0 8 * * 1'     # Monday 8am UTC
+  workflow_dispatch:          # manual trigger from GitHub UI
+    inputs:
+      count:
+        description: 'Number of nominations to generate'
+        required: false
+        default: '100'
+      style:
+        description: 'Generation style (realistic, diverse, edge_cases)'
+        required: false
+        default: 'realistic'
+
+jobs:
+  ingest:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Generate synthetic nominations
+        run: |
+          COUNT="${{ github.event.inputs.count || '100' }}"
+          STYLE="${{ github.event.inputs.style || 'realistic' }}"
+
+          echo "Generating ${COUNT} nominations (style: ${STYLE})..."
+
+          RESPONSE=$(curl -s -w "\n%{http_code}" -X POST \
+            "${{ secrets.RENDER_API_URL }}/api/nominations/generate" \
+            -H "Content-Type: application/json" \
+            -d "{\"count\": ${COUNT}, \"style\": \"${STYLE}\", \"date_spread_days\": 7}")
+
+          HTTP_CODE=$(echo "$RESPONSE" | tail -1)
+          BODY=$(echo "$RESPONSE" | head -n -1)
+
+          echo "Status: ${HTTP_CODE}"
+          echo "Response: ${BODY}"
+
+          if [ "$HTTP_CODE" -ge 400 ]; then
+            echo "::error::Ingestion failed with status ${HTTP_CODE}"
+            exit 1
+          fi
+
+          echo "batch_id=$(echo $BODY | jq -r '.batch_id // empty')" >> $GITHUB_OUTPUT
+
+      - name: Verify ingestion
+        run: |
+          echo "Checking nomination stats..."
+          curl -s "${{ secrets.RENDER_API_URL }}/api/nominations/stats" | jq .
+          
+---
+name: "CRON: Weekly Pipeline Run"
+
+on:
+  schedule:
+    - cron: '0 10 * * 1'    # Monday 10am UTC (2hrs after ingest)
+  workflow_dispatch:
+    inputs:
+      config:
+        description: 'Pipeline config ID'
+        required: false
+        default: 'claude_with_groq'
+      preset:
+        description: 'Prompt preset ID'
+        required: false
+        default: 'general_discovery'
+      min_records:
+        description: 'Minimum records required to trigger'
+        required: false
+        default: '50'
+
+jobs:
+  pipeline:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30        # pipeline can take up to 15 min
+    steps:
+      - name: Check unprocessed count
+        id: check
+        run: |
+          STATS=$(curl -s "${{ secrets.RENDER_API_URL }}/api/nominations/stats")
+          UNPROCESSED=$(echo "$STATS" | jq '.unprocessed // 0')
+          MIN="${{ github.event.inputs.min_records || '50' }}"
+
+          echo "Unprocessed: ${UNPROCESSED}, Minimum: ${MIN}"
+          echo "unprocessed=${UNPROCESSED}" >> $GITHUB_OUTPUT
+
+          if [ "$UNPROCESSED" -lt "$MIN" ]; then
+            echo "::warning::Only ${UNPROCESSED} unprocessed nominations (need ${MIN}). Skipping."
+            echo "should_run=false" >> $GITHUB_OUTPUT
+          else
+            echo "should_run=true" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Trigger pipeline
+        if: steps.check.outputs.should_run == 'true'
+        id: trigger
+        run: |
+          CONFIG="${{ github.event.inputs.config || 'claude_with_groq' }}"
+          PRESET="${{ github.event.inputs.preset || 'general_discovery' }}"
+
+          echo "Triggering pipeline (config: ${CONFIG}, preset: ${PRESET})..."
+
+          RESPONSE=$(curl -s -w "\n%{http_code}" -X POST \
+            "${{ secrets.RENDER_API_URL }}/api/nominations/trigger-pipeline" \
+            -H "Content-Type: application/json" \
+            -d "{
+              \"config_ids\": [\"${CONFIG}\"],
+              \"prompt_config\": {\"preset_id\": \"${PRESET}\", \"mode\": \"structured\"},
+              \"min_records\": ${{ github.event.inputs.min_records || '50' }}
+            }")
+
+          HTTP_CODE=$(echo "$RESPONSE" | tail -1)
+          BODY=$(echo "$RESPONSE" | head -n -1)
+
+          echo "Status: ${HTTP_CODE}"
+          echo "Response: ${BODY}"
+
+          if [ "$HTTP_CODE" -ge 400 ]; then
+            echo "::error::Pipeline trigger failed with status ${HTTP_CODE}"
+            exit 1
+          fi
+
+          JOB_ID=$(echo $BODY | jq -r '.job_id // empty')
+          echo "job_id=${JOB_ID}" >> $GITHUB_OUTPUT
+          echo "Pipeline started: ${JOB_ID}"
+
+      - name: Poll for completion
+        if: steps.trigger.outputs.job_id != ''
+        run: |
+          JOB_ID="${{ steps.trigger.outputs.job_id }}"
+          MAX_POLLS=60      # 60 * 15s = 15 minutes max wait
+          POLL_INTERVAL=15
+
+          for i in $(seq 1 $MAX_POLLS); do
+            STATUS=$(curl -s "${{ secrets.RENDER_API_URL }}/api/status/${JOB_ID}")
+            STATE=$(echo "$STATUS" | jq -r '.status')
+            PCT=$(echo "$STATUS" | jq -r '.progress_pct // 0')
+            PHASE=$(echo "$STATUS" | jq -r '.current_phase // 0')
+
+            echo "Poll ${i}/${MAX_POLLS}: status=${STATE}, phase=${PHASE}, progress=${PCT}%"
+
+            if [ "$STATE" = "completed" ]; then
+              echo "Pipeline completed successfully!"
+              exit 0
+            elif [ "$STATE" = "failed" ]; then
+              ERROR=$(echo "$STATUS" | jq -r '.error_message // "unknown"')
+              echo "::error::Pipeline failed: ${ERROR}"
+              exit 1
+            fi
+
+            sleep $POLL_INTERVAL
+          done
+
+          echo "::error::Pipeline timed out after $(($MAX_POLLS * $POLL_INTERVAL))s"
+          exit 1
