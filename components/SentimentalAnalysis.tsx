@@ -286,15 +286,6 @@ export function SentimentDashboard({ data }: { data: DashboardData }) {
     .sort(([a],[b]) => a.localeCompare(b))
     .map(([month, avg]) => ({ month: month.slice(5), avg }));
 
-  const allAwards = useMemo(() =>
-    data.employeeDirectory.flatMap(emp =>
-      emp.recentAwards.map(a => ({
-        ...a, recipientName: emp.name, recipientDept: emp.dept,
-        sa: SA_DATA.awards[a.id ?? ""],
-      }))
-    ).filter(a => a.sa),
-    [data]
-  );
 
   const tierCounts = useMemo(() => {
     const counts: Record<number,number> = {1:0,2:0,3:0,4:0,5:0};
