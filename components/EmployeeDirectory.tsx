@@ -158,8 +158,8 @@ function derivePromotion(p: DashboardData["employeeDirectory"][0], data: Dashboa
     if (p.daysSinceLast > 90)     rootCauses.push("reduced output visibility to peers and managers");
     if (p.engagementScore < 50)   rootCauses.push(`low overall engagement score (${p.engagementScore}%)`);
     if (rootCauses.length === 0)  rootCauses.push("unclear — requires a direct conversation to diagnose");
-    const recentDesc = isDeclining.recent !== undefined && isDeclining.early !== undefined
-      ? `down from ~${isDeclining.early} awards/period earlier to ~${isDeclining.recent} recently`
+    const recentDesc = isDeclining.recent !== undefined
+      ? `down from ~${isDeclining.total - isDeclining.recent} awards earlier to ~${isDeclining.recent} recently`
       : "declining in recent months";
     const improvements: string[] = [
       "Schedule a 1-on-1 within 2 weeks to understand workload, satisfaction, and career goals",
@@ -309,7 +309,7 @@ export function EmployeeProfilePanel({
         {/* Why they're ready — promotion case narrative */}
         {promo.promotionCase && (
           <div className="mb-2.5 p-2.5 rounded-lg" style={{ background: promo.bg, border: `1px solid ${promo.border}` }}>
-            <div className="font-mono text-[8px] font-bold text-green-700 uppercase tracking-wider mb-1.5">Why They're Ready</div>
+            <div className="font-mono text-[8px] font-bold text-green-700 uppercase tracking-wider mb-1.5">Why They&apos;re Ready</div>
             <div className="flex flex-col gap-1.5">
               {promo.promotionCase.map((line, i) => (
                 <p key={i} className="text-[11px] text-[#0B3954] leading-relaxed">{line}</p>
@@ -370,7 +370,7 @@ export function EmployeeProfilePanel({
             {promo.declineCase && (
               <div className="flex flex-col gap-2">
                 <div className="p-2.5 rounded-lg bg-red-50 border border-red-200">
-                  <div className="font-mono text-[8px] font-bold text-red-600 uppercase tracking-wider mb-1">Why It's Declining</div>
+                  <div className="font-mono text-[8px] font-bold text-red-600 uppercase tracking-wider mb-1">Why It&apos;s Declining</div>
                   <p className="text-[11px] text-[#0B3954] leading-relaxed mb-1.5">
                     Recognition is {promo.declineCase.recentDesc}.
                   </p>
