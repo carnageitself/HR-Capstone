@@ -208,23 +208,32 @@ function buildEmailHTML(data: Awaited<ReturnType<typeof loadDashboardData>>): st
   ${urgentActions.length > 0 ? `
   <div class="section">
     <div class="section-label">Priority Actions &nbsp;·&nbsp; ${urgentActions.length} item${urgentActions.length > 1 ? "s" : ""} require immediate attention</div>
-    <table>
+    <table style="width:100%;border-collapse:collapse;table-layout:fixed;">
+      <colgroup>
+        <col style="width:55%" />
+        <col style="width:22%" />
+        <col style="width:23%" />
+      </colgroup>
       <thead>
         <tr>
-          <th style="width:55%">Item</th>
-          <th style="width:20%">Department</th>
-          <th style="width:25%">Owner</th>
+          <th style="text-align:left;padding:8px 12px 8px 0;font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:#888;border-bottom:1px solid #E0E0E0;font-weight:500;">Item</th>
+          <th style="text-align:left;padding:8px 12px;font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:#888;border-bottom:1px solid #E0E0E0;font-weight:500;background:#FAFAFA;">Department</th>
+          <th style="text-align:left;padding:8px 0 8px 12px;font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:#888;border-bottom:1px solid #E0E0E0;font-weight:500;background:#FAFAFA;">Owner</th>
         </tr>
       </thead>
       <tbody>
         ${urgentActions.map(a => `
         <tr>
-          <td>
-            <div class="td-name">${a.title.replace(/^Recognize\s/, "Recognize ")}</div>
-            <div class="td-action">${a.action}</div>
+          <td style="padding:12px 12px 12px 0;border-bottom:1px solid #F0F0F0;vertical-align:top;">
+            <div style="font-weight:600;color:#111;font-size:12px;line-height:1.4;">${a.title}</div>
+            <div style="font-size:11px;color:#555;margin-top:4px;line-height:1.5;">${a.action}</div>
           </td>
-          <td class="td-right">${a.dept}</td>
-          <td class="td-right">${a.owner}</td>
+          <td style="padding:12px;border-bottom:1px solid #F0F0F0;vertical-align:top;background:#FAFAFA;">
+            <div style="font-size:12px;color:#333;font-weight:500;">${a.dept}</div>
+          </td>
+          <td style="padding:12px 0 12px 12px;border-bottom:1px solid #F0F0F0;vertical-align:top;background:#FAFAFA;">
+            <div style="font-size:12px;color:#333;font-weight:500;">${a.owner}</div>
+          </td>
         </tr>`).join("")}
       </tbody>
     </table>
@@ -237,22 +246,28 @@ function buildEmailHTML(data: Awaited<ReturnType<typeof loadDashboardData>>): st
     <div class="note">
       <p>The ${invisible.length} employee${invisible.length > 1 ? "s" : ""} below have each nominated colleagues for recognition but have never been recognized themselves. Research consistently shows unreciprocated contribution is a leading predictor of voluntary attrition. Recommend manager outreach within 5 business days.</p>
     </div>
-    <table>
+    <table style="width:100%;border-collapse:collapse;table-layout:fixed;">
+      <colgroup>
+        <col style="width:38%" />
+        <col style="width:20%" />
+        <col style="width:28%" />
+        <col style="width:14%" />
+      </colgroup>
       <thead>
         <tr>
-          <th style="width:40%">Employee</th>
-          <th>Level</th>
-          <th>Department</th>
-          <th class="td-right">Awards Given</th>
+          <th style="text-align:left;padding:8px 12px 8px 0;font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:#888;border-bottom:1px solid #E0E0E0;font-weight:500;">Employee</th>
+          <th style="text-align:left;padding:8px 12px;font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:#888;border-bottom:1px solid #E0E0E0;font-weight:500;">Level</th>
+          <th style="text-align:left;padding:8px 12px;font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:#888;border-bottom:1px solid #E0E0E0;font-weight:500;">Department</th>
+          <th style="text-align:right;padding:8px 0 8px 12px;font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:#888;border-bottom:1px solid #E0E0E0;font-weight:500;">Given</th>
         </tr>
       </thead>
       <tbody>
         ${invisible.map(p => `
         <tr>
-          <td class="td-name">${p.name}</td>
-          <td>${p.seniority}</td>
-          <td>${p.dept}</td>
-          <td class="td-right">${p.given}</td>
+          <td style="padding:10px 12px 10px 0;border-bottom:1px solid #F0F0F0;vertical-align:top;font-weight:600;color:#111;font-size:12px;">${p.name}</td>
+          <td style="padding:10px 12px;border-bottom:1px solid #F0F0F0;vertical-align:top;font-size:12px;color:#555;">${p.seniority}</td>
+          <td style="padding:10px 12px;border-bottom:1px solid #F0F0F0;vertical-align:top;font-size:12px;color:#555;">${p.dept}</td>
+          <td style="padding:10px 0 10px 12px;border-bottom:1px solid #F0F0F0;vertical-align:top;font-size:12px;color:#111;font-weight:600;text-align:right;">${p.given}</td>
         </tr>`).join("")}
       </tbody>
     </table>
@@ -262,22 +277,28 @@ function buildEmailHTML(data: Awaited<ReturnType<typeof loadDashboardData>>): st
   ${lowDepts.length > 0 ? `
   <div class="section">
     <div class="section-label">Department Health &nbsp;·&nbsp; Lowest performing departments this week</div>
-    <table>
+    <table style="width:100%;border-collapse:collapse;table-layout:fixed;">
+      <colgroup>
+        <col style="width:32%" />
+        <col style="width:22%" />
+        <col style="width:22%" />
+        <col style="width:24%" />
+      </colgroup>
       <thead>
         <tr>
-          <th style="width:35%">Department</th>
-          <th>Health Score</th>
-          <th>Participation</th>
-          <th>Cross-Dept</th>
+          <th style="text-align:left;padding:8px 12px 8px 0;font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:#888;border-bottom:1px solid #E0E0E0;font-weight:500;">Department</th>
+          <th style="text-align:left;padding:8px 12px;font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:#888;border-bottom:1px solid #E0E0E0;font-weight:500;">Health Score</th>
+          <th style="text-align:left;padding:8px 12px;font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:#888;border-bottom:1px solid #E0E0E0;font-weight:500;">Participation</th>
+          <th style="text-align:left;padding:8px 0 8px 12px;font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:#888;border-bottom:1px solid #E0E0E0;font-weight:500;">Cross-Dept</th>
         </tr>
       </thead>
       <tbody>
         ${lowDepts.map(d => `
         <tr>
-          <td class="td-name">${d.name}</td>
-          <td>${d.health} / 100</td>
-          <td>${d.participation}%</td>
-          <td>${d.crossDeptPct}%</td>
+          <td style="padding:10px 12px 10px 0;border-bottom:1px solid #F0F0F0;font-weight:600;color:#111;font-size:12px;">${d.name}</td>
+          <td style="padding:10px 12px;border-bottom:1px solid #F0F0F0;font-size:12px;color:#333;">${d.health} / 100</td>
+          <td style="padding:10px 12px;border-bottom:1px solid #F0F0F0;font-size:12px;color:#333;">${d.participation}%</td>
+          <td style="padding:10px 0 10px 12px;border-bottom:1px solid #F0F0F0;font-size:12px;color:#333;">${d.crossDeptPct}%</td>
         </tr>`).join("")}
       </tbody>
     </table>
@@ -287,24 +308,31 @@ function buildEmailHTML(data: Awaited<ReturnType<typeof loadDashboardData>>): st
   ${rising.length > 0 ? `
   <div class="section">
     <div class="section-label">Talent Pipeline &nbsp;·&nbsp; Employees with accelerating recognition trends</div>
-    <table>
+    <table style="width:100%;border-collapse:collapse;table-layout:fixed;">
+      <colgroup>
+        <col style="width:28%" />
+        <col style="width:22%" />
+        <col style="width:20%" />
+        <col style="width:18%" />
+        <col style="width:12%" />
+      </colgroup>
       <thead>
         <tr>
-          <th style="width:40%">Employee</th>
-          <th>Department</th>
-          <th>Level</th>
-          <th>Last 3 Months</th>
-          <th class="td-right">Trend</th>
+          <th style="text-align:left;padding:8px 12px 8px 0;font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:#888;border-bottom:1px solid #E0E0E0;font-weight:500;">Employee</th>
+          <th style="text-align:left;padding:8px 12px;font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:#888;border-bottom:1px solid #E0E0E0;font-weight:500;">Department</th>
+          <th style="text-align:left;padding:8px 12px;font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:#888;border-bottom:1px solid #E0E0E0;font-weight:500;">Level</th>
+          <th style="text-align:left;padding:8px 12px;font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:#888;border-bottom:1px solid #E0E0E0;font-weight:500;">Last 3 Mo.</th>
+          <th style="text-align:right;padding:8px 0 8px 12px;font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:#888;border-bottom:1px solid #E0E0E0;font-weight:500;">Trend</th>
         </tr>
       </thead>
       <tbody>
         ${rising.map(p => `
         <tr>
-          <td class="td-name">${p.name}</td>
-          <td>${p.dept}</td>
-          <td>${p.seniority}</td>
-          <td>${p.recent} awards</td>
-          <td class="td-right">+${p.slope.toFixed(2)}</td>
+          <td style="padding:10px 12px 10px 0;border-bottom:1px solid #F0F0F0;font-weight:600;color:#111;font-size:12px;">${p.name}</td>
+          <td style="padding:10px 12px;border-bottom:1px solid #F0F0F0;font-size:12px;color:#555;">${p.dept}</td>
+          <td style="padding:10px 12px;border-bottom:1px solid #F0F0F0;font-size:12px;color:#555;">${p.seniority}</td>
+          <td style="padding:10px 12px;border-bottom:1px solid #F0F0F0;font-size:12px;color:#555;">${p.recent} awards</td>
+          <td style="padding:10px 0 10px 12px;border-bottom:1px solid #F0F0F0;font-size:12px;color:#111;font-weight:600;text-align:right;">+${p.slope.toFixed(2)}</td>
         </tr>`).join("")}
       </tbody>
     </table>
