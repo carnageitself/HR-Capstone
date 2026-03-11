@@ -7,6 +7,11 @@
         "input_per_1m": 3.00,
         "output_per_1m": 15.00,
         "currency": "USD"
+      },
+      "claude-sonnet-4-5-20250929": {
+        "input_per_1m": 3.00,
+        "output_per_1m": 15.00,
+        "currency": "USD"
       }
     },
     "google": {
@@ -38,9 +43,21 @@
       "description": "Claude seeds taxonomy, local Llama-3-8B classifies, Claude finalizes",
       "color": "#F96400",
       "phases": {
-        "phase_1": { "provider": "anthropic", "model": "claude-sonnet-4-20250514", "role": "Taxonomy Discovery" },
-        "phase_2": { "provider": "ollama", "model": "llama3:8b", "role": "Bulk Classification (Local)" },
-        "phase_3": { "provider": "anthropic", "model": "claude-sonnet-4-20250514", "role": "Taxonomy Finalization" }
+        "phase_1": {
+          "provider": "anthropic",
+          "model": "claude-sonnet-4-20250514",
+          "role": "Taxonomy Discovery"
+        },
+        "phase_2": {
+          "provider": "ollama",
+          "model": "llama3:8b",
+          "role": "Bulk Classification (Local)"
+        },
+        "phase_3": {
+          "provider": "anthropic",
+          "model": "claude-sonnet-4-20250514",
+          "role": "Taxonomy Finalization"
+        }
       },
       "enabled": true
     },
@@ -50,9 +67,21 @@
       "description": "Claude seeds taxonomy, Groq (Llama-3.3-70B) classifies, Claude finalizes. No local GPU needed.",
       "color": "#E67E22",
       "phases": {
-        "phase_1": { "provider": "anthropic", "model": "claude-sonnet-4-20250514", "role": "Taxonomy Discovery" },
-        "phase_2": { "provider": "groq", "model": "llama-3.3-70b-versatile", "role": "Bulk Classification (Groq)" },
-        "phase_3": { "provider": "anthropic", "model": "claude-sonnet-4-20250514", "role": "Taxonomy Finalization" }
+        "phase_1": {
+          "provider": "anthropic",
+          "model": "claude-sonnet-4-20250514",
+          "role": "Taxonomy Discovery"
+        },
+        "phase_2": {
+          "provider": "groq",
+          "model": "llama-3.3-70b-versatile",
+          "role": "Bulk Classification (Groq)"
+        },
+        "phase_3": {
+          "provider": "anthropic",
+          "model": "claude-sonnet-4-20250514",
+          "role": "Taxonomy Finalization"
+        }
       },
       "enabled": true
     },
@@ -62,9 +91,21 @@
       "description": "Gemini seeds taxonomy, local Llama-3-8B classifies, Gemini finalizes",
       "color": "#3B5BDB",
       "phases": {
-        "phase_1": { "provider": "google", "model": "gemini-2.0-flash", "role": "Taxonomy Discovery" },
-        "phase_2": { "provider": "ollama", "model": "llama3:8b", "role": "Bulk Classification (Local)" },
-        "phase_3": { "provider": "google", "model": "gemini-2.0-flash", "role": "Taxonomy Finalization" }
+        "phase_1": {
+          "provider": "google",
+          "model": "gemini-2.0-flash",
+          "role": "Taxonomy Discovery"
+        },
+        "phase_2": {
+          "provider": "ollama",
+          "model": "llama3:8b",
+          "role": "Bulk Classification (Local)"
+        },
+        "phase_3": {
+          "provider": "google",
+          "model": "gemini-2.0-flash",
+          "role": "Taxonomy Finalization"
+        }
       },
       "enabled": true
     },
@@ -74,9 +115,21 @@
       "description": "Gemini seeds taxonomy, Groq (Llama-3.3-70B) classifies, Gemini finalizes. Cheapest cloud option.",
       "color": "#2ECC71",
       "phases": {
-        "phase_1": { "provider": "google", "model": "gemini-2.0-flash", "role": "Taxonomy Discovery" },
-        "phase_2": { "provider": "groq", "model": "llama-3.3-70b-versatile", "role": "Bulk Classification (Groq)" },
-        "phase_3": { "provider": "google", "model": "gemini-2.0-flash", "role": "Taxonomy Finalization" }
+        "phase_1": {
+          "provider": "google",
+          "model": "gemini-2.0-flash",
+          "role": "Taxonomy Discovery"
+        },
+        "phase_2": {
+          "provider": "groq",
+          "model": "llama-3.3-70b-versatile",
+          "role": "Bulk Classification (Groq)"
+        },
+        "phase_3": {
+          "provider": "google",
+          "model": "gemini-2.0-flash",
+          "role": "Taxonomy Finalization"
+        }
       },
       "enabled": true
     },
@@ -86,9 +139,45 @@
       "description": "Gemini handles all phases — no local SLM, no Groq",
       "color": "#00A98F",
       "phases": {
-        "phase_1": { "provider": "google", "model": "gemini-2.0-flash", "role": "Taxonomy Discovery" },
-        "phase_2": { "provider": "google", "model": "gemini-2.0-flash", "role": "Bulk Classification (API)" },
-        "phase_3": { "provider": "google", "model": "gemini-2.0-flash", "role": "Taxonomy Finalization" }
+        "phase_1": {
+          "provider": "google",
+          "model": "gemini-2.0-flash",
+          "role": "Taxonomy Discovery"
+        },
+        "phase_2": {
+          "provider": "google",
+          "model": "gemini-2.0-flash",
+          "role": "Bulk Classification (API)"
+        },
+        "phase_3": {
+          "provider": "google",
+          "model": "gemini-2.0-flash",
+          "role": "Taxonomy Finalization"
+        }
+      },
+      "enabled": true
+    },
+    {
+      "id": "claude_only",
+      "display_name": "Claude Only",
+      "description": "Claude handles all phases — highest quality, highest cost",
+      "color": "#D97706",
+      "phases": {
+        "phase_1": {
+          "provider": "anthropic",
+          "model": "claude-sonnet-4-20250514",
+          "role": "Taxonomy Discovery"
+        },
+        "phase_2": {
+          "provider": "anthropic",
+          "model": "claude-sonnet-4-20250514",
+          "role": "Bulk Classification (API)"
+        },
+        "phase_3": {
+          "provider": "anthropic",
+          "model": "claude-sonnet-4-20250514",
+          "role": "Taxonomy Finalization"
+        }
       },
       "enabled": true
     },
@@ -98,9 +187,21 @@
       "description": "Groq handles all phases — completely free, cloud-only",
       "color": "#9B59B6",
       "phases": {
-        "phase_1": { "provider": "groq", "model": "llama-3.3-70b-versatile", "role": "Taxonomy Discovery" },
-        "phase_2": { "provider": "groq", "model": "llama-3.3-70b-versatile", "role": "Bulk Classification" },
-        "phase_3": { "provider": "groq", "model": "llama-3.3-70b-versatile", "role": "Taxonomy Finalization" }
+        "phase_1": {
+          "provider": "groq",
+          "model": "llama-3.3-70b-versatile",
+          "role": "Taxonomy Discovery"
+        },
+        "phase_2": {
+          "provider": "groq",
+          "model": "llama-3.3-70b-versatile",
+          "role": "Bulk Classification"
+        },
+        "phase_3": {
+          "provider": "groq",
+          "model": "llama-3.3-70b-versatile",
+          "role": "Taxonomy Finalization"
+        }
       },
       "enabled": true
     }
